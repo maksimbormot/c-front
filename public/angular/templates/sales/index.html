@@ -1,0 +1,140 @@
+<div class="jumbotron" data-pages="parallax">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <p>Curve</p>
+        </li>
+        <li><a href="/#/sales" class="active">Sales</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- Main Container -->
+<div class="container-fluid container-fixed-lg">
+  <!-- Search and Buttons -->
+  <div class="row m-b-20">
+    <div class="col-sm-12 col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-2">
+      <div class="input-group transparent">
+        <input type="text" class="form-control" placeholder="Search">
+        <span class="input-group-addon">
+          <i class="pg-search"></i>
+        </span>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-md-offset-1 col-lg-6 col-md-offset-0 text-right">
+      <a href="unmapped.html">
+        <button class="btn btn-default">Unmapped</button>
+      </a>
+      <button class="btn btn-default">Template</button>
+      <button class="btn btn-default"><i class="fa fa-download"></i>&nbsp;Import</button>
+    </div>
+  </div>
+  
+  <!--TABLE TABLE TABLE TABLE -->
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Sales
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-condensed dataTable no-footer">
+              <thead>
+                <tr>
+                  <th class="table-checkbox"><input type="checkbox"></th>
+                  <th>Name</th>
+                  <th>Account</th>
+                  <th>Total Value</th>
+                  <th>Unmapped Lines</th>
+                  <th>Valid</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="v-align-middle"><input type="checkbox"></td>
+                  <td class="v-align-middle">Income 1</td>
+                  <td class="v-align-middle">iTunes</td>
+                  <td class="v-align-middle">£1234.56</td>
+                  <td class="v-align-middle">100</td>
+                  <td class="v-align-middle">Invalid</td>
+                  <td class="v-align-middle">Waiting</td>
+                </tr>
+                <tr>
+                  <td class="v-align-middle"><input type="checkbox"></td>
+                  <td class="v-align-middle">Income 1</td>
+                  <td class="v-align-middle">iTunes</td>
+                  <td class="v-align-middle">£1234.56</td>
+                  <td class="v-align-middle">0</td>
+                  <td class="v-align-middle">Valid</td>
+                  <td class="v-align-middle">Released</td>
+                </tr>
+                <tr>
+                  <td class="v-align-middle"><input type="checkbox"></td>
+                  <td class="v-align-middle">Income 1</td>
+                  <td class="v-align-middle">iTunes</td>
+                  <td class="v-align-middle">£1234.56</td>
+                  <td class="v-align-middle">100</td>
+                  <td class="v-align-middle">Invalid</td>
+                  <td class="v-align-middle">Waiting</td>
+                </tr>
+                <tr>
+                  <td class="v-align-middle"><input type="checkbox"></td>
+                  <td class="v-align-middle">Income 1</td>
+                  <td class="v-align-middle">iTunes</td>
+                  <td class="v-align-middle">£1234.56</td>
+                  <td class="v-align-middle">0</td>
+                  <td class="v-align-middle">Valid</td>
+                  <td class="v-align-middle">Released</td>
+                </tr>
+                <tr>
+                  <td class="v-align-middle"><input type="checkbox"></td>
+                  <td class="v-align-middle">Income 1</td>
+                  <td class="v-align-middle">iTunes</td>
+                  <td class="v-align-middle">£1234.56</td>
+                  <td class="v-align-middle">100</td>
+                  <td class="v-align-middle">Invalid</td>
+                  <td class="v-align-middle">Waiting</td>
+                </tr>
+                <tr>
+                  <td class="v-align-middle"><input type="checkbox"></td>
+                  <td class="v-align-middle">Income 1</td>
+                  <td class="v-align-middle">iTunes</td>
+                  <td class="v-align-middle">£1234.56</td>
+                  <td class="v-align-middle">0</td>
+                  <td class="v-align-middle">Valid</td>
+                  <td class="v-align-middle">Released</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- TABLE END TABLE END TABLE END TABLE END -->
+
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <pagination pages="pages" total="total_pages" current="current_page" change-page="changePage(page)" class="ng-isolate-scope">
+        <nav>
+          <ul class="pagination">
+            <li class="cursor">
+              <span aria-hidden="true" aria-label="Previous" ng-click="changePage({ page: 1 })">«</span>
+            </li>
+            <li class="cursor ng-scope" ng-repeat="page in pages">
+              <span ng-click="changePage({ page: page })" ng-class="{ current: current === page }" class="ng-binding current">1</span>
+            </li>
+            <li class="cursor">
+              <span aria-hidden="true" aria-label="Next" ng-click="changePage({ page: total })">»</span>
+            </li>
+          </ul>
+        </nav>
+      </pagination>
+    </div>
+  </div>
+</div>
