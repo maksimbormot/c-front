@@ -23,7 +23,7 @@
 	<link href="assets/plugins/codrops-dialogFx/dialog.ie.css" rel="stylesheet" type="text/css" media="screen" />
 	<![endif]-->
   </head>
-  <body class="fixed-header">
+  <body class="fixed-header" ng-controller="applicationController">
     <!-- Sidebar-->
     <nav class="page-sidebar" data-pages="sidebar">
       <div class="sidebar-overlay-slide from-top" id="appMenu">
@@ -172,7 +172,7 @@
         </div>
         <div class="pull-right hidden-xs hidden-sm">
           <div class="header-inner">
-            <a href="#" class="fa fa-user m-l-20"></a>
+            <a href="" class="fa fa-user m-l-20" ng-click="logout()"></a>
           </div>
         </div>
       </div>
@@ -317,6 +317,12 @@
     <script type="text/javascript" src="angular/ng-file-upload-all.js"></script>
     <script type="text/javascript" src="angular/ng-file-upload-shim.js"></script>
     <script type="text/javascript" src="angular/ng-file-upload.js"></script>
+
+    <!-- Services -->
+    <script type="text/javascript" src="angular/services/auth.js"></script>
+    <script type="text/javascript" src="angular/services/session.js"></script>
+    <!-- Controllers -->
+    <script type="text/javascript" src="angular/controllers/applicationController.js"></script>
     
   </body>
 </html>

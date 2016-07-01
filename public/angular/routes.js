@@ -1,7 +1,7 @@
 angular.module('Curve')
 	.config(function($routeProvider){
 		$routeProvider.when('/', {
-			templateUrl: '/angular/templates/home/index.html'
+			templateUrl: '/angular/templates/home/index.html',
 			//controller: 'homeController',
 			//controllerAs: 'homeCtrl'
 		})

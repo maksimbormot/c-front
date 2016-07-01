@@ -1,1 +1,2 @@
-angular.module('Curve', ['ngRoute', 'ngCookies', 'ngFileUpload']);
+var app = angular.module('Curve', ['ngRoute', 'ngCookies', 'ngFileUpload']);
+
