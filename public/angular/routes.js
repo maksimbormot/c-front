@@ -6,10 +6,19 @@ angular.module('Curve')
 			//controllerAs: 'homeCtrl'
 		})
 		.when('/clients', {
-			templateUrl: '/angular/templates/clients/index.html'
+			templateUrl: '/angular/templates/clients/index.html',
+			controller: 'clientsController',
+			controllerAs: 'clientsCtrl'
 		})
 		.when('/clients/:id/edit', {
-			templateUrl: '/angular/templates/clients/edit.html'
+			templateUrl: '/angular/templates/clients/edit.html',
+			controller: 'clientEditController',
+			controllerAs: 'clientEditCtrl'
+		})
+		.when('/clients/new', {
+			templateUrl: '/angular/templates/clients/edit.html',
+			controller: 'clientEditController',
+			controllerAs: 'clientEditCtrl'
 		})
 		.when('/payees', {
 			templateUrl: '/angular/templates/payees/index.html'

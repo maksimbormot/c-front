@@ -1,0 +1,13 @@
+<nav>
+  <ul class="pagination">
+    <li class="cursor">
+      <span aria-hidden="true" aria-label="Previous" ng-click="changePage({ page: 1 })">&laquo;</span>
+    </li>
+    <li class="cursor" ng-repeat="page in pages">
+    	<span ng-click="changePage({ page: page })" ng-class="{ current : current === page }">{{page}}</span>
+    </li>
+    <li class="cursor">
+      <span aria-hidden="true" aria-label="Next" ng-click="changePage({ page: total })">&raquo;</span>
+    </li>
+  </ul>
+</nav>

@@ -19,6 +19,7 @@
     <link href="assets/plugins/switchery/css/switchery.min.css" rel="stylesheet" type="text/css" media="screen" />
     <link href="assets/css/pages-icons.css" rel="stylesheet" type="text/css">
     <link href="assets/css/theme.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
     <!--[if lte IE 9]>
 	<link href="assets/plugins/codrops-dialogFx/dialog.ie.css" rel="stylesheet" type="text/css" media="screen" />
 	<![endif]-->
@@ -321,8 +322,17 @@
     <!-- Services -->
     <script type="text/javascript" src="angular/services/auth.js"></script>
     <script type="text/javascript" src="angular/services/session.js"></script>
+    <script type="text/javascript" src="angular/services/pagination.js"></script>
+    <script type="text/javascript" src="angular/services/notification.js"></script>
+    <script type="text/javascript" src="angular/services/client.js"></script>
+    <script type="text/javascript" src="angular/services/parent.js"></script>
     <!-- Controllers -->
-    <script type="text/javascript" src="angular/controllers/applicationController.js"></script>
+    <script type="text/javascript" src="angular/controllers/application/applicationController.js"></script>
+    <script type="text/javascript" src="angular/controllers/clients/clientsController.js"></script>
+    <script type="text/javascript" src="angular/controllers/clients/clientEditController.js"></script>
+    <!-- Directives -->
+    <script type="text/javascript" src="angular/directives/pagination.js"></script>
+    <script type="text/javascript" src="angular/directives/clientTableRow.js"></script>
     
   </body>
 </html>

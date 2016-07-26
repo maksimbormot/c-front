@@ -1,0 +1,9 @@
+/* Index Pages */
+.search-button:hover {
+	cursor: pointer;
+}
+
+/* Pagination */
+.pagination .current {
+	background-color: #e8e8e8;
+}

@@ -5,10 +5,8 @@
         <li>
           <p>Curve</p>
         </li>
-        <li><a href="/#/clients">Clients</a>
-        </li>
-        <li><a href="" class="active">Create</a>
-        </li>
+        <li><a href="/#/clients">Clients</a></li>
+        <li><a href="" class="active">Create</a></li>
       </ul>
     </div>
   </div>
@@ -17,7 +15,8 @@
 <div class="container-fluid container-fixed-lg">
   <div class="row">
     <div class="col-xs-12">
-      <button class="btn btn-complete pull-right">Save</button>
+      <button class="btn btn-complete pull-right" ng-click="save()"><i class="fa fa-check"></i> Save</button>
+      <button class="btn btn-danger pull-right" ng-click="delete()"><i class="fa fa-trash"></i> Delete</button>
     </div>
   </div>
   <div class="row">
@@ -31,24 +30,20 @@
         <div class="panel-body p-t-15">
           <div class="form-group required">
             <label>Name</label>
-            <input type="text" class="form-control" required>
+            <input type="text" class="form-control" ng-model="client.name">
           </div>
-          <div class="form-group required">
+          <div class="form-group">
             <label>Parent</label>
-            <select class="full-width" data-init-plugin="select2">
-              <option value="WV">Parent 1</option>
-              <option value="WV">Parent 2</option>
-              <option value="WV">Parent 3</option>
-              <option value="WV">Parent 4</option>
+            <select class="full-width" data-init-plugin="select2" ng-model="client.parentId">
+              <option ng-repeat="parent in parents" value="{{parent._id}}">{{parent.name}}</option>
             </select>
           </div>
-          <div class="form-group required">
+          <div class="form-group">
             <label>Payment Tier</label>
-            <select class="full-width" data-init-plugin="select2">
-              <option value="WV">Payment Tier 1</option>
-              <option value="WV">Payment Tier 2</option>
-              <option value="WV">Payment Tier 3</option>
-              <option value="WV">Payment Tier 4</option>
+            <select class="full-width" data-init-plugin="select2" ng-model="client.paymentTier">
+              <option value="Standard">Standard</option>
+              <option value="Premium">Premium</option>
+              <option value="Enterprise">Enterprise</option>
             </select>
           </div>
         </div>
@@ -65,15 +60,15 @@
           <form role="form">
             <div class="form-group required">
               <label>Company Name</label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" ng-model="client.companyName">
             </div>
             <div class="form-group">
               <label>Address</label>
-              <textarea class="form-control standard-textarea"></textarea>
+              <textarea class="form-control standard-textarea" ng-model="client.address"></textarea>
             </div>
             <div class="form-group required">
               <label>Email</label>
-              <input type="email" class="form-control">
+              <input type="text" class="form-control" ng-model="client.email">
             </div>
           </form>
         </div>
