@@ -1,12 +1,12 @@
 angular.module('Curve')
-	.controller('clientsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Client', 'Notification', function($scope, $routeParams, Session, Pagination, Client, Notification) {
+	.controller('campaignsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Campaign', 'Notification', function($scope, $routeParams, Session, Pagination, Campaign, Notification) {
 		var controller = this;
-		$scope.clients = [];
+		$scope.campaigns = [];
 		$scope.searchText = null;
 		this.filter = function(params, callback) {
-			Client.all(params, function(response) {
+			Campaign.all(params, function(response) {
 				if(response.status == 200) {
-					$scope.clients = response.data.clients;
+					$scope.campaigns = response.data.campaigns;
 					$scope.totalPages = response.data.meta.totalPages;
 					$scope.currentPage = response.data.meta.currentPage;
 					$scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages);
@@ -18,7 +18,7 @@ angular.module('Curve')
 		};
 		$scope.search = function(text) {
 			controller.filter({ name: text }, function() {
-				Notification.success('Clients Successfully Searched');
+				Notification.success('Campaigns Successfully Searched');
 			});
 		};
 		$scope.changePage = function(page) {
@@ -26,20 +26,20 @@ angular.module('Curve')
 		};
 		$scope.deleteSelected = function() {
 			var num = 0
-			$scope.clients.forEach(function(client, callback) {
-				if(client.selected) { 
-					Client.delete(client._id, function(response) {
+			$scope.campaigns.forEach(function(campaign, callback) {
+				if(campaign.selected) { 
+					Campaign.delete(campaign._id, function(response) {
 						if(response.status == 200) {
 							num++;
-							var index = $scope.clients.indexOf(client);
-							$scope.clients.splice(index, 1);
+							var index = $scope.campaigns.indexOf(campaign);
+							$scope.campaigns.splice(index, 1);
 							$('#deleteModal').modal('hide');
 						}
 					});
 				}
 			});
 			$('#deleteModal').on('hidden.bs.modal', function() {
-				Notification.success(num + ' Clients successfully deleted');
+				Notification.success(num + ' Campaigns successfully deleted');
 			});
 		}
 		// Load all clients on page load

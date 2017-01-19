@@ -1,12 +1,12 @@
 angular.module('Curve')
-	.controller('clientsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Client', 'Notification', function($scope, $routeParams, Session, Pagination, Client, Notification) {
+	.controller('worksController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Work', 'Notification', function($scope, $routeParams, Session, Pagination, Work, Notification) {
 		var controller = this;
-		$scope.clients = [];
+		$scope.works = [];
 		$scope.searchText = null;
 		this.filter = function(params, callback) {
-			Client.all(params, function(response) {
+			Work.all(params, function(response) {
 				if(response.status == 200) {
-					$scope.clients = response.data.clients;
+					$scope.works = response.data.works;
 					$scope.totalPages = response.data.meta.totalPages;
 					$scope.currentPage = response.data.meta.currentPage;
 					$scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages);
@@ -18,7 +18,7 @@ angular.module('Curve')
 		};
 		$scope.search = function(text) {
 			controller.filter({ name: text }, function() {
-				Notification.success('Clients Successfully Searched');
+				Notification.success('Works Successfully Searched');
 			});
 		};
 		$scope.changePage = function(page) {
@@ -26,20 +26,20 @@ angular.module('Curve')
 		};
 		$scope.deleteSelected = function() {
 			var num = 0
-			$scope.clients.forEach(function(client, callback) {
-				if(client.selected) { 
-					Client.delete(client._id, function(response) {
+			$scope.works.forEach(function(work, callback) {
+				if(work.selected) { 
+					Work.delete(work._id, function(response) {
 						if(response.status == 200) {
 							num++;
-							var index = $scope.clients.indexOf(client);
-							$scope.clients.splice(index, 1);
+							var index = $scope.works.indexOf(work);
+							$scope.works.splice(index, 1);
 							$('#deleteModal').modal('hide');
 						}
 					});
 				}
 			});
 			$('#deleteModal').on('hidden.bs.modal', function() {
-				Notification.success(num + ' Clients successfully deleted');
+				Notification.success(num + ' Works successfully deleted');
 			});
 		}
 		// Load all clients on page load

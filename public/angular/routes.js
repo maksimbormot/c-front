@@ -20,6 +20,66 @@ angular.module('Curve')
 			controller: 'clientEditController',
 			controllerAs: 'clientEditCtrl'
 		})
+		.when('/campaigns', {
+			templateUrl: '/angular/templates/campaigns/index.html',
+			controller: 'campaignsController',
+			controllerAs: 'campaignsCtrl'
+		})
+		.when('/campaigns/:id/edit', {
+			templateUrl: '/angular/templates/campaigns/edit.html',
+			controller: 'campaignEditController',
+			controllerAs: 'campaignCtrl'
+		})
+		.when('/campaigns/new', {
+			templateUrl: '/angular/templates/campaigns/edit.html',
+			controller: 'campaignEditController',
+			controllerAs: 'campaignCtrl'
+		})
+		.when('/releases', {
+			templateUrl: '/angular/templates/releases/index.html',
+			controller: 'releasesController',
+			controllerAs: 'releasesCtrl'
+		})
+		.when('/releases/:id/edit', {
+			templateUrl: '/angular/templates/releases/edit.html',
+			controller: 'releaseEditController',
+			controllerAs: 'releaseCtrl'
+		})
+		.when('/releases/new', {
+			templateUrl: '/angular/templates/releases/edit.html',
+			controller: 'releaseEditController',
+			controllerAs: 'releaseCtrl'
+		})
+		.when('/tracks', {
+			templateUrl: '/angular/templates/tracks/index.html',
+			controller: 'tracksController',
+			controllerAs: 'tracksCtrl'
+		})
+		.when('/tracks/:id/edit', {
+			templateUrl: '/angular/templates/tracks/edit.html',
+			controller: 'trackEditController',
+			controllerAs: 'trackCtrl'
+		})
+		.when('/tracks/new', {
+			templateUrl: '/angular/templates/tracks/edit.html',
+			controller: 'trackEditController',
+			controllerAs: 'trackCtrl'
+		})
+		.when('/works', {
+			templateUrl: '/angular/templates/works/index.html',
+			controller: 'worksController',
+			controllerAs: 'worksCtrl'
+		})
+		.when('/works/:id/edit', {
+			templateUrl: '/angular/templates/works/edit.html',
+			controller: 'workEditController',
+			controllerAs: 'workCtrl'
+		})
+		.when('/works/new', {
+			templateUrl: '/angular/templates/works/edit.html',
+			controller: 'workEditController',
+			controllerAs: 'workCtrl'
+		})
 		.when('/payees', {
 			templateUrl: '/angular/templates/payees/index.html'
 		})
@@ -31,30 +91,6 @@ angular.module('Curve')
 		})
 		.when('/contracts/:id/edit', {
 			templateUrl: '/angular/templates/contracts/edit.html'
-		})
-		.when('/campaigns', {
-			templateUrl: '/angular/templates/campaigns/index.html'
-		})
-		.when('/campaigns/:id/edit', {
-			templateUrl: '/angular/templates/campaigns/edit.html'
-		})
-		.when('/releases', {
-			templateUrl: '/angular/templates/releases/index.html'
-		})
-		.when('/releases/:id/edit', {
-			templateUrl: '/angular/templates/releases/edit.html'
-		})
-		.when('/tracks', {
-			templateUrl: '/angular/templates/tracks/index.html'
-		})
-		.when('/tracks/:id/edit', {
-			templateUrl: '/angular/templates/tracks/edit.html'
-		})
-		.when('/works', {
-			templateUrl: '/angular/templates/works/index.html'
-		})
-		.when('/works/:id/edit', {
-			templateUrl: '/angular/templates/works/edit.html'
 		})
 		.when('/mechanicals', {
 			templateUrl: '/angular/templates/mechanicals/index.html'

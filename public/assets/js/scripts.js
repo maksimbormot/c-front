@@ -57,3 +57,10 @@
     })
     
 })(window.jQuery);
+
+
+// Select Alls
+$(document).on('click', '.select-all', function() {
+    
+    $(this).parent('table').find('select')
+});

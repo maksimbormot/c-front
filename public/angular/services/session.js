@@ -3,6 +3,9 @@ angular.module('Curve')
 		return {
 			isLoggedIn: false,
 			token: null,
-			userType: null
+			userType: null,
+			formats: [],
+			priceCategories: [],
+			contracts: []
 		}
 	});

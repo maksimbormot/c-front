@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="form-group required col-xs-8">
+    <label>Contract</label>
+    <ui-select ng-model="contract.contractId">
+      <ui-select-match>
+        <span ng-bind="$select.selected.name"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="item._id as item in (contracts | filter: $select.search)">
+        <span ng-bind="item.name"></span>
+      </ui-select-choices>
+    </ui-select>
+  </div>
+  <div class="form-group col-xs-2">
+    <label>Rate</label>
+    <input type="text" class="form-control" ng-model="contract.percentage">
+  </div>
+  <div class="form-group col-xs-2">
+    <button class="btn btn-danger row-button" ng-click="delete({ contract: contract })"><i class="fa fa-trash"></i></button>
+  </div> 
+</div>

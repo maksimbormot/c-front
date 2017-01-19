@@ -6,7 +6,8 @@
           <p>Curve</p>
         </li>
         <li><a href="/#/works">Works</a></li>
-        <li><a href="" class="active">Create</a></li>
+        <li ng-show="!work._id"><a href="" class="active">Create</a></li>
+        <li ng-show="work._id"><a href="/#/works/{{work._id}}" class="active">{{work.title}}</a></li>
       </ul>
     </div>
   </div>
@@ -14,65 +15,54 @@
 <!-- Main Container -->
 <div class="container-fluid container-fixed-lg">
   <div class="row">
-    <div class="col-xs-12">
-      <button class="btn btn-complete pull-right">Save</button>
+    <div class="col-xs-12 text-right">
+      <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-show="work._id"><i class="fa fa-trash"></i>&nbsp;Delete</button>
+      <button class="btn btn-complete" ng-click="save()"><i class="fa fa-check"></i> Save</button>
     </div>
   </div>
   <div class="row">
     <div class="panel panel-transparent">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs hidden-sm hidden-xs" data-init-reponsive-tabs="dropdownfx">
-        <li class="active">
-          <a data-toggle="tab" href="#overview" aria-expanded="true"><span>Overview</span></a>
+        <li class="active" ng-click="setTab('overview')">
+          <a data-toggle="tab" aria-expanded="true"><span>Overview</span></a>
         </li>
-        <li class="">
-          <a data-toggle="tab" href="#rights" aria-expanded="false"><span>Rights</span></a>
+        <li ng-click="setTab('rights')">
+          <a data-toggle="tab" aria-expanded="false"><span>Rights</span></a>
         </li>
-        <li class="">
-          <a data-toggle="tab" href="#aliases" aria-expanded="false"><span>Aliases</span></a>
+        <li ng-click="setTab('aliases')">
+          <a data-toggle="tab" aria-expanded="false"><span>Alises</span></a>
         </li>
       </ul>
-      <!-- Tab panes -->
       <div class="tab-content">
-        <div class="tab-pane active" id="overview">
-            <div class="row">
-              <!--TABLE TABLE TABLE TABLE -->
-              <div class="col-xs-12 col-md-6">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <div class="panel-title">
-                      Overview
-                    </div>
+        <div ng-show="activeTab === 'overview'">
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    Overview
                   </div>
-                  <div class="panel-body p-t-15">
-                    <div class="form-group required">
-                      <label>Title</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group required">
-                      <label>Version</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group required">
-                      <label>Artist</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group required">
-                      <label>ISRC</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group required">
-                      <label>P Line</label>
-                      <input type="text" class="form-control" required>
-                    </div>
+                </div>
+                <div class="panel-body p-t-15">
+                  <div class="form-group required">
+                    <label>Title</label>
+                    <input type="text" class="form-control" ng-model="work.title">
+                  </div>
+                  <div class="form-group required">
+                    <label>Composer</label>
+                    <input type="text" class="form-control" ng-model="work.composer">
+                  </div>
+                  <div class="form-group required">
+                    <label>Main Identifier</label>
+                    <input type="text" class="form-control" ng-model="work.identifier">
                   </div>
                 </div>
               </div>
-     <!-- TABLE END TABLE END TABLE END TABLE END -->
+            </div>
           </div>
-          
         </div>
-        <div class="tab-pane" id="rights">
+        <div ng-show="activeTab === 'rights'">
           <div class="row">
             <div class="col-xs-12 col-md-6">
               <div class="panel panel-default">
@@ -82,38 +72,8 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <div class="row">
-                    <div class="form-group required col-xs-10">
-                      <label>Contract</label>
-                      <select class="full-width" data-init-plugin="select2">
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                      </select>
-                    </div>
-                    <div class="form-group required col-xs-2">
-                      <label>Rate</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group required col-xs-10">
-                      <label>Contract</label>
-                      <select class="full-width" data-init-plugin="select2">
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                      </select>
-                    </div>
-                    <div class="form-group required col-xs-2">
-                      <label>Rate</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                  </div>
-                  <br>
-                  <button class="btn btn-complete">Add Contract</button>
+                  <contract-row ng-repeat="contract in work.salesReturnsRights" contract="contract" contracts="contracts" delete="deleteSalesReturnsRights(contract)"></contract-row>
+                  <button class="btn btn-complete" ng-click="addSalesReturnsRights()">+ Contract</button>
                 </div>
               </div>
             </div>
@@ -126,44 +86,14 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <div class="row">
-                    <div class="form-group required col-xs-10">
-                      <label>Contract</label>
-                      <select class="full-width" data-init-plugin="select2">
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                      </select>
-                    </div>
-                    <div class="form-group required col-xs-2">
-                      <label>Rate</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group required col-xs-10">
-                      <label>Contract</label>
-                      <select class="full-width" data-init-plugin="select2">
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                      </select>
-                    </div>
-                    <div class="form-group required col-xs-2">
-                      <label>Rate</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                  </div>
-                  <br>
-                  <button class="btn btn-complete">Add Contract</button>
+                  <contract-row ng-repeat="contract in work.costsRights" contract="contract" contracts="contracts" delete="deleteCostsRights(contract)"></contract-row>
+                  <button class="btn btn-complete"  ng-click="addCostsRights()">+ Contract</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="aliases">
+        <div ng-show="activeTab === 'aliases'">
           <div class="row">
             <div class="col-xs-12 col-md-6">
               <div class="panel panel-default">
@@ -173,24 +103,37 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <div class="form-group required">
-                    <label>Title</label>
-                    <input type="text" class="form-control" required>
-                  </div>
-                  <div class="form-group required">
-                    <label>Version</label>
-                    <input type="text" class="form-control" required>
-                  </div>
-                  <div class="form-group required">
-                    <label>Artist</label>
-                    <input type="text" class="form-control" required>
-                  </div>
-                  <br>
-                  <button class="btn btn-complete">Add</button>
+                  <alias-row ng-repeat="alias in displayAliases track by $index" alias="alias" delete="deleteAlias(alias)"></alias-row>
+                  <button class="btn btn-complete" ng-click="addAlias()">+ Alias</button>
                 </div>
               </div>
               
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade stick-up" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header clearfix text-left">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+        </button>
+        <h5>Delete Work</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12 m-t-20">
+            <p>Are you sure you want to delete this work?  This cannot be undone.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 m-t-20 text-right">
+            <button type="button" class="btn btn-default m-t-5" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger m-t-5" ng-click="delete()"><i class="fa fa-trash"></i>&nbsp;Delete</button>
           </div>
         </div>
       </div>

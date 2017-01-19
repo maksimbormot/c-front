@@ -6,7 +6,8 @@
           <p>Curve</p>
         </li>
         <li><a href="/#/releases">Releases</a></li>
-        <li><a href="" class="active">Create</a></li>
+        <li ng-show="!release._id"><a href="" class="active">Create</a></li>
+        <li ng-show="release._id"><a href="/#/releases/{{release._id}}" class="active">{{release.title}}</a></li>
       </ul>
     </div>
   </div>
@@ -14,27 +15,27 @@
 <!-- Main Container -->
 <div class="container-fluid container-fixed-lg">
   <div class="row">
-    <div class="col-xs-12">
-      <button class="btn btn-complete pull-right">Save</button>
+    <div class="col-xs-12 text-right">
+      <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-show="release._id"><i class="fa fa-trash"></i>&nbsp;Delete</button>
+      <button class="btn btn-complete" ng-click="save()"><i class="fa fa-check"></i> Save</button>
     </div>
   </div>
   <div class="row">
     <div class="panel panel-transparent">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs hidden-sm hidden-xs" data-init-reponsive-tabs="dropdownfx">
-        <li class="active">
-          <a data-toggle="tab" href="#overview" aria-expanded="true"><span>Overview</span></a>
+        <li class="active" ng-click="setTab('overview')">
+          <a data-toggle="tab" aria-expanded="true"><span>Overview</span></a>
         </li>
-        <li class="">
-          <a data-toggle="tab" href="#rights" aria-expanded="false"><span>Rights</span></a>
+        <li ng-click="setTab('rights')">
+          <a data-toggle="tab" aria-expanded="false"><span>Rights</span></a>
         </li>
-        <li class="">
-          <a data-toggle="tab" href="#aliases" aria-expanded="false"><span>Alises</span></a>
+        <li ng-click="setTab('aliases')">
+          <a data-toggle="tab" aria-expanded="false"><span>Alises</span></a>
         </li>
       </ul>
-      <!-- Tab panes -->
       <div class="tab-content">
-        <div class="tab-pane active" id="overview">
+        <div ng-show="activeTab === 'overview'">
           <div class="row">
             <div class="col-xs-12 col-md-6">
               <div class="panel panel-default">
@@ -46,29 +47,29 @@
                 <div class="panel-body p-t-15">
                   <div class="form-group required">
                     <label>Title</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" ng-model="release.title">
                   </div>
                   <div class="form-group required">
                     <label>Version</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" ng-model="release.version">
                   </div>
                   <div class="form-group required">
                     <label>Artist</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" ng-model="release.artist">
                   </div>
                   <div class="form-group required">
                     <label>Cat No</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" ng-model="release.catNo">
                   </div>
                   <div class="form-group required">
                     <label>Barcode</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" ng-model="release.barcode">
                   </div>
                   <div class="form-group required">
                     <label>Release Date</label>
-                    <div id="datepicker-component" class="form-group input-group date required">
-                      <input type="text" class="form-control">
-                      <span class="input-group-addon">
+                    <div id="datepicker-component" class="form-group input-group date">
+                      <input type="text" class="form-control" ng-model="release.releaseDate" uib-datepicker-popup="dd/MM/yyyy" is-open="releaseDatePopup" ng-click="openReleaseDatePopup()">
+                      <span class="input-group-addon" ng-click="openReleaseDatePopup()">
                         <i class="fa fa-calendar"></i>
                       </span>
                     </div>
@@ -87,33 +88,37 @@
                 <div class="panel-body p-t-15">
                   <div class="form-group required">
                     <label>Format</label>
-                    <select class="full-width" data-init-plugin="select2">
-                      <option value="WV">Format 1</option>
-                      <option value="WV">Format 2</option>
-                      <option value="WV">Format 3</option>
-                      <option value="WV">Format 4</option>
-                    </select>
+                    <ui-select ng-model="release.format">
+                      <ui-select-match>
+                          <span ng-bind="$select.selected"></span>
+                      </ui-select-match>
+                      <ui-select-choices repeat="item in (formats | filter: $select.search)">
+                          <span ng-bind="item"></span>
+                      </ui-select-choices>
+                    </ui-select>
                   </div>
                   <div class="form-group required">
                     <label>Price Category</label>
-                    <select class="full-width" data-init-plugin="select2">
-                      <option value="WV">Price Cat 1</option>
-                      <option value="WV">Price Cat 1</option>
-                      <option value="WV">Price Cat 1</option>
-                      <option value="WV">Price Cat 1</option>
-                    </select>
+                    <ui-select ng-model="release.priceCategory">
+                      <ui-select-match>
+                          <span ng-bind="$select.selected"></span>
+                      </ui-select-match>
+                      <ui-select-choices repeat="item in (priceCategories | filter: $select.search)">
+                          <span ng-bind="item"></span>
+                      </ui-select-choices>
+                    </ui-select>
                   </div>
                   <div class="form-group required">
                     <label>Dealer Price</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" ng-model="release.dealerPrice">
                   </div>
                   <div class="form-group required">
                     <label>MCPS ID</label>
-                    <input type="text" class="form-control" required>
+                    <input type="text" class="form-control" ng-model="release.mcpsId">
                   </div>
-                  <div class="checkbox">
-                    <input type="checkbox" value="3" id="checkbox4">
-                    <label for="checkbox4">Exempt from Mechanicals</label>
+                  <div class="form-group">
+                    <input type="checkbox" value="1" ng-model="release.exemptFromMechanicals">
+                    <label>Exempt from Mechanicals</label>
                   </div>
                 </div>
               </div>
@@ -134,51 +139,15 @@
                       <button class="btn btn-complete pull-right"><i class="fa fa-plus"></i>&nbsp;Add Track</button>
                       <thead>
                         <tr>
-                          <th class="table-checkbox"><input type="checkbox"></th>
+                          <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
                           <th>Track Title</th>
                           <th>Artist</th>
-                          <th>No.</th>
+                          <th>ISRC</th>
                           <th>P Line</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td class="v-align-middle"><input type="checkbox"></td>
-                          <td class="v-align-middle">Title</td>
-                          <td class="v-align-middle">Artist</td>
-                          <td>123456789</td>
-                          <td>P Line</td>
-                        </tr>
-                        <tr>
-                          <td class="v-align-middle"><input type="checkbox"></td>
-                          <td class="v-align-middle">Title</td>
-                          <td class="v-align-middle">Artist</td>
-                          <td>123456789</td>
-                          <td>P Line</td>
-                        </tr>
-                        <tr>
-                          <td class="v-align-middle"><input type="checkbox"></td>
-                          <td class="v-align-middle">Title</td>
-                          <td class="v-align-middle">Artist</td>
-                          <td>123456789</td>
-                          <td>P Line</td>
-                        </tr>
-                        <tr>
-                          <td class="v-align-middle"><input type="checkbox"></td>
-                          <td class="v-align-middle">Title</td>
-                          <td class="v-align-middle">Artist</td>
-                          <td>123456789</td>
-                          <td>P Line</td>
-                        </tr>
-                        <tr>
-                          <td class="v-align-middle"><input type="checkbox"></td>
-                          <td class="v-align-middle">Title</td>
-                          <td class="v-align-middle">Artist</td>
-                          <td>123456789</td>
-                          <td>P Line</td>
-                        </tr>
-
-                        
+                        <tr track-table-row ng-repeat="track in release.tracks" track="track"></tr>
                       </tbody>
                     </table>
                   </div>
@@ -187,7 +156,7 @@
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="rights">
+        <div ng-show="activeTab === 'rights'">
           <div class="row">
             <div class="col-xs-12 col-md-6">
               <div class="panel panel-default">
@@ -197,38 +166,8 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <div class="row">
-                    <div class="form-group required col-xs-10">
-                      <label>Contract</label>
-                      <select class="full-width" data-init-plugin="select2">
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                      </select>
-                    </div>
-                    <div class="form-group required col-xs-2">
-                      <label>Rate</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group required col-xs-10">
-                      <label>Contract</label>
-                      <select class="full-width" data-init-plugin="select2">
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                      </select>
-                    </div>
-                    <div class="form-group required col-xs-2">
-                      <label>Rate</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                  </div>
-                  <br>
-                  <button class="btn btn-complete">Add Contract</button>
+                  <contract-row ng-repeat="contract in release.salesReturnsRights" contract="contract" contracts="contracts" delete="deleteSalesReturnsRights(contract)"></contract-row>
+                  <button class="btn btn-complete" ng-click="addSalesReturnsRights()">+ Contract</button>
                 </div>
               </div>
             </div>
@@ -241,44 +180,14 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <div class="row">
-                    <div class="form-group required col-xs-10">
-                      <label>Contract</label>
-                      <select class="full-width" data-init-plugin="select2">
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                      </select>
-                    </div>
-                    <div class="form-group required col-xs-2">
-                      <label>Rate</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="form-group required col-xs-10">
-                      <label>Contract</label>
-                      <select class="full-width" data-init-plugin="select2">
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                        <option value="WV">Contract 1</option>
-                      </select>
-                    </div>
-                    <div class="form-group required col-xs-2">
-                      <label>Rate</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                  </div>
-                  <br>
-                  <button class="btn btn-complete">Add Contract</button>
+                  <contract-row ng-repeat="contract in release.costsRights" contract="contract" contracts="contracts" delete="deleteCostsRights(contract)"></contract-row>
+                  <button class="btn btn-complete"  ng-click="addCostsRights()">+ Contract</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="aliases">
+        <div ng-show="activeTab === 'aliases'">
           <div class="row">
             <div class="col-xs-12 col-md-6">
               <div class="panel panel-default">
@@ -288,24 +197,37 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <div class="form-group required">
-                    <label>Title</label>
-                    <input type="text" class="form-control" required>
-                  </div>
-                  <div class="form-group required">
-                    <label>Version</label>
-                    <input type="text" class="form-control" required>
-                  </div>
-                  <div class="form-group required">
-                    <label>Artist</label>
-                    <input type="text" class="form-control" required>
-                  </div>
-                  <br>
-                  <button class="btn btn-complete">Add</button>
+                  <alias-row ng-repeat="alias in displayAliases track by $index" alias="alias" delete="deleteAlias(alias)"></alias-row>
+                  <button class="btn btn-complete" ng-click="addAlias()">+ Alias</button>
                 </div>
               </div>
               
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade stick-up" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header clearfix text-left">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+        </button>
+        <h5>Delete Release</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12 m-t-20">
+            <p>Are you sure you want to delete this release?  This cannot be undone.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 m-t-20 text-right">
+            <button type="button" class="btn btn-default m-t-5" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger m-t-5" ng-click="delete()"><i class="fa fa-trash"></i>&nbsp;Delete</button>
           </div>
         </div>
       </div>

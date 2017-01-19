@@ -3,7 +3,12 @@ angular.module('Curve')
 		var controller = this;
 		$scope.isLoggedIn = Session.isLoggedIn;
 		$scope.internalUser = false;
-		Auth.test($cookies.get('curveToken'));
+		Auth.test($cookies.get('curveToken'), function(session) {
+			console.log(session);
+			if(session.userType == "internal") {
+				$scope.internalUser = true;
+			}
+		});
 		$scope.logout = function() {
 			Auth.logout();
 		}

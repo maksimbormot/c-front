@@ -7,3 +7,41 @@
 .pagination .current {
 	background-color: #e8e8e8;
 }
+
+
+/* Tabs */
+.nav-tabs li:hover {
+	cursor: pointer;
+}
+
+/* Form Elements */
+.ui-select-offscreen {
+	display: none;
+}
+
+.ui-select-search {
+	margin-left: 4px;
+}
+
+.ui-select-choices {
+	margin-left: 4px;
+}
+
+.ui-select-toggle {
+	margin-bottom: 0px;
+}
+
+.uib-datepicker-popup {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.uib-datepicker .btn {
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 0;
+}
+
+.row-button {
+	margin-top: 25px;
+}

@@ -2,6 +2,7 @@ angular.module('Curve')
 	.controller('clientEditController', ['$scope', '$routeParams', '$window', 'Session', 'Client', 'Parent', 'Notification', function($scope, $routeParams, $window, Session, Client, Parent, Notification) {
 		var controller = this;
 		$scope.parents = [{}];
+		$scope.paymentTiers = ["Standard", "Premium", "Enterprise"];
 		$scope.$on('$viewContentLoaded', function() {
 			Parent.all({}, function(response) {
 				if(response.status == 200 && response.data && response.data.parents) {
@@ -17,12 +18,11 @@ angular.module('Curve')
 			Client.get($routeParams.id, function(response) {
 				if(response.status == 200) {
 					$scope.client = response.data;
-					console.log(response.data);
 				} else {
 					Notification.error('Error loading client, please try again or contact support');
 				}
 			});
-		}
+		};
 		$scope.save = function() {
 			if(!$scope.client._id) {
 				Client.create($scope.client, function(response) {
@@ -34,6 +34,7 @@ angular.module('Curve')
 					}
 				});
 			} else {
+				console.log($scope.client);
 				Client.update($scope.client._id, $scope.client, function(response) {
 					if(response.status == 200) {
 						$scope.client = response.data;
@@ -45,13 +46,16 @@ angular.module('Curve')
 			}
 		};
 		$scope.delete = function() {
-			Client.delete($scope.client._id, function(response) {
-				if(response.status == 200) {
-					Notification.success('Client successfully deleted');
-					$window.location.href = "#/clients"
-				} else {
-					Notification.error('Error deleting client, please try again or contact support');
-				}
+			$('#deleteModal').modal('hide');
+			$('#deleteModal').on('hidden.bs.modal', function() {
+				Client.delete($scope.client._id, function(response) {
+					if(response.status == 200) {
+						Notification.success('Client successfully deleted');
+						$window.location.href = "#/clients"
+					} else {
+						Notification.error('Error deleting client, please try again or contact support');
+					}
+				});
 			});
 		};
 	}]);
