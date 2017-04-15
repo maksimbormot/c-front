@@ -4,7 +4,10 @@ angular.module('Curve')
 			restrict: "A",
 			templateUrl: "angular/templates/directives/release-table-row.html",
 			scope: {
-				release: "="
+				release: "=",
+				noLinks: "=",
+				addIcon: "=",
+				addFunction: "&"
 			}
 		}
 	});

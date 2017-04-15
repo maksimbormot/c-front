@@ -14,98 +14,101 @@
 <!-- Main Container -->
 <div class="container-fluid container-fixed-lg">
   <div class="row">
-    <div class="col-xs-12">
-      <button class="btn btn-complete pull-right">Save</button>
+    <div class="col-xs-12 text-right">
+      <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-show="contract._id"><i class="fa fa-trash"></i>&nbsp;Delete</button>
+      <button class="btn btn-complete" ng-click="save()"><i class="fa fa-check"></i> Save</button>
     </div>
   </div>
   <div class="row">
     <div class="panel panel-transparent">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs hidden-sm hidden-xs" data-init-reponsive-tabs="dropdownfx">
-        <li class="active">
-          <a data-toggle="tab" href="#overview" aria-expanded="true"><span>Overview</span></a>
+        <li class="active" ng-click="setTab('overview')">
+          <a data-toggle="tab" aria-expanded="true"><span>Overview</span></a>
         </li>
-        <li class="">
-          <a data-toggle="tab" href="#terms" aria-expanded="false"><span>Terms</span></a>
+        <li ng-click="setTab('terms')">
+          <a data-toggle="tab" aria-expanded="false"><span>Terms</span></a>
         </li>
-        <li class="">
-          <a data-toggle="tab" href="#reserves" aria-expanded="false"><span>Reserves</span></a>
+        <li ng-click="setTab('reserves')">
+          <a data-toggle="tab" aria-expanded="false"><span>Reserves</span></a>
         </li>
-        <li class="">
-          <a data-toggle="tab" href="#catalogue" aria-expanded="false"><span>Catalogue</span></a>
+        <li ng-click="setTab('catalogue')">
+          <a data-toggle="tab" aria-expanded="false"><span>Catalogue</span></a>
         </li>
-        <li class="">
-          <a data-toggle="tab" href="#costs" aria-expanded="false"><span>Costs</span></a>
+        <li ng-click="setTab('costs')">
+          <a data-toggle="tab" aria-expanded="false"><span>Costs</span></a>
         </li>
       </ul>
       <!-- Tab panes -->
       <div class="tab-content">
-        <div class="tab-pane active" id="overview">
-            <div class="row">
-              <!--TABLE TABLE TABLE TABLE -->
-              <div class="col-xs-12 col-md-6">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <div class="panel-title">
-                      Overview
-                    </div>
+        <div ng-show="activeTab === 'overview'">
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    Overview
                   </div>
-                  <div class="panel-body p-t-15">
-                    <div class="form-group required">
-                <label>Royaltor</label>
-                <select class="full-width" data-init-plugin="select2">
-                  <option value="WV">Royaltor 1</option>
-                  <option value="WV">Royaltor 1</option>
-                  <option value="WV">Royaltor 1</option>
-                </select>
-              </div>
-              <div class="form-group required">
-                <label>Name</label>
-                <input type="text" class="form-control" required>
-              </div>
-              <div class="form-group required">
-                <label>Accounting Period</label>
-                <select class="full-width" data-init-plugin="select2">
-                  <option value="WV">Accounting Period 1</option>
-                  <option value="WV">Accounting Period 1</option>
-                  <option value="WV">Accounting Period 1</option>
-                </select>
-              </div>
-              <div class="form-group required">
-                <label>Contract Type</label>
-                <select class="full-width" data-init-plugin="select2">
-                  <option value="WV">Royalty, Profit, Share, etc.</option>
-                  <option value="WV">Royalty, Profit, Share, etc.</option>
-                  <option value="WV">Royalty, Profit, Share, etc.</option>
-                  <option value="WV">Royalty, Profit, Share, etc.</option>
-                </select>
-              </div>
+                </div>
+                <div class="panel-body p-t-15">
+                  <div class="form-group required">
+                    <label>Payee</label>
+                    <ui-select ng-model="contract.payeeId">
+                      <ui-select-match>
+                        <span ng-bind="$select.selected.name"></span>
+                      </ui-select-match>
+                      <ui-select-choices repeat="item._id as item in (royaltors | filter: $select.search)">
+                        <span ng-bind="item.name"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                  </div>
+                  <div class="form-group required">
+                    <label>Name</label>
+                    <input type="text" class="form-control" ng-model="contract.name">
+                  </div>
+                  <div class="form-group required">
+                    <label>Accounting Period</label>
+                    <ui-select ng-model="contract.accountingPeriod">
+                      <ui-select-match>
+                        <span ng-bind="$select.selected"></span>
+                      </ui-select-match>
+                      <ui-select-choices repeat="item in (accountingPeriods | filter: $select.search)">
+                        <span ng-bind="item"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                  </div>
+                  <div class="form-group required">
+                    <label>Contract Type</label>
+                    <ui-select ng-model="contract.type">
+                      <ui-select-match>
+                        <span ng-bind="$select.selected"></span>
+                      </ui-select-match>
+                      <ui-select-choices repeat="item in (contractTypes | filter: $select.search)">
+                        <span ng-bind="item"></span>
+                      </ui-select-choices>
+                    </ui-select>
                   </div>
                 </div>
               </div>
-
-              <!-- SECOND TABLE - - - - - - - - - - - - - - -->
-              <div class="col-xs-12 col-md-6">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <div class="panel-title">
-                      Payout
-                    </div>
+            </div>            
+            <div class="col-xs-12 col-md-6">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    Payout
                   </div>
-                  <div class="panel-body p-t-15">
-                    <div class="form-group required">
-                      <label>Min Payout</label>
-                      <input type="text" class="form-control" required>
-                    </div>
-                    
+                </div>
+                <div class="panel-body p-t-15">
+                  <div class="form-group required">
+                    <label>Min Payout</label>
+                    <input type="text" class="form-control" ng-model="contract.minPayout">
                   </div>
                 </div>
               </div>
-     <!-- TABLE END TABLE END TABLE END TABLE END -->
+            </div>
           </div>
-          
         </div>
-        <div class="tab-pane" id="terms">
+        <div ng-show="activeTab === 'terms'">
           <div class="row">
             <div class="col-xs-12">
               <div class="panel panel-default">
@@ -115,62 +118,9 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <div class="row">
-                  <div class="form-group required col-xs-5 col-md-3">
-                <label>Territory</label>
-                  <select class="full-width" data-init-plugin="select2">
-                    <option value="WV">Territory 1</option>
-                    <option value="WV">Territory 1</option>
-                    <option value="WV">Territory 1</option>
-                  </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Channel</label>
-                      <select class="full-width" data-init-plugin="select2">
-        <option value="WV">Channel 1</option>
-                    <option value="WV">Channel 1</option>
-                    <option value="WV">Channel 1</option>
-                      </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Configuration</label>
-                      <select class="full-width" data-init-plugin="select2">
-                        <option value="WV">Configuration 1</option>
-                        <option value="WV">Configuration 1</option>
-                        <option value="WV">Configuration 1</option>
-                      </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Price Category</label>
-                      <select class="full-width" data-init-plugin="select2">
-        <option value="WV">Price Category 1</option>
-        <option value="WV">Price Category 1</option>
-        <option value="WV">Price Category 1</option>
-                      </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Type</label>
-                      <select class="full-width" data-init-plugin="select2">
-        <option value="WV">Type 1</option>
-        <option value="WV">Type 1</option>
-        <option value="WV">Type 1</option>
-                      </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Rate</label>
-                      <input type="text" class="form-control" required>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Unit Deduction</label>
-                      <input type="text" class="form-control" required>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Reserve</label>
-                      <input type="text" class="form-control" required>
-                  </div>
-                  </div>
+                  <contract-sales-row ng-repeat="sale in contract.salesTerms" sale="sale" territories="territories" channels="channels" configurations="configurations" priceCategories="priceCategories" salesTypes="salesTypes" delete="deleteSalesRow(sale)"></contract-sales-row>
                   <br>
-                  <button class="btn btn-complete">Add Term</button>
+                  <button class="btn btn-complete" ng-click="addSalesRow()">+ Sales</button>
                 </div>
               </div>
             </div>
@@ -184,62 +134,9 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <div class="row">
-                  <div class="form-group required col-xs-5 col-md-3">
-                <label>Territory</label>
-                  <select class="full-width" data-init-plugin="select2">
-                    <option value="WV">Territory 1</option>
-                    <option value="WV">Territory 1</option>
-                    <option value="WV">Territory 1</option>
-                  </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Channel</label>
-                      <select class="full-width" data-init-plugin="select2">
-        <option value="WV">Channel 1</option>
-                    <option value="WV">Channel 1</option>
-                    <option value="WV">Channel 1</option>
-                      </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Configuration</label>
-                      <select class="full-width" data-init-plugin="select2">
-                        <option value="WV">Configuration 1</option>
-                        <option value="WV">Configuration 1</option>
-                        <option value="WV">Configuration 1</option>
-                      </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Price Category</label>
-                      <select class="full-width" data-init-plugin="select2">
-        <option value="WV">Price Category 1</option>
-        <option value="WV">Price Category 1</option>
-        <option value="WV">Price Category 1</option>
-                      </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Type</label>
-                      <select class="full-width" data-init-plugin="select2">
-        <option value="WV">Type 1</option>
-        <option value="WV">Type 1</option>
-        <option value="WV">Type 1</option>
-                      </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Rate</label>
-                      <input type="text" class="form-control" required>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Unit Deduction</label>
-                      <input type="text" class="form-control" required>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Reserve</label>
-                      <input type="text" class="form-control" required>
-                  </div>
-                  </div>
+                  <contract-sales-row ng-repeat="return in contract.returnsTerms" sale="return" territories="territories" channels="channels" configurations="configurations" priceCategories="priceCategories" salesTypes="salesTypes" delete="deleteReturnsRow(sale)"></contract-sales-row>
                   <br>
-                  <button class="btn btn-complete">Add Term</button>
+                  <button class="btn btn-complete" ng-click="addReturnsRow()">+ Returns</button>
                 </div>
               </div>
             </div>
@@ -253,30 +150,9 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <div class="row">
-                  <div class="form-group required col-xs-5 col-md-3">
-                <label>Territory</label>
-                  <select class="full-width" data-init-plugin="select2">
-                    <option value="WV">Territory 1</option>
-                    <option value="WV">Territory 1</option>
-                    <option value="WV">Territory 1</option>
-                  </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Type</label>
-                      <select class="full-width" data-init-plugin="select2">
-        <option value="WV">Type 1</option>
-                    <option value="WV">Type 1</option>
-                    <option value="WV">Type 1</option>
-                      </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Rate</label>
-                      <input type="text" class="form-control" required>
-                  </div>
-                  </div>
+                  <contract-costs-row ng-repeat="cost in contract.costsTerms" cost="cost" territories="territories" costsTypes="costsTypes" delete="deleteCostsRow(cost)"></contract-costs-row>
                   <br>
-                  <button class="btn btn-complete">Add Term</button>
+                  <button class="btn btn-complete" ng-click="addCostsRow()">+ Costs</button>
                 </div>
               </div>
             </div>
@@ -290,28 +166,15 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <div class="row">
-                  <div class="form-group required col-xs-5 col-md-3">
-                <label>Territory</label>
-                  <select class="full-width" data-init-plugin="select2">
-                    <option value="WV">Territory 1</option>
-                    <option value="WV">Territory 1</option>
-                    <option value="WV">Territory 1</option>
-                  </select>
-                  </div>
-                  <div class="form-group required col-xs-5 col-md-3">
-                      <label>Rate</label>
-                      <input type="text" class="form-control" required>
-                  </div>
-                  </div>
+                  <contract-mechanicals-row ng-repeat="mechanical in contract.mechanicalTerms" mechanical="mechanical" territories="territories" delete="deleteMechanicalsRow(mechanical)"></contract-mechanicals-row>
                   <br>
-                  <button class="btn btn-complete">Add Term</button>
+                  <button class="btn btn-complete" ng-click="addMechanicalsRow()">+ Mechanicals</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="reserves">
+        <div ng-show="activeTab === 'reserves'">
           <div class="row">
             <div class="col-xs-12 col-md-6">
               <div class="panel panel-default">
@@ -321,387 +184,102 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <div class="form-group required">
-                    <label>Period 1</label>
-                    <input type="text" class="form-control" required>
-                  </div>
-                  <div class="form-group required">
-                    <label>Period 2</label>
-                    <input type="text" class="form-control" required>
-                  </div>
-                  <div class="form-group required">
-                    <label>Period 3</label>
-                    <input type="text" class="form-control" required>
-                  </div>
-                  <div class="form-group required">
-                    <label>Period 4</label>
-                    <input type="text" class="form-control" required>
-                  </div>
-                  <div class="form-group required">
-                    <label>Period 5</label>
-                    <input type="text" class="form-control" required>
-                  </div>
+                  <contract-reserves-row ng-repeat="reserve in contract.reserves" reserve="reserve" index="$index" delete="deleteReservesRow(reserve)"></contract-reserves-row>
                   <br>
-                  <button class="btn btn-complete">Add</button>
+                  <button class="btn btn-complete" ng-click="addReservesRow()">+ Reserve Period</button>
                 </div>
               </div>
-              
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="catalogue">
+        <div ng-show="activeTab === 'catalogue'">
           <div class="row">
             <div class="col-xs-12">
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <div class="panel-title">
-
                     <div class="panel panel-transparent">
                       <!-- Nav tabs -->
                       <ul class="nav nav-tabs hidden-sm hidden-xs" data-init-reponsive-tabs="dropdownfx">
-                        <li class="active">
-                          <a data-toggle="tab" href="#releases" aria-expanded="true"><span>Releases</span></a>
+                        <li class="active" ng-click="setCatalogueTab('releases')">
+                          <a data-toggle="tab" aria-expanded="true"><span>Releases</span></a>
                         </li>
-                        <li class="">
-                          <a data-toggle="tab" href="#tracks" aria-expanded="false"><span>Tracks</span></a>
+                        <li ng-click="setCatalogueTab('tracks')">
+                          <a data-toggle="tab" aria-expanded="false"><span>Tracks</span></a>
                         </li>
-                        <li class="">
-                          <a data-toggle="tab" href="#works" aria-expanded="false"><span>Works</span></a>
+                        <li ng-click="setCatalogueTab('works')">
+                          <a data-toggle="tab" aria-expanded="false"><span>Works</span></a>
                         </li>
                       </ul>
+                      <div class="row" ng-show="activeCatalogueTab === 'releases'">
+                        <div class="col-sm-12">
+                          <div class="table-responsive">
+                            <table class="table table-hover table-condensed dataTable no-footer">
+                              <thead>
+                                <tr>
+                                  <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
+                                  <th>Title</th>
+                                  <th>Artist</th>
+                                  <th>Cat No</th>
+                                  <th>Barcode</th>
+                                  <th>Label</th>
+                                  <th>Format</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr release-table-row ng-repeat="release in contract.releases" release="release"></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" ng-show="activeCatalogueTab === 'tracks'">
+                        <div class="col-sm-12">
+                          <div class="table-responsive">
+                            <table class="table table-hover table-condensed dataTable no-footer">
+                              <thead>
+                                <tr>
+                                  <th class="table-checkbox"><input type="checkbox"></th>
+                                  <th>Title</th>
+                                  <th>Artist</th>
+                                  <th>ISRC</th>
+                                  <th>P Line</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr track-table-row ng-repeat="track in contrac.tracks" track="track"></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" ng-show="activeCatalogueTab === 'works'">
+                        <div class="col-sm-12">
+                          <div class="table-responsive">
+                            <table class="table table-hover table-condensed dataTable no-footer">
+                              <thead>
+                                <tr>
+                                  <th class="table-checkbox"><input type="checkbox"></th>
+                                  <th>Title</th>
+                                  <th>Composer</th>
+                                  <th>ISWC</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr work-table-row ng-repeat="work in contract.works" work="work"></tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div class="panel-body p-t-15">
-                  <div class="row">
-
-                    <!--TABLE TABLE TABLE TABLE -->
-              <div class="tab-pane" id="releases">
-                <div class="table-responsive">
-                  <table class="table table-hover table-condensed dataTable no-footer">
-                    <thead>
-                      <tr>
-                        <th class="table-checkbox"><input type="checkbox"></th>
-                        <th>Title</th>
-                        <th>Artist</th>
-                        <th>Cat No.</th>
-                        <th>Barcode</th>
-                        <th>Label</th>
-                        <th>Format</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              
-      <!-- TABLE END TABLE END TABLE END TABLE END -->
-
-                  <div class="row">
-              <div class="col-xs-12 text-center">
-                <pagination pages="pages" total="total_pages" current="current_page" change-page="changePage(page)" class="ng-isolate-scope">
-                    <nav>
-                      <ul class="pagination">
-                          <li class="cursor">
-                            <span aria-hidden="true" aria-label="Previous" ng-click="changePage({ page: 1 })">«</span>
-                          </li>
-                          <li class="cursor ng-scope" ng-repeat="page in pages">
-                            <span ng-click="changePage({ page: page })" ng-class="{ current: current === page }" class="ng-binding current">1</span>
-                          </li>
-                          <li class="cursor">
-                            <span aria-hidden="true" aria-label="Next" ng-click="changePage({ page: total })">»</span>
-                          </li>
-                      </ul>
-                    </nav>
-                </pagination>
-              </div>
-          </div>
-        </div>
-
-        <div class="tab-pane" id="tracks">
-                <div class="table-responsive">
-                  <table class="table table-hover table-condensed dataTable no-footer">
-                    <thead>
-                      <tr>
-                        <th class="table-checkbox"><input type="checkbox"></th>
-                        <th>Title</th>
-                        <th>Artist</th>
-                        <th>Cat No.</th>
-                        <th>Barcode</th>
-                        <th>Label</th>
-                        <th>Format</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              
-      <!-- TABLE END TABLE END TABLE END TABLE END -->
-
-                  <div class="row">
-              <div class="col-xs-12 text-center">
-                <pagination pages="pages" total="total_pages" current="current_page" change-page="changePage(page)" class="ng-isolate-scope">
-                    <nav>
-                      <ul class="pagination">
-                          <li class="cursor">
-                            <span aria-hidden="true" aria-label="Previous" ng-click="changePage({ page: 1 })">«</span>
-                          </li>
-                          <li class="cursor ng-scope" ng-repeat="page in pages">
-                            <span ng-click="changePage({ page: page })" ng-class="{ current: current === page }" class="ng-binding current">1</span>
-                          </li>
-                          <li class="cursor">
-                            <span aria-hidden="true" aria-label="Next" ng-click="changePage({ page: total })">»</span>
-                          </li>
-                      </ul>
-                    </nav>
-                </pagination>
-              </div>
-          </div>
-        </div>
-
-        <div class="tab-pane" id="works">
-                <div class="table-responsive">
-                  <table class="table table-hover table-condensed dataTable no-footer">
-                    <thead>
-                      <tr>
-                        <th class="table-checkbox"><input type="checkbox"></th>
-                        <th>Title</th>
-                        <th>Artist</th>
-                        <th>Cat No.</th>
-                        <th>Barcode</th>
-                        <th>Label</th>
-                        <th>Format</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                      <tr>
-                        <td class="v-align-middle"><input type="checkbox"></td>
-                        <td class="v-align-middle">Track 1</td>
-                        <td class="v-align-middle">Artist 1</td>
-                        <td class="v-align-middle">CATNO123</td>
-                        <td class="v-align-middle">0123456789</td>
-                        <td class="v-align-middle">Label 1</td>
-                        <td class="v-align-middle">Vinyl</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              
-      <!-- TABLE END TABLE END TABLE END TABLE END -->
-
-                  <div class="row">
-              <div class="col-xs-12 text-center">
-                <pagination pages="pages" total="total_pages" current="current_page" change-page="changePage(page)" class="ng-isolate-scope">
-                    <nav>
-                      <ul class="pagination">
-                          <li class="cursor">
-                            <span aria-hidden="true" aria-label="Previous" ng-click="changePage({ page: 1 })">«</span>
-                          </li>
-                          <li class="cursor ng-scope" ng-repeat="page in pages">
-                            <span ng-click="changePage({ page: page })" ng-class="{ current: current === page }" class="ng-binding current">1</span>
-                          </li>
-                          <li class="cursor">
-                            <span aria-hidden="true" aria-label="Next" ng-click="changePage({ page: total })">»</span>
-                          </li>
-                      </ul>
-                    </nav>
-                </pagination>
-              </div>
-          </div>
-        </div>
-
-
-
-
-
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="tab-pane" id="costs">
+        <div ng-show="activeTab === 'costs'">
           <div class="row">
             <div class="col-xs-12">
               <div class="panel panel-default">
@@ -710,84 +288,57 @@
                     Costs
                   </div>
                 </div>
-                
-                <!--TABLE TABLE TABLE TABLE -->
-          <div class="panel-body">
-              <div class="table-responsive">
-                <table class="table table-hover table-condensed dataTable no-footer">
-                  <thead>
-                    <tr>
-                      <th class="table-checkbox"><input type="checkbox"></th>
-                      <th>Name</th>
-                      <th>Amount</th>
-                      <th>Release</th>
-                      <th>Contract</th>
-                      <th>Client</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="v-align-middle"><input type="checkbox"></td>
-                      <td class="v-align-middle">Cost 1</td>
-                      <td class="v-align-middle">£1234</td>
-                      <td class="v-align-middle">Release Title</td>
-                      <td class="v-align-middle">Contract 1</td>
-                      <td class="v-align-middle">Client 1</td>
-                    </tr>
-                    <tr>
-                      <td class="v-align-middle"><input type="checkbox"></td>
-                      <td class="v-align-middle">Cost 1</td>
-                      <td class="v-align-middle">£1234</td>
-                      <td class="v-align-middle">Release Title</td>
-                      <td class="v-align-middle">Contract 1</td>
-                      <td class="v-align-middle">Client 1</td>
-                    </tr>
-                    <tr>
-                      <td class="v-align-middle"><input type="checkbox"></td>
-                      <td class="v-align-middle">Cost 1</td>
-                      <td class="v-align-middle">£1234</td>
-                      <td class="v-align-middle">Release Title</td>
-                      <td class="v-align-middle">Contract 1</td>
-                      <td class="v-align-middle">Client 1</td>
-                    </tr>
-                    <tr>
-                      <td class="v-align-middle"><input type="checkbox"></td>
-                      <td class="v-align-middle">Cost 1</td>
-                      <td class="v-align-middle">£1234</td>
-                      <td class="v-align-middle">Release Title</td>
-                      <td class="v-align-middle">Contract 1</td>
-                      <td class="v-align-middle">Client 1</td>
-                    </tr>
-                    <tr>
-                      <td class="v-align-middle"><input type="checkbox"></td>
-                      <td class="v-align-middle">Cost 1</td>
-                      <td class="v-align-middle">£1234</td>
-                      <td class="v-align-middle">Release Title</td>
-                      <td class="v-align-middle">Contract 1</td>
-                      <td class="v-align-middle">Client 1</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="panel-body">
+                  <div class="table-responsive">
+                    <table class="table table-hover table-condensed dataTable no-footer">
+                      <thead>
+                        <tr>
+                          <th class="table-checkbox">
+                            <input type="checkbox">
+                          </th>
+                          <th>Name</th>
+                          <th>Amount</th>
+                          <th>Type</th>
+                          <th>Release</th>
+                          <th>Contract</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <cost-table-row ng-repeat="cost in contract.costs" cost="cost"></cost-table-row>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
-        <!-- TABLE END TABLE END TABLE END TABLE END -->
-    <div class="row">
-        <div class="col-xs-12 text-center">
-          <pagination pages="pages" total="total_pages" current="current_page" change-page="changePage(page)" class="ng-isolate-scope">
-              <nav>
-                <ul class="pagination">
-                    <li class="cursor">
-                      <span aria-hidden="true" aria-label="Previous" ng-click="changePage({ page: 1 })">«</span>
-                    </li>
-                    <li class="cursor ng-scope" ng-repeat="page in pages">
-                      <span ng-click="changePage({ page: page })" ng-class="{ current: current === page }" class="ng-binding current">1</span>
-                    </li>
-                    <li class="cursor">
-                      <span aria-hidden="true" aria-label="Next" ng-click="changePage({ page: total })">»</span>
-                    </li>
-                </ul>
-              </nav>
-          </pagination>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade stick-up" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header clearfix text-left">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
+        </button>
+        <h5>Delete Contract</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12 m-t-20">
+            <p>Are you sure you want to delete this contract?  This cannot be undone.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 m-t-20 text-right">
+            <button type="button" class="btn btn-default m-t-5" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-danger m-t-5" ng-click="delete()"><i class="fa fa-trash"></i>&nbsp;Delete</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

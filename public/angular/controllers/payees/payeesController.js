@@ -1,12 +1,12 @@
 angular.module('Curve')
-	.controller('releasesController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Release', 'Notification', function($scope, $routeParams, Session, Pagination, Release, Notification) {
+	.controller('payeesController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Payee', 'Notification', function($scope, $routeParams, Session, Pagination, Payee, Notification) {
 		var controller = this;
-		$scope.releases = [];
+		$scope.payees = [];
 		$scope.searchText = null;
 		this.filter = function(params, callback) {
-			Release.all(params, function(response) {
+			Payee.all(params, function(response) {
 				if(response.status == 200) {
-					$scope.releases = response.data.releases;
+					$scope.payees = response.data.payees;
 					$scope.totalPages = response.data.meta.totalPages;
 					$scope.currentPage = response.data.meta.currentPage;
 					$scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages);
@@ -16,9 +16,9 @@ angular.module('Curve')
 				}
 			});
 		};
-		$scope.search = function() {
-			controller.filter({ name: $scope.searchText }, function() {
-				Notification.success('Releases Successfully Searched');
+		$scope.search = function(text) {
+			controller.filter({ name: text }, function() {
+				Notification.success('Payees Successfully Searched');
 			});
 		};
 		$scope.changePage = function(page) {
@@ -26,21 +26,22 @@ angular.module('Curve')
 		};
 		$scope.deleteSelected = function() {
 			var num = 0
-			$scope.releases.forEach(function(release, callback) {
-				if(release.selected) { 
-					Release.delete(release._id, function(response) {
+			$scope.payees.forEach(function(payee, callback) {
+				if(payee.selected) { 
+					Payee.delete(payee._id, function(response) {
 						if(response.status == 200) {
 							num++;
-							var index = $scope.releases.indexOf(release);
-							$scope.releases.splice(index, 1);
+							var index = $scope.payees.indexOf(payee);
+							$scope.payees.splice(index, 1);
 							$('#deleteModal').modal('hide');
 						}
 					});
 				}
 			});
 			$('#deleteModal').on('hidden.bs.modal', function() {
-				Notification.success(num + ' Releases successfully deleted');
+				Notification.success(num + ' Payees successfully deleted');
 			});
 		}
+		// Load all payees on page load
 		this.filter({});
 	}]);

@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="form-group col-xs-3 col-md-2">
+    <label>Territory</label>
+    <ui-select ng-model="sale.territory">
+      <ui-select-match>
+        <span ng-bind="$select.selected.name"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="item.iso2 as item in (territories | filter: $select.search)">
+        <span ng-bind="item.name"></span>
+      </ui-select-choices>
+    </ui-select>
+  </div>
+  <div class="form-group col-xs-3 col-md-2 sales-row-field-smaller">
+    <label>Channel</label>
+    <ui-select ng-model="sale.channel">
+      <ui-select-match>
+        <span ng-bind="$select.selected"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="item in (channels | filter: $select.search)">
+        <span ng-bind="item"></span>
+      </ui-select-choices>
+    </ui-select>
+  </div>
+  <div class="form-group col-xs-3 col-md-2 sales-row-field-smaller">
+    <label>Configuration</label>
+    <ui-select ng-model="sale.configuration">
+      <ui-select-match>
+        <span ng-bind="$select.selected"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="item in (configurations | filter: $select.search)">
+        <span ng-bind="item"></span>
+      </ui-select-choices>
+    </ui-select>
+  </div>
+  <div class="form-group col-xs-3 col-md-2 sales-row-field-smaller">
+    <label>Price Category</label>
+    <ui-select ng-model="sale.priceCategory">
+      <ui-select-match>
+        <span ng-bind="$select.selected"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="item in (priceCategories | filter: $select.search)">
+        <span ng-bind="item"></span>
+      </ui-select-choices>
+    </ui-select>
+  </div>
+  <div class="form-group col-xs-3 col-md-2 sales-row-field-smaller">
+    <label>Type</label>
+    <ui-select ng-model="sale.type">
+      <ui-select-match>
+        <span ng-bind="$select.selected"></span>
+      </ui-select-match>
+      <ui-select-choices repeat="item in (salesTypes | filter: $select.search)">
+        <span ng-bind="item"></span>
+      </ui-select-choices>
+    </ui-select>
+  </div>
+  <div class="form-group col-xs-3 col-md-1">
+    <label>Rate %</label>
+    <input type="text" class="form-control" ng-model="sale.rate">
+  </div>
+  <div class="form-group required col-xs-3 col-md-2 sales-row-field-smaller">
+    <label>Unit Deduction</label>
+    <input type="text" class="form-control" ng-model="sale.unitDeduction">
+  </div>
+  <div class="form-group col-xs-3 col-md-1">
+    <label>Reserve %</label>
+    <input type="text" class="form-control" ng-model="sale.reserve">
+  </div>
+  <div class="form-group col-xs-3 col-md-1 sales-row-field-smaller">
+    <button class="btn btn-danger row-button" ng-click="delete({ sale: sale })"><i class="fa fa-trash"></i></button>
+  </div>
+</div>

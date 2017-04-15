@@ -1,8 +1,17 @@
-<td class="v-align-middle"><input type="checkbox"></td>
+<td class="v-align-middle"><input type="checkbox" ng-model="work.selected"></td>
 <td class="v-align-middle">
-	<a href="#/works/{{ work._id }}/edit">
+	<a ng-if="!noLinks" href="#/works/{{ work._id }}/edit">
 		{{ work.title }}
 	</a>
+	<span ng-if="noLinks">{{ work.title }}</span>
 </td>
 <td class="v-align-middle">{{ work.composer }}</td>
 <td class="v-align-middle">{{ work.iswc }}</td>
+<td ng-if="addIcon" class="v-align-middle">
+	<button ng-if="!work.added" class="btn btn-sm btn-complete" ng-click="addFunction(work)">
+		<i class="fa fa-plus"></i>
+	</button>
+	<button ng-if="work.added" class="btn btn-sm btn-success" disabled="true">
+		<i class="fa fa-check"></i>
+	</button>
+</td>

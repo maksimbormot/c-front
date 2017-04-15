@@ -1,11 +1,18 @@
-<td class="v-align-middle"><input type="checkbox"></td>
+<td class="v-align-middle"><input type="checkbox" ng-model="release.selected"></td>
 <td class="v-align-middle">
-	<a href="#/releases/{{ release._id }}/edit">
-		{{ release.title }}
-	</a>
+	<a ng-if="!noLinks" href="#/releases/{{ release._id }}/edit">{{ release.title }}</a>
+	<span ng-if="noLinks">{{ release.title }}</span>
 </td>
 <td class="v-align-middle">{{ release.artist }}</td>
 <td class="v-align-middle">{{ release.catNo }}</td>
 <td class="v-align-middle">{{ release.barcode }}</td>
 <td class="v-align-middle">{{ release.label }}</td>
 <td class="v-align-middle">{{ release.format }}</td>
+<td ng-if="addIcon" class="v-align-middle">
+	<button ng-if="!release.added" class="btn btn-sm btn-complete" ng-click="addFunction(release)">
+		<i class="fa fa-plus"></i>
+	</button>
+	<button ng-if="release.added" class="btn btn-sm btn-success" disabled="true">
+		<i class="fa fa-check"></i>
+	</button>
+</td>

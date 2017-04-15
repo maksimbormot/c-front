@@ -4,7 +4,10 @@ angular.module('Curve')
 			restrict: "A",
 			templateUrl: "angular/templates/directives/track-table-row.html",
 			scope: {
-				track: "="
+				track: "=",
+				noLinks: "=",
+				addIcon: "=",
+				addFunction: "&"
 			}
 		}
 	});

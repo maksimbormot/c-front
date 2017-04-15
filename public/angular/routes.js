@@ -81,16 +81,49 @@ angular.module('Curve')
 			controllerAs: 'workCtrl'
 		})
 		.when('/payees', {
-			templateUrl: '/angular/templates/payees/index.html'
+			templateUrl: '/angular/templates/payees/index.html',
+			controller: 'payeesController',
+			controllerAs: 'payeesCtrl'
 		})
 		.when('/payees/:id/edit', {
-			templateUrl: '/angular/templates/payees/edit.html'
+			templateUrl: '/angular/templates/payees/edit.html',
+			controller: 'payeeEditController',
+			controllerAs: 'payeeCtrl'
+		})
+		.when('/payees/new', {
+			templateUrl: '/angular/templates/payees/edit.html',
+			controller: 'payeeEditController',
+			controllerAs: 'payeeCtrl'
 		})
 		.when('/contracts', {
-			templateUrl: '/angular/templates/contracts/index.html'
+			templateUrl: '/angular/templates/contracts/index.html',
+			controller: 'contractsController',
+			controllerAs: 'contractsCtrl'
 		})
 		.when('/contracts/:id/edit', {
-			templateUrl: '/angular/templates/contracts/edit.html'
+			templateUrl: '/angular/templates/contracts/edit.html',
+			controller: 'contractEditController',
+			controllerAs: 'contractCtrl'
+		})
+		.when('/contracts/new', {
+			templateUrl: '/angular/templates/contracts/edit.html',
+			controller: 'contractEditController',
+			controllerAs: 'contractCtrl'
+		})
+		.when('/costs', {
+			templateUrl: '/angular/templates/costs/index.html',
+			controller: 'costsController',
+			controllerAs: 'costsCtrl'
+		})
+		.when('/costs/:id/edit', {
+			templateUrl: '/angular/templates/costs/edit.html',
+			controller: 'costEditController',
+			controllerAs: 'costCtrl'
+		})
+		.when('/costs/new', {
+			templateUrl: '/angular/templates/costs/edit.html',
+			controller: 'costEditController',
+			controllerAs: 'costCtrl'
 		})
 		.when('/mechanicals', {
 			templateUrl: '/angular/templates/mechanicals/index.html'
@@ -103,12 +136,6 @@ angular.module('Curve')
 		})
 		.when('/sales/:id/edit', {
 			templateUrl: '/angular/templates/sales/edit.html'
-		})
-		.when('/costs', {
-			templateUrl: '/angular/templates/costs/index.html'
-		})
-		.when('/costs/:id/edit', {
-			templateUrl: '/angular/templates/costs/edit.html'
 		})
 		.when('/periods', {
 			templateUrl: '/angular/templates/periods/index.html'

@@ -1,9 +1,18 @@
-<td class="v-align-middle"><input type="checkbox"></td>
+<td class="v-align-middle"><input type="checkbox" ng-model="track.selected"></td>
 <td class="v-align-middle">
-	<a href="#/tracks/{{ track._id }}/edit">
+	<a ng-if="!noLinks" href="#/tracks/{{ track._id }}/edit">
 		{{ track.title }}
 	</a>
+	<span ng-if="noLinks">{{ track.title }}</span>
 </td>
 <td class="v-align-middle">{{ track.artist }}</td>
 <td class="v-align-middle">{{ track.isrc }}</td>
 <td class="v-align-middle">{{ track.pLine }}</td>
+<td ng-if="addIcon" class="v-align-middle">
+	<button ng-if="!track.added" class="btn btn-sm btn-complete" ng-click="addFunction(track)">
+		<i class="fa fa-plus"></i>
+	</button>
+	<button ng-if="track.added" class="btn btn-sm btn-success" disabled="true">
+		<i class="fa fa-check"></i>
+	</button>
+</td>

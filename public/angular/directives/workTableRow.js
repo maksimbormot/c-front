@@ -4,7 +4,10 @@ angular.module('Curve')
 			restrict: "A",
 			templateUrl: "angular/templates/directives/work-table-row.html",
 			scope: {
-				work: "="
+				work: "=",
+				noLinks: "=",
+				addIcon: "=",
+				addFunction: "&"
 			}
 		}
 	});
