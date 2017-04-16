@@ -1,63 +1,80 @@
 angular.module('Curve')
-	.factory('Campaign', function CampaignFactory($http, Session, Release, Track, Work){
-		return {
-			all: function(params, callback) {
-				$http({ method: 'GET', url: 'http://localhost:8081/campaigns?applicationToken=12345&token=' + Session.token + "&" + $.param(params) }).then(function(data){
-					callback(data);
-				});
-			},
-			get: function(id, callback) {
-				$http({ method: 'GET', url: 'http://localhost:8081/campaigns/' + id + '?applicationToken=12345&token=' + Session.token }).then(function(data){
-					callback(data);
-				});
-			},
-			update: function(id, params, callback) {
-				$http({ method: "PUT", url: 'http://localhost:8081/campaigns/' + id + '?applicationToken=12345&token=' + Session.token, data: params, headers: {'Content-Type': 'application/json'} }).then(function(data){
-					callback(data);
-				});
-			},
-			delete: function(id, callback) {
-				$http.delete('http://localhost:8081/campaigns/' + id + '?applicationToken=12345&token=' + Session.token).then(function(data){
-					callback(data);
-				});
-			},
-			create: function(params, callback) {
-				$http({ method: "POST", url: 'http://localhost:8081/campaigns?applicationToken=12345&token=' + Session.token, data: $.param(params), headers: {'Content-Type': 'application/x-www-form-urlencoded'} }).then(function(data){
-					callback(data);
-				});
-			},
-			loadReleases: function(campaign, callback) {
-				campaign.releases = [];
-				campaign.releaseIds.forEach(function(releaseId) {
-					if(releaseId) {
-						Release.get(releaseId, function(release) {
-							campaign.releases.push(release.data);
-						});
-					}
-				});
-				if(callback) { callback(campaign); }
-			},
-			loadTracks: function(campaign, callback) {
-				campaign.tracks = [];
-				campaign.trackIds.forEach(function(trackId) {
-					if(trackId) {
-						Track.get(trackId, function(track) {
-							campaign.tracks.push(track.data);
-						});
-					}
-				});
-				if(callback) { callback(campaign); }
-			},
-			loadWorks: function(campaign, callback) {
-				campaign.works = [];
-				campaign.workIds.forEach(function(workId) {
-					if(workId) {
-						Work.get(workId, function(work) {
-							campaign.works.push(work.data);
-						});
-					}
-				});
-				if(callback) { callback(campaign); }
-			}
-		};
-	});
+  .factory('Campaign', function CampaignFactory($http, Session, Release, Track, Work, Upload) {
+    return {
+      all: function(params, callback) {
+        $http({ method: 'GET', url: 'http://localhost:8081/campaigns?applicationToken=12345&token=' + Session.token + "&" + $.param(params) }).then(function(data) {
+          callback(data);
+        });
+      },
+      get: function(id, callback) {
+        $http({ method: 'GET', url: 'http://localhost:8081/campaigns/' + id + '?applicationToken=12345&token=' + Session.token }).then(function(data) {
+          callback(data);
+        });
+      },
+      update: function(id, params, callback) {
+        $http({ method: "PUT", url: 'http://localhost:8081/campaigns/' + id + '?applicationToken=12345&token=' + Session.token, data: params, headers: { 'Content-Type': 'application/json' } }).then(function(data) {
+          callback(data);
+        });
+      },
+      delete: function(id, callback) {
+        $http.delete('http://localhost:8081/campaigns/' + id + '?applicationToken=12345&token=' + Session.token).then(function(data) {
+          callback(data);
+        });
+      },
+      create: function(params, callback) {
+        $http({ method: "POST", url: 'http://localhost:8081/campaigns?applicationToken=12345&token=' + Session.token, data: $.param(params), headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function(data) {
+          callback(data);
+        });
+      },
+      loadReleases: function(campaign, callback) {
+        campaign.releases = [];
+        campaign.releaseIds.forEach(function(releaseId) {
+          if(releaseId) {
+            Release.get(releaseId, function(release) {
+              campaign.releases.push(release.data);
+            });
+          }
+        });
+        if(callback) { callback(campaign); }
+      },
+      loadTracks: function(campaign, callback) {
+        campaign.tracks = [];
+        campaign.trackIds.forEach(function(trackId) {
+          if(trackId) {
+            Track.get(trackId, function(track) {
+              campaign.tracks.push(track.data);
+            });
+          }
+        });
+        if(callback) { callback(campaign); }
+      },
+      loadWorks: function(campaign, callback) {
+        campaign.works = [];
+        campaign.workIds.forEach(function(workId) {
+          if(workId) {
+            Work.get(workId, function(work) {
+              campaign.works.push(work.data);
+            });
+          }
+        });
+        if(callback) { callback(campaign); }
+      },
+      import: function(file, callback) {
+        Upload.upload({
+          url: 'http://localhost:8081/campaigns/import?applicationToken=12345&token=' + Session.token,
+          data: {
+            file: file.data
+          }
+        }).then(function(response) {
+          callback(response)
+        })
+      },
+      export: function(callback) {
+        $http.get('http://localhost:8081/campaigns/export?applicationToken=12345&token=' + Session.token, {
+          responseType: 'arraybuffer'
+        }).then(function(data) {
+        	callback(data);
+        });
+      }
+    };
+  });

@@ -17,12 +17,12 @@ angular.module('Curve')
 			});
 		};
 		$scope.search = function() {
-			controller.filter({ name: $scope.searchText }, function() {
+			controller.filter({ text: $scope.searchText }, function() {
 				Notification.success('Releases Successfully Searched');
 			});
 		};
 		$scope.changePage = function(page) {
-			controller.filter({ name: $scope.searchText, page: page });
+			controller.filter({ text: $scope.searchText, page: page });
 		};
 		$scope.deleteSelected = function() {
 			var num = 0

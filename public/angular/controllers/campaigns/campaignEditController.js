@@ -73,12 +73,12 @@ angular.module('Curve')
 			});
 		}
 		$scope.releasesSearch = function() {
-			controller.filterReleases({ name: $scope.releaseSearchText }, function() {
+			controller.filterReleases({ text: $scope.releaseSearchText }, function() {
 				Notification.success('Releases Successfully Searched');
 			});
 		};
 		$scope.changeReleasePage = function(page) {
-			controller.filterReleases({ name: $scope.releaseSearchText, page: page });
+			controller.filterReleases({ text: $scope.releaseSearchText, page: page });
 		};
 		$scope.addRelease = function(release) {
 			release.added = true;
@@ -126,12 +126,12 @@ angular.module('Curve')
 			});
 		}
 		$scope.tracksSearch = function() {
-			controller.filterTracks({ name: $scope.trackSearchText }, function() {
+			controller.filterTracks({ text: $scope.trackSearchText }, function() {
 				Notification.success('Tracks Successfully Searched');
 			});
 		};
 		$scope.changeTrackPage = function(page) {
-			controller.filterTracks({ name: $scope.trackSearchText, page: page });
+			controller.filterTracks({ text: $scope.trackSearchText, page: page });
 		};
 		$scope.addTrack = function(track) {
 			track.added = true;
@@ -178,12 +178,12 @@ angular.module('Curve')
 			});
 		}
 		$scope.worksSearch = function() {
-			controller.filterWorks({ name: $scope.workSearchText }, function() {
+			controller.filterWorks({ text: $scope.workSearchText }, function() {
 				Notification.success('Works Successfully Searched');
 			});
 		};
 		$scope.changeWorkPage = function(page) {
-			controller.filterWorks({ name: $scope.workSearchText, page: page });
+			controller.filterWorks({ text: $scope.workSearchText, page: page });
 		};
 		$scope.addWork = function(work) {
 			work.added = true;

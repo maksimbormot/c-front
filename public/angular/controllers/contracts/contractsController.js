@@ -16,13 +16,13 @@ angular.module('Curve')
 				}
 			});
 		};
-		$scope.search = function(text) {
-			controller.filter({ name: text }, function() {
+		$scope.search = function() {
+			controller.filter({ text: $scope.searchText }, function() {
 				Notification.success('Contracts Successfully Searched');
 			});
 		};
 		$scope.changePage = function(page) {
-			controller.filter({ name: $scope.searchText, page: page });
+			controller.filter({ text: $scope.searchText, page: page });
 		};
 		$scope.deleteSelected = function() {
 			var num = 0
