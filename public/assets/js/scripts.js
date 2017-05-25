@@ -60,7 +60,27 @@
 
 
 // Select Alls
-$(document).on('click', '.select-all', function() {
-    
-    $(this).parent('table').find('select')
+$(document).on('click', '.select-all', function(e) {
+    if( this.checked ) {
+        $('.select-unit').each(function(){
+            this.checked = true;
+        });
+    } else {
+        $('.select-unit').each(function(){
+            this.checked = false;
+        });
+    }    
+});
+
+$(document).on('click', '.select-unit', function(e) {
+    var checked = true;
+    $('.select-unit').each(function(){
+        if( !this.checked ) {
+            checked = false;
+            return;
+        }
+    });
+    $('.select-all').each(function(){
+        this.checked = checked;
+    });
 });
