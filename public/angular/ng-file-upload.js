@@ -326,7 +326,7 @@ ngFileUpload.service('UploadBase', ['$http', '$q', '$timeout', function ($http, 
       config._isDigested = true;
       digestConfig();
     }
-
+    
     return sendHttp(config);
   };
 

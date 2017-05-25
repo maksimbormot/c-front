@@ -48,6 +48,7 @@ angular.module('Curve')
           $('#importModal').modal('hide');
           Notification.success('Campaigns successfully imported');
         } else if(response.status == 400) {
+          console.log(response.data.errors);
           $scope.importErrors = response.data.errors;
         } else {
 

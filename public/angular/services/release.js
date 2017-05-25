@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.factory('Release', function ReleaseFactory($http, Session, Track){
+	.factory('Release', function ReleaseFactory($http, Session, Track, Upload){
 		return {
 			all: function(params, callback) {
 				$http({ method: 'GET', url: 'http://localhost:8081/releases?applicationToken=12345&token=' + Session.token + "&" + $.param(params) }).then(function(data){
@@ -40,6 +40,28 @@ angular.module('Curve')
 				} else if(callback) { 
 					callback(release); 
 				}
+			},
+			import: function(file, callback) {
+				Upload.upload({
+				url: 'http://localhost:8081/releases/import?applicationToken=12345&token=' + Session.token,
+				data: {
+					file: file,
+					another: "field"
+				}
+				}).then(function(response) {
+					callback(response)
+				}, function(e){
+					callback(e);
+				})
+			},
+			export: function(callback) {
+				$http.get('http://localhost:8081/releases/export?applicationToken=12345&token=' + Session.token, {
+				responseType: 'arraybuffer'
+				}).then(function(data) {
+					callback(data);
+				}, function(e){
+					callback(e);
+				});
 			}
 		};
 	});

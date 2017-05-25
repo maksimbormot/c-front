@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.controller('worksController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Work', 'Notification', function($scope, $routeParams, Session, Pagination, Work, Notification) {
+	.controller('worksController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Work', 'Notification', 'FileSaver', function($scope, $routeParams, Session, Pagination, Work, Notification, FileSaver) {
 		var controller = this;
 		$scope.works = [];
 		$scope.searchText = null;
@@ -41,6 +41,30 @@ angular.module('Curve')
 			});
 			$('#deleteModal').on('hidden.bs.modal', function() {
 				Notification.success(num + ' Works successfully deleted');
+			});
+		}
+		$scope.import = function() {
+			Work.import($scope.importFile, function(response) {
+				if(response.status == 200) {
+					$('#importModal').modal('hide');
+					Notification.success('Works successfully imported');
+				} else if(response.status == 400) {
+					$scope.importErrors = response.data.errors;
+				} else {
+
+				}
+			});
+		}
+		$scope.export = function() {
+			Work.export(function(result) {
+				if(result && result.status == 200) {
+					var file = new Blob([result.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+					var name = "Works Export.xlsx";
+					FileSaver.saveAs(file, name);
+				} else {
+					console.error(result);
+					Notification.error('Works failed to export, please try again.');
+				}
 			});
 		}
 		// Load all clients on page load

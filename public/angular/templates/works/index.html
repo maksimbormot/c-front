@@ -25,7 +25,7 @@
       </form>
     </div>
     <div class="col-sm-12 col-md-6 col-md-offset-1 col-lg-6 col-md-offset-0 text-right">
-      <button class="btn btn-default" data-toggle="modal" data-target="#exportModal"><i class="fa fa-download"></i>&nbsp;Export</button>
+      <button class="btn btn-default" ng-click="export()"><i class="fa fa-download"></i>&nbsp;Export</button>
       <button class="btn btn-default" data-toggle="modal" data-target="#importModal"><i class="fa fa-upload"></i>&nbsp;Import</button>
       <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i>&nbsp;Delete</button>
       <a href="#/works/new">
@@ -106,38 +106,26 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-xs-12 m-t-20">
-            
+            <form>
+              <div class="form-group">
+                <label for="email">File</label>
+                <input type="file" ng-model="importFile" ngf-select>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row" ng-if="importErrors">
+          <div class="col-sm-12">
+            <ul>
+              <li ng-repeat="error in importErrors track by $index">{{ error }}</li>
+            </ul>
           </div>
         </div>
         <div class="row">
           <div class="col-xs-12 m-t-20 text-right">
+            <a class="btn btn-success m-t-5" href="/templates/templates.zip">Download Templates</a>
             <button type="button" class="btn btn-default m-t-5" data-dismiss="modal">Cancel</button>
             <button type="button" class="btn btn-complete m-t-5" ng-click="import()"><i class="fa fa-upload"></i>&nbsp;Import</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade stick-up" id="exportModal" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header clearfix text-left">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
-        </button>
-        <h5>Export Works</h5>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-xs-12 m-t-20">
-            
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-xs-12 m-t-20 text-right">
-            <button type="button" class="btn btn-default m-t-5" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-complete m-t-5" ng-click="export()"><i class="fa fa-download"></i>&nbsp;Export</button>
           </div>
         </div>
       </div>

@@ -104,7 +104,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-xs-12 m-t-20">
-            <form>
+            <form >
               <div class="form-group">
                 <label for="email">File</label>
                 <input type="file" ng-model="importFile" ngf-select>
@@ -115,7 +115,7 @@
         <div class="row" ng-if="importErrors">
           <div class="col-sm-12">
             <ul>
-              <li ng-repeat="error in importErrors">{{ error }}</li>
+              <li ng-repeat="error in importErrors track by $index">{{ error }}</li>
             </ul>
           </div>
         </div>

@@ -68,6 +68,8 @@ angular.module('Curve')
           }
         }).then(function(response) {
           callback(response)
+        }, function(e){
+          callback(e);
         })
       },
       export: function(callback) {
@@ -75,6 +77,8 @@ angular.module('Curve')
           responseType: 'arraybuffer'
         }).then(function(data) {
         	callback(data);
+        }, function(e){
+          callback(e);
         });
       }
     };

@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.controller('tracksController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Track', 'Notification', function($scope, $routeParams, Session, Pagination, Track, Notification) {
+	.controller('tracksController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Track', 'Notification', 'FileSaver', function($scope, $routeParams, Session, Pagination, Track, Notification, FileSaver) {
 		var controller = this;
 		$scope.tracks = [];
 		$scope.searchText = null;
@@ -40,6 +40,30 @@ angular.module('Curve')
 			});
 			$('#deleteModal').on('hidden.bs.modal', function() {
 				Notification.success(num + ' Tracks successfully deleted');
+			});
+		}
+		$scope.import = function() {
+			Track.import($scope.importFile, function(response) {
+				if(response.status == 200) {
+					$('#importModal').modal('hide');
+					Notification.success('Tracks successfully imported');
+				} else if(response.status == 400) {
+					$scope.importErrors = response.data.errors;
+				} else {
+
+				}
+			});
+		}
+		$scope.export = function() {
+			Track.export(function(result) {
+				if(result && result.status == 200) {
+					var file = new Blob([result.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+					var name = "Tracks Export.xlsx";
+					FileSaver.saveAs(file, name);
+				} else {
+					console.error(result);
+					Notification.error('Tracks failed to export, please try again.');
+				}
 			});
 		}
 		this.filter({});

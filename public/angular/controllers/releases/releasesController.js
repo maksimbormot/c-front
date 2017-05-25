@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.controller('releasesController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Release', 'Notification', function($scope, $routeParams, Session, Pagination, Release, Notification) {
+	.controller('releasesController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Release', 'Notification', 'FileSaver', function($scope, $routeParams, Session, Pagination, Release, Notification, FileSaver) {
 		var controller = this;
 		$scope.releases = [];
 		$scope.searchText = null;
@@ -40,6 +40,30 @@ angular.module('Curve')
 			});
 			$('#deleteModal').on('hidden.bs.modal', function() {
 				Notification.success(num + ' Releases successfully deleted');
+			});
+		}
+		$scope.import = function() {
+			Release.import($scope.importFile, function(response) {
+				if(response.status == 200) {
+					$('#importModal').modal('hide');
+					Notification.success('Releases successfully imported');
+				} else if(response.status == 400) {
+					$scope.importErrors = response.data.errors;
+				} else {
+
+				}
+			});
+		}
+		$scope.export = function() {
+			Release.export(function(result) {
+				if(result && result.status == 200) {
+					var file = new Blob([result.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+					var name = "Releases Export.xlsx";
+					FileSaver.saveAs(file, name);
+				} else {
+					console.error(result);
+					Notification.error('Releases failed to export, please try again.');
+				}
 			});
 		}
 		this.filter({});
