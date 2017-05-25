@@ -4,6 +4,7 @@ angular.module('Curve')
 		$scope.works = [];
 		$scope.searchText = null;
 		this.filter = function(params, callback) {
+			console.log($scope.works);
 			Work.all(params, function(response) {
 				if(response.status == 200) {
 					$scope.works = response.data.works;
