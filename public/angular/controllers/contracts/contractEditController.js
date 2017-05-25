@@ -14,6 +14,7 @@ angular.module('Curve')
 		if($routeParams.id) {
 			Contract.get($routeParams.id, function(response) {
 				if(response.status == 200) {
+					console.log(response.data);
 					$scope.contract = response.data;
 				} else {
 					Notification.error('Error loading contract, please try again or contact support');

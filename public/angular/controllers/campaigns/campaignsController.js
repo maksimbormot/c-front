@@ -1,5 +1,5 @@
 angular.module('Curve')
-  .controller('campaignsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Campaign', 'Notification', function($scope, $routeParams, Session, Pagination, Campaign, Notification) {
+  .controller('campaignsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Campaign', 'Notification', 'FileSaver', function($scope, $routeParams, Session, Pagination, Campaign, Notification, FileSaver) {
     var controller = this;
     $scope.campaigns = [];
     $scope.searchText = null;
@@ -46,6 +46,7 @@ angular.module('Curve')
       Campaign.import($scope.importFile, function(response) {
         if(response.status == 200) {
           $('#importModal').modal('hide');
+          Notification.success('Campaigns successfully imported');
         } else if(response.status == 400) {
           $scope.importErrors = response.data.errors;
         } else {
@@ -55,11 +56,10 @@ angular.module('Curve')
     }
     $scope.export = function() {
       Campaign.export(function(result) {
-        if(result) {
-          var file = new Blob([result], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        if(result && result.status == 200) {
+          var file = new Blob([result.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
           var name = "Campaigns Export.xlsx";
           FileSaver.saveAs(file, name);
-          Notification.success(num + ' Campaigns successfully deleted');
         } else {
           console.error(result);
           Notification.error('Campaigns failed to export, please try again.');

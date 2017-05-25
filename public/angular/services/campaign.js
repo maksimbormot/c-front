@@ -63,7 +63,8 @@ angular.module('Curve')
         Upload.upload({
           url: 'http://localhost:8081/campaigns/import?applicationToken=12345&token=' + Session.token,
           data: {
-            file: file.data
+            file: file,
+            another: "field"
           }
         }).then(function(response) {
           callback(response)
