@@ -21,6 +21,9 @@ angular.module('Curve')
 				Notification.success('Campaigns Successfully Searched');
 			});
 		};
+		$scope.import = function() {
+			console.log('campaign import!');
+		};
 		$scope.changePage = function(page) {
 			controller.filter({ name: $scope.searchText, page: page });
 		};
