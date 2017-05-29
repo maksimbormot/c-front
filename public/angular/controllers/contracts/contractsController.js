@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.controller('contractsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Contract', 'Notification', function($scope, $routeParams, Session, Pagination, Contract, Notification) {
+	.controller('contractsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Contract', 'Notification', 'FileSaver', function($scope, $routeParams, Session, Pagination, Contract, Notification, FileSaver) {
 		var controller = this;
 		$scope.contracts = [];
 		$scope.searchText = null;
@@ -40,6 +40,30 @@ angular.module('Curve')
 			});
 			$('#deleteModal').on('hidden.bs.modal', function() {
 				Notification.success(num + ' Contracts successfully deleted');
+			});
+		}
+		$scope.import = function() {
+			Contract.import($scope.importFile, function(response) {
+				if(response.status == 200) {
+					$('#importModal').modal('hide');
+					Notification.success('Contracts successfully imported');
+				} else if(response.status == 400) {
+					$scope.importErrors = response.data.errors;
+				} else {
+
+				}
+			});
+		}
+		$scope.export = function() {
+			Contract.export(function(result) {
+				if(result && result.status == 200) {
+					var file = new Blob([result.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+					var name = "Contracts Export.xlsx";
+					FileSaver.saveAs(file, name);
+				} else {
+					console.error(result);
+					Notification.error('Contracts failed to export, please try again.');
+				}
 			});
 		}
 		// Load all contracts on page load

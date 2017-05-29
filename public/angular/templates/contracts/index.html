@@ -25,7 +25,7 @@
       </form>
     </div>
     <div class="col-sm-12 col-md-6 col-md-offset-1 col-lg-6 col-md-offset-0 text-right">
-      <button class="btn btn-default" data-toggle="modal" data-target="#exportModal"><i class="fa fa-download"></i>&nbsp;Export</button>
+      <button class="btn btn-default" ng-click="export()"><i class="fa fa-download"></i>&nbsp;Export</button>
       <button class="btn btn-default" data-toggle="modal" data-target="#importModal"><i class="fa fa-upload"></i>&nbsp;Import</button>
       <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i>&nbsp;Delete</button>
       <a href="/#/contracts/new">
@@ -47,7 +47,7 @@
             <table class="table table-hover table-condensed dataTable no-footer">
               <thead>
                 <tr>
-                  <th class="table-checkbox"><input type="checkbox"></th>
+                  <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
                   <th>Name</th>
                   <th>Type</th>
                   <th>Payee</th>
@@ -106,7 +106,19 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-xs-12 m-t-20">
-            
+            <form>
+              <div class="form-group">
+                <label for="email">File</label>
+                <input type="file" ng-model="importFile" ngf-select>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row" ng-if="importErrors">
+          <div class="col-sm-12">
+            <ul>
+              <li ng-repeat="error in importErrors track by $index">{{ error }}</li>
+            </ul>
           </div>
         </div>
         <div class="row">
@@ -120,7 +132,7 @@
   </div>
 </div>
 
-<div class="modal fade stick-up" id="exportModal" tabindex="-1" role="dialog" aria-hidden="true">
+<!--<div class="modal fade stick-up" id="exportModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header clearfix text-left">
@@ -143,4 +155,4 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
