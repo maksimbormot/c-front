@@ -3,6 +3,8 @@ angular.module('Curve')
 		var controller = this;
 		$scope.works = [];
 		$scope.searchText = null;
+		$scope.orderBy = 'title';
+		$scope.orderDir = 'asc';
 		this.filter = function(params, callback) {
 			console.log($scope.works);
 			Work.all(params, function(response) {
@@ -17,6 +19,24 @@ angular.module('Curve')
 				}
 			});
 		};
+		$scope.getSortedData = function(orderBy) {
+			if ( $scope.orderBy == orderBy ) {
+				$scope.orderDir = ( $scope.orderDir == 'asc' ) ? 'desc' : 'asc';
+			}
+			$scope.orderBy = orderBy;
+			controller.filter({ text: $scope.searchText, orderBy: $scope.orderBy, orderDir: $scope.orderDir });
+		};
+		$scope.whatClassIsIt= function(field){
+			if ($scope.orderBy == field) {
+				if ( $scope.orderDir == 'asc' ) {
+					return 'sorting_asc';
+				} else {
+					return 'sorting_desc';
+				}
+			} else {
+				return 'sorting';
+			}
+		}
 		$scope.search = function() {
 			controller.filter({ text: $scope.searchText }, function() {
 				Notification.success('Works Successfully Searched');
