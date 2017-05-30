@@ -7922,6 +7922,9 @@ div.cs-skin-slide .cs-options ul li.cs-selected span {
 .exportOptions .DTTT.btn-group a {
   display: block !important;
 }
+table.dataTable thead {
+  cursor: pointer;
+}
 table.dataTable thead .sorting_asc:after {
   background-image: url("../img/icons/sort_asc.png");
 }
@@ -7930,6 +7933,8 @@ table.dataTable thead .sorting_desc:after {
 }
 table.dataTable thead .sorting:after {
   background-image: url("../img/icons/sort_both.png");
+  background-position: right center;
+  background-repeat: no-repeat;
 }
 table.dataTable thead .sorting_asc_disabled:after {
   background-image: url("../img/icons/sort_asc_disabled.png");
@@ -7946,7 +7951,8 @@ table.dataTable thead .sorting_desc_disabled:after {
   content: "";
   width: 19px;
   height: 19px;
-  background-position: center center;
+  background-position: right center;
+  background-repeat: no-repeat;
   opacity: 1;
 }
 /* Responsive Handlers : Tables */

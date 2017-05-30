@@ -49,9 +49,9 @@
                   <th class="table-checkbox">
                     <input type="checkbox" class="select-all">
                   </th>
-                  <th>Title</th>
-                  <th>Artist</th>
-                  <th>Identifier</th>
+                  <th ng-click="getSortedData('title')" ng-class="whatClassIsIt('title')">Title</th>
+                  <th ng-click="getSortedData('artist')" ng-class="whatClassIsIt('artist')">Artist</th>
+                  <th ng-click="getSortedData('identifier')" ng-class="whatClassIsIt('identifier')">Identifier</th>
                 </tr>
               </thead>
               <tbody>

@@ -48,12 +48,12 @@
               <thead>
                 <tr>
                   <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
-                  <th>Title</th>
-                  <th>Artist</th>
-                  <th>Cat No</th>
-                  <th>Barcode</th>
-                  <th>Label</th>
-                  <th>Format</th>
+                  <th ng-click="getSortedData('title')" ng-class="whatClassIsIt('title')">Title</th>
+                  <th ng-click="getSortedData('artist')" ng-class="whatClassIsIt('artist')">Artist</th>
+                  <th ng-click="getSortedData('catNo')" ng-class="whatClassIsIt('catNo')">Cat No</th>
+                  <th ng-click="getSortedData('barcode')" ng-class="whatClassIsIt('barcode')">Barcode</th>
+                  <th ng-click="getSortedData('label')" ng-class="whatClassIsIt('label')">Label</th>
+                  <th ng-click="getSortedData('format')" ng-class="whatClassIsIt('format')">Format</th>
                 </tr>
               </thead>
               <tbody>
