@@ -134,6 +134,12 @@
               </li>
             </ul>
           </li>
+          <li>
+            <a href="/#/settings" class="detailed">
+              <span class="title settings">Settings</span>
+            </a>
+            <span class="icon-thumbnail"><i class="fa fa-cog"></i></span>
+          </li>
         </ul>
         <div class="clearfix"></div>
       </div>
@@ -315,6 +321,9 @@
 
     <script type="text/javascript" src="angular/app.js"></script>
     <script type="text/javascript" src="angular/routes.js"></script>
+
+    <script type="text/javascript" src="angular/angular-jwt.min.js"></script>
+
     <!-- File Upload -->
     <script type="text/javascript" src="angular/ng-file-upload-all.js"></script>
     
@@ -335,6 +344,11 @@
     <script type="text/javascript" src="angular/services/work.js"></script>
     <script type="text/javascript" src="angular/services/payee.js"></script>
     <script type="text/javascript" src="angular/services/contract.js"></script>
+    <script type="text/javascript" src="angular/services/users.js"></script>
+    <script type="text/javascript" src="angular/services/territories.js"></script>
+    <script type="text/javascript" src="angular/services/cost.js"></script>
+    <script type="text/javascript" src="angular/services/salesTemplate.js"></script>
+
     <!-- Controllers -->
     <script type="text/javascript" src="angular/controllers/application/applicationController.js"></script>
     <script type="text/javascript" src="angular/controllers/clients/clientsController.js"></script>
@@ -350,7 +364,13 @@
     <script type="text/javascript" src="angular/controllers/payees/payeesController.js"></script>
     <script type="text/javascript" src="angular/controllers/payees/payeeEditController.js"></script>
     <script type="text/javascript" src="angular/controllers/contracts/contractsController.js"></script>
-    <script type="text/javascript" src="angular/controllers/contracts/contractEditController.js"></script>
+    <script type="text/javascript" src="angular/controllers/contracts/contractEditController.js"></script>  
+    <script type="text/javascript" src="angular/controllers/settings/settingsController.js"></script>
+    <script type="text/javascript" src="angular/controllers/costs/costsController.js"></script>
+    <script type="text/javascript" src="angular/controllers/costs/costEditController.js"></script>
+    <script type="text/javascript" src="angular/controllers/sales-templates/salesTemplatesController.js"></script>
+    <script type="text/javascript" src="angular/controllers/sales-templates/salesTemplateEditController.js"></script>
+
     <!-- Directives -->
     <script type="text/javascript" src="angular/directives/pagination.js"></script>
     <script type="text/javascript" src="angular/directives/clientTableRow.js"></script>
@@ -367,6 +387,11 @@
     <script type="text/javascript" src="angular/directives/contractMechanicalsRow.js"></script>
     <script type="text/javascript" src="angular/directives/contractReservesRow.js"></script>
     <script type="text/javascript" src="angular/directives/costTableRow.js"></script>
+    <script type="text/javascript" src="angular/directives/distributionChannelsRow.js"></script>
+    <script type="text/javascript" src="angular/directives/configurationsRow.js"></script>
+    <script type="text/javascript" src="angular/directives/priceCategoryRow.js"></script>
+    <script type="text/javascript" src="angular/directives/territoryRow.js"></script>
+    <script type="text/javascript" src="angular/directives/templateTableRow.js"></script>
 
     <!-- Libraries -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.js"></script>

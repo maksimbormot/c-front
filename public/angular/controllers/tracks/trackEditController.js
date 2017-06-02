@@ -1,8 +1,8 @@
 angular.module('Curve')
-	.controller('trackEditController', ['$scope', '$routeParams', '$window', 'Session', 'Track', 'Parent', 'Notification', function($scope, $routeParams, $window, Session, Track, Parent, Notification) {
+	.controller('trackEditController', ['$scope', '$routeParams', '$window', 'Session', 'Track', 'Parent', 'Contract', 'Notification', function($scope, $routeParams, $window, Session, Track, Parent, Contract, Notification) {
 		var controller = this;
-		$scope.track = {};
-		$scope.contracts = [{ _id: "1234", name: "Contract 1" }, { _id: "12345", name: "Contract 2" }];
+		$scope.track = { salesReturnsRights: [], costsRights: [] };
+		$scope.contracts = [];
 		if($routeParams.id) {
 			Track.get($routeParams.id, function(response) {
 				if(response.status == 200) {
@@ -11,7 +11,16 @@ angular.module('Curve')
 					Notification.error('Error loading track, please try again or contact support');
 				}
 			});
-		}
+		} 
+
+		Contract.all($scope.contracts, function(response) {
+			if(response.status == 200) {
+				$scope.contracts = response.data.contracts;
+			} else {
+				Notification.error(response.data.message);
+			}
+		});
+		
 		$scope.addSalesReturnsRights = function() {
 			$scope.track.salesReturnsRights.push({});
 		}
@@ -20,7 +29,7 @@ angular.module('Curve')
 			$scope.track.salesReturnsRights.splice(index, 1);
 		}
 		$scope.addCostsRights = function() {
-			$scope.track.costsRights.push({});
+			$scope.track.costsRights.push({});  
 		}
 		$scope.deleteCostsRights = function(contract) {
 			var index = $scope.track.costsRights.indexOf(contract);

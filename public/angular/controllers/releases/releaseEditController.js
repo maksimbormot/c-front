@@ -1,10 +1,13 @@
 angular.module('Curve')
-	.controller('releaseEditController', ['$scope', '$routeParams', '$window', 'Session', 'Release', 'Notification', 'Track', 'Pagination', function($scope, $routeParams, $window, Session, Release, Notification, Track, Pagination) {
+	.controller('releaseEditController', ['$scope', '$routeParams', '$window', 'Session', 'Release', 'Notification', 'Track', 'Pagination', 'User', 'Client', 'Contract', function($scope, $routeParams, $window, Session, Release, Notification, Track, Pagination, User, Client, Contract) {
 		var controller = this;
-		$scope.release = { aliases: [] };
+		$scope.release = { salesReturnsRights: [], costsRights: [], aliases: [] };
 		$scope.formats = ["CD", "LP", "Digital"];
-		$scope.priceCategories = ["Price Cat 1", "Price Cat 2"];
-		$scope.contracts = [{ _id: "1234", name: "Contract 1" }, { _id: "12345", name: "Contract 2" }];
+		$scope.priceCategories = [];
+		$scope.user = {};
+		$scope.client = {};
+		$scope.contracts = [];
+
 		this.loadRelease = function() {
 			Release.get($routeParams.id, function(response) {
 				if(response.status == 200) {
@@ -20,10 +23,40 @@ angular.module('Curve')
 		if($routeParams.id) {
 			controller.loadRelease();
 		}
+
+		if(Session.id && Session.userType == 'client'){
+			User.get(Session.id, function(response) {
+				if(response.status == 200) {
+					$scope.user = response.data;
+					if ($scope.user.clientId){
+						Client.get($scope.user.clientId, function(response) {
+							if(response.status == 200) {
+								$scope.client = response.data;
+								$scope.priceCategories = $scope.client.priceCategories;
+							} else {
+								Notification.error('Error loading client, please try again or contact support');
+							}
+						});					
+					}
+				} else {
+					Notification.error('Error loading user, please try again or contact support');
+				}
+			});			
+		}
+
+		Contract.all($scope.contracts, function(response) {
+			if(response.status == 200) {
+				$scope.contracts = response.data.contracts;
+			} else {
+				Notification.error(response.data.message);
+			}
+		});
+
 		$scope.releaseDatePopup = false;
+
 		$scope.openReleaseDatePopup = function() {
 			$scope.releaseDatePopup = true;
-		}
+		}    
 		$scope.addSalesReturnsRights = function() {
 			$scope.release.salesReturnsRights.push({});
 		}

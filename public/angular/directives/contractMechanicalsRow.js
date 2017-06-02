@@ -5,8 +5,13 @@ angular.module('Curve')
 			templateUrl: "angular/templates/directives/contract-mechanicals-row.html",
 			scope: {
 				mechanical: "=",
-				territories: "=",
+				countries: "=",
 				delete: "&"
-			}
+			},
+			link: function(scope){
+				scope.groupFind = function(country){
+					return country.country;
+				}
+			}		
 		}
 	});

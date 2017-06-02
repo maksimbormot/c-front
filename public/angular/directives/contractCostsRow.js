@@ -5,9 +5,14 @@ angular.module('Curve')
 			templateUrl: "angular/templates/directives/contract-costs-row.html",
 			scope: {
 				cost: "=",
-				territories: "=",
-				costTypes: "=",
+				countries: "=",
+				costsTypes: "=",
 				delete: "&"
-			}
+			},
+			link: function(scope){
+				scope.groupFind = function(country){
+					return country.country;
+				}
+			}		
 		}
 	});

@@ -1,18 +1,22 @@
 angular.module('Curve')
-	.controller('contractEditController', ['$scope', '$routeParams', '$window', 'Session', 'Contract', 'Parent', 'Notification', function($scope, $routeParams, $window, Session, Contract, Parent, Notification) {
+	.controller('contractEditController', ['$scope', '$routeParams', '$window', 'Session', 'Contract', 'Parent', 'User', 'Client', 'Territories', 'Notification', function($scope, $routeParams, $window, Session, Contract, Parent, User, Client, Territories, Notification) {
 		var controller = this;
 		$scope.contract = { salesTerms: [], returnsTerms: [], costsTerms: [], mechanicalTerms: [], reserves: [] };
 		$scope.royaltors = [{ _id: "1234", name: "Royaltor 1" }, { _id: "12345", name: "Royaltor 2" }];
 		$scope.accountingPeriods = ["Monthly", "Quarterly", "Half-Yearly", "Yearly"];
 		$scope.contractTypes = ["Royalty", "Profit Share"];
-		$scope.territories = [{ iso2: "GB", name: "United Kingdom" }, { iso2: "US", name: "United States" }];
-		$scope.channels = ["Digital", "Physical", "Streaming"];
-		$scope.configurations = ["CD", "Download", "LP"];
-		$scope.priceCategories = ["Full Price", "Budget"];
-		$scope.salesTypes = ["PPD", "Gross Receipts", "Net Receipts"];
-		// Load Contract if ID exists
+		$scope.countries = Territories; 
+		$scope.salesTypes = ["Gross Receipts","Net Receipts", "PPD"];
+		$scope.costsTypes = ["Gross Receipts","Net Receipts", "PPD"];
+		$scope.user = {};
+		$scope.client = {};
+		$scope.channels = [];
+		$scope.configurations = [];
+		$scope.priceCategories = [];
+
+		// Load Contract if ID exists  
 		if($routeParams.id) {
-			Contract.get($routeParams.id, function(response) {
+			Contract.get($routeParams.id, function(response) { 
 				if(response.status == 200) {
 					console.log(response.data);
 					$scope.contract = response.data;
@@ -21,6 +25,28 @@ angular.module('Curve')
 				}
 			});
 		};
+		if(Session.id && Session.userType == 'client'){
+			User.get(Session.id, function(response) {
+				if(response.status == 200) {
+					$scope.user = response.data;
+					if ($scope.user.clientId){
+						Client.get($scope.user.clientId, function(response) {
+							if(response.status == 200) {
+								$scope.client = response.data;
+								$scope.channels = $scope.client.distributionChannels;
+								$scope.configurations = $scope.client.configurations;
+								$scope.priceCategories = $scope.client.priceCategories;
+							} else {
+								Notification.error('Error loading client, please try again or contact support');
+							}
+						});					
+					}
+				} else {
+					Notification.error('Error loading user, please try again or contact support');
+				}
+			});			
+		}
+
 		// Tabs
 		$scope.activeTab = "overview";
 		$scope.setTab = function(value) {

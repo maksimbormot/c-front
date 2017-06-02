@@ -1,8 +1,9 @@
 angular.module('Curve')
-	.controller('payeeEditController', ['$scope', '$routeParams', '$window', 'Session', 'Payee', 'Parent', 'Notification', function($scope, $routeParams, $window, Session, Payee, Parent, Notification) {
+	.controller('payeeEditController', ['$scope', '$routeParams', '$window', 'Session', 'Payee', 'Parent', 'Notification', 'Territories', function($scope, $routeParams, $window, Session, Payee, Parent, Notification, Territories) {
 		var controller = this;
 		$scope.payee = {};
-		$scope.countries = ["United Kingdom", "United States", "France"];
+		$scope.countries = Territories;
+		//$scope.countries = ["United Kingdom", "United States", "France"];
 		// Load Payee if ID exists
 		if($routeParams.id) {
 			Payee.get($routeParams.id, function(response) {
@@ -13,6 +14,9 @@ angular.module('Curve')
 				}
 			});
 		};
+		$scope.groupFind = function(country){
+			return country.country;
+		}
 		$scope.save = function() {
 			if(!$scope.payee._id) {
 				Payee.create($scope.payee, function(response) {

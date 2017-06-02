@@ -20,7 +20,7 @@ angular.module('Curve')
 			controller.filter({ text: $scope.searchText }, function() {
 				Notification.success('Releases Successfully Searched');
 			});
-		};
+		};  
 		$scope.changePage = function(page) {
 			controller.filter({ text: $scope.searchText, page: page });
 		};

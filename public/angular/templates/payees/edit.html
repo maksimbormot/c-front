@@ -43,10 +43,10 @@
             <label>Country</label>
             <ui-select ng-model="payee.country">
               <ui-select-match>
-                  <span ng-bind="$select.selected"></span>
+                  <span ng-bind="$select.selected.name"></span>
               </ui-select-match>
-              <ui-select-choices repeat="item in (countries | filter: $select.search)">
-                  <span ng-bind="item"></span>
+              <ui-select-choices group-by="groupFind" repeat="country.code as country in countries | filter: $select.search">
+                  <span class="country" ng-bind="country.name"></span>
               </ui-select-choices>
             </ui-select>
           </div>

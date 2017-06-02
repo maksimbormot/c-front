@@ -1,8 +1,8 @@
 angular.module('Curve')
-	.controller('workEditController', ['$scope', '$routeParams', '$window', 'Session', 'Work', 'Parent', 'Notification', function($scope, $routeParams, $window, Session, Work, Parent, Notification) {
+	.controller('workEditController', ['$scope', '$routeParams', '$window', 'Session', 'Work', 'Parent', 'Contract', 'Notification', function($scope, $routeParams, $window, Session, Work, Parent, Contract, Notification) {
 		var controller = this;
 		$scope.work = { salesReturnsRights: [], costsRights: [] };
-		$scope.contracts = [{ _id: "1234", name: "Contract 1" }, { _id: "12345", name: "Contract 2" }];
+		$scope.contracts = [];
 		if($routeParams.id) {
 			Work.get($routeParams.id, function(response) {
 				if(response.status == 200) {
@@ -12,6 +12,15 @@ angular.module('Curve')
 				}
 			});
 		}
+
+		Contract.all($scope.contracts, function(response) {
+			if(response.status == 200) {
+				$scope.contracts = response.data.contracts;
+			} else {
+				Notification.error(response.data.message);
+			}
+		});
+		
 		$scope.addSalesReturnsRights = function() {
 			$scope.work.salesReturnsRights.push({});
 		}
