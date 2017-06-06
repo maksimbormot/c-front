@@ -48,10 +48,10 @@
               <thead>
                 <tr>
                   <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
-                  <th>Title</th>
-                  <th>Artist</th>
-                  <th>ISRC</th>
-                  <th>P Line</th>
+                  <th ng-click="getSortedData('title')" ng-class="whatClassIsIt('title')">Title</th>
+                  <th ng-click="getSortedData('artist')" ng-class="whatClassIsIt('artist')">Artist</th>
+                  <th ng-click="getSortedData('isrc')" ng-class="whatClassIsIt('isrc')">ISRC</th>
+                  <th ng-click="getSortedData('pLine')" ng-class="whatClassIsIt('pLine')">P Line</th>
                 </tr>
               </thead>
               <tbody>
