@@ -1,11 +1,9 @@
 angular.module('Curve')
-	.controller('releaseEditController', ['$scope', '$routeParams', '$window', 'Session', 'Release', 'Notification', 'Track', 'Pagination', 'User', 'Client', 'Contract', function($scope, $routeParams, $window, Session, Release, Notification, Track, Pagination, User, Client, Contract) {
+	.controller('releaseEditController', ['$scope', '$routeParams', '$window', 'Session', 'Release', 'Notification', 'Track', 'Pagination', 'Settings', function($scope, $routeParams, $window, Session, Release, Notification, Track, Pagination, Settings) {
 		var controller = this;
 		$scope.release = { salesReturnsRights: [], costsRights: [], aliases: [] };
 		$scope.formats = ["CD", "LP", "Digital"];
 		$scope.priceCategories = [];
-		$scope.user = {};
-		$scope.client = {};
 		$scope.contracts = [];
 
 		this.loadRelease = function() {
@@ -24,33 +22,15 @@ angular.module('Curve')
 			controller.loadRelease();
 		}
 
-		if(Session.id && Session.userType == 'client'){
-			User.get(Session.id, function(response) {
-				if(response.status == 200) {
-					$scope.user = response.data;
-					if ($scope.user.clientId){
-						Client.get($scope.user.clientId, function(response) {
-							if(response.status == 200) {
-								$scope.client = response.data;
-								$scope.priceCategories = $scope.client.priceCategories;
-							} else {
-								Notification.error('Error loading client, please try again or contact support');
-							}
-						});					
-					}
-				} else {
-					Notification.error('Error loading user, please try again or contact support');
-				}
-			});			
-		}
+		Settings.getSettings()
+			.then(function(settings){
+				$scope.priceCategories = settings.priceCategories;
+			});		
 
-		Contract.all($scope.contracts, function(response) {
-			if(response.status == 200) {
-				$scope.contracts = response.data.contracts;
-			} else {
-				Notification.error(response.data.message);
-			}
-		});
+		Settings.getContracts()
+			.then(function(contracts){
+				$scope.contracts = contracts;
+			});	
 
 		$scope.releaseDatePopup = false;
 

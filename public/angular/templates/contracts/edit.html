@@ -57,7 +57,7 @@
                       <ui-select-match>
                         <span ng-bind="$select.selected.name"></span>
                       </ui-select-match>
-                      <ui-select-choices repeat="item._id as item in (royaltors | filter: $select.search)">
+                      <ui-select-choices repeat="item._id as item in payees">
                         <span ng-bind="item.name"></span>
                       </ui-select-choices>
                     </ui-select>
@@ -118,7 +118,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15"> 
-                  <contract-sales-row ng-repeat="sale in contract.salesTerms" sale="sale" countries="countries" channels="channels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" delete="deleteSalesRow(sale)"></contract-sales-row>
+                  <contract-sales-row ng-repeat="sale in contract.salesTerms" sale="sale" countries="countries" channels="distributionChannels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" delete="deleteSalesRow(sale)"></contract-sales-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addSalesRow()">+ Sales</button>
                 </div>
@@ -134,7 +134,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-sales-row ng-repeat="return in contract.returnsTerms" sale="return" countries="countries" channels="channels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" delete="deleteReturnsRow(sale)"></contract-sales-row>
+                  <contract-sales-row ng-repeat="return in contract.returnsTerms" sale="return" countries="countries" channels="distributionChannels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" delete="deleteReturnsRow(sale)"></contract-sales-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addReturnsRow()">+ Returns</button>
                 </div>

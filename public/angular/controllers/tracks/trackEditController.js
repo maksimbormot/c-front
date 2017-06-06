@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.controller('trackEditController', ['$scope', '$routeParams', '$window', 'Session', 'Track', 'Parent', 'Contract', 'Notification', function($scope, $routeParams, $window, Session, Track, Parent, Contract, Notification) {
+	.controller('trackEditController', ['$scope', '$routeParams', '$window', 'Session', 'Track', 'Parent', 'Settings', 'Notification', function($scope, $routeParams, $window, Session, Track, Parent, Settings, Notification) {
 		var controller = this;
 		$scope.track = { salesReturnsRights: [], costsRights: [] };
 		$scope.contracts = [];
@@ -13,13 +13,10 @@ angular.module('Curve')
 			});
 		} 
 
-		Contract.all($scope.contracts, function(response) {
-			if(response.status == 200) {
-				$scope.contracts = response.data.contracts;
-			} else {
-				Notification.error(response.data.message);
-			}
-		});
+		Settings.getContracts()
+			.then(function(contracts){
+				$scope.contracts = contracts;
+			});
 		
 		$scope.addSalesReturnsRights = function() {
 			$scope.track.salesReturnsRights.push({});
