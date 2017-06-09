@@ -73,3 +73,46 @@ tr .btn-sm {
 // contract-sales-row .row div .ui-select-container .ui-select-match span {
 // 	margin-left: 0 !important;
 // }
+.file-image{
+	display:block;
+	width:40px;
+	margin:15px 0 5px 0;
+}
+.file-image div{
+	width:40px;
+	height:40px;
+	background: url('../img/file.png') no-repeat center center;
+	background-size: cover;
+}
+.file-image:hover{
+	cursor:pointer;
+}
+.file-name{
+	color:#019fd2;
+}
+.total{
+	font-family: 'Montserrat';
+    text-transform: uppercase;
+    display: inline-block;
+    letter-spacing: 0.02em;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    line-height: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-text-stroke: 0px;
+    filter: alpha(opacity=40);
+    -webkit-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
+}
+.edit-unmapped{
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid rgba(44, 44, 44, 0.35);
+    text-align: center;
+    border-radius: 4px;
+}

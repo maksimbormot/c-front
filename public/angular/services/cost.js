@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.factory('Cost', function CostFactory($http, Session){
+	.factory('Cost', function CostFactory($http, Session, Upload){
 		return {
 			all: function(params, callback) {
 				$http({ method: 'GET', url: 'http://localhost:8081/costs?applicationToken=12345&token=' + Session.token + "&" + $.param(params) }).then(function(data){
@@ -32,7 +32,7 @@ angular.module('Curve')
 				data: {
 					file: file,
 					another: "field"
-				}
+				} 
 				}).then(function(response) {
 					callback(response)
 				}, function(e){
@@ -47,7 +47,7 @@ angular.module('Curve')
 				}, function(e){
 					callback(e);
 				});
-			}
+			}		
 		};
 	});
 

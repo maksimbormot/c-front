@@ -326,8 +326,9 @@
 
     <!-- File Upload -->
     <script type="text/javascript" src="angular/ng-file-upload-all.js"></script>
-    
     <script type="text/javascript" src="angular/ng-file-upload.js"></script>
+    <script type="text/javascript" src="angular/ng-file-upload-shim.js"></script>
+
     <!-- Libraries -->
     <script type="text/javascript" src="angular/angular-file-saver.js"></script>
 
@@ -349,6 +350,8 @@
     <script type="text/javascript" src="angular/services/cost.js"></script>
     <script type="text/javascript" src="angular/services/salesTemplate.js"></script>
     <script type="text/javascript" src="angular/services/settings.js"></script>
+    <script type="text/javascript" src="angular/services/salesFile.js"></script>
+    <script type="text/javascript" src="angular/services/unmapped.js"></script>
 
     <!-- Controllers -->
     <script type="text/javascript" src="angular/controllers/application/applicationController.js"></script>
@@ -369,8 +372,10 @@
     <script type="text/javascript" src="angular/controllers/settings/settingsController.js"></script>
     <script type="text/javascript" src="angular/controllers/costs/costsController.js"></script>
     <script type="text/javascript" src="angular/controllers/costs/costEditController.js"></script>
-    <script type="text/javascript" src="angular/controllers/sales-templates/salesTemplatesController.js"></script>
-    <script type="text/javascript" src="angular/controllers/sales-templates/salesTemplateEditController.js"></script>
+    <script type="text/javascript" src="angular/controllers/sales/salesTemplatesController.js"></script>
+    <script type="text/javascript" src="angular/controllers/sales/salesTemplateEditController.js"></script>
+    <script type="text/javascript" src="angular/controllers/sales/salesFileController.js"></script>
+    <script type="text/javascript" src="angular/controllers/unmapped/unmappedController.js"></script>
 
     <!-- Directives -->
     <script type="text/javascript" src="angular/directives/pagination.js"></script>
@@ -391,13 +396,17 @@
     <script type="text/javascript" src="angular/directives/distributionChannelsRow.js"></script>
     <script type="text/javascript" src="angular/directives/configurationsRow.js"></script>
     <script type="text/javascript" src="angular/directives/priceCategoryRow.js"></script>
-    <script type="text/javascript" src="angular/directives/territoryRow.js"></script>
+    <script type="text/javascript" src="angular/directives/salesTemplateTerritoryRow.js"></script>
+    <script type="text/javascript" src="angular/directives/salesTemplateDistributionChannelsRow.js"></script>
+    <script type="text/javascript" src="angular/directives/salesTemplateConfigurationsRow.js"></script>
+    <script type="text/javascript" src="angular/directives/salesTemplatePriceCategoryRow.js"></script>
     <script type="text/javascript" src="angular/directives/templateTableRow.js"></script>
-
+    <script type="text/javascript" src="angular/directives/unmappedTableRow.js"></script>
     <!-- Libraries -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.4.0/ui-bootstrap.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.4.0/ui-bootstrap-tpls.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.3/angular-sanitize.min.js"></script>
     
   </body>
 </html>

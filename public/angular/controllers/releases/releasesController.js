@@ -1,7 +1,7 @@
 angular.module('Curve')
 	.controller('releasesController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Release', 'Notification', 'FileSaver', function($scope, $routeParams, Session, Pagination, Release, Notification, FileSaver) {
 		var controller = this;
-		$scope.releases = [];
+		$scope.releases = []; 
 		$scope.searchText = null;
 		$scope.orderBy = 'title';
 		$scope.orderDir = 'asc';

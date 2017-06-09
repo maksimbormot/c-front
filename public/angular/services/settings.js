@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.factory('Settings', function SettingsFactory(Session, User, Client, $q, Notification, Contract, Payee){
+	.factory('Settings', function SettingsFactory(Session, User, Client, $q, Notification, Contract, Payee, Release, Track, Work){
 		return{
 			getSettings: function(settings){
 				settings = {};
@@ -53,6 +53,48 @@ angular.module('Curve')
 						if(response.status == 200) {
 							payees = response.data.payees;
 							resolve(payees);
+						} else {
+							Notification.error(response.data.message);
+						}
+					});	
+				});		
+
+			},
+			getReleases: function(releases){
+				releases = [];
+				return $q(function(resolve, reject) {
+					Release.all(releases, function(response) {
+						if(response.status == 200) {
+							releases = response.data.releases;
+							resolve(releases);
+						} else {
+							Notification.error(response.data.message);
+						}
+					});	
+				});		
+
+			},
+			getTracks: function(tracks){
+				tracks = [];
+				return $q(function(resolve, reject) {
+					Track.all(tracks, function(response) {
+						if(response.status == 200) {
+							tracks = response.data.tracks;
+							resolve(tracks);
+						} else {
+							Notification.error(response.data.message);
+						}
+					});	
+				});		
+
+			},
+			getWorks: function(works){
+				works = [];
+				return $q(function(resolve, reject) {
+					Work.all(works, function(response) {
+						if(response.status == 200) {
+							works = response.data.works;
+							resolve(works);
 						} else {
 							Notification.error(response.data.message);
 						}

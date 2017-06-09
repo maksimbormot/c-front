@@ -1,29 +1,55 @@
 angular.module('Curve')
-	.controller('costEditController', ['$scope', '$routeParams', '$window', 'Session', 'Cost', 'Notification', function($scope, $routeParams, $window, Session, Cost, Notification) {
+	.controller('costEditController', ['$scope', '$routeParams', '$window', 'Session', 'Cost', 'Notification', 'Settings', 'Upload', '$timeout', function($scope, $routeParams, $window, Session, Cost, Notification, Settings, Upload, $timeout) {
 		var controller = this;
 		$scope.costsTypes = ["Gross Receipts","Net Receipts", "PPD"];
-		// $scope.parents = [{}];
-		// $scope.paymentTiers = ["Standard", "Premium", "Enterprise"];
-		// $scope.$on('$viewContentLoaded', function() {
-		// 	Parent.all({}, function(response) {
-		// 		if(response.status == 200 && response.data && response.data.parents) {
-		// 			response.data.parents.forEach(function(parent) {
-		// 				$scope.parents.push(parent);  
-		// 			});
-		// 		}
-		// 	});
-		// }); 
-		$scope.cost = {};
+		$scope.releases = [];
+		$scope.tracks = [];
+		$scope.works = [];
+		$scope.contracts = []; 
+		$scope.token = '?applicationToken=12345&token=' + Session.token;
+		$scope.cost = { fileName: null};
+
 		// Load Cost if ID exists
 		if($routeParams.id) {
 			Cost.get($routeParams.id, function(response) {
 				if(response.status == 200) {
 					$scope.cost = response.data;
-				} else {
+				} else { 
 					Notification.error('Error loading cost, please try again or contact support');
 				}
 			});
 		};
+
+		Settings.getReleases()
+			.then(function(releases){
+				$scope.releases = releases;
+			});	
+		Settings.getTracks()
+			.then(function(tracks){
+				$scope.tracks = tracks;
+			});	
+		Settings.getWorks()
+			.then(function(works){ 
+				$scope.works = works;
+			});	
+		Settings.getContracts()
+			.then(function(contracts){
+				$scope.contracts = contracts;
+			});	
+
+	    $scope.upload = function (file) {
+			Upload.upload({
+		      url: 'http://localhost:8081/costs/upload'+ $scope.token,
+		      method: 'POST',
+		      data: {file: file, cost_id: $scope.cost._id}
+		    })
+		    .then(function(resp){
+		    	$scope.cost.file = resp.data.url;
+		    	var path = $scope.cost.file.split('/');
+	    		$scope.cost.fileName = path[path.length - 1];
+		    })
+	    };
+
 		$scope.save = function() {
 			if(!$scope.cost._id) {
 				Cost.create($scope.cost, function(response) {

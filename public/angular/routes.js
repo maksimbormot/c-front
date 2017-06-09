@@ -132,10 +132,14 @@ angular.module('Curve')
 			templateUrl: '/angular/templates/mechanicals/edit.html'
 		})
 		.when('/sales', {
-			templateUrl: '/angular/templates/sales/index.html'
-		})
+			templateUrl: '/angular/templates/sales-file/index.html',
+			controller: 'salesFileController',
+			controllerAs: 'salesFileCtrl'
+		}) 
 		.when('/sales/:id/edit', {
-			templateUrl: '/angular/templates/sales/edit.html'
+			templateUrl: '/angular/templates/sales-file/edit.html',
+			controller: 'salesFileEditController',
+			controllerAs: 'salesFileEditCtrl'
 		})
 		.when('/periods', {
 			templateUrl: '/angular/templates/periods/index.html'
@@ -161,19 +165,29 @@ angular.module('Curve')
 			controllerAs: 'settingsCtrl'
 		})
 		.when('/templates', {
-			templateUrl: '/angular/templates/sales-templates/index.html',
+			templateUrl: '/angular/templates/sales-template/index.html',
 			controller: 'salesTemplatesController',
 			controllerAs: 'salesTemplatesCtrl'
 		})
 		.when('/templates/:id/edit', {
-			templateUrl: '/angular/templates/sales-templates/edit.html',
+			templateUrl: '/angular/templates/sales-template/edit.html',
 			controller: 'salesTemplateEditController',
 			controllerAs: 'salesTemplateCtrl'
 		})
 		.when('/templates/new', {
-			templateUrl: '/angular/templates/sales-templates/edit.html',
+			templateUrl: '/angular/templates/sales-template/edit.html',
 			controller: 'salesTemplateEditController',
 			controllerAs: 'salesTemplateCtrl'
+		})
+		.when('/unmapped', {
+			templateUrl: '/angular/templates/unmapped/index.html',
+			controller: 'unmappedController',
+			controllerAs: 'unmappedCtrl'
+		})
+		.when('/unmapped/:id/edit', {
+			templateUrl: '/angular/templates/unmapped/edit.html',
+			controller: 'unmappedEditController',
+			controllerAs: 'unmappedEditCtrl'
 		})
 		.otherwise({ redirectTo: '/' })
 	});

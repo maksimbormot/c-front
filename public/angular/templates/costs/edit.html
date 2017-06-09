@@ -10,7 +10,7 @@
       </ul>
     </div>
   </div>
-</div>
+</div> 
 <!-- Main Container -->
 <div class="container-fluid container-fixed-lg">
   <div class="row">
@@ -38,12 +38,6 @@
           </div>
           <div class="form-group required">
             <label>Type</label>
-<!--             <select class="form-control" ng-model="cost.type" data-init-plugin="select2">
-              <option value="WV">Type 1</option>
-              <option value="WV">Type 2</option>
-              <option value="WV">Type 3</option>
-              <option value="WV">Type 4</option>
-            </select> -->
             <ui-select ng-model="cost.type">
               <ui-select-match>
                 <span ng-bind="$select.selected"></span>
@@ -68,12 +62,21 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <div class="panel-title">
-            File
+            File 
           </div>
-        </div>
+        </div> 
         <div class="panel-body p-t-15">
           <div class="form-group required">
-            <input type="file" class="form-control" ng-model="cost.file">
+            <input type="file" class="form-control" ngf-select ngf-allow-dir="false" ngf-change="upload($file)">
+            <a class="file-image" ng-show="cost.file" target="_blank" href="http://localhost:8081/{{cost.file}}">
+              <div>
+              </div>
+            </a>
+            <a class="file-name" ng-show="cost.fileName" target="_blank" href="http://localhost:8081/{{cost.file}}">
+              <span>
+                {{cost.fileName}}
+              </span>
+            </a>
           </div>
         </div>
       </div>
@@ -87,19 +90,70 @@
           <form role="form">
             <div class="form-group required">
               <label>Release</label>
-              <input type="text" ng-model="cost.release" class="form-control">
+              <ui-select multiple ng-model="cost.releaseIds" theme="bootstrap" ng-disabled="false">
+                <ui-select-match placeholder="Select releases...">
+                  <span style="vertical-align:middle;">{{$item.title}}</span>
+                  <span ng-bind="$select.selected.title"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="item._id as item in releases | filter:$select.search">
+                  <div>
+                    <div class="clear">
+                      <div ng-bind-html="item.title | highlight: $select.search"></div>
+                    </div>
+                  </div>
+                </ui-select-choices>
+              </ui-select>
             </div>
             <div class="form-group required">
               <label>Track</label>
-              <input type="text" ng-model="cost.track" class="form-control">
+              <!-- <input type="text" ng-model="cost.track" class="form-control"> -->
+              <ui-select multiple ng-model="cost.trackIds" theme="bootstrap" ng-disabled="false">
+                <ui-select-match placeholder="Select tracks...">
+                  <span style="vertical-align:middle;">{{$item.title}}</span>
+                  <span ng-bind="$select.selected.title"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="item._id as item in tracks | filter:$select.search">
+                  <div>
+                    <div class="clear">
+                      <div ng-bind-html="item.title | highlight: $select.search"></div>
+                    </div>
+                  </div>
+                </ui-select-choices>
+              </ui-select>
             </div>
             <div class="form-group required">
               <label>Work</label>
-              <input type="text" ng-model="cost.work" class="form-control">
+              <!-- <input type="text" ng-model="cost.work" class="form-control"> -->
+              <ui-select multiple ng-model="cost.workIds" theme="bootstrap" ng-disabled="false">
+                <ui-select-match placeholder="Select works...">
+                  <span style="vertical-align:middle;"">{{$item.title}}</span>
+                  <span ng-bind="$select.selected.title"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="item._id as item in works | filter:$select.search">
+                  <div>
+                    <div class="clear">
+                      <div ng-bind-html="item.title | highlight: $select.search"></div>
+                    </div>
+                  </div>
+                </ui-select-choices>
+              </ui-select>
             </div>
             <div class="form-group required">
               <label>Contract</label>
-              <input type="text" ng-model="cost.contract" class="form-control">
+              <!-- <input type="text" ng-model="cost.contract" class="form-control"> -->
+              <ui-select multiple ng-model="cost.contractIds" theme="bootstrap" ng-disabled="false">
+                <ui-select-match placeholder="Select contracts...">
+                  <span style="vertical-align:middle;">{{$item.name}}</span>
+                  <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="item._id as item in contracts | filter:$select.search">
+                  <div>
+                    <div class="clear">
+                      <div ng-bind-html="item.name | highlight: $select.search"></div>
+                    </div>
+                  </div>
+                </ui-select-choices>
+              </ui-select>
             </div>
           </form>
         </div>
