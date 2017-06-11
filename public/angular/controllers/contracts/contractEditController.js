@@ -2,7 +2,8 @@ angular.module('Curve')
 	.controller('contractEditController', ['$scope', '$routeParams', '$window', 'Session', 'Contract', 'Parent', 'User', 'Client', 'Territories', 'Notification', function($scope, $routeParams, $window, Session, Contract, Parent, User, Client, Territories, Notification) {
 		var controller = this;
 		$scope.contract = { salesTerms: [], returnsTerms: [], costsTerms: [], mechanicalTerms: [], reserves: [] };
-		$scope.royaltors = [{ _id: "1234", name: "Royaltor 1" }, { _id: "12345", name: "Royaltor 2" }];
+		// TODO update to load payees on page load, as is done for Contracts on Release Edit
+		$scope.payees = [{ _id: "1234", name: "Royaltor 1" }, { _id: "12345", name: "Royaltor 2" }];
 		$scope.accountingPeriods = ["Monthly", "Quarterly", "Half-Yearly", "Yearly"];
 		$scope.contractTypes = ["Royalty", "Profit Share"];
 		$scope.countries = Territories; 
