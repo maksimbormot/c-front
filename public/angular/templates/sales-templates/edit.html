@@ -5,9 +5,9 @@
         <li>
           <p>Curve</p>
         </li>
-        <li><a href="/#/campaigns">Templates</a></li>
-        <li ng-show="!campaign._id"><a href="" class="active">Create</a></li>
-        <li ng-show="campaign._id"><a href="/#/campaigns/{{campaign._id}}" class="active">{{template.title}}</a></li>
+        <li><a href="/#/templates">Templates</a></li>
+        <li ng-show="!template._id"><a href="" class="active">Create</a></li>
+        <li ng-show="template._id"><a href="/#/templates/{{template._id}}" class="active">{{template.title}}</a></li>
       </ul>
     </div>
   </div>
@@ -30,28 +30,30 @@
           </div>
         </div>
         <div class="panel-body p-t-15">
-          <div class="col-xs-12 col-md-6">
-            <div class="form-group required">
-              <label>Name</label>
-              <input type="text" class="form-control" ng-model="template.name">
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="template.name">
+              </div>
+              <div class="form-group">
+                <label>Source</label>
+                <input type="text" class="form-control" ng-model="template.source">
+              </div>
             </div>
-            <div class="form-group required">
-              <label>Source</label>
-              <input type="text" class="form-control" ng-model="template.source">
-            </div>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <div class="form-group required">
-              <label>Starting left</label>
-              <input type="text" class="form-control" ng-model="template.startingLeft">
-            </div>
-            <div class="form-group required">
-              <label>Starting line</label>
-              <input type="text" class="form-control" ng-model="template.startingLine">
-            </div>
-            <div class="form-group required">
-              <label>Line breaks</label>
-              <input type="text" class="form-control" ng-model="template.lineBreaks">
+            <div class="col-xs-12 col-md-6">
+              <div class="form-group">
+                <label>Starting left</label>
+                <input type="text" class="form-control" ng-model="template.startingLeft">
+              </div>
+              <div class="form-group">
+                <label>Starting line</label>
+                <input type="text" class="form-control" ng-model="template.startingLine">
+              </div>
+              <div class="form-group">
+                <label>Line breaks</label>
+                <input type="text" class="form-control" ng-model="template.lineBreaks">
+              </div>
             </div>
           </div>
         </div>
