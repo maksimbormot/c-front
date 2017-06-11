@@ -1,10 +1,11 @@
 angular.module('Curve')
-	.controller('releaseEditController', ['$scope', '$routeParams', '$window', 'Session', 'Release', 'Notification', 'Track', 'Pagination', function($scope, $routeParams, $window, Session, Release, Notification, Track, Pagination) {
+	.controller('releaseEditController', ['$scope', '$routeParams', '$window', 'Session', 'Release', 'Notification', 'Track', 'Pagination', 'Settings', function($scope, $routeParams, $window, Session, Release, Notification, Track, Pagination, Settings) {
 		var controller = this;
-		$scope.release = { aliases: [] };
+		$scope.release = { salesReturnsRights: [], costsRights: [], aliases: [] };
 		$scope.formats = ["CD", "LP", "Digital"];
-		$scope.priceCategories = ["Price Cat 1", "Price Cat 2"];
-		$scope.contracts = [{ _id: "1234", name: "Contract 1" }, { _id: "12345", name: "Contract 2" }];
+		$scope.priceCategories = [];
+		$scope.contracts = [];
+
 		this.loadRelease = function() {
 			Release.get($routeParams.id, function(response) {
 				if(response.status == 200) {
@@ -20,10 +21,22 @@ angular.module('Curve')
 		if($routeParams.id) {
 			controller.loadRelease();
 		}
+
+		Settings.getSettings()
+			.then(function(settings){
+				$scope.priceCategories = settings.priceCategories;
+			});		
+
+		Settings.getContracts()
+			.then(function(contracts){
+				$scope.contracts = contracts;
+			});	
+
 		$scope.releaseDatePopup = false;
+
 		$scope.openReleaseDatePopup = function() {
 			$scope.releaseDatePopup = true;
-		}
+		}    
 		$scope.addSalesReturnsRights = function() {
 			$scope.release.salesReturnsRights.push({});
 		}

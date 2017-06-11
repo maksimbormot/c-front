@@ -1,0 +1,120 @@
+<div class="jumbotron" data-pages="parallax">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <p>Curve</p>
+        </li>
+        <li><a href="/#/campaigns">Templates</a></li>
+        <li ng-show="!campaign._id"><a href="" class="active">Create</a></li>
+        <li ng-show="campaign._id"><a href="/#/campaigns/{{campaign._id}}" class="active">{{template.title}}</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- Main Container -->
+<div class="container-fluid container-fixed-lg">
+  <div class="row">
+    <div class="col-xs-12 text-right">
+      <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i>&nbsp;Delete</button>
+      <button class="btn btn-complete" ng-click="save()"><i class="fa fa-check"></i> Save</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"> 
+          <div class="panel-title">
+            Configuration
+          </div>
+        </div>
+        <div class="panel-body p-t-15">
+          <div class="col-xs-12 col-md-6">
+            <div class="form-group required">
+              <label>Name</label>
+              <input type="text" class="form-control" ng-model="template.name">
+            </div>
+            <div class="form-group required">
+              <label>Source</label>
+              <input type="text" class="form-control" ng-model="template.source">
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="form-group required">
+              <label>Starting left</label>
+              <input type="text" class="form-control" ng-model="template.startingLeft">
+            </div>
+            <div class="form-group required">
+              <label>Starting line</label>
+              <input type="text" class="form-control" ng-model="template.startingLine">
+            </div>
+            <div class="form-group required">
+              <label>Line breaks</label>
+              <input type="text" class="form-control" ng-model="template.lineBreaks">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default"> 
+          <div class="panel-heading">
+            <div class="panel-title"> 
+              Territory config
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <territory-row ng-repeat="territory in displayTerritories track by $index" territory="territory" delete="deleteTerritory(territory)"></territory-row>
+            <button class="btn btn-complete" ng-click="addTerritory()">+ Add</button>
+          </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default"> 
+          <div class="panel-heading">
+            <div class="panel-title"> 
+              Channel config
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <distribution-channels-row ng-repeat="channel in displayDistributionChannels track by $index" channel="channel" delete="deleteDistributionChannel(channel)"></distribution-channels-row>
+            <button class="btn btn-complete" ng-click="addDistributionChannel()">+ Add</button>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default"> 
+          <div class="panel-heading">
+            <div class="panel-title"> 
+              Configuration config
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <configurations-row ng-repeat="configuration in displayConfigurations track by $index" configuration="configuration" delete="deleteConfiguration(configuration)"></configurations-row>
+            <button class="btn btn-complete" ng-click="addConfiguration()">+ Add</button>
+          </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default"> 
+          <div class="panel-heading">
+            <div class="panel-title"> 
+              Price category config
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <price-category-row ng-repeat="category in displayPriceCategories track by $index" category="category" delete="deletePriceCategory(category)"></price-category-row>
+            <button class="btn btn-complete" ng-click="addPriceCategory()">+ Add</button>
+          </div>
+        </div>
+    </div>
+  </div>
+
+ 

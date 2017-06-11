@@ -5,12 +5,17 @@ angular.module('Curve')
 			templateUrl: "angular/templates/directives/contract-sales-row.html",
 			scope: {
 				sale: "=",
-				territories: "=",
+				countries: "=",
 				channels: "=",
 				configurations: "=",
 				priceCategories: "=",
 				salesTypes: "=",
 				delete: "&"
-			}
+			},
+			link: function(scope){
+				scope.groupFind = function(country){
+					return country.country;
+				}
+			}		
 		}
-	});
+	}); 

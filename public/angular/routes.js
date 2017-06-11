@@ -155,5 +155,25 @@ angular.module('Curve')
 		.when('/reports/:id/edit', {
 			templateUrl: '/angular/templates/reports/edit.html'
 		})
+		.when('/settings', {
+			templateUrl: '/angular/templates/settings/index.html',
+			controller: 'settingsController',
+			controllerAs: 'settingsCtrl'
+		})
+		.when('/templates', {
+			templateUrl: '/angular/templates/sales-templates/index.html',
+			controller: 'salesTemplatesController',
+			controllerAs: 'salesTemplatesCtrl'
+		})
+		.when('/templates/:id/edit', {
+			templateUrl: '/angular/templates/sales-templates/edit.html',
+			controller: 'salesTemplateEditController',
+			controllerAs: 'salesTemplateCtrl'
+		})
+		.when('/templates/new', {
+			templateUrl: '/angular/templates/sales-templates/edit.html',
+			controller: 'salesTemplateEditController',
+			controllerAs: 'salesTemplateCtrl'
+		})
 		.otherwise({ redirectTo: '/' })
 	});

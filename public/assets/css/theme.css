@@ -443,6 +443,9 @@ body.rtl [class*="col-"] {
 .page-sidebar .sidebar-menu .menu-items > li > a.detailed > .title {
   line-height: 28px;
 }
+.page-sidebar .sidebar-menu .menu-items > li > a.detailed > .title.settings {
+  line-height: 40px;
+}
 .page-sidebar .sidebar-menu .menu-items > li > a.detailed > .details {
   line-height: 16px;
 }
@@ -5866,7 +5869,7 @@ form legend {
   background-image: none;
   border: 1px solid rgba(0, 0, 0, 0.07);
   font-family: Arial, sans-serif;
-  -webkit-appearance: none;
+   -webkit-appearance: none; 
   color: #2c2c2c;
   outline: 0;
   height: 35px;
@@ -5952,6 +5955,9 @@ fieldset[disabled] .form-control {
   height: 51px;
   font-size: 18px;
   line-height: 22px;
+}
+.country{
+  margin-left:10px;
 }
 /* Checkboxes and Radio buttons 
 --------------------------------------------------
@@ -6129,6 +6135,10 @@ body.rtl .checkbox label::after {
 .checkbox.check-info input[type=checkbox]:checked + label::after {
   color: #ffffff;
 }
+.email-checkbox{
+  float: left;
+  margin:5px 10px 5px 0 !important;
+}
 .input-group-addon:first-child {
   border-right: 0;
   border-left: 1px solid rgba(0, 0, 0, 0.07);
@@ -6217,6 +6227,10 @@ body.rtl .checkbox label::after {
   opacity: .42;
   -webkit-transition: opacity ease 0.3s;
   transition: opacity ease 0.3s;
+}
+.email-section{
+  margin:13px 0;
+
 }
 /* Form layouts  : Attached
 --------------------------------------------------
@@ -7043,6 +7057,7 @@ http://ivaynberg.github.io/select2/
 .ui-select-choices-group-label {
   color: #2c2c2c;
   font-weight: bold;
+  font-size:14px;
 }
 .modal-open .select2-drop-active {
   z-index: 1051;

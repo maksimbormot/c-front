@@ -23,10 +23,10 @@
     <div class="panel panel-transparent">
       <!-- Nav tabs -->
       <ul class="nav nav-tabs hidden-sm hidden-xs" data-init-reponsive-tabs="dropdownfx">
-        <li class="active" ng-click="setTab('overview')">
+        <li class="active" ng-click="setTab('overview')"> 
           <a data-toggle="tab" aria-expanded="true"><span>Overview</span></a>
         </li>
-        <li ng-click="setTab('terms')">
+        <li ng-click="setTab('terms')"> 
           <a data-toggle="tab" aria-expanded="false"><span>Terms</span></a>
         </li>
         <li ng-click="setTab('reserves')">
@@ -35,7 +35,7 @@
         <li ng-click="setTab('catalogue')">
           <a data-toggle="tab" aria-expanded="false"><span>Catalogue</span></a>
         </li>
-        <li ng-click="setTab('costs')">
+        <li ng-click="setTab('costs')"> 
           <a data-toggle="tab" aria-expanded="false"><span>Costs</span></a>
         </li>
       </ul>
@@ -57,7 +57,7 @@
                       <ui-select-match>
                         <span ng-bind="$select.selected.name"></span>
                       </ui-select-match>
-                      <ui-select-choices repeat="item._id as item in (royaltors | filter: $select.search)">
+                      <ui-select-choices repeat="item._id as item in (payees | filter: $select.search)">
                         <span ng-bind="item.name"></span>
                       </ui-select-choices>
                     </ui-select>
@@ -117,8 +117,8 @@
                     Sales
                   </div>
                 </div>
-                <div class="panel-body p-t-15">
-                  <contract-sales-row ng-repeat="sale in contract.salesTerms" sale="sale" territories="territories" channels="channels" configurations="configurations" priceCategories="priceCategories" salesTypes="salesTypes" delete="deleteSalesRow(sale)"></contract-sales-row>
+                <div class="panel-body p-t-15"> 
+                  <contract-sales-row ng-repeat="sale in contract.salesTerms" sale="sale" countries="countries" channels="distributionChannels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" delete="deleteSalesRow(sale)"></contract-sales-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addSalesRow()">+ Sales</button>
                 </div>
@@ -134,7 +134,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-sales-row ng-repeat="return in contract.returnsTerms" sale="return" territories="territories" channels="channels" configurations="configurations" priceCategories="priceCategories" salesTypes="salesTypes" delete="deleteReturnsRow(sale)"></contract-sales-row>
+                  <contract-sales-row ng-repeat="return in contract.returnsTerms" sale="return" countries="countries" channels="distributionChannels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" delete="deleteReturnsRow(sale)"></contract-sales-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addReturnsRow()">+ Returns</button>
                 </div>
@@ -150,7 +150,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-costs-row ng-repeat="cost in contract.costsTerms" cost="cost" territories="territories" costsTypes="costsTypes" delete="deleteCostsRow(cost)"></contract-costs-row>
+                  <contract-costs-row ng-repeat="cost in contract.costsTerms" cost="cost" countries="countries" costs-types="costsTypes" delete="deleteCostsRow(cost)"></contract-costs-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addCostsRow()">+ Costs</button>
                 </div>
@@ -166,7 +166,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-mechanicals-row ng-repeat="mechanical in contract.mechanicalTerms" mechanical="mechanical" territories="territories" delete="deleteMechanicalsRow(mechanical)"></contract-mechanicals-row>
+                  <contract-mechanicals-row ng-repeat="mechanical in contract.mechanicalTerms" mechanical="mechanical" countries="countries" delete="deleteMechanicalsRow(mechanical)"></contract-mechanicals-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addMechanicalsRow()">+ Mechanicals</button>
                 </div>

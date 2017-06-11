@@ -9,6 +9,7 @@
   "author": "Tom Allen",
   "license": "ISC",
   "dependencies": {
+    "angular-jwt": "^0.1.9",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "http": "0.0.0",

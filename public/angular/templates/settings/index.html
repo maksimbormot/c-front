@@ -1,0 +1,163 @@
+<div class="jumbotron" data-pages="parallax">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <p>Curve</p>
+        </li>
+        <li><a href="/#/clients">Settings</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid container-fixed-lg">
+  <div class="row">
+    <div class="col-xs-12 text-right">
+      <button class="btn btn-complete" ng-click="saveSettings()"><i class="fa fa-check"></i> Save</button>
+    </div>
+  </div>
+
+  <div ng-show="userRole === 'client'"> <!-- user is logged in as a client -->
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default">  
+          <div class="panel-heading">
+            <div class="panel-title"> 
+              Overview
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <div class="form-group required">
+              <label>Company Name</label>
+              <input type="text" class="form-control" placeholder="Name" ng-model="client.companyName">
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <textarea class="form-control standard-textarea" ng-model="client.address"></textarea>
+            </div>
+            <div class="form-group required">
+              <label>Email for statements</label>
+              <input type="text" class="form-control" placeholder="Email" ng-model="client.email">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              User configuration
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <form role="form">
+            <div class="form-group required">
+              <label>Email</label>
+              <input type="text" class="form-control" placeholder="Email" ng-model="user.email">
+            </div>
+            <div class="email-section">
+              <div class="form-group">
+                <input type="checkbox" value="1" ng-model="user.emailCatalogueIngestions" class="email-checkbox">
+                <label>Email Catalogue Ingestions</label>
+              </div>
+              <div class="form-group">
+                <input type="checkbox" value="1" ng-model="user.emailSalesIngestions" class="email-checkbox">
+                <label>Email Sales Ingestions</label>
+              </div>
+              <div class="form-group">
+                <input type="checkbox" value="1" ng-model="user.emailPeriodCompletion" class="email-checkbox">
+                <label>Email Period Completion</label>
+              </div>
+            </div>
+            <div class="form-group required">
+              <label>Update Password</label>
+              <input type="password" class="form-control" placeholder="Password" ng-model="user.newPassword">
+            </div>
+            <div class="form-group required">
+              <label>Confirm Password</label>
+              <input type="password" class="form-control" placeholder="Password" ng-model="user.confirmNewPassword">
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              Distribution Channels
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <distribution-channels-row ng-repeat="channel in displayDistributionChannels track by $index" channel="channel" delete="deleteDistributionChannel(channel)"></distribution-channels-row>
+            <button class="btn btn-complete" ng-click="addDistributionChannel()">+ Add</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              Configurations
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <configurations-row ng-repeat="configuration in displayConfigurations track by $index" configuration="configuration" delete="deleteConfiguration(configuration)"></configurations-row>
+            <button class="btn btn-complete" ng-click="addConfiguration()">+ Add</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              Price category
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <price-category-row ng-repeat="category in displayPriceCategories track by $index" category="category" delete="deletePriceCategory(category)"></price-category-row>
+            <button class="btn btn-complete" ng-click="addPriceCategory()">+ Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- user is logged in as a client -->
+
+  <div ng-show="userRole === 'internal'"> <!-- user is logged in as a parent or a payee user -->
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              User configuration
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <form role="form">
+            <div class="form-group required">
+              <label>Email</label>
+              <input type="text" class="form-control" placeholder="Email" ng-model="user.email">
+            </div>
+            <div class="form-group required">
+              <label>Update Password</label>
+              <input type="password" class="form-control" placeholder="Password" ng-model="user.newPassword">
+            </div>
+            <div class="form-group required">
+              <label>Confirm Password</label>
+              <input type="password" class="form-control" placeholder="Password" ng-model="user.confirmNewPassword">
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- user is logged in as a parent or a payee user -->
+
+
+
+</div>
+

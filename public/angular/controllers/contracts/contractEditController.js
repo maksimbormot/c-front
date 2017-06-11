@@ -1,18 +1,20 @@
 angular.module('Curve')
-	.controller('contractEditController', ['$scope', '$routeParams', '$window', 'Session', 'Contract', 'Parent', 'Notification', function($scope, $routeParams, $window, Session, Contract, Parent, Notification) {
+	.controller('contractEditController', ['$scope', '$routeParams', '$window', 'Session', 'Contract', 'Parent', 'Territories', 'Settings', 'Notification', function($scope, $routeParams, $window, Session, Contract, Parent, Territories, Settings, Notification) {
 		var controller = this;
 		$scope.contract = { salesTerms: [], returnsTerms: [], costsTerms: [], mechanicalTerms: [], reserves: [] };
-		$scope.royaltors = [{ _id: "1234", name: "Royaltor 1" }, { _id: "12345", name: "Royaltor 2" }];
+		$scope.payees = [];
 		$scope.accountingPeriods = ["Monthly", "Quarterly", "Half-Yearly", "Yearly"];
 		$scope.contractTypes = ["Royalty", "Profit Share"];
-		$scope.territories = [{ iso2: "GB", name: "United Kingdom" }, { iso2: "US", name: "United States" }];
-		$scope.channels = ["Digital", "Physical", "Streaming"];
-		$scope.configurations = ["CD", "Download", "LP"];
-		$scope.priceCategories = ["Full Price", "Budget"];
-		$scope.salesTypes = ["PPD", "Gross Receipts", "Net Receipts"];
-		// Load Contract if ID exists
+		$scope.countries = Territories; 
+		$scope.salesTypes = ["Gross Receipts","Net Receipts", "PPD"];
+		$scope.costsTypes = ["Gross Receipts","Net Receipts", "PPD"];
+		$scope.distributionChannels = [];
+		$scope.configurations = []; 
+		$scope.priceCategories = [];
+
+		// Load Contract if ID exists  
 		if($routeParams.id) {
-			Contract.get($routeParams.id, function(response) {
+			Contract.get($routeParams.id, function(response) {  
 				if(response.status == 200) {
 					console.log(response.data);
 					$scope.contract = response.data;
@@ -21,6 +23,17 @@ angular.module('Curve')
 				}
 			});
 		};
+
+		Settings.getSettings()
+			.then(function(settings){
+				angular.extend($scope, settings);
+			});
+
+		Settings.getPayees()
+			.then(function(payees){
+				$scope.payees = payees;
+			});	
+
 		// Tabs
 		$scope.activeTab = "overview";
 		$scope.setTab = function(value) {

@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var parseUrlencoded = bodyParser.urlencoded({ extended: false });
 var request = require('request');
 var config = require('./config');
+//var jwtHelper = require('angular-jwt');
 
 // Send Index
 app.use(express.static(__dirname + '/public'));

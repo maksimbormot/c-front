@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.factory('Auth', function AuthFactory($http, $rootScope, $cookies, Session){
+	.factory('Auth', function AuthFactory($http, $rootScope, $cookies, Session, jwtHelper){
 		return {
 			test: function(token, callback) {
 				if(token) {
@@ -8,6 +8,8 @@ angular.module('Curve')
 						if(data.success == true) {
 							Session.isLoggedIn = true;
 							Session.token =  data.token;
+							var tokenPayload = jwtHelper.decodeToken(Session.token);	
+							Session.id = tokenPayload.id;						
 							Session.userType = data.userType;
 							$rootScope.$broadcast('user-logged-in', Session);
 						} else {

@@ -92,7 +92,7 @@
                       <ui-select-match>
                           <span ng-bind="$select.selected"></span>
                       </ui-select-match>
-                      <ui-select-choices repeat="item in (formats | filter: $select.search)">
+                      <ui-select-choices repeat="item in formats">
                           <span ng-bind="item"></span>
                       </ui-select-choices>
                     </ui-select>
@@ -103,7 +103,7 @@
                       <ui-select-match>
                           <span ng-bind="$select.selected"></span>
                       </ui-select-match>
-                      <ui-select-choices repeat="item in (priceCategories | filter: $select.search)">
+                      <ui-select-choices repeat="item in priceCategories">
                           <span ng-bind="item"></span>
                       </ui-select-choices>
                     </ui-select>

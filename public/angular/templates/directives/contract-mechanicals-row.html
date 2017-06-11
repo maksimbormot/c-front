@@ -3,10 +3,10 @@
     <label>Territory</label>
     <ui-select ng-model="mechanical.territory">
       <ui-select-match>
-        <span ng-bind="$select.selected.name"></span>
+          <span ng-bind="$select.selected.name"></span>
       </ui-select-match>
-      <ui-select-choices repeat="item.iso2 as item in (territories | filter: $select.search)">
-        <span ng-bind="item.name"></span>
+      <ui-select-choices group-by="groupFind" repeat="country.code as country in countries | filter: $select.search">
+          <span class="country" ng-bind="country.name"></span>
       </ui-select-choices>
     </ui-select>
   </div>

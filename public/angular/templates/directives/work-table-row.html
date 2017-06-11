@@ -1,4 +1,4 @@
-<td class="v-align-middle"><input type="checkbox" class='select-unit'></td>
+<td class="v-align-middle"><input type="checkbox" class='select-unit' ng-model="work.selected"></td>
 <td class="v-align-middle">
 	<a ng-if="!noLinks" href="#/works/{{ work._id }}/edit">
 		{{ work.title }}
@@ -14,4 +14,4 @@
 	<button ng-if="work.added" class="btn btn-sm btn-success" disabled="true">
 		<i class="fa fa-check"></i>
 	</button>
-</td>
+</td> 
