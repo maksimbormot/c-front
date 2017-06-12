@@ -17,7 +17,7 @@ angular.module('Curve')
 				} else { 
 					Notification.error('Error loading cost, please try again or contact support');
 				}
-			});
+			}); 
 		};
 
 		Settings.getReleases()
@@ -75,7 +75,7 @@ angular.module('Curve')
 		$scope.delete = function() {
 			$('#deleteModal').modal('hide');
 			$('#deleteModal').on('hidden.bs.modal', function() {
-				Cost.delete($scope.ccost._id, function(response) {
+				Cost.delete($scope.cost._id, function(response) {
 					if(response.status == 200) {
 						Notification.success('Cost successfully deleted');
 						$window.location.href = "#/costs"
