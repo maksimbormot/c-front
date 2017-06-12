@@ -68,14 +68,9 @@
         <div class="panel-body p-t-15">
           <div class="form-group required">
             <input type="file" class="form-control" ngf-select ngf-allow-dir="false" ngf-change="upload($file)">
-            <a class="file-image" ng-show="cost.file" target="_blank" href="http://localhost:8081/{{cost.file}}">
+            <a class="file-image" ng-show="cost.file" target="_blank" href="{{cost.file}}">
               <div>
               </div>
-            </a>
-            <a class="file-name" ng-show="cost.fileName" target="_blank" href="http://localhost:8081/{{cost.file}}">
-              <span>
-                {{cost.fileName}}
-              </span>
             </a>
           </div>
         </div>
