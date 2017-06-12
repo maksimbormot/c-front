@@ -22,7 +22,7 @@ angular.module('Curve')
 				});
 			},
 			create: function(params, callback) {
-				$http({ method: "POST", url: 'http://localhost:8081/costs?applicationToken=12345&token=' + Session.token, data: $.param(params), headers: {'Content-Type': 'application/x-www-form-urlencoded'} }).then(function(data){
+				$http({ method: "POST", url: 'http://localhost:8081/costs?applicationToken=12345&token=' + Session.token, data: params, headers: {'Content-Type': 'application/json'} }).then(function(data){
 					callback(data);
 				});
 			},
@@ -37,7 +37,7 @@ angular.module('Curve')
 					callback(response)
 				}, function(e){
 					callback(e);
-				})
+				}) 
 			},
 			export: function(callback) {
 				$http.get('http://localhost:8081/costs/export?applicationToken=12345&token=' + Session.token, {
