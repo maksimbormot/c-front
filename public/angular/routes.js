@@ -165,17 +165,17 @@ angular.module('Curve')
 			controllerAs: 'settingsCtrl'
 		})
 		.when('/templates', {
-			templateUrl: '/angular/templates/sales-template/index.html',
+			templateUrl: '/angular/templates/sales-templates/index.html',
 			controller: 'salesTemplatesController',
 			controllerAs: 'salesTemplatesCtrl'
 		})
 		.when('/templates/:id/edit', {
-			templateUrl: '/angular/templates/sales-template/edit.html',
+			templateUrl: '/angular/templates/sales-templates/edit.html',
 			controller: 'salesTemplateEditController',
 			controllerAs: 'salesTemplateCtrl'
 		})
 		.when('/templates/new', {
-			templateUrl: '/angular/templates/sales-template/edit.html',
+			templateUrl: '/angular/templates/sales-templates/edit.html',
 			controller: 'salesTemplateEditController',
 			controllerAs: 'salesTemplateCtrl'
 		})

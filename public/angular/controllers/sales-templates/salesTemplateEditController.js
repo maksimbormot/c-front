@@ -1,17 +1,6 @@
 angular.module('Curve')
 	.controller('salesTemplateEditController', ['$scope', '$routeParams', '$window', 'Session', 'SalesTemplate', 'Notification', function($scope, $routeParams, $window, Session, SalesTemplate, Notification) {
 		var controller = this;
-		// $scope.parents = [{}];
-		// $scope.paymentTiers = ["Standard", "Premium", "Enterprise"];
-		// $scope.$on('$viewContentLoaded', function() {
-		// 	Parent.all({}, function(response) {
-		// 		if(response.status == 200 && response.data && response.data.parents) {
-		// 			response.data.parents.forEach(function(parent) {
-		// 				$scope.parents.push(parent); 
-		// 			});
-		// 		}
-		// 	});
-		// });
 		$scope.template = {};
 		// Load Template if ID exists
 		if($routeParams.id) {

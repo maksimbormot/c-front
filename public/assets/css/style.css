@@ -60,19 +60,19 @@ tr .btn-sm {
 	width: 11% !important;
 }
 
-// contract-sales-row .row div {
-// 	padding-left: 5px !important;
-// 	padding-right: 5px !important;
-// }
+contract-sales-row .row div {
+	padding-left: 5px !important;
+ 	padding-right: 5px !important;
+}
 
-// contract-sales-row .row div .ui-select-container,
-// contract-sales-row .row div .ui-select-container .ui-select-match {
-// 	padding: 0 !important;
-// }
+contract-sales-row .row div .ui-select-container,
+contract-sales-row .row div .ui-select-container .ui-select-match {
+ 	padding: 0 !important;
+}
 
-// contract-sales-row .row div .ui-select-container .ui-select-match span {
-// 	margin-left: 0 !important;
-// }
+contract-sales-row .row div .ui-select-container .ui-select-match span {
+ 	margin-left: 0 !important;
+}
 .file-image{
 	display:block;
 	width:40px;
