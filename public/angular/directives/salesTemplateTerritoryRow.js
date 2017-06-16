@@ -4,7 +4,8 @@ angular.module('Curve')
 			restrict: "E",
 			templateUrl: "angular/templates/directives/sales-template-territory-row.html",
 			scope: {
-				countries: "=",
+				territories: "=",
+				territory: "=",
 				delete: "&"
 			},
 			link: function(scope){
@@ -13,4 +14,4 @@ angular.module('Curve')
 				}
 			}			
 		}
-	});  
+	});   

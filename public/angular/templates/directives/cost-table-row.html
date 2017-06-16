@@ -1,8 +1,9 @@
 <td class="v-align-middle"><input type="checkbox" ng-model="cost.selected"></td>
 <td class="v-align-middle">
-	<a href="#/costs/{{cost._id }}/edit">
+	<a ng-if="!noLinks" href="#/costs/{{ cost._id }}/edit">
 		{{ cost.name }}
 	</a>
+	<span ng-if="noLinks">{{ cost.name }}</span>
 </td>
 <td class="v-align-middle">{{ cost.amount }}</td>
 <td class="v-align-middle">{{ cost.type }}</td>
@@ -16,3 +17,4 @@
 		{{ contract.name }} &nbsp;
 	</span>	
 </td>
+ 

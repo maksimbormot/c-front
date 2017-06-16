@@ -5,6 +5,7 @@ angular.module('Curve')
 			templateUrl: "angular/templates/directives/sales-template-distribution-channels-row.html",
 			scope: {
 				channels: "=",
+				channel: "=",
 				delete: "&"
 			}			
 		}

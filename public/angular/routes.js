@@ -141,6 +141,11 @@ angular.module('Curve')
 			controller: 'salesFileEditController',
 			controllerAs: 'salesFileEditCtrl'
 		})
+		.when('/sales/import', {
+			templateUrl: '/angular/templates/sales-file/sales-import.html',
+			controller: 'salesImportController',
+			controllerAs: 'salesImportCtrl'
+		})
 		.when('/periods', {
 			templateUrl: '/angular/templates/periods/index.html'
 		})
@@ -183,11 +188,6 @@ angular.module('Curve')
 			templateUrl: '/angular/templates/unmapped/index.html',
 			controller: 'unmappedController',
 			controllerAs: 'unmappedCtrl'
-		})
-		.when('/unmapped/:id/edit', {
-			templateUrl: '/angular/templates/unmapped/edit.html',
-			controller: 'unmappedEditController',
-			controllerAs: 'unmappedEditCtrl'
 		})
 		.otherwise({ redirectTo: '/' })
 	});

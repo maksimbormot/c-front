@@ -6,7 +6,8 @@
           <p>Curve</p>
         </li>
         <li><a href="/#/contracts">Contracts</a></li>
-        <li><a href="" class="active">Create</a></li>
+        <li ng-show="!contract._id"><a href="" class="active">Create</a></li>
+        <li ng-show="contract._id"><a href="/#/contracts/{{contract._id}}/edit" class="active">{{contract.name}}</a></li>        
       </ul>
     </div>
   </div>

@@ -45,8 +45,6 @@ angular.module('Curve')
 		    })
 		    .then(function(resp){
 		    	$scope.cost.file = resp.data.url;
-		    	var path = $scope.cost.file.split('/');
-	    		$scope.cost.fileName = path[path.length - 1];
 		    })
 	    };
 

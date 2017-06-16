@@ -5,6 +5,7 @@ angular.module('Curve')
 			templateUrl: "angular/templates/directives/sales-template-price-category-row.html",
 			scope: {
 				categories: "=",
+				category: "=",
 				delete: "&"
 			}			
 		}

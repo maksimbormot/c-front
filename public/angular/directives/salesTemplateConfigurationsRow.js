@@ -5,6 +5,7 @@ angular.module('Curve')
 			templateUrl: "angular/templates/directives/sales-template-configurations-row.html",
 			scope: {
 				configurations: "=",
+				configuration: "=",
 				delete: "&"
 			}			
 		}
