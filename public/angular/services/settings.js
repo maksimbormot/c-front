@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.factory('Settings', function SettingsFactory(Session, User, Client, $q, Notification, Contract, Payee, Release, Track, Work){
+	.factory('Settings', function SettingsFactory(Session, User, Client, $q, Notification, Contract, Payee, Release, Track, Work, SalesTemplate){
 		return{
 			getSettings: function(settings){
 				settings = {};
@@ -44,7 +44,6 @@ angular.module('Curve')
 						}
 					});	
 				});		
-
 			},
 			getPayees: function(payees){
 				payees = [];
@@ -58,7 +57,6 @@ angular.module('Curve')
 						}
 					});	
 				});		
-
 			},
 			getReleases: function(releases){
 				releases = [];
@@ -72,7 +70,6 @@ angular.module('Curve')
 						}
 					});	
 				});		
-
 			},
 			getTracks: function(tracks){
 				tracks = [];
@@ -86,7 +83,6 @@ angular.module('Curve')
 						}
 					});	
 				});		
-
 			},
 			getWorks: function(works){
 				works = [];
@@ -100,7 +96,19 @@ angular.module('Curve')
 						}
 					});	
 				});		
-
+			},
+			getTemplates: function(templates){
+				templates = [];
+				return $q(function(resolve, reject) {
+					SalesTemplate.all(templates, function(response) {
+						if(response.status == 200) {
+							templates = response.data.salesTemplates;
+							resolve(templates);
+						} else {
+							Notification.error(response.data.message);
+						}
+					});	
+				});	
 			}
 		}
 	}); 

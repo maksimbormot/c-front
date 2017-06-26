@@ -132,17 +132,17 @@ angular.module('Curve')
 			templateUrl: '/angular/templates/mechanicals/edit.html'
 		})
 		.when('/sales', {
-			templateUrl: '/angular/templates/sales-file/index.html',
+			templateUrl: '/angular/templates/sales-files/index.html',
 			controller: 'salesFileController',
 			controllerAs: 'salesFileCtrl'
 		}) 
 		.when('/sales/:id/edit', {
-			templateUrl: '/angular/templates/sales-file/edit.html',
-			controller: 'salesFileEditController',
-			controllerAs: 'salesFileEditCtrl'
+			templateUrl: '/angular/templates/sales-files/sales-import.html',
+			controller: 'salesImportController',
+			controllerAs: 'salesImportCtrl'
 		})
 		.when('/sales/import', {
-			templateUrl: '/angular/templates/sales-file/sales-import.html',
+			templateUrl: '/angular/templates/sales-files/sales-import.html',
 			controller: 'salesImportController',
 			controllerAs: 'salesImportCtrl'
 		})
@@ -185,9 +185,9 @@ angular.module('Curve')
 			controllerAs: 'salesTemplateCtrl'
 		})
 		.when('/unmapped', {
-			templateUrl: '/angular/templates/unmapped/index.html',
-			controller: 'unmappedController',
-			controllerAs: 'unmappedCtrl'
+			templateUrl: '/angular/templates/sales-files/sales-unmapped.html',
+			controller: 'salesUnmappedController',
+			controllerAs: 'salesUnmappedCtrl'
 		})
 		.otherwise({ redirectTo: '/' })
 	});

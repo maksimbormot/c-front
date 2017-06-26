@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.factory('SalesFile', function SalesFileFactory($http, Session){
+	.factory('SalesFile', function SalesFileFactory($http, Session, Upload){
 		return{
 			all: function(params, callback) {
 				$http({ method: 'GET', url: 'http://localhost:8081/salesFiles?applicationToken=12345&token=' + Session.token + "&" + $.param(params) }).then(function(data){
@@ -21,6 +21,11 @@ angular.module('Curve')
 					callback(data);
 				});
 			},
+			create: function(params, callback) {
+			$http({ method: "POST", url: 'http://localhost:8081/salesFiles?applicationToken=12345&token=' + Session.token, data: params, headers: {'Content-Type': 'application/json'} }).then(function(data){
+					callback(data);
+				});
+			},
 			export: function(callback) {
 				$http.get('http://localhost:8081/salesFiles/export?applicationToken=12345&token=' + Session.token, {
 				responseType: 'arraybuffer'
@@ -29,12 +34,20 @@ angular.module('Curve')
 				}, function(e){
 					callback(e);
 				});
-			}
-			// create: function(params, callback) {
-			// 	$http({ method: "POST", url: 'http://localhost:8081/salesFiles?applicationToken=12345&token=' + Session.token, data: $.param(params), headers: {'Content-Type': 'application/x-www-form-urlencoded'} }).then(function(data){
-			// 		callback(data);
-			// 	});
-			// }			
+			},
+			import: function(file, callback) {
+				Upload.upload({
+				url: 'http://localhost:8081/salesFiles/upload?applicationToken=12345&token=' + Session.token,
+				data: {
+					file: file,
+					another: "field"
+				} 
+				}).then(function(response) {
+					callback(response)
+				}, function(e){
+					callback(e);
+				}) 
+			}			
 		}
 
-	});
+	});  

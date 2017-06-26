@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.factory('SalesTemplate', function SalesTemplateFactory($http, Session){
+	.factory('SalesTemplate', function SalesTemplateFactory($http, Session, Upload){
 		return{
 			all: function(params, callback) {
 				$http({ method: 'GET', url: 'http://localhost:8081/salesTemplates?applicationToken=12345&token=' + Session.token + "&" + $.param(params) }).then(function(data){
@@ -40,5 +40,5 @@ angular.module('Curve')
 				}) 
 			}		
 		}
- 
+  
 	});

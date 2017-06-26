@@ -38,22 +38,29 @@ angular.module('Curve')
 			});	
 
 	    $scope.upload = function (file) {
-			Upload.upload({
-		      url: 'http://localhost:8081/costs/upload'+ $scope.token,
-		      method: 'POST',
-		      data: {file: file, cost_id: $scope.cost._id}
-		    })
-		    .then(function(resp){
-		    	$scope.cost.file = resp.data.url;
-		    })
+	    	if($scope.cost._id){
+				return Upload.upload({
+			      url: 'http://localhost:8081/costs/upload'+ $scope.token,
+			      method: 'POST',
+			      data: {file: file, cost_id: $scope.cost._id}
+			    })
+			    .then(function(resp){
+			    	$scope.cost.file = resp.data.url;
+			    	return resp;
+			    })
+			}
 	    };
 
-		$scope.save = function() {
+		$scope.save = function() { 
 			if(!$scope.cost._id) {
 				Cost.create($scope.cost, function(response) {
 					if(response.status == 200) {
-						Notification.success('Cost successfully created');
-						$window.location.href = "#/costs/" + response.data._id + "/edit"
+						$scope.cost._id = response.data._id;
+						$scope.upload($scope.file)
+						.then(function(){
+							Notification.success('Cost successfully created');
+							$window.location.href = "#/costs/" + response.data._id + "/edit"
+						});
 					} else {
 						Notification.error('Error creating cost, please try again or contact support');
 					}
@@ -62,7 +69,7 @@ angular.module('Curve')
 				console.log($scope.cost);
 				Cost.update($scope.cost._id, $scope.cost, function(response) {
 					if(response.status == 200) {
-						$scope.costEditController = response.data;
+						$scope.cost = response.data;
 						Notification.success('Cost successfully saved');
 					} else {
 						Notification.error('Error saving cost, please try again or contact support');

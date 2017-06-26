@@ -107,19 +107,35 @@ contract-sales-row .row div .ui-select-container .ui-select-match span {
     -webkit-transition: opacity 0.3s ease;
     transition: opacity 0.3s ease;
 }
-table.table-unmapped{
+table.sales-table{
 	table-layout: auto !important;
+}
+table.sales-table tbody tr td {
+    font-size: 12px !important;
+	padding:8px 9px !important;
+	vertical-align:middle;
+}
+table.sales-table thead tr th{
+	padding:0 9px 14px 9px !important;
+}
+table.sales-table thead tr th:first-child{
+	padding-left:9px !important;
 }
 .edit-unmapped{
     width: 20px;
     height: 20px;
     background-color: #ffffff;
     background-image: none;
-    border: 1px solid rgba(44, 44, 44, 0.35);
-    color:rgba(44, 44, 44, 0.35) !important;
+    border: 1px solid #3a8fc8;
+    color:#3a8fc8;
     text-align: center;
     border-radius: 4px;
     font-size:13.5px !important;
+}
+.edit-unmapped:hover{
+	cursor:pointer;
+    border: 1px solid #48b0f7;
+    color:#48b0f7;	
 }
 .unmapped-edit-container{
 	width:50%;
@@ -131,8 +147,8 @@ table.table-unmapped{
 .f-l{
 	float:left;
 }
-.w-10{
-	width:10%;
+.w-13{
+	width:13%;
 	margin-right:5px;
 }
 .template-example-table thead{
