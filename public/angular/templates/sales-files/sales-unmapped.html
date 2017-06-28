@@ -14,81 +14,80 @@
 </div>
 <!-- Main Container -->
 <div class="container-fluid container-fixed-lg">
-  	<div class="row">
-  		<div class="col-xs-12 col-sm-4">
-  			<div class="panel panel-default">
-  			  <div class="panel-body p-t-15">
-  			    <form role="form">
-  			    <div class="form-group required">
-  			      <label>Track title</label>
-  			      <input type="text" class="form-control" ng-model="sale.trackTitle">
-  			    </div> 
-  			    <div class="form-group required">
-  			      <label>Track artist</label>
-  			      <input type="text" class="form-control" ng-model="sale.trackArtist">
-  			    </div>
-  			    <div class="form-group required">
-  			      <label>Album title</label>
-  			      <input type="text" class="form-control" ng-model="sale.albumTitle">
-  			    </div>
-  			    <div class="form-group required">
-  			      <label>Album artist</label>
-  			      <input type="text" class="form-control" ng-model="sale.albumArtist"> 
-  			    </div>
-  			    </form>
-  			  </div>
-  			</div>
-  		</div>
-  		<div class="col-xs-12 col-sm-4">
-  			<div class="panel panel-default">
-  			  <div class="panel-body p-t-15">
-  			    <form role="form">
-  			    <div class="form-group required">
-  			      <label>Barcode</label>
-  			      <input type="text" class="form-control" ng-model="sale.barcode">
-  			    </div>
-  			    <div class="form-group required">
-  			      <label>Cat No</label>
-  			      <input type="text" class="form-control" ng-model="sale.catNo">
-  			    </div>
-  			    <div class="form-group required">
-  			      <label>ISRC</label>
-  			      <input type="text" class="form-control" ng-model="sale.isrc">
-  			    </div>
-  			    <div class="form-group required">
-  			      <label>Territory</label>
-  			      <input type="text" class="form-control" ng-model="sale.territory">
-  			    </div>
-  			    </form>
-  			  </div>
-  			</div>
-  		</div>
-  		<div class="col-xs-12 col-sm-4">
-  			<div class="panel panel-default">
-  			  <div class="panel-body p-t-15">
-  			    <form role="form">
-  			    <div class="form-group required">
-  			      <label>Distribution channel</label>
-  			      <input type="text" class="form-control" ng-model="sale.distributionChannel">
-  			    </div>
-  			    <div class="form-group required">
-  			      <label>Configuration</label>
-  			      <input type="text" class="form-control" ng-model="sale.configuration">
-  			    </div>
-  			    <div class="form-group required">
-  			      <label>Source</label>
-  			      <input type="text" class="form-control" ng-model="sale.source">
-  			    </div>
-  			    <div class="form-group required">
-  			      <label>Subsource</label>
-  			      <input type="text" class="form-control" ng-model="sale.subsource">
-  			    </div>
-  			    </form>
-  			  </div>
-  			</div>
-  		</div>
-  	</div>
-
+  <div class="row">
+    <div class="col-xs-6 col-md-4">
+      <div class="form-group required">
+        <label>Track Title</label>
+        <input type="text" class="form-control" ng-model="sale.trackTitle">
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="form-group required">
+        <label>Barcode</label>
+        <input type="text" class="form-control" ng-model="sale.barcode">
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="form-group required">
+        <label>Distrubution Channel</label>
+        <input type="text" class="form-control" ng-model="sale.distributionChannel">
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="form-group required">
+        <label>Track Artist</label>
+        <input type="text" class="form-control" ng-model="sale.trackArtist">
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="form-group required">
+        <label>Cat No.</label>
+        <input type="text" class="form-control" ng-model="sale.catNo">
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="form-group required">
+        <label>Configuration</label>
+        <input type="text" class="form-control" ng-model="sale.configuration">
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="form-group required">
+        <label>Album Title</label>
+        <input type="text" class="form-control" ng-model="sale.albumTitle">
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="form-group required">
+        <label>ISRC</label>
+        <input type="text" class="form-control" ng-model="sale.isrc">
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="form-group required">
+        <label>Source</label>
+        <input type="text" class="form-control" ng-model="sale.source">
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="form-group required">
+        <label>Album Artist</label>
+        <input type="text" class="form-control" ng-model="sale.albumArtist">
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="form-group required">
+        <label>Territory</label>
+        <input type="text" class="form-control" ng-model="sale.territory">
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-4">
+      <div class="form-group required">
+        <label>Subsource</label>
+        <input type="text" class="form-control" ng-model="sale.subsource">
+      </div>
+    </div>
+  </div>
   <!-- Buttons and Total -->
   <div class="row">
     <div class="col-xs-12 center">
