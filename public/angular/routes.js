@@ -146,6 +146,11 @@ angular.module('Curve')
 			controller: 'salesImportController',
 			controllerAs: 'salesImportCtrl'
 		})
+		.when('/sales/:id/ingest', {
+			templateUrl: '/angular/templates/sales-files/sales-ingest.html',
+			controller: 'salesIngestController',
+			controllerAs: 'salesIngestCtrl'
+		})
 		.when('/periods', {
 			templateUrl: '/angular/templates/periods/index.html'
 		})

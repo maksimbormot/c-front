@@ -26,6 +26,11 @@ angular.module('Curve')
 					callback(data);
 				});
 			},
+			ingest: function(id, params, callback) {
+				$http({ method: "POST", url: 'http://localhost:8081/salesFiles/' + id + '?applicationToken=12345&token=' + Session.token, data: params, headers: {'Content-Type': 'application/json'} }).then(function(data){
+					callback(data);
+				});
+			},
 			export: function(callback) {
 				$http.get('http://localhost:8081/salesFiles/export?applicationToken=12345&token=' + Session.token, {
 				responseType: 'arraybuffer'

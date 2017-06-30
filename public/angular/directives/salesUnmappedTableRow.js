@@ -4,7 +4,8 @@ angular.module('Curve')
 			restrict: "A",
 			templateUrl: "angular/templates/directives/sales-unmapped-table-row.html",
 			scope: {
-				sale: "="
+				sale: "=",
+				single: "&"
 			}
 		}
 	});

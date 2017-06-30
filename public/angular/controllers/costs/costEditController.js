@@ -35,20 +35,23 @@ angular.module('Curve')
 		Settings.getContracts()
 			.then(function(contracts){
 				$scope.contracts = contracts;
-			});	
+			});	 
 
 	    $scope.upload = function (file) {
 	    	if($scope.cost._id){
 				return Upload.upload({
 			      url: 'http://localhost:8081/costs/upload'+ $scope.token,
 			      method: 'POST',
-			      data: {file: file, cost_id: $scope.cost._id}
+			      data: {
+			      	file: file, 
+			      	cost_id: $scope.cost._id
+			      }
 			    })
 			    .then(function(resp){
 			    	$scope.cost.file = resp.data.url;
 			    	return resp;
 			    })
-			}
+			}  
 	    };
 
 		$scope.save = function() { 
@@ -66,7 +69,6 @@ angular.module('Curve')
 					}
 				});
 			} else {
-				console.log($scope.cost);
 				Cost.update($scope.cost._id, $scope.cost, function(response) {
 					if(response.status == 200) {
 						$scope.cost = response.data;
