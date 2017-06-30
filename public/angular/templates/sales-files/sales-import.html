@@ -45,7 +45,7 @@
     <div class="col-xs-4 text-right">
       <input type="file" class="inline m-t-10" ngf-select ngf-allow-dir="false" ng-model="file">
       <button class="btn btn-complete m-t-10" ng-click="upload(file)"><i class="fa fa-download"></i>&nbsp;Import</button>
-      <a href="#" class="btn btn-complete pull-right m-t-10" ng-show="salesImport || salesFile._id" ng-click="save()">Ingest</a>
+      <a class="btn btn-complete pull-right m-t-10" ng-show="salesImport || salesFile._id" ng-click="ingest()">Ingest</a>
     </div>
   </div>
 
