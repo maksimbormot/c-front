@@ -131,12 +131,16 @@ angular.module('Curve')
     };
 
     $scope.ingest = function() {
-      SalesFile.ingest(function(response) {
-        if(response.status == 200) {
-          $window.location.href = "#/sales"
-        } else {
-          Notification.error('Error kicking off ingestion, please try again or contact support');
-        }
+    	// Added save here
+      save(function() {
+      	SalesFile.ingest($scope.salesFile._id, {}, function(response) {
+	        if(response.status == 200) {
+	          $window.location.href = "#/sales"
+	          Notification.success('Sales file ingestion started');
+	        } else {
+	          Notification.error('Error kicking off ingestion, please try again or contact support');
+	        }
+	      });
       });
     };
 
