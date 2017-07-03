@@ -30,7 +30,7 @@ angular.module('Curve')
 		$scope.getSources = function(){
 			$scope.sources = [];
 			next:
-			for (var i = 0; i < $scope.templates.length; i++){
+			for (var i = 0; i < $scope.templates.length; i++){ 
 				var source = $scope.templates[i].source;
 				for (var j = 0; j < $scope.sources.length; j++){
 					if ($scope.sources[j].source == source){
@@ -74,76 +74,86 @@ angular.module('Curve')
 
 	    $scope.upload = function (file) {
 	    	$scope.salesFile.status = 'Setup';
-			$scope.salesFile.exampleLines = [];	    	
-	    	$scope.salesImport = true; 
-			Upload.upload({ 
-		      url: 'http://localhost:8081/salesFiles/upload'+ $scope.token,
-		      method: 'POST',
-		      data: {
-		      	file: file, 
-		      	salesFile_id: $scope.salesFile._id
-		      }
-		    })
-		    .then(function(resp){
-		    	$scope.salesFile.file = resp.data.url;
-		    	$scope.data = resp.data.template;
-		    	var headers = $scope.data.shift();
-		    	$scope.salesFile.exampleLines[0] = $scope.selectedTemplate.exampleLines[0];
+	    	// Ensure salesFile is created or saved here before upload 
+	    	save(function(response){
+	    		if(response.status == 200){
+			        $scope.salesFile = response.data; 
+			        Notification.success('Sale successfully saved'); 
+			        // After successful save, upload file with updated salesFile ID 
+					$scope.salesFile.exampleLines = [];	    	
+			    	$scope.salesImport = true; 
+						Upload.upload({
+						  url: 'http://localhost:8081/salesFiles/upload'+ $scope.token,
+					      method: 'POST',
+					      data: {
+					      	file: file, 
+					      	salesFile_id: $scope.salesFile._id
+					      }
+					    })
+					    .then(function(resp){
+							$scope.newId = resp.data.id;
+							$scope.salesFile.file = resp.data.url;
+					    	$scope.data = resp.data.template;
+					    	var headers = $scope.data.shift();
+					    	$scope.salesFile.exampleLines[0] = $scope.selectedTemplate.exampleLines[0];
 
-				for (var i = 0; i < ($scope.data.length > 10 ? 10 : $scope.data.length); i++){
-			    	var subArray = [];
-			    	$scope.salesFile.exampleLines[0].forEach(function(element){
-			    		var number = 0;
-			    		headers.forEach(function(el){
-			    			if (element == el){
-			    				number++;
-			    				$scope.index1 = headers.indexOf(el);
-			    			}
-			    		});
-		    			if (number == 0){
-		    				$scope.index1 = -1;
-		    			}
-						var count = 0;
-						for (var j = 0; j < $scope.data[i].length; j++){
-							if (j == $scope.index1){
-								subArray.push($scope.data[i][j]);
-								count++;
-							}
-						}
-						if (count == 0){
-							subArray.push('');
-						}
-			    	});
-			    	$scope.salesFile.exampleLines.push(subArray);
-		    	}
-		    	return $scope.salesFile.exampleLines;
-		    })
+							for (var i = 0; i < ($scope.data.length > 10 ? 10 : $scope.data.length); i++){
+						    	var subArray = [];
+						    	$scope.salesFile.exampleLines[0].forEach(function(element){
+						    		var number = 0;
+						    		headers.forEach(function(el){
+						    			if (element == el){
+						    				number++;
+						    				$scope.index1 = headers.indexOf(el);
+						    			}
+						    		});
+					    			if (number == 0){
+					    				$scope.index1 = -1;
+					    			}
+									var count = 0;
+									for (var j = 0; j < $scope.data[i].length; j++){
+										if (j == $scope.index1){
+											subArray.push($scope.data[i][j]);
+											count++;
+										}
+									} 
+									if (count == 0){
+										subArray.push('');
+									}
+						    	});
+						    	$scope.salesFile.exampleLines.push(subArray);
+					    	}
+					    	return $scope.salesFile.exampleLines;
+					    }) 
+	    		} else {
+	    			Notification.error('Error saving sale, please try again or contact support'); 
+	    		}
+	    	})  		
 	    };
 
-		$scope.save = function() {
-			$scope.salesFile.status = 'Processing';
-			if(!$scope.salesFile._id) {
-				SalesFile.create($scope.salesFile, function(response) {
-					if(response.status == 200) {
-						Notification.success('Sale successfully created');
-						$window.location.href = "#/sales/" + response.data._id + "/edit"
-						//$window.location.href = "#/sales/"
-					} else {
-						Notification.error('Error creating sale, please try again or contact support');
-					}
-				});
-			} else {
-				console.log($scope.salesFile);
-				SalesFile.update($scope.salesFile._id, $scope.salesFile, function(response) {
-					if(response.status == 200) {
-						$scope.salesFile = response.data;
-						Notification.success('Sale successfully saved');
-						//$window.location.href = "#/sales/"
-					} else {
-						Notification.error('Error saving sale, please try again or contact support');
-					}
-				});
-			}
+	    $scope.ingest = function() { 
+		    save(function() { 
+		        SalesFile.ingest($scope.salesFile._id, {}, function(response) { 
+			          if(response.status == 200) { 
+			            $window.location.href = "#/sales" 
+			            Notification.success('Sales file ingestion started'); 
+			          } else { 
+			            Notification.error('Error kicking off ingestion, please try again or contact support'); 
+			          } 
+		    	}); 
+	    	}); 
 		};
+
+	    function save(callback) { 
+	      if(!$scope.salesFile._id) { 
+	        SalesFile.create($scope.salesFile, function(response) { 
+	          callback(response); 
+	        }); 
+	      } else { 
+	        SalesFile.update($scope.salesFile._id, $scope.salesFile, function(response) { 
+	          callback(response); 
+	        }); 
+	      } 
+	    } 
 
 	}]);
