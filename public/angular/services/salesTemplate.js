@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.factory('SalesTemplate', function SalesTemplateFactory($http, Session){
+	.factory('SalesTemplate', function SalesTemplateFactory($http, Session, Upload){
 		return{
 			all: function(params, callback) {
 				$http({ method: 'GET', url: 'http://localhost:8081/salesTemplates?applicationToken=12345&token=' + Session.token + "&" + $.param(params) }).then(function(data){
@@ -22,10 +22,23 @@ angular.module('Curve')
 				});
 			},
 			create: function(params, callback) {
-				$http({ method: "POST", url: 'http://localhost:8081/salesTemplates?applicationToken=12345&token=' + Session.token, data: $.param(params), headers: {'Content-Type': 'application/x-www-form-urlencoded'} }).then(function(data){
+			$http({ method: "POST", url: 'http://localhost:8081/salesTemplates?applicationToken=12345&token=' + Session.token, data: params, headers: {'Content-Type': 'application/json'} }).then(function(data){
 					callback(data);
 				});
-			}			
+			},
+			import: function(file, callback) {
+				Upload.upload({
+				url: 'http://localhost:8081/salesTemplates/upload?applicationToken=12345&token=' + Session.token,
+				data: {
+					file: file,
+					another: "field"
+				} 
+				}).then(function(response) {
+					callback(response)
+				}, function(e){
+					callback(e);
+				}) 
+			}		
 		}
-
+  
 	});

@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.controller('costsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Cost', 'Notification', function($scope, $routeParams, Session, Pagination, Cost, Notification) {
+	.controller('costsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Cost', 'Notification', 'FileSaver', function($scope, $routeParams, Session, Pagination, Cost, Notification, FileSaver) {
 		var controller = this;
 		$scope.costs = [];
 		$scope.searchText = null;
@@ -14,13 +14,32 @@ angular.module('Curve')
 				} else {
 					Notification.error(response.data.message);
 				}
-			});  
+			});   
 		};
-		$scope.search = function(text) {
-			controller.filter({ name: text }, function() {
+		$scope.getSortedData = function(orderBy) {
+			if ( $scope.orderBy == orderBy ) {
+				$scope.orderDir = ( $scope.orderDir == 'asc' ) ? 'desc' : 'asc';
+			}
+			$scope.orderBy = orderBy;
+			controller.filter({ text: $scope.searchText, orderBy: $scope.orderBy, orderDir: $scope.orderDir });
+		};
+		$scope.whatClassIsIt= function(field){
+			if ($scope.orderBy == field) {
+				if ( $scope.orderDir == 'asc' ) {
+					return 'sorting_asc';
+				} else {
+					return 'sorting_desc';
+				}
+			} else {
+				return 'sorting';
+			}
+		}
+		$scope.search = function() {
+			controller.filter({ text: $scope.searchText }, function() {
 				Notification.success('Costs Successfully Searched');
 			});
 		};
+
 		$scope.changePage = function(page) {
 			controller.filter({ name: $scope.searchText, page: page });
 		};
@@ -49,7 +68,7 @@ angular.module('Curve')
 					Notification.success('Costs successfully imported');
 				} else if(response.status == 400) {
 					$scope.importErrors = response.data.errors;
-				} else {
+				} else { 
 
 				}
 			});

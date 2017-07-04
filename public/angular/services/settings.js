@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.factory('Settings', function SettingsFactory(Session, User, Client, $q, Notification, Contract, Payee){
+	.factory('Settings', function SettingsFactory(Session, User, Client, $q, Notification, Contract, Payee, Release, Track, Work, SalesTemplate){
 		return{
 			getSettings: function(settings){
 				settings = {};
@@ -44,7 +44,6 @@ angular.module('Curve')
 						}
 					});	
 				});		
-
 			},
 			getPayees: function(payees){
 				payees = [];
@@ -58,7 +57,58 @@ angular.module('Curve')
 						}
 					});	
 				});		
-
+			},
+			getReleases: function(releases){
+				releases = [];
+				return $q(function(resolve, reject) {
+					Release.all(releases, function(response) {
+						if(response.status == 200) {
+							releases = response.data.releases;
+							resolve(releases);
+						} else {
+							Notification.error(response.data.message);
+						}
+					});	
+				});		
+			},
+			getTracks: function(tracks){
+				tracks = [];
+				return $q(function(resolve, reject) {
+					Track.all(tracks, function(response) {
+						if(response.status == 200) {
+							tracks = response.data.tracks;
+							resolve(tracks);
+						} else {
+							Notification.error(response.data.message);
+						}
+					});	
+				});		
+			},
+			getWorks: function(works){
+				works = [];
+				return $q(function(resolve, reject) {
+					Work.all(works, function(response) {
+						if(response.status == 200) {
+							works = response.data.works;
+							resolve(works);
+						} else {
+							Notification.error(response.data.message);
+						}
+					});	
+				});		
+			},
+			getTemplates: function(templates){
+				templates = [];
+				return $q(function(resolve, reject) {
+					SalesTemplate.all(templates, function(response) {
+						if(response.status == 200) {
+							templates = response.data.salesTemplates;
+							resolve(templates);
+						} else {
+							Notification.error(response.data.message);
+						}
+					});	
+				});	
 			}
 		}
 	}); 

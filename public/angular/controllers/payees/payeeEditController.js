@@ -15,7 +15,7 @@ angular.module('Curve')
 			});
 		};
 		$scope.groupFind = function(country){
-			return country.country;
+			return country.continent;
 		}
 		$scope.save = function() {
 			if(!$scope.payee._id) {

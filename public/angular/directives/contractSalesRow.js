@@ -14,7 +14,7 @@ angular.module('Curve')
 			},
 			link: function(scope){
 				scope.groupFind = function(country){
-					return country.country;
+					return country.continent;
 				}
 			}		
 		}

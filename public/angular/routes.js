@@ -132,10 +132,24 @@ angular.module('Curve')
 			templateUrl: '/angular/templates/mechanicals/edit.html'
 		})
 		.when('/sales', {
-			templateUrl: '/angular/templates/sales/index.html'
-		})
+			templateUrl: '/angular/templates/sales-files/index.html',
+			controller: 'salesFileController',
+			controllerAs: 'salesFileCtrl'
+		}) 
 		.when('/sales/:id/edit', {
-			templateUrl: '/angular/templates/sales/edit.html'
+			templateUrl: '/angular/templates/sales-files/sales-import.html',
+			controller: 'salesImportController',
+			controllerAs: 'salesImportCtrl'
+		})
+		.when('/sales/import', {
+			templateUrl: '/angular/templates/sales-files/sales-import.html',
+			controller: 'salesImportController',
+			controllerAs: 'salesImportCtrl'
+		})
+		.when('/sales/:id/ingest', {
+			templateUrl: '/angular/templates/sales-files/sales-ingest.html',
+			controller: 'salesIngestController',
+			controllerAs: 'salesIngestCtrl'
 		})
 		.when('/periods', {
 			templateUrl: '/angular/templates/periods/index.html'
@@ -174,6 +188,11 @@ angular.module('Curve')
 			templateUrl: '/angular/templates/sales-templates/edit.html',
 			controller: 'salesTemplateEditController',
 			controllerAs: 'salesTemplateCtrl'
+		})
+		.when('/unmapped', {
+			templateUrl: '/angular/templates/sales-files/sales-unmapped.html',
+			controller: 'salesUnmappedController',
+			controllerAs: 'salesUnmappedCtrl'
 		})
 		.otherwise({ redirectTo: '/' })
 	});

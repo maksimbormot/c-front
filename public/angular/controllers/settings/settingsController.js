@@ -17,7 +17,7 @@ angular.module('Curve')
 				$scope.userRole = 'internal'; 
 			} else if(Session.userType == 'client'){
 				User.get(Session.id, function(response) { 
-					if(response.status == 200) {
+					if(response.status == 200) { 
 						$scope.user = response.data;
 						if ($scope.user.clientId){
 							Client.get($scope.user.clientId, function(response) {
