@@ -27,8 +27,8 @@ angular.module('Curve')
 				});
 			},
 			ingest: function(id, params, callback) {
-				$http({ method: "POST", url: 'http://localhost:8081/salesFiles/' + id + '/ingest?applicationToken=12345&token=' + Session.token, headers: {'Content-Type': 'application/json'} }).then(function(data){ 
-          		callback(data); 
+				$http({ method: "POST", url: 'http://localhost:8081/salesFiles/' + id + '/ingest?applicationToken=12345&token=' + Session.token, headers: {'Content-Type': 'application/json'} }).then(function(data){
+					callback(data);
 				});
 			},
 			export: function(callback) {

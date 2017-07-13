@@ -74,12 +74,12 @@ angular.module('Curve')
 
     $scope.upload = function(file) {
       $scope.salesFile.status = 'Setup';
-      // Ensure salesFile is created or saved here before upload 
+      // Ensure salesFile is created or saved here before upload
       save(function(response) {
         if(response.status == 200) {
           $scope.salesFile = response.data;
           Notification.success('Sale successfully saved');
-          // After successful save, upload file with updated salesFile ID 
+          // After successful save, upload file with updated salesFile ID
           $scope.salesFile.exampleLines = [];
           $scope.salesImport = true;
           Upload.upload({
@@ -91,7 +91,6 @@ angular.module('Curve')
               }
             })
             .then(function(resp) {
-              $scope.newId = resp.data.id;
               $scope.salesFile.file = resp.data.url;
               $scope.data = resp.data.template;
               var headers = $scope.data.shift();
@@ -128,19 +127,20 @@ angular.module('Curve')
         } else {
           Notification.error('Error saving sale, please try again or contact support');
         }
-      })
+      });
     };
 
     $scope.ingest = function() {
+    	// Added save here
       save(function() {
-        SalesFile.ingest($scope.salesFile._id, {}, function(response) {
-          if(response.status == 200) {
-            $window.location.href = "#/sales"
-            Notification.success('Sales file ingestion started');
-          } else {
-            Notification.error('Error kicking off ingestion, please try again or contact support');
-          }
-        });
+      	SalesFile.ingest($scope.salesFile._id, {}, function(response) {
+	        if(response.status == 200) {
+	          $window.location.href = "#/sales"
+	          Notification.success('Sales file ingestion started');
+	        } else {
+	          Notification.error('Error kicking off ingestion, please try again or contact support');
+	        }
+	      });
       });
     };
 
