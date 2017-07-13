@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.controller('salesTemplateEditController', ['$scope', '$routeParams', '$window', 'Session', 'SalesTemplate', 'Notification', 'Settings', 'Territories', 'Upload', 'TemplateFields', 'TemplateTypes', function($scope, $routeParams, $window, Session, SalesTemplate, Notification, Settings, Territories, Upload, TemplateFields, TemplateTypes) {
+	.controller('salesTemplateEditController', ['$scope', '$routeParams', '$window', 'Session', 'SalesTemplate', 'Notification', 'Settings', 'Territories', 'Currencies', 'Upload', 'TemplateFields', 'TemplateTypes', function($scope, $routeParams, $window, Session, SalesTemplate, Notification, Settings, Territories, Currencies, Upload, TemplateFields, TemplateTypes) {
 		var controller = this;
 		$scope.territories = Territories; 
 		$scope.templateFields = TemplateFields; 
@@ -8,6 +8,11 @@ angular.module('Curve')
 		$scope.salesTemplate = {territories:[], distributionChannels: [], configurations: [], priceCategories: []};
 		$scope.salesTemplate.fields = [];
 		$scope.salesTemplate.exampleLines = [];
+		$scope.saleDatePopup = false;
+    $scope.transactionDatePopup = false;
+    $scope.territories = Territories;
+    $scope.currencies = Currencies;
+    $scope.types = ["Sale", "Return"];
 
 		// Load Template if ID exists
 		if($routeParams.id) {
@@ -24,6 +29,15 @@ angular.module('Curve')
 			.then(function(settings){
 				angular.extend($scope, settings);
 			});
+		$scope.groupFind = function(territory) {
+      return territory.continent;
+    }
+    $scope.openSaleDatePopup = function() {
+      $scope.saleDatePopup = true;
+    }
+    $scope.openTransactionDatePopup = function() {
+      $scope.transactionDatePopup = true;
+    }
 
 		$scope.$watch('salesTemplate.territories', function(territories) {
 			$scope.displayTerritories = []

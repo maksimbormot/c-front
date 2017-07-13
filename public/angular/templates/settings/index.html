@@ -115,12 +115,25 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <div class="panel-title">
-              Price category
+              Price Categories
             </div>
           </div>
           <div class="panel-body p-t-15">
             <price-category-row ng-repeat="category in displayPriceCategories track by $index" category="category" delete="deletePriceCategory(category)"></price-category-row>
             <button class="btn btn-complete" ng-click="addPriceCategory()">+ Add</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              Cost Types
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <cost-types-row ng-repeat="type in displayCostTypes track by $index" type="type" delete="deleteCostType(type)"></cost-types-row>
+            <button class="btn btn-complete" ng-click="addCostType()">+ Add</button>
           </div>
         </div>
       </div>

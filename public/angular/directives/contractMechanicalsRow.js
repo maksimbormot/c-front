@@ -6,6 +6,7 @@ angular.module('Curve')
 			scope: {
 				mechanical: "=",
 				countries: "=",
+				index: "=",
 				delete: "&"
 			},
 			link: function(scope){

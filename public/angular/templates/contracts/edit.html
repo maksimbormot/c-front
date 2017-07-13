@@ -119,7 +119,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15"> 
-                  <contract-sales-row ng-repeat="sale in contract.salesTerms" sale="sale" countries="countries" channels="distributionChannels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" delete="deleteSalesRow(sale)"></contract-sales-row>
+                  <contract-sales-row ng-repeat="sale in contract.salesTerms" sale="sale" countries="countries" channels="distributionChannels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" index="$index" delete="deleteSalesRow(sale)"></contract-sales-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addSalesRow()">+ Sales</button>
                 </div>
@@ -131,13 +131,13 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <div class="panel-title">
-                    Returns
+                    Deductions
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-sales-row ng-repeat="return in contract.returnsTerms" sale="return" countries="countries" channels="distributionChannels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" delete="deleteReturnsRow(sale)"></contract-sales-row>
+                  <contract-sales-row ng-repeat="return in contract.returnsTerms" sale="return" countries="countries" channels="distributionChannels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" index="$index" delete="deleteReturnsRow(sale)"></contract-sales-row>
                   <br>
-                  <button class="btn btn-complete" ng-click="addReturnsRow()">+ Returns</button>
+                  <button class="btn btn-complete" ng-click="addReturnsRow()">+ Deductions</button>
                 </div>
               </div>
             </div>
@@ -151,7 +151,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-costs-row ng-repeat="cost in contract.costsTerms" cost="cost" countries="countries" costs-types="costsTypes" delete="deleteCostsRow(cost)"></contract-costs-row>
+                  <contract-costs-row ng-repeat="cost in contract.costsTerms" cost="cost" countries="countries" costs-types="costTypes" index="$index" delete="deleteCostsRow(cost)"></contract-costs-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addCostsRow()">+ Costs</button>
                 </div>
@@ -167,7 +167,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-mechanicals-row ng-repeat="mechanical in contract.mechanicalTerms" mechanical="mechanical" countries="countries" delete="deleteMechanicalsRow(mechanical)"></contract-mechanicals-row>
+                  <contract-mechanicals-row ng-repeat="mechanical in contract.mechanicalTerms" mechanical="mechanical" countries="countries" index="$index" delete="deleteMechanicalsRow(mechanical)"></contract-mechanicals-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addMechanicalsRow()">+ Mechanicals</button>
                 </div>
@@ -185,7 +185,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-reserves-row ng-repeat="reserve in contract.reserves" reserve="reserve" index="$index" delete="deleteReservesRow(reserve)"></contract-reserves-row>
+                  <contract-reserves-row ng-repeat="reserve in contract.reserves" reserve="reserve" index="$index" delete="deleteReservesRow(reserve)" index="$index"></contract-reserves-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addReservesRow()">+ Reserve Period</button>
                 </div>

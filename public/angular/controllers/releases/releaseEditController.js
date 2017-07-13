@@ -2,7 +2,7 @@ angular.module('Curve')
 	.controller('releaseEditController', ['$scope', '$routeParams', '$window', 'Session', 'Release', 'Notification', 'Track', 'Pagination', 'Settings', function($scope, $routeParams, $window, Session, Release, Notification, Track, Pagination, Settings) {
 		var controller = this;
 		$scope.release = { salesReturnsRights: [], costsRights: [], aliases: [] };
-		$scope.formats = ["CD", "LP", "Digital"];
+		$scope.formats = [];
 		$scope.priceCategories = [];
 		$scope.contracts = [];
 
@@ -25,6 +25,7 @@ angular.module('Curve')
 		Settings.getSettings()
 			.then(function(settings){
 				$scope.priceCategories = settings.priceCategories;
+				$scope.formats = settings.configurations;
 			});		
 
 		Settings.getContracts()

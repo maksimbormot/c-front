@@ -7,6 +7,7 @@ angular.module('Curve')
 				cost: "=",
 				countries: "=",
 				costsTypes: "=",
+				index: "=",
 				delete: "&"
 			},
 			link: function(scope){

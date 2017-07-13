@@ -5,7 +5,8 @@ angular.module('Curve')
 				settings = {};
 				settings.distributionChannels = [];
 				settings.configurations = [];
-				settings.priceCategories = [];				
+				settings.priceCategories = [];
+				settings.costTypes = [];			
 				if(Session.id && Session.userType == 'client'){
 					return $q(function(resolve, reject) {
 						User.get(Session.id, function(response) {
@@ -16,7 +17,8 @@ angular.module('Curve')
 										if(response.status == 200) {
 											settings.distributionChannels = response.data.distributionChannels;
 											settings.configurations = response.data.configurations;
-											settings.priceCategories = response.data.priceCategories;																						
+											settings.priceCategories = response.data.priceCategories;
+											settings.costTypes = response.data.costTypes;
 											resolve(settings);
 										} else {
 											Notification.error('Error loading client, please try again or contact support');

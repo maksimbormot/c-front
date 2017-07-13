@@ -10,6 +10,7 @@ angular.module('Curve')
 				configurations: "=",
 				priceCategories: "=",
 				salesTypes: "=",
+				index: "=",
 				delete: "&"
 			},
 			link: function(scope){

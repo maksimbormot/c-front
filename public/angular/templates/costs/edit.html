@@ -43,8 +43,19 @@
               <ui-select-match>
                 <span ng-bind="$select.selected"></span>
               </ui-select-match>
-              <ui-select-choices repeat="item in costsTypes">
+              <ui-select-choices repeat="item in costTypes">
                 <span ng-bind="item"></span>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+          <div class="form-group">
+            <label>Territory</label>
+            <ui-select ng-model="cost.territory">
+              <ui-select-match>
+                  <span ng-bind="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices group-by="groupFind" repeat="territory.code as territory in territories | filter: $select.search">
+                  <span class="country" ng-bind="territory.name"></span>
               </ui-select-choices>
             </ui-select>
           </div>

@@ -1,7 +1,7 @@
 angular.module('Curve')
 	.controller('settingsController', ['$scope', '$routeParams', 'Session', 'Client', 'Parent', 'Payee', 'User', 'Notification', function($scope, $routeParams, Session, Client, Parent, Payee, User, Notification) {
 		var controller = this;
-		$scope.client = { distributionChannels: [], configurations: [], priceCategories: []};
+		$scope.client = { distributionChannels: [], configurations: [], priceCategories: [], costTypes: [] };
 		$scope.client = {};
 		$scope.user = {};
 
@@ -99,6 +99,7 @@ angular.module('Curve')
 			});
 		});
 		$scope.addPriceCategory = function() {
+			console.log($scope.displayPriceCategories);
 			$scope.displayPriceCategories.push("");
 			updatePriceCategories();
 		}
@@ -120,6 +121,34 @@ angular.module('Curve')
 			}
 		}
 
+		$scope.$watch('client.costTypes', function(costTypes) {
+			$scope.displayCostTypes = [];
+			angular.forEach(costTypes, function(costType) {
+				$scope.displayCostTypes.push({ name: costType });
+			});
+		});
+		$scope.addCostType = function() {
+			$scope.displayCostTypes.push("");
+			updateCostTypes();
+		}
+		$scope.deleteCostType = function(costType) {
+			var index = $scope.displayCostTypes.indexOf(costType);
+			$scope.displayCostTypes.splice(index, 1);
+		}
+		function updateCostTypes(callback) {
+			$scope.client.costTypes = []
+			if($scope.displayCostTypes.length > 0) {
+				angular.forEach($scope.displayCostTypes, function(costType) {
+					$scope.client.costTypes.push(costType.name);
+					if($scope.client.costTypes.length == $scope.displayCostTypes.length) {
+						if(callback) { callback(); }
+					}
+				});
+			} else {
+				if(callback) { callback(); }
+			}
+		}
+
 		$scope.saveSettings = function() {
 			if ($scope.user.newPassword === $scope.user.confirmNewPassword){
 				User.update($scope.user._id, $scope.user, function(response) {
@@ -129,6 +158,7 @@ angular.module('Curve')
 							updatePriceCategories();
 							updateConfigurations();
 							updateDistributionhannels();
+							updateCostTypes();
 							Client.update($scope.client._id, $scope.client, function(response) {
 								if(response.status == 200) {
 									$scope.client = response.data;
