@@ -3,7 +3,7 @@ angular.module('Curve')
 		return {
 			test: function(token, callback) {
 				if(token) {
-					$http({ method: 'GET', url: 'http://localhost:8081/authenticate/test_token?applicationToken=12345&token=' + token }).success(function(data){
+					$http({ method: 'GET', url: 'http://http://ec2-34-253-28-53.eu-west-1.compute.amazonaws.com:8081/authenticate/test_token?applicationToken=12345&token=' + token }).success(function(data){
 						console.log(data);
 						if(data.success == true) {
 							Session.isLoggedIn = true;
@@ -17,6 +17,7 @@ angular.module('Curve')
 						}
 						callback(Session);
 					}).error(function(data) {
+						console.log(data);
 						window.location.replace(window.location.origin + '/login.html');
 						callback(Session);
 					});
