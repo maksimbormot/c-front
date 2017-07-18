@@ -53,6 +53,8 @@ angular.module('Curve')
       });
 
     $scope.onSelectedTemplate = function(selectedItem) {
+      console.log(selectedItem);
+      $scope.salesFile.salesTemplateId = selectedItem._id;
       $scope.templateId = selectedItem._id;
       for(var i = 0; i < $scope.templates.length; i++) {
         if($scope.templates[i]._id == $scope.templateId) {

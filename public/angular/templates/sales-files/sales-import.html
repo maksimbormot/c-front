@@ -1,26 +1,26 @@
- <div class="jumbotron" data-pages="parallax">
+<div class="jumbotron" data-pages="parallax">
   <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
     <div class="inner">
       <ul class="breadcrumb">
         <li>
           <p>Curve</p>
         </li>
-        <li><a href="/#/sales">Sales</a></li>  
-        <li ng-show="!salesFile._id"><a href="/#/sales/import" class="active">Import</a></li>   
-        <li ng-show="salesFile._id"><a href="/#/sales/{{salesFile._id}}/edit" class="active">{{salesFile.name}}</a></li>   
+        <li><a href="/#/sales">Sales</a></li>
+        <li ng-show="!salesFile._id"><a href="/#/sales/import" class="active">Import</a></li>
+        <li ng-show="salesFile._id"><a href="/#/sales/{{salesFile._id}}/edit" class="active">{{salesFile.name}}</a></li>
       </ul>
     </div>
-  </div> 
+  </div>
 </div>
 <!-- Main Container -->
-<div class="container-fluid container-fixed-lg"> 
+<div class="container-fluid container-fixed-lg">
   <div class="row">
     <div class="col-xs-8">
       <div class="form-group f-l m-t-10">
         <input type="text" class="form-control" placeholder="Name" ng-model="salesFile.name">
       </div>
       <div class="form-group f-l m-t-10 w-13">
-        <ui-select class="full-width" ng-model="salesFile.source">
+        <ui-select class="full-width" ng-model="salesFile.salesAccountName">
           <ui-select-match placeholder="Source">
             <span ng-bind="$select.selected.source"></span>
           </ui-select-match>
@@ -34,7 +34,7 @@
           <ui-select-match placeholder="Template">
             <span ng-bind="$select.selected.name"></span>
           </ui-select-match>
-          <ui-select-choices repeat="item.name as item in templates | orderBy: 'name' | filter: {source: salesFile.source} : true">
+          <ui-select-choices repeat="item.name as item in templates | orderBy: 'name' | filter: { source: salesFile.salesAccountName } : true">
             <span ng-bind="item.name"></span>
           </ui-select-choices>
         </ui-select>
@@ -48,12 +48,11 @@
       <a class="btn btn-complete pull-right m-t-10" ng-show="salesImport || salesFile._id" ng-click="ingest()">Ingest</a>
     </div>
   </div>
-
   <div ng-show="salesImport || salesFile._id">
     <div class="row m-t-40">
       <div class="col-xs-12 col-md-12 col-sm-12">
         <div class="panel panel-default">
-          <div class="panel-heading">  
+          <div class="panel-heading">
             <div class="panel-title">
               Set fields
             </div>
@@ -81,7 +80,7 @@
                       <span ng-bind="$select.selected"></span>
                     </ui-select-match>
                     <ui-select-choices repeat="item in distributionChannels | orderBy:'item' | filter: $select.search">
-                      <span ng-bind="item"></span> 
+                      <span ng-bind="item"></span>
                     </ui-select-choices>
                   </ui-select>
                 </div>
@@ -91,12 +90,12 @@
                   <label>Currency</label>
                   <ui-select ng-model="salesFile.currency">
                     <ui-select-match>
-                        <span ng-bind="$select.selected.code"></span>
+                      <span ng-bind="$select.selected.code"></span>
                     </ui-select-match>
                     <ui-select-choices repeat="currency.code as currency in currencies | orderBy: 'code' | filter: $select.search">
-                        <span ng-bind-html="currency.code"></span>
-                        <span> &nbsp; - &nbsp; </span>
-                        <span ng-bind-html="currency.name"></span>
+                      <span ng-bind-html="currency.code"></span>
+                      <span> &nbsp; - &nbsp; </span>
+                      <span ng-bind-html="currency.name"></span>
                     </ui-select-choices>
                   </ui-select>
                 </div>
@@ -165,32 +164,30 @@
                       <span ng-bind="item"></span>
                     </ui-select-choices>
                   </ui-select>
-                </div> 
+                </div>
               </div>
               <div class="col-xs-6 col-sm-3">
                 <div class="form-group">
                   <label>Territory</label>
                   <ui-select ng-model="salesFile.territory">
                     <ui-select-match>
-                        <span ng-bind="$select.selected.name"></span>
+                      <span ng-bind="$select.selected.name"></span>
                     </ui-select-match>
                     <ui-select-choices group-by="groupFind" repeat="territory.code as territory in territories | filter: $select.search">
-                        <span class="country" ng-bind="territory.name"></span>
+                      <span class="country" ng-bind="territory.name"></span>
                     </ui-select-choices>
                   </ui-select>
-                </div>             
+                </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
     </div>
-
     <div class="row">
       <div class="col-xs-12 col-md-12 col-sm-12">
         <div class="panel panel-default">
-          <div class="panel-heading">  
+          <div class="panel-heading">
             <div class="panel-title">
               Example lines
             </div>
@@ -199,17 +196,15 @@
             <table class="template-example-table">
               <tbody>
                 <tr ng-repeat="row in salesFile.exampleLines track by $index">
-                 <td ng-repeat="column in row track by $index">
-                  {{column}}
-                 </td>
+                  <td ng-repeat="column in row track by $index">
+                    {{column}}
+                  </td>
                 </tr>
               </tbody>
             </table>
-
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>
