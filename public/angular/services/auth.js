@@ -13,15 +13,15 @@ angular.module('Curve')
 							Session.userType = data.userType;
 							$rootScope.$broadcast('user-logged-in', Session);
 						} else {
-							window.location.replace(window.location.origin + '/login');
+							window.location.replace(window.location.origin + '/login.html');
 						}
 						callback(Session);
 					}).error(function(data) {
-						window.location.replace(window.location.origin + '/login');
+						window.location.replace(window.location.origin + '/login.html');
 						callback(Session);
 					});
 				} else {
-					window.location.replace(window.location.origin + '/login');
+					window.location.replace(window.location.origin + '/login.html');
 					callback(Session);
 				}
 			},
