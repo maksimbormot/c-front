@@ -41,16 +41,20 @@
                 <input type="text" class="form-control" ng-model="salesTemplate.source">
               </div>
               <div class="form-group">
-                <label>Starting left</label>
+                <label>Tab</label>
+                <input type="text" class="form-control" ng-model="salesTemplate.tab">
+              </div>
+              <div class="form-group">
+                <label>Starting Left</label>
                 <input type="text" class="form-control" ng-model="salesTemplate.startingLeft">
               </div>
               <div class="form-group">
-                <label>Starting line</label>
+                <label>Starting Line</label>
                 <input type="text" class="form-control" ng-model="salesTemplate.startingLine">
               </div>
               <div class="form-group">
-                <label>Line breaks</label>
-                <input type="text" class="form-control" ng-model="salesTemplate.lineBreaks">
+                <label>Delimiter</label>
+                <input type="text" class="form-control" ng-model="salesTemplate.delimiter">
               </div>
             </div>
           </div>
@@ -68,22 +72,15 @@
           <div class="row">
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
-                <label>Type</label>
-                <ui-select ng-model="salesTemplate.type">
-                  <ui-select-match>
-                    <span ng-bind="$select.selected"></span>
-                  </ui-select-match>
-                  <ui-select-choices repeat="item in types | filter: $select.search">
-                    <span ng-bind="item"></span>
-                  </ui-select-choices>
-                </ui-select>
+                <label>Source</label>
+                <input type="text" class="form-control" ng-model="salesTemplate.overwriteFields.source">
               </div>
             </div>
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Distribution Channel</label>
-                <ui-select ng-model="salesTemplate.distributionChannel">
-                  <ui-select-match>
+                <ui-select ng-model="salesTemplate.overwriteFields.distributionChannel">
+                  <ui-select-match allow-clear="true">
                     <span ng-bind="$select.selected"></span>
                   </ui-select-match>
                   <ui-select-choices repeat="item in distributionChannels | orderBy:'item' | filter: $select.search">
@@ -95,8 +92,8 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Currency</label>
-                <ui-select ng-model="salesTemplate.currency">
-                  <ui-select-match>
+                <ui-select ng-model="salesTemplate.overwriteFields.currency">
+                  <ui-select-match allow-clear="true">
                       <span ng-bind="$select.selected.code"></span>
                   </ui-select-match>
                   <ui-select-choices repeat="currency.code as currency in currencies | orderBy: 'code' | filter: $select.search">
@@ -111,7 +108,7 @@
               <div class="form-group">
                 <label>Sale Date</label>
                 <div id="datepicker-component" class="form-group input-group date">
-                  <input type="text" class="form-control" ng-model="salesTemplate.saleDate" uib-datepicker-popup="dd/MM/yyyy" is-open="saleDatePopup" ng-click="openSaleDatePopup()">
+                  <input type="text" class="form-control" ng-model="salesTemplate.overwriteFields.saleDate" uib-datepicker-popup="dd/MM/yyyy" is-open="saleDatePopup" ng-click="openSaleDatePopup()">
                   <span class="input-group-addon" ng-click="openSaleDatePopup()">
                     <i class="fa fa-calendar"></i>
                   </span>
@@ -120,15 +117,15 @@
             </div>
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
-                <label>Source</label>
-                <input type="text" class="form-control" ng-model="salesTemplate.source">
+                <label>Sub Source</label>
+                <input type="text" class="form-control" ng-model="salesTemplate.overwriteFields.subSource">
               </div>
             </div>
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Configuration</label>
-                <ui-select ng-model="salesTemplate.configuration">
-                  <ui-select-match>
+                <ui-select ng-model="salesTemplate.overwriteFields.configuration">
+                  <ui-select-match allow-clear="true">
                     <span ng-bind="$select.selected"></span>
                   </ui-select-match>
                   <ui-select-choices repeat="item in configurations | orderBy:'item' | filter: $select.search">
@@ -140,14 +137,14 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Exchange Rate</label>
-                <input type="text" class="form-control" ng-model="salesTemplate.exchangeRate">
+                <input type="text" class="form-control" ng-model="salesTemplate.overwriteFields.exchangeRate">
               </div>
             </div>
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Transaction Date</label>
                 <div id="datepicker-component" class="form-group input-group date">
-                  <input type="text" class="form-control" ng-model="salesTemplate.transactionDate" uib-datepicker-popup="dd/MM/yyyy" is-open="transactionDatePopup" ng-click="openTransactionDatePopup()">
+                  <input type="text" class="form-control" ng-model="salesTemplate.overwriteFields.transactionDate" uib-datepicker-popup="dd/MM/yyyy" is-open="transactionDatePopup" ng-click="openTransactionDatePopup()">
                   <span class="input-group-addon" ng-click="openTransactionDatePopup()">
                     <i class="fa fa-calendar"></i>
                   </span>
@@ -155,16 +152,13 @@
               </div>
             </div>
             <div class="col-xs-6 col-sm-3">
-              <div class="form-group">
-                <label>Sub Source</label>
-                <input type="text" class="form-control" ng-model="salesTemplate.subSource">
-              </div>
+              
             </div>
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Price Category</label>
-                <ui-select ng-model="salesTemplate.priceCategory">
-                  <ui-select-match>
+                <ui-select ng-model="salesTemplate.overwriteFields.priceCategory">
+                  <ui-select-match allow-clear="true">
                     <span ng-bind="$select.selected"></span>
                   </ui-select-match>
                   <ui-select-choices repeat="item  in priceCategories | orderBy:'item' | filter: $select.search">
@@ -176,8 +170,8 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Territory</label>
-                <ui-select ng-model="salesTemplate.territory">
-                  <ui-select-match>
+                <ui-select ng-model="salesTemplate.overwriteFields.territory">
+                  <ui-select-match allow-clear="true">
                       <span ng-bind="$select.selected.name"></span>
                   </ui-select-match>
                   <ui-select-choices group-by="groupFind" repeat="territory.code as territory in territories | filter: $select.search">
@@ -187,7 +181,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -217,13 +210,13 @@
         </div>
         <div class="panel-body p-t-15">
           <div class="table-responsive">
-            <table class="template-example-table">
+            <table class="table table-hover table-condensed dataTable no-footer sales-table sales-table-with-checkbox">
               <thead>
                 <tr>
-                  <td ng-repeat="column in salesTemplate.fields track by $index">
+                  <td class="template-table-column" ng-repeat="column in salesTemplate.fields track by $index">
                     <div class="form-group">
                       <ui-select ng-model="column.field" on-select="updateFields(column.field)">
-                        <ui-select-match>
+                        <ui-select-match allow-clear="true">
                           <span ng-bind="$select.selected.name"></span>
                         </ui-select-match>
                         <ui-select-choices repeat="field.value as field in templateFields | filter: $select.search">
@@ -237,7 +230,7 @@
                   <td ng-repeat="column in salesTemplate.fields track by $index">
                     <div class="form-group">
                       <ui-select ng-model="column.type" on-select="updateFields(column.type)">
-                        <ui-select-match>
+                        <ui-select-match allow-clear="true">
                           <span ng-bind="$select.selected.name"></span>
                         </ui-select-match>
                         <ui-select-choices repeat="type.value as type in templateTypes | filter: $select.search">

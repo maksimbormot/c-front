@@ -8,7 +8,7 @@ angular.module('Curve')
     $scope.territories = Territories;
     $scope.currencies = Currencies;
     $scope.types = ["Sale", "Return"];
-    $scope.salesFile = {};
+    $scope.salesFile = { overwriteFields: {} };
     $scope.templates = [];
     $scope.selectedTemplate = { exampleLines: [] };
     $scope.data = [];
@@ -19,8 +19,8 @@ angular.module('Curve')
       SalesFile.get($routeParams.id, function(response) {
         if(response.status == 200) {
           $scope.salesFile = response.data;
-          $scope.salesFile.saleDate = new Date($scope.salesFile.saleDate);
-          $scope.salesFile.transactionDate = new Date($scope.salesFile.transactionDate);
+          $scope.salesFile.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate);
+          $scope.salesFile.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate);
         } else {
           Notification.error('Error loading template, please try again or contact support');
         }
@@ -55,6 +55,9 @@ angular.module('Curve')
     $scope.onSelectedTemplate = function(selectedItem) {
       console.log(selectedItem);
       $scope.salesFile.salesTemplateId = selectedItem._id;
+      $scope.salesFile.overwriteFields = selectedItem.overwriteFields;
+      $scope.salesFile.overwriteFields.saleDate = new Date(selectedItem.overwriteFields.saleDate);
+      $scope.salesFile.overwriteFields.transactionDate = new Date(selectedItem.overwriteFields.transactionDate);
       $scope.templateId = selectedItem._id;
       for(var i = 0; i < $scope.templates.length; i++) {
         if($scope.templates[i]._id == $scope.templateId) {
@@ -93,9 +96,12 @@ angular.module('Curve')
               }
             })
             .then(function(resp) {
+              // This all needs moving to the backend
               $scope.salesFile.file = resp.data.url;
               $scope.data = resp.data.template;
               var headers = $scope.data.shift();
+              console.log("Template Headers: ");
+              console.log($scope.selectedTemplate.exampleLines[0]);
               $scope.salesFile.exampleLines[0] = $scope.selectedTemplate.exampleLines[0];
 
               for(var i = 0; i < ($scope.data.length > 10 ? 10 : $scope.data.length); i++) {
@@ -124,10 +130,12 @@ angular.module('Curve')
                 });
                 $scope.salesFile.exampleLines.push(subArray);
               }
-              return $scope.salesFile.exampleLines;
+              save(function() {
+                return $scope.salesFile.exampleLines;
+              });
             })
         } else {
-          Notification.error('Error saving sale, please try again or contact support');
+          Notification.error('Error saving sales file, please try again or contact support');
         }
       });
     };
