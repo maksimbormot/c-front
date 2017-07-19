@@ -2,9 +2,13 @@ angular.module('Curve')
 	.factory('Auth', function AuthFactory($http, $rootScope, $cookies, Session, jwtHelper){
 		return {
 			test: function(token, callback) {
+				if(window.location.origin === "http://localhost:8082") {
+					Session.apiUrl = "http://localhost:8081";
+				} else if(window.location.origin === "http://staging.curveroyaltysystems.com:8082") {
+					Session.apiUrl = "http://staging.curveroyaltysystems.com:8081";
+				}
 				if(token) {
-					$http({ method: 'GET', url: 'http://ec2-34-253-28-53.eu-west-1.compute.amazonaws.com:8081/authenticate/test_token?applicationToken=12345&token=' + token }).success(function(data){
-						console.log(data);
+					$http({ method: 'GET', url: Session.apiUrl + '/authenticate/test_token?applicationToken=12345&token=' + token }).success(function(data){
 						if(data.success == true) {
 							Session.isLoggedIn = true;
 							Session.token =  data.token;
