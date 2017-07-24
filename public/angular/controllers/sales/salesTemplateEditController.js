@@ -156,23 +156,21 @@ angular.module('Curve')
       }
     }
 
-    $scope.upload = function(file) {
+    function upload(file, callback) {
       Upload.upload({
-          url: 'http://localhost:8081/salesTemplates/upload' + $scope.token,
+          url: Session.apiUrl + '/salesTemplates/' + $scope.salesTemplate._id + '/upload' + $scope.token,
           method: 'POST',
           data: {
-            file: file,
-            salesTemplate_id: $scope.salesTemplate._id,
-            startingLine: $scope.salesTemplate.startingLine,
-            startingLeft: $scope.salesTemplate.startingLeft,
-            delimiter: $scope.salesTemplate.lineBreaks
+            file: file
           }
         })
         .then(function(resp) {
-          $scope.salesTemplate.exampleLines = resp.data.template;
+          $scope.salesTemplate = resp.data;
+          $scope.file = null;
           for(var i = 0; i < $scope.salesTemplate.exampleLines[0].length; i++) {
             $scope.salesTemplate.fields[i] = { field: null, type: null };
           }
+          callback();
         })
     };
 
@@ -184,29 +182,37 @@ angular.module('Curve')
     }
 
     $scope.save = function() {
+      updateTerritories();
+      updatePriceCategories();
+      updateConfigurations();
+      updateDistributionhannels();
       if(!$scope.salesTemplate._id) {
-        updateTerritories();
-        updatePriceCategories();
-        updateConfigurations();
-        updateDistributionhannels();
         SalesTemplate.create($scope.salesTemplate, function(response) {
           if(response.status == 200) {
-            Notification.success('Template successfully created');
-            $window.location.href = "#/templates/" + response.data._id + "/edit"
+            $scope.salesTemplate = response.data;
+            if($scope.file) {
+              upload($scope.file, function() {
+                Notification.success('Template successfully created');
+                $window.location.href = "#/templates/" + response.data._id + "/edit"
+              });
+            } else {
+              Notification.success('Template successfully created');
+              $window.location.href = "#/templates/" + response.data._id + "/edit"
+            }
           } else {
             Notification.error('Error creating template, please try again or contact support');
           }
         });
       } else {
-        console.log($scope.salesTemplate);
-        updateTerritories();
-        updatePriceCategories();
-        updateConfigurations();
-        updateDistributionhannels();
         SalesTemplate.update($scope.salesTemplate._id, $scope.salesTemplate, function(response) {
           if(response.status == 200) {
-            $scope.salesTemplate = response.data;
-            Notification.success('Template successfully saved');
+            if($scope.file) {
+              upload($scope.file, function() {
+                Notification.success('Template successfully saved');
+              });
+            } else {
+              Notification.success('Template successfully saved');
+            }
           } else {
             Notification.error('Error saving template, please try again or contact support');
           }

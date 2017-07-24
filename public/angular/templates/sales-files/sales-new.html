@@ -1,0 +1,68 @@
+<div class="jumbotron" data-pages="parallax">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <p>Curve</p>
+        </li>
+        <li><a href="/#/sales">Sales</a></li>
+        <li ng-show="!salesFile._id"><a href="/#/sales/new" class="active">Import</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- Main Container -->
+<div class="container-fluid container-fixed-lg">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Sales File Setup
+          </div>
+        </div>
+        <div class="panel-body p-t-15">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" placeholder="Name" ng-model="salesFile.name">
+          </div>
+          <div class="form-group">
+            <label>Source</label>
+            <ui-select class="full-width" ng-model="salesFile.salesAccountName">
+              <ui-select-match allow-clear="true">
+                <span ng-bind="$select.selected.source"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="item.source as item in sources | orderBy: 'source' | filter: $select.search">
+                <span ng-bind="item.source"></span>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+          <div class="form-group">
+            <label>Template</label>
+            <ui-select class="full-width" ng-model="salesFile.salesTemplateName" on-select="onSelectedTemplate($item)">
+              <ui-select-match allow-clear="true">
+                <span ng-bind="$select.selected.name"></span>
+              </ui-select-match>
+              <ui-select-choices repeat="item.name as item in templates | orderBy: 'name' | filter: { source: salesFile.salesAccountName } : true">
+                <span ng-bind="item.name"></span>
+              </ui-select-choices>
+            </ui-select>
+            <div class="align-right">
+              <a href="/#/templates/{{templateId}}/edit" class="btn btn-warning m-t-10"><i class="fa fa-pencil"></i>&nbsp;Edit Template</a>
+              <a href="/#/templates/new" class="btn btn-success m-t-10" ng-hide="salesImport"><i class="fa fa-plus"></i>&nbsp;Create Template</a>
+            </div>
+          </div>
+          <div class="form-group m-t-20">
+            <label>File</label>  
+            <input type="file" class="m-t-10" ngf-select ngf-allow-dir="false" ng-model="file">
+          </div>
+          <div class="row">
+            <div class="col-xs-12 center">
+              <button class="btn btn-complete m-t-10" ng-click="create(file)"><i class="fa fa-download"></i>&nbsp;Import</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
