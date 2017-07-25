@@ -1,11 +1,13 @@
 angular.module('Curve')
-	.controller('tracksController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Track', 'Notification', 'FileSaver', function($scope, $routeParams, Session, Pagination, Track, Notification, FileSaver) {
+	.controller('tracksController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Track', 'Notification', 'FileSaver', 'Loader',
+		function($scope, $routeParams, Session, Pagination, Track, Notification, FileSaver, Loader) {
 		var controller = this;
 		$scope.tracks = [];
 		$scope.searchText = null;
 		$scope.orderBy = 'title';
 		$scope.orderDir = 'asc';
 		this.filter = function(params, callback) {
+			Loader.load();
 			Track.all(params, function(response) {
 				if(response.status == 200) {
 					$scope.tracks = response.data.tracks;
@@ -13,8 +15,9 @@ angular.module('Curve')
 					$scope.currentPage = response.data.meta.currentPage;
 					$scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages);
 					if(callback) { callback(); }
+					Loader.complete();
 				} else {
-					Notification.error(response.data.message);
+					Loader.error(response.data.message);
 				}
 			});
 		};
@@ -24,6 +27,7 @@ angular.module('Curve')
 			}
 			$scope.orderBy = orderBy;
 			controller.filter({ text: $scope.searchText, orderBy: $scope.orderBy, orderDir: $scope.orderDir });
+			Loader.complete();
 		};
 		$scope.whatClassIsIt= function(field){
 			if ($scope.orderBy == field) {
@@ -38,51 +42,73 @@ angular.module('Curve')
 		}
 		$scope.search = function() {
 			controller.filter({ text: $scope.searchText }, function() {
-				Notification.success('Tracks Successfully Searched');
+				Loader.success('Tracks Successfully Searched');
 			});
 		};
 		$scope.changePage = function(page) {
 			controller.filter({ text: $scope.searchText, page: page });
 		};
 		$scope.deleteSelected = function() {
-			var num = 0
-			$scope.tracks.forEach(function(track, callback) {
-				if(track.selected) { 
+			Loader.load();
+			var num = 0, count = 0;
+			var selectedTracks = [];
+			$scope.tracks.forEach(function(track, callback){
+				if (track.selected){
+					count++;
+					selectedTracks.push(track);
+				}
+			});
+			if (count > 0){
+				selectedTracks.forEach(function(track){
 					Track.delete(track._id, function(response) {
 						if(response.status == 200) {
 							num++;
 							var index = $scope.tracks.indexOf(track);
 							$scope.tracks.splice(index, 1);
-							$('#deleteModal').modal('hide');
+							if (count === num) {
+								$('#deleteModal').modal('hide');
+								Loader.complete();
+							}
 						}
+					})
+					.catch(function(response){
+						Loader.error('The object has not been deleted.  ' + response.data.message);
 					});
-				}
-			});
-			$('#deleteModal').on('hidden.bs.modal', function() {
-				Notification.success(num + ' Tracks successfully deleted');
-			});
+				});
+				$('#deleteModal').one('hidden.bs.modal', function() {
+					Loader.success(num + ' Tracks successfully deleted');
+				});
+			} else {
+				$('#deleteModal').modal('hide');
+				Loader.error('Choose at least one position');
+			}
 		}
 		$scope.import = function() {
+			Loader.load();
 			Track.import($scope.importFile, function(response) {
 				if(response.status == 200) {
 					$('#importModal').modal('hide');
-					Notification.success('Tracks successfully imported');
+					Loader.success('Tracks successfully imported');
 				} else if(response.status == 400) {
 					$scope.importErrors = response.data.errors;
+					Loader.complete();
 				} else {
+					Loader.complete();
 
 				}
 			});
 		}
 		$scope.export = function() {
+			Loader.load();
 			Track.export(function(result) {
 				if(result && result.status == 200) {
 					var file = new Blob([result.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 					var name = "Tracks Export.xlsx";
 					FileSaver.saveAs(file, name);
+					Loader.complete();
 				} else {
 					console.error(result);
-					Notification.error('Tracks failed to export, please try again.');
+					Loader.error('Tracks failed to export, please try again.');
 				}
 			});
 		}

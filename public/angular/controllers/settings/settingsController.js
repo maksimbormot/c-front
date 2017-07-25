@@ -1,5 +1,6 @@
 angular.module('Curve')
-	.controller('settingsController', ['$scope', '$routeParams', 'Session', 'Client', 'Parent', 'Payee', 'User', 'Notification', function($scope, $routeParams, Session, Client, Parent, Payee, User, Notification) {
+	.controller('settingsController', ['$scope', '$routeParams', 'Session', 'Client', 'Parent', 'Payee', 'User', 'Notification', 'Loader', 
+		function($scope, $routeParams, Session, Client, Parent, Payee, User, Notification, Loader) {
 		var controller = this;
 		$scope.client = { distributionChannels: [], configurations: [], priceCategories: [], costTypes: [] };
 		$scope.client = {};
@@ -7,29 +8,33 @@ angular.module('Curve')
 
 		if(Session.id){
 			if (Session.userType == 'internal' || Session.userType == 'parent' || Session.userType == 'payee'){
+				Loader.load();
 				User.get(Session.id, function(response) {
 					if(response.status == 200) {
 						$scope.user = response.data;
+						Loader.complete();
 					} else {
-						Notification.error('Error loading user, please try again or contact support');
+						Loader.error('Error loading user, please try again or contact support');
 					}
 				});
 				$scope.userRole = 'internal'; 
 			} else if(Session.userType == 'client'){
+				Loader.load();
 				User.get(Session.id, function(response) { 
 					if(response.status == 200) { 
 						$scope.user = response.data;
-						if ($scope.user.clientId){
+						if ($scope.user.clientId){ 
 							Client.get($scope.user.clientId, function(response) {
 								if(response.status == 200) {
 									$scope.client = response.data;
+									Loader.complete();
 								} else {
-									Notification.error('Error loading client, please try again or contact support');
+									Loader.error('Error loading client, please try again or contact support');
 								}
 							});					
 						}
 					} else {
-						Notification.error('Error loading user, please try again or contact support');
+						Loader.error('Error loading user, please try again or contact support');
 					}
 				});
 				$scope.userRole = 'client';
@@ -150,6 +155,7 @@ angular.module('Curve')
 		}
 
 		$scope.saveSettings = function() {
+			Loader.load();
 			if ($scope.user.newPassword === $scope.user.confirmNewPassword){
 				User.update($scope.user._id, $scope.user, function(response) {
 					if(response.status == 200) {
@@ -162,16 +168,17 @@ angular.module('Curve')
 							Client.update($scope.client._id, $scope.client, function(response) {
 								if(response.status == 200) {
 									$scope.client = response.data;
+									Loader.complete();
 								} else {
-									Notification.error('Error saving settings, please try again or contact support');
+									Loader.error('Error saving settings, please try again or contact support');
 								}
 							});
 						} 
-						Notification.success('Settings successfully saved');
+						Loader.success('Settings successfully saved');
 					}
 				});
 			} else {
-				Notification.error('Passwords do not match');
+				Loader.error('Passwords do not match');
 			}
 		}
 

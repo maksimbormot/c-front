@@ -11,6 +11,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta content="" name="description" />
     <meta content="" name="author" />
+
+    <!-- css -->
+    <link href="assets/css/angular-material.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" />
     <link href="assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
@@ -19,15 +22,15 @@
     <link href="assets/css/pages-icons.css" rel="stylesheet" type="text/css">
     <link href="assets/css/theme.css" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.css" rel="stylesheet" type="text/css" />
-
     <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
+
     <!--[if lte IE 9]>
 	<link href="assets/plugins/codrops-dialogFx/dialog.ie.css" rel="stylesheet" type="text/css" media="screen" />
 	<![endif]-->
   </head>
   <body class="fixed-header" ng-controller="applicationController">
     <!-- Sidebar-->
-    <nav class="page-sidebar" data-pages="sidebar">
+    <nav class="page-sidebar" data-pages="sidebar"> 
       <div class="sidebar-overlay-slide from-top" id="appMenu">
         <div class="row">
         </div>
@@ -43,99 +46,98 @@
       </div>
       <div class="sidebar-menu">
         <ul class="menu-items">
-          <li class="m-t-30 ">
-            <a href="/#" class="detailed">
+          <li class="m-t-30 sidebar-menu-item">
+            <a href="/#" class="detailed go-to">
               <span class="title">Dashboard</span>
             </a>
             <span class="bg-success icon-thumbnail"><i class="pg-home"></i></span>
           </li>
-          <li class="" ng-show="internalUser">
-            <a href="/#/clients" class="detailed">
+          <li class="sidebar-menu-item" ng-show="internalUser">
+            <a href="/#/clients" class="detailed go-to">
               <span class="title">Clients</span>
             </a>
             <span class="icon-thumbnail"><i class="fa fa-users"></i></span>
           </li>
-          <li>
+          <li class="sidebar-menu-item">
             <a href="javascript:;"><span class="title">Catalogue</span>
             <span class=" arrow"></span></a>
             <span class="icon-thumbnail"><i class="fa fa-book"></i></span>
             <ul class="sub-menu">
-              <li class="">
-                <a href="/#/campaigns">Campaign</a>
+              <li class="sub-menu-item">
+                <a href="/#/campaigns" class="go-to">Campaign</a>
                 <span class="icon-thumbnail">c</span>
               </li>
-              <li class="">
-                <a href="/#/releases">Releases</a>
+              <li class="sub-menu-item">
+                <a href="/#/releases" class="go-to">Releases</a>
                 <span class="icon-thumbnail">r</span>
               </li>
-              <li class="">
-                <a href="/#/tracks">Tracks</a>
+              <li class="sub-menu-item">
+                <a href="/#/tracks" class="go-to">Tracks</a>
                 <span class="icon-thumbnail">t</span>
               </li>
-              <li class="">
-                <a href="/#/works">Works</a>
+              <li class="sub-menu-item">
+                <a href="/#/works" class="go-to">Works</a>
                 <span class="icon-thumbnail">w</span>
               </li>
             </ul>
           </li>
-          <li>
+          <li class="sidebar-menu-item">
             <a href="javascript:;"><span class="title">Contracts</span>
             <span class="arrow"></span></a>
             <span class="icon-thumbnail"><i class="fa fa-pencil"></i></span>
             <ul class="sub-menu">
-              <li class="">
-                <a href="/#/payees">Payees</a>
+              <li class="sub-menu-item">
+                <a href="/#/payees" class="go-to">Payees</a>
                 <span class="icon-thumbnail">p</span>
               </li>
-              <li class="">
-                <a href="/#/contracts">Contracts</a>
+              <li class="sub-menu-item">
+                <a href="/#/contracts" class="go-to">Contracts</a>
                 <span class="icon-thumbnail">c</span>
               </li>
             </ul>
           </li>
-          <li class="">
-            <a href="/#/mechanicals">
+          <li class="sidebar-menu-item">
+            <a href="/#/mechanicals" class="go-to">
               <span class="title">Mechanicals</span>
             </a>
             <span class="icon-thumbnail"><i class="fa fa-cogs"></i></span>
           </li>
-          
-          <li>
+          <li class="sidebar-menu-item">
             <a href="javascript:;"><span class="title">Sales</span>
             <span class=" arrow"></span></a>
             <span class="icon-thumbnail"><i class="fa fa-dollar"></i></span>
             <ul class="sub-menu">
-              <li class="">
-                <a href="/#/sales">Sales</a>
+              <li class="sub-menu-item">
+                <a href="/#/sales" class="go-to">Sales</a>
                 <span class="icon-thumbnail">s</span>
               </li>
-              <li class="">
-                <a href="/#/costs">Costs</a>
+              <li class="sub-menu-item">
+                <a href="/#/costs" class="go-to">Costs</a>
                 <span class="icon-thumbnail">c</span>
               </li>
             </ul>
           </li>
-          <li>
+          <li class="sidebar-menu-item">
             <a href="javascript:;"><span class="title">Statements</span>
             <span class=" arrow"></span></a>
             <span class="icon-thumbnail"><i class="fa fa-paperclip"></i></span>
             <ul class="sub-menu">
-              <li class="">
-                <a href="/#/periods">Period</a>
+              <li class="sub-menu-item">
+                <a href="/#/periods" class="go-to">Period</a>
                 <span class="icon-thumbnail">p</span>
               </li>
-              <li class="">
-                <a href="/#/statements">Statements</a>
+              <li class="sub-menu-item">
+                <a href="/#/statements" class="go-to">Statements</a>
                 <span class="icon-thumbnail">s</span>
               </li>
-              <li class="">
-                <a href="/#/reports">Reports</a>
+              <li class="sub-menu-item">
+                <a href="/#/reports" class="go-to">Reports</a>
                 <span class="icon-thumbnail">r</span>
               </li>
             </ul>
           </li>
-          <li>
-            <a href="/#/settings" class="detailed">
+          <li class="sidebar-menu-item">
+            <a href="/#/settings" class="detailed go-to">
               <span class="title settings">Settings</span>
             </a>
             <span class="icon-thumbnail"><i class="fa fa-cog"></i></span>
@@ -145,6 +147,7 @@
       </div>
     </nav>
     <div class="page-container ">
+      <loading> </loading>
       <!-- Header -->
       <div class="header ">
         <!-- Mobile Controls -->
@@ -170,17 +173,17 @@
           </div>
         </div>
 
-        <div class=" pull-left sm-table hidden-xs hidden-sm">
+        <div class="pull-left sm-table hidden-xs hidden-sm">
           <div class="header-inner">
             <div class="brand inline">
               <img src="assets/img/curvetyp.png" alt="logo" data-src="assets/img/curvetyp.png" data-src-retina="assets/img/curvetyp2x.png" width="78" height="22">
             </div>
-            <a href="#" class="search-link" data-toggle="search"><i class="pg-search"></i>Type anywhere to <span class="bold">search</span></a> 
+            <a class="search-link" ng-click="openOverlay()"><i class="pg-search"></i>Type anywhere to <span class="bold">search</span></a> 
           </div>
         </div>
         <div class="pull-right hidden-xs hidden-sm">
           <div class="header-inner">
-            <a href="" class="fa fa-user m-l-20" ng-click="logout()"></a>
+            <a href="" class="fa fa-user m-l-20" ng-click="logout()"></a> 
           </div>
         </div>
       </div>
@@ -201,91 +204,122 @@
       </div>
     </div>
     <!-- Search Overlay -->
-    <div class="overlay hide" data-pages="search">
+    <div id="overlay" class="overlay hide" ng-controller="searchController" ng-class="{'hide': !isOpenOverlay}">
       <div class="overlay-content has-results m-t-20">
         <div class="container-fluid">
-          <a href="#" class="close-icon-light overlay-close text-black fs-16">
+          <a class="close-icon-light overlay-close text-black fs-16" ng-click="closeOverlay()">
             <i class="pg-close"></i>
           </a>
         </div>
         <div class="container-fluid">
-          <input id="overlay-search" class="no-border overlay-search bg-transparent" placeholder="Search..." autocomplete="off" spellcheck="false">
+          <form ng-submit="search()">
+            <input id="overlay-search" 
+                  class="no-border overlay-search bg-transparent" 
+                  placeholder="Search..." 
+                  autocomplete="off" 
+                  spellcheck="false"
+                  ng-model="searchText">
+          </form>
           <br>
           <div class="inline-block">
             <p class="fs-13">Press enter to search</p>
           </div>
         </div>
         <!-- BEGIN Overlay Search Results, This part is for demo purpose, you can add anything you like !-->
-        <div class="container-fluid">
+        <div class="container-fluid" ng-show="showResults">
           <span>
-            <strong>suggestions :</strong>
+            <strong> Suggestions :</strong>
           </span>
           <span id="overlay-suggestions"></span>
           <br>
           <div class="search-results m-t-40">
-            <p class="bold">Pages Search Results</p>
+            <p class="bold">Pages Search Results</p>  
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-3">
                 <div class="">
-                  <div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">
-                    <div>
-                      <img width="50" height="50" src="assets/img/profiles/avatar.jpg" data-src="assets/img/profiles/avatar.jpg" data-src-retina="assets/img/profiles/avatar2x.jpg" alt="">
+                  <div class="category-title p-l-60 m-t-15">
+                    <h4 class="m-b-0 color-success"> Releases </h4>
+                  </div>
+                  <div ng-repeat="release in releases">
+                    <div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">
+                      <div>{{release.title[0]}}</div>
                     </div>
-                  </div>
-                  <div class="p-l-10 inline p-t-5">
-                    <h5 class="m-b-5"><span class="semi-bold result-name">ice cream</span> on pages</h5>
-                    <p class="hint-text">via john smith</p>
-                  </div>
-                </div>
-                <div class="">
-                  <div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">
-                    <div>T</div>
-                  </div>
-                  <div class="p-l-10 inline p-t-5">
-                    <h5 class="m-b-5"><span class="semi-bold result-name">ice cream</span> related topics</h5>
-                    <p class="hint-text">via pages</p>
-                  </div>
-                </div>
-                <div class="">
-                  <div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">
-                    <div><i class="fa fa-headphones large-text "></i>
+                    <div class="p-l-10 inline p-t-5" ng-click="closeOverlay()">
+                      <a href="#/releases/{{ release._id }}/edit" >
+                        <h5 class="m-b-5">
+                          <span class="semi-bold result-name">
+                            {{release.title}}
+                          </span>
+                        </h5>
+                      </a>
+                      <p class="hint-text">{{release.artist}}</p>
                     </div>
-                  </div>
-                  <div class="p-l-10 inline p-t-5">
-                    <h5 class="m-b-5"><span class="semi-bold result-name">ice cream</span> music</h5>
-                    <p class="hint-text">via pagesmix</p>
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-3">
                 <div class="">
-                  <div class="thumbnail-wrapper d48 circular bg-info text-white inline m-t-10">
-                    <div><i class="fa fa-facebook large-text "></i>
-                    </div>
+                  <div class="category-title p-l-60 m-t-15">
+                    <h4 class="m-b-0 color-primary"> Tracks </h4>
                   </div>
-                  <div class="p-l-10 inline p-t-5">
-                    <h5 class="m-b-5"><span class="semi-bold result-name">ice cream</span> on facebook</h5>
-                    <p class="hint-text">via facebook</p>
+                  <div ng-repeat="track in tracks">
+                    <div class="thumbnail-wrapper d48 circular bg-primary text-white inline m-t-10">
+                      <div>{{track.title[0]}}</div>
+                    </div>
+                    <div class="p-l-10 inline p-t-5">
+                      <a href="#/tracks/{{ track._id }}/edit" ng-click="closeOverlay()">
+                        <h5 class="m-b-5">
+                          <span class="semi-bold result-name">
+                            {{track.title}}
+                          </span>
+                        </h5>
+                      </a>
+                      <p class="hint-text">{{track.artist}}</p>                      
+                    </div>
                   </div>
                 </div>
+              </div>
+              <div class="col-md-3">
                 <div class="">
-                  <div class="thumbnail-wrapper d48 circular bg-complete text-white inline m-t-10">
-                    <div><i class="fa fa-twitter large-text "></i>
-                    </div>
+                  <div class="category-title p-l-60 m-t-15">
+                    <h4 class="m-b-0 color-complete-light"> Works </h4>
                   </div>
-                  <div class="p-l-10 inline p-t-5">
-                    <h5 class="m-b-5">Tweets on<span class="semi-bold result-name"> ice cream</span></h5>
-                    <p class="hint-text">via twitter</p>
+                  <div ng-repeat="work in works">
+                    <div class="thumbnail-wrapper d48 circular bg-complete-light text-white inline m-t-10">
+                      <div>{{work.title[0]}}</div>
+                    </div>
+                    <div class="p-l-10 inline p-t-5">
+                      <a href="#/works/{{ work._id }}/edit" ng-click="closeOverlay()">
+                        <h5 class="m-b-5">
+                          <span class="semi-bold result-name">
+                            {{work.title}}
+                          </span>
+                        </h5>
+                      </a>
+                      <p class="hint-text">{{work.composer}}</p>      
+                    </div>
                   </div>
                 </div>
+              </div>
+              <div class="col-md-3">
                 <div class="">
-                  <div class="thumbnail-wrapper d48 circular text-white bg-danger inline m-t-10">
-                    <div><i class="fa fa-google-plus large-text "></i>
-                    </div>
+                  <div class="category-title p-l-60 m-t-15">
+                    <h4 class="m-b-0 color-success-light"> Contracts </h4>
                   </div>
-                  <div class="p-l-10 inline p-t-5">
-                    <h5 class="m-b-5">Circles on<span class="semi-bold result-name"> ice cream</span></h5>
-                    <p class="hint-text">via google plus</p>
+                  <div ng-repeat="contract in contracts">
+                    <div class="thumbnail-wrapper d48 circular bg-success-light text-white inline m-t-10">
+                      <div>{{contract.name[0]}}</div>
+                    </div>
+                    <div class="p-l-10 inline p-t-5">
+                      <a href="#/contracts/{{ contract._id }}/edit" ng-click="closeOverlay()">
+                        <h5 class="m-b-5">
+                          <span class="semi-bold result-name">
+                            {{contract.name}}
+                          </span>
+                        </h5>
+                      </a>
+                      <p class="hint-text">{{contract.type}}</p>      
+                    </div>
                   </div>
                 </div>
               </div>
@@ -318,11 +352,11 @@
     <script type="text/javascript" src="angular/angular.min.js"></script>
     <script type="text/javascript" src="angular/angular-route.min.js"></script>
     <script type="text/javascript" src="angular/angular-cookies.min.js"></script>
+    <script type="text/javascript" src="angular/angular-material.min.js"></script>
+    <script type="text/javascript" src="angular/angular-jwt.min.js"></script>
 
     <script type="text/javascript" src="angular/app.js"></script>
     <script type="text/javascript" src="angular/routes.js"></script>
-
-    <script type="text/javascript" src="angular/angular-jwt.min.js"></script>
 
     <!-- File Upload -->
     <script type="text/javascript" src="angular/ng-file-upload-all.js"></script>
@@ -355,6 +389,8 @@
     <script type="text/javascript" src="angular/services/templateFields.js"></script>
     <script type="text/javascript" src="angular/services/templateTypes.js"></script>
     <script type="text/javascript" src="angular/services/currencies.js"></script>
+    <script type="text/javascript" src="angular/services/loader.js"></script>
+    <script type="text/javascript" src="angular/services/search.js"></script>
 
     <!-- Controllers -->
     <script type="text/javascript" src="angular/controllers/application/applicationController.js"></script>
@@ -380,6 +416,8 @@
     <script type="text/javascript" src="angular/controllers/sales/salesFileController.js"></script>
     <script type="text/javascript" src="angular/controllers/sales/salesImportController.js"></script>
     <script type="text/javascript" src="angular/controllers/sales/salesUnmappedController.js"></script>
+    <script type="text/javascript" src="angular/controllers/sales/salesCompleteController.js"></script>
+    <script type="text/javascript" src="angular/controllers/search/searchController.js"></script>
 
     <!-- Directives -->
     <script type="text/javascript" src="angular/directives/pagination.js"></script>
@@ -409,12 +447,15 @@
     <script type="text/javascript" src="angular/directives/salesUnmappedTableRow.js"></script>
     <script type="text/javascript" src="angular/directives/salesFileTableRow.js"></script>
     <script type="text/javascript" src="angular/directives/territorySelect.js"></script>
+    <script type="text/javascript" src="angular/directives/loading.js"></script>
 
     <!-- Libraries -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-select/0.20.0/select.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.4.0/ui-bootstrap.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.4.0/ui-bootstrap-tpls.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.3/angular-sanitize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-aria.min.js"></script>
     
   </body>
 </html>

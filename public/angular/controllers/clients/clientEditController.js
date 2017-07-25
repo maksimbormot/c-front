@@ -1,5 +1,6 @@
 angular.module('Curve')
-	.controller('clientEditController', ['$scope', '$routeParams', '$window', 'Session', 'Client', 'Parent', 'Notification', function($scope, $routeParams, $window, Session, Client, Parent, Notification) {
+	.controller('clientEditController', ['$scope', '$routeParams', '$window', 'Session', 'Client', 'Parent', 'Notification', 'Loader',
+		function($scope, $routeParams, $window, Session, Client, Parent, Notification, Loader) {
 		var controller = this;
 		$scope.parents = [{}];
 		$scope.paymentTiers = ["Standard", "Premium", "Enterprise"];
@@ -14,23 +15,26 @@ angular.module('Curve')
 		});
 		$scope.client = {};
 		// Load Client if ID exists
-		if($routeParams.id) {
+		if($routeParams.id) { 
+			Loader.load();
 			Client.get($routeParams.id, function(response) {
 				if(response.status == 200) {
 					$scope.client = response.data;
+					Loader.complete();
 				} else {
-					Notification.error('Error loading client, please try again or contact support');
+					Loader.error('Error loading client, please try again or contact support');
 				}
 			});
 		};
 		$scope.save = function() {
+			Loader.load();
 			if(!$scope.client._id) {
 				Client.create($scope.client, function(response) {
 					if(response.status == 200) {
-						Notification.success('Client successfully created');
-						$window.location.href = "#/clients/" + response.data._id + "/edit"
+						$window.location.href = "#/clients/" + response.data._id + "/edit";
+						Loader.success('Client successfully created');
 					} else {
-						Notification.error('Error creating client, please try again or contact support');
+						Loader.error('Error creating client, please try again or contact support');
 					}
 				});
 			} else {
@@ -38,22 +42,23 @@ angular.module('Curve')
 				Client.update($scope.client._id, $scope.client, function(response) {
 					if(response.status == 200) {
 						$scope.client = response.data;
-						Notification.success('Client successfully saved');
+						Loader.success('Client successfully saved');
 					} else {
-						Notification.error('Error saving client, please try again or contact support');
+						Loader.error('Error saving client, please try again or contact support');
 					}
 				});
 			}
 		};
 		$scope.delete = function() {
+			Loader.load();
 			$('#deleteModal').modal('hide');
 			$('#deleteModal').on('hidden.bs.modal', function() {
 				Client.delete($scope.client._id, function(response) {
 					if(response.status == 200) {
-						Notification.success('Client successfully deleted');
-						$window.location.href = "#/clients"
+						$window.location.href = "#/clients";
+						Loader.success('Client successfully deleted');
 					} else {
-						Notification.error('Error deleting client, please try again or contact support');
+						Loader.error('Error deleting client, please try again or contact support');
 					}
 				});
 			});

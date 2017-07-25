@@ -1,5 +1,11 @@
 <td class="v-align-middle"><input type="checkbox" ng-model="sale.selected"></td>
-<td class="v-align-middle"><a href="#/sales/{{ sale._id }}/edit">{{ sale.name }}</a></td>
+<td class="v-align-middle">
+	<a ng-if="sale.status=='Ingesting'" href="#/sales/{{ sale._id }}/edit">{{ sale.name }}</a>
+	<a ng-if="sale.status=='Complete'" href="#/sales/{{ sale._id }}/complete">{{ sale.name }}</a>
+</td>
+<!-- <td class="v-align-middle" ng-if="sale.status=='Complete'">
+	<a href="#/sales/{{ sale._id }}/complete">{{ sale.name }}</a>
+</td> -->
 <td class="v-align-middle">{{ sale.salesAccountName }}</td>
 <td class="v-align-middle">{{ sale.totalValue }}</td>
 <td class="v-align-middle">{{ sale.unmappedLines }}</td>
@@ -9,4 +15,4 @@
 </td>
 <td class="v-align-middle">
 	<span class="label label-success">{{ sale.status }}</span>
-</td> 
+</td>

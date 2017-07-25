@@ -1,21 +1,24 @@
 angular.module('Curve')
-	.controller('trackEditController', ['$scope', '$routeParams', '$window', 'Session', 'Track', 'Parent', 'Settings', 'Notification', function($scope, $routeParams, $window, Session, Track, Parent, Settings, Notification) {
+	.controller('trackEditController', ['$scope', '$routeParams', '$window', 'Session', 'Track', 'Parent', 'Settings', 'Notification', 'Loader',
+		function($scope, $routeParams, $window, Session, Track, Parent, Settings, Notification, Loader) {
 		var controller = this;
 		$scope.track = { salesReturnsRights: [], costsRights: [] };
 		$scope.contracts = [];
 		if($routeParams.id) {
+			Loader.load();
 			Track.get($routeParams.id, function(response) {
 				if(response.status == 200) {
 					$scope.track = response.data;
+					Loader.complete();
 				} else {
-					Notification.error('Error loading track, please try again or contact support');
+					Loader.error('Error loading track, please try again or contact support');
 				}
 			});
 		} 
 
 		Settings.getContracts()
 			.then(function(contracts){
-				$scope.contracts = contracts;
+				$scope.contracts = contracts; 
 			});
 		
 		$scope.addSalesReturnsRights = function() {
@@ -65,37 +68,49 @@ angular.module('Curve')
 			$scope.activeTab = value;
 		}
 		$scope.save = function() {
+			Loader.load();
 			updateAliases(function() {
 				if(!$scope.track._id) {
 					Track.create($scope.track, function(response) {
 						if(response.status == 200) {
-							Notification.success('Track successfully created');
-							$window.location.href = "#/tracks/" + response.data._id + "/edit"
+							$window.location.href = "#/tracks/" + response.data._id + "/edit";
+							Loader.success('Track successfully created');
 						} else {
-							Notification.error('Error creating track, please try again or contact support');
+							Loader.error('Error creating track, please try again or contact support');
+						}
+					})
+					.catch(function(response){
+						if(response.status == 400) {
+							Loader.error('The object has not been saved.  ' + response.data.message);
 						}
 					});
 				} else {
 					Track.update($scope.track._id, $scope.track, function(response) {
 						if(response.status == 200) {
 							$scope.track = response.data;
-							Notification.success('Track successfully saved');
+							Loader.success('Track successfully saved');
 						} else {
-							Notification.error('Error saving track, please try again or contact support');
+							Loader.error('Error saving track, please try again or contact support');
+						}
+					})
+					.catch(function(response){
+						if(response.status == 400) {
+							Loader.error('The object has not been saved.  ' + response.data.message);
 						}
 					});
 				}
 			});
 		}
 		$scope.delete = function() {
+			Loader.load();
 			$('#deleteModal').modal('hide');
 			$('#deleteModal').on('hidden.bs.modal', function() {
 				Track.delete($scope.track._id, function(response) {
 					if(response.status == 200) {
-						Notification.success('Track successfully deleted');
-						$window.location.href = "#/tracks"
+						$window.location.href = "#/tracks";
+						Loader.success('Track successfully deleted');
 					} else {
-						Notification.error('Error deleting client, please try again or contact support');
+						Loader.error('Error deleting client, please try again or contact support');
 					}
 				});
 			});

@@ -1,14 +1,17 @@
 angular.module('Curve')
-	.controller('workEditController', ['$scope', '$routeParams', '$window', 'Session', 'Work', 'Parent', 'Settings', 'Notification', function($scope, $routeParams, $window, Session, Work, Parent, Settings, Notification) {
+	.controller('workEditController', ['$scope', '$routeParams', '$window', 'Session', 'Work', 'Parent', 'Settings', 'Notification', 'Loader',
+		function($scope, $routeParams, $window, Session, Work, Parent, Settings, Notification, Loader) {
 		var controller = this;
 		$scope.work = { salesReturnsRights: [], costsRights: [] };
 		$scope.contracts = [];
 		if($routeParams.id) {
+			Loader.load();
 			Work.get($routeParams.id, function(response) {
 				if(response.status == 200) {
 					$scope.work = response.data;
+					Loader.complete();
 				} else {
-					Notification.error('Error loading work, please try again or contact support');
+					Loader.error('Error loading work, please try again or contact support');
 				}
 			});
 		}
@@ -65,37 +68,49 @@ angular.module('Curve')
 			$scope.activeTab = value;
 		}
 		$scope.save = function() {
+			Loader.load();
 			updateAliases(function() {
 				if(!$scope.work._id) {
 					Work.create($scope.work, function(response) {
 						if(response.status == 200) {
-							Notification.success('Work successfully created');
-							$window.location.href = "#/works/" + response.data._id + "/edit"
+							$window.location.href = "#/works/" + response.data._id + "/edit";
+							Loader.success('Work successfully created');
 						} else {
-							Notification.error('Error creating work, please try again or contact support');
+							Loader.error('Error creating work, please try again or contact support');
+						}
+					})
+					.catch(function(response){
+						if(response.status == 400) {
+							Loader.error('The object has not been saved.  ' + response.data.message);
 						}
 					});
 				} else {
 					Work.update($scope.work._id, $scope.work, function(response) {
 						if(response.status == 200) {
 							$scope.work = response.data;
-							Notification.success('Work successfully saved');
+							Loader.success('Work successfully saved');
 						} else {
-							Notification.error('Error saving work, please try again or contact support');
+							Loader.error('Error saving work, please try again or contact support');
+						}
+					})
+					.catch(function(response){
+						if(response.status == 400) {
+							Loader.error('The object has not been saved.  ' + response.data.message);
 						}
 					});
 				}
 			});
 		}
 		$scope.delete = function() {
+			Loader.load();
 			$('#deleteModal').modal('hide');
 			$('#deleteModal').on('hidden.bs.modal', function() {
 				Work.delete($scope.work._id, function(response) {
 					if(response.status == 200) {
-						Notification.success('Work successfully deleted');
-						$window.location.href = "#/works"
+						$window.location.href = "#/works";
+						Loader.success('Work successfully deleted');
 					} else {
-						Notification.error('Error deleting client, please try again or contact support');
+						Loader.error('Error deleting client, please try again or contact support');
 					}
 				});
 			});

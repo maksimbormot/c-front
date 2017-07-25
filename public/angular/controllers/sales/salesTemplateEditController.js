@@ -1,5 +1,6 @@
 angular.module('Curve')
-	.controller('salesTemplateEditController', ['$scope', '$routeParams', '$window', 'Session', 'SalesTemplate', 'Notification', 'Settings', 'Territories', 'Currencies', 'Upload', 'TemplateFields', 'TemplateTypes', function($scope, $routeParams, $window, Session, SalesTemplate, Notification, Settings, Territories, Currencies, Upload, TemplateFields, TemplateTypes) {
+	.controller('salesTemplateEditController', ['$scope', '$routeParams', '$window', 'Session', 'SalesTemplate', 'Notification', 'Settings', 'Territories', 'Currencies', 'Upload', 'TemplateFields', 'TemplateTypes', 'Loader',
+		function($scope, $routeParams, $window, Session, SalesTemplate, Notification, Settings, Territories, Currencies, Upload, TemplateFields, TemplateTypes, Loader) {
 		var controller = this;
 		$scope.territories = Territories; 
 		$scope.templateFields = TemplateFields; 
@@ -16,11 +17,13 @@ angular.module('Curve')
 
 		// Load Template if ID exists
 		if($routeParams.id) {
+			Loader.load();
 			SalesTemplate.get($routeParams.id, function(response) { 
 				if(response.status == 200) {
 					$scope.salesTemplate = response.data;
+					Loader.complete();
 				} else {
-					Notification.error('Error loading template, please try again or contact support');
+					Loader.error('Error loading template, please try again or contact support');
 				}
 			});
 		};
@@ -29,15 +32,16 @@ angular.module('Curve')
 			.then(function(settings){
 				angular.extend($scope, settings);
 			});
+
 		$scope.groupFind = function(territory) {
-      return territory.continent;
-    }
-    $scope.openSaleDatePopup = function() {
-      $scope.saleDatePopup = true;
-    }
-    $scope.openTransactionDatePopup = function() {
-      $scope.transactionDatePopup = true;
-    }
+	      return territory.continent;
+	    }
+	    $scope.openSaleDatePopup = function() {
+	      $scope.saleDatePopup = true;
+	    }
+	    $scope.openTransactionDatePopup = function() {
+	      $scope.transactionDatePopup = true;
+	    }
 
 		$scope.$watch('salesTemplate.territories', function(territories) {
 			$scope.displayTerritories = []
@@ -179,6 +183,7 @@ angular.module('Curve')
 		}
 
 		$scope.save = function() {
+			Loader.load();
 			if(!$scope.salesTemplate._id) {
 				updateTerritories();
 				updatePriceCategories();
@@ -186,10 +191,10 @@ angular.module('Curve')
 				updateDistributionhannels();
 				SalesTemplate.create($scope.salesTemplate, function(response) {
 					if(response.status == 200) {
-						Notification.success('Template successfully created');
-						$window.location.href = "#/templates/" + response.data._id + "/edit"
+						$window.location.href = "#/templates/" + response.data._id + "/edit";
+						Loader.success('Template successfully created');
 					} else {
-						Notification.error('Error creating template, please try again or contact support');
+						Loader.error('Error creating template, please try again or contact support');
 					}
 				});
 			} else {
@@ -201,23 +206,24 @@ angular.module('Curve')
 				SalesTemplate.update($scope.salesTemplate._id, $scope.salesTemplate, function(response) {
 					if(response.status == 200) {
 						$scope.salesTemplate = response.data;
-						Notification.success('Template successfully saved');
+						Loader.success('Template successfully saved');
 					} else {
-						Notification.error('Error saving template, please try again or contact support');
+						Loader.error('Error saving template, please try again or contact support');
 					}
 				});
 			}
 		};
 
 		$scope.delete = function() {
+			Loader.load();
 			$('#deleteModal').modal('hide');
 			$('#deleteModal').on('hidden.bs.modal', function() {
 				SalesTemplate.delete($scope.salesTemplate._id, function(response) {
 					if(response.status == 200) {
-						Notification.success('Template successfully deleted');
-						$window.location.href = "#/templates"						
+						$window.location.href = "#/templates";
+						Loader.success('Template successfully deleted');					
 					} else {
-						Notification.error('Error deleting template, please try again or contact support');
+						Loader.error('Error deleting template, please try again or contact support');
 					}
 				});
 			});

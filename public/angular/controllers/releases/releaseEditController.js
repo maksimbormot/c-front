@@ -1,20 +1,23 @@
 angular.module('Curve')
-	.controller('releaseEditController', ['$scope', '$routeParams', '$window', 'Session', 'Release', 'Notification', 'Track', 'Pagination', 'Settings', function($scope, $routeParams, $window, Session, Release, Notification, Track, Pagination, Settings) {
+	.controller('releaseEditController', ['$scope', '$routeParams', '$window', 'Session', 'Release', 'Notification', 'Track', 'Pagination', 'Settings', 'Loader',
+		function($scope, $routeParams, $window, Session, Release, Notification, Track, Pagination, Settings, Loader) {
 		var controller = this;
 		$scope.release = { salesReturnsRights: [], costsRights: [], aliases: [] };
 		$scope.formats = [];
 		$scope.priceCategories = [];
 		$scope.contracts = [];
 
-		this.loadRelease = function() {
+		this.loadRelease = function() { 
+			Loader.load();
 			Release.get($routeParams.id, function(response) {
 				if(response.status == 200) {
 					console.log(response);
 					$scope.release = response.data;
 					Release.loadTracks($scope.release);
 					$scope.release.releaseDate = new Date(response.data.releaseDate);
+					Loader.complete();
 				} else {
-					Notification.error('Error loading release, please try again or contact support');
+					Loader.error('Error loading release, please try again or contact support');
 				}
 			});
 		}
@@ -85,25 +88,36 @@ angular.module('Curve')
 			$scope.activeTab = value;
 		}
 		this.save = function() {
+			Loader.load();	
 			updateAliases(function() {
 				if(!$scope.release._id) {
 					Release.create($scope.release, function(response) {
 						if(response.status == 200) {
-							Notification.success('Release successfully created');
-							$window.location.href = "#/releases/" + response.data._id + "/edit"
+							$window.location.href = "#/releases/" + response.data._id + "/edit";
+							Loader.success('Release successfully created');
 						} else {
-							Notification.error('Error creating release, please try again or contact support');
+							Loader.error('Error creating release, please try again or contact support');
+						}
+					})
+					.catch(function(response){
+						if(response.status == 400) {
+							Loader.error('The object has not been saved.  ' + response.data.message);
 						}
 					});
 				} else {
 					Release.update($scope.release._id, $scope.release, function(response) {
 						if(response.status == 200) {
 							$scope.release = response.data;
-							Release.loadTracks($scope.release);
+							Release.loadTracks($scope.release); 
 							$scope.release.releaseDate = new Date(response.data.releaseDate);
-							Notification.success('Release successfully saved');
+							Loader.success('Release successfully saved');
 						} else {
-							Notification.error('Error saving release, please try again or contact support');
+							Loader.error('Error saving release, please try again or contact support');
+						}
+					})
+					.catch(function(response){
+						if(response.status == 400) {
+							Loader.error('The object has not been saved.  ' + response.data.message);
 						}
 					});
 				}
@@ -113,20 +127,22 @@ angular.module('Curve')
 			controller.save();
 		}
 		$scope.delete = function() {
+			Loader.load();
 			$('#deleteModal').modal('hide');
 			$('#deleteModal').on('hidden.bs.modal', function() {
 				Release.delete($scope.release._id, function(response) {
 					if(response.status == 200) {
-						Notification.success('Release successfully deleted');
-						$window.location.href = "#/releases"
+						$window.location.href = "#/releases";
+						Loader.success('Release successfully deleted');
 					} else {
-						Notification.error('Error deleting client, please try again or contact support');
+						Loader.error('Error deleting client, please try again or contact support');
 					}
 				});
 			});
 		}
 		// Tracks
 		this.filterTracks = function(params, callback) {
+			Loader.load();
 			Track.all(params, function(response) {
 				if(response.status == 200) {
 					console.log(response.data.tracks);
@@ -135,8 +151,9 @@ angular.module('Curve')
 					$scope.currentTrackPage = response.data.meta.currentPage;
 					$scope.trackPages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages);
 					if(callback) { callback(); }
+					Loader.complete();
 				} else {
-					Notification.error(response.data.message);
+					Loader.error(response.data.message);
 				}
 			});
 		}

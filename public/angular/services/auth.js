@@ -3,7 +3,7 @@ angular.module('Curve')
 		return {
 			test: function(token, callback) {
 				if(token) {
-					$http({ method: 'GET', url: 'http://localhost:8081/authenticate/test_token?applicationToken=12345&token=' + token }).success(function(data){
+					return $http({ method: 'GET', url: 'http://localhost:8081/authenticate/test_token?applicationToken=12345&token=' + token }).success(function(data){
 						console.log(data);
 						if(data.success == true) {
 							Session.isLoggedIn = true;
