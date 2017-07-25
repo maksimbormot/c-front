@@ -2470,6 +2470,9 @@ hr.dotted {
 .bg-primary-lighter {
   background-color: #e2deef;
 }
+.color-primary {
+  color: #6d5cae;
+}
 /* Complete 
 ------------------------------------
 */
@@ -2488,6 +2491,9 @@ hr.dotted {
 .bg-complete-lighter {
   background-color: #daeffd;
 }
+.color-complete-light {
+  color: #6dc0f9;
+}
 /* Success 
 ------------------------------------
 */
@@ -2505,6 +2511,12 @@ hr.dotted {
 }
 .bg-success-lighter {
   background-color: #cff5f2;
+}
+.color-success {
+  color: #019fd2;
+}
+.color-success-light {
+  color: #40d9ca; 
 }
 /* Info
 ------------------------------------
@@ -2591,6 +2603,9 @@ hr.dotted {
 */
 .bg-white {
   background-color: #fff;
+}
+.white{
+  color:#ffffff;
 }
 .bg-transparent {
   background-color: transparent !important;

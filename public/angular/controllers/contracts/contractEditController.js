@@ -1,5 +1,6 @@
 angular.module('Curve')
-	.controller('contractEditController', ['$scope', '$routeParams', '$window', 'Session', 'Contract', 'Parent', 'Territories', 'Settings', 'Notification', function($scope, $routeParams, $window, Session, Contract, Parent, Territories, Settings, Notification) {
+	.controller('contractEditController', ['$scope', '$routeParams', '$window', 'Session', 'Contract', 'Parent', 'Territories', 'Settings', 'Notification', 'Loader',
+		function($scope, $routeParams, $window, Session, Contract, Parent, Territories, Settings, Notification, Loader) {
 		var controller = this;
 		$scope.contract = { salesTerms: [], returnsTerms: [], costsTerms: [], mechanicalTerms: [], reserves: [] };
 		$scope.payees = [];
@@ -14,12 +15,14 @@ angular.module('Curve')
 
 		// Load Contract if ID exists  
 		if($routeParams.id) {
+			Loader.load();
 			Contract.get($routeParams.id, function(response) {  
 				if(response.status == 200) {
 					console.log(response.data);
 					$scope.contract = response.data;
+					Loader.complete();
 				} else {
-					Notification.error('Error loading contract, please try again or contact support');
+					Loader.error('Error loading contract, please try again or contact support');
 				}
 			});
 		};
@@ -80,15 +83,20 @@ angular.module('Curve')
 			$scope.contract.reserves.splice(index, 1);
 		}
 		$scope.save = function() {
-			console.log($scope.contract);
+			Loader.load();
 			if(!$scope.contract._id) {
 				Contract.create($scope.contract, function(response) {
 					console.log(response);
 					if(response.status == 200) {
-						Notification.success('Contract successfully created');
-						$window.location.href = "#/contracts/" + response.data._id + "/edit"
+						$window.location.href = "#/contracts/" + response.data._id + "/edit";
+						Loader.success('Contract successfully created');
 					} else {
-						Notification.error('Error creating contract, please try again or contact support');
+						Loader.error('Error creating contract, please try again or contact support');
+					}
+				})
+				.catch(function(response){
+					if(response.status == 400) {
+						Loader.error('The object has not been saved.  ' + response.data.message);
 					}
 				});
 			} else {
@@ -96,22 +104,28 @@ angular.module('Curve')
 					console.log(response);
 					if(response.status == 200) {
 						$scope.contract = response.data;
-						Notification.success('Contract successfully saved');
+						Loader.success('Contract successfully saved');
 					} else {
-						Notification.error('Error saving contract, please try again or contact support');
+						Loader.error('Error saving contract, please try again or contact support');
+					}
+				})
+				.catch(function(response){
+					if(response.status == 400) {
+						Loader.error('The object has not been saved.  ' + response.data.message);
 					}
 				});
 			}
 		};
 		$scope.delete = function() {
+			Loader.load();
 			$('#deleteModal').modal('hide');
 			$('#deleteModal').on('hidden.bs.modal', function() {
 				Contract.delete($scope.contract._id, function(response) {
 					if(response.status == 200) {
-						Notification.success('Contract successfully deleted');
-						$window.location.href = "#/contracts"
+						$window.location.href = "#/contracts";
+						Loader.success('Contract successfully deleted');
 					} else {
-						Notification.error('Error deleting contract, please try again or contact support');
+						Loader.error('Error deleting contract, please try again or contact support');
 					}
 				});
 			});

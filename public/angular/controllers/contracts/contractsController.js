@@ -1,11 +1,13 @@
 angular.module('Curve')
-	.controller('contractsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Contract', 'Notification', 'FileSaver', function($scope, $routeParams, Session, Pagination, Contract, Notification, FileSaver) {
+	.controller('contractsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Contract', 'Notification', 'FileSaver', 'Loader',
+		function($scope, $routeParams, Session, Pagination, Contract, Notification, FileSaver, Loader) {
 		var controller = this;
 		$scope.contracts = [];
-		$scope.searchText = null;
+		$scope.searchText = null; 
 		$scope.orderBy = 'name';
 		$scope.orderDir = 'asc';
 		this.filter = function(params, callback) {
+			Loader.load();
 			Contract.all(params, function(response) {
 				if(response.status == 200) {
 					$scope.contracts = response.data.contracts;
@@ -13,8 +15,9 @@ angular.module('Curve')
 					$scope.currentPage = response.data.meta.currentPage;
 					$scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages);
 					if(callback) { callback(); }
+					Loader.complete();
 				} else {
-					Notification.error(response.data.message);
+					Loader.error(response.data.message);
 				}
 			});
 		};
@@ -24,6 +27,7 @@ angular.module('Curve')
 			}
 			$scope.orderBy = orderBy;
 			controller.filter({ text: $scope.searchText, orderBy: $scope.orderBy, orderDir: $scope.orderDir });
+			Loader.complete();
 		};
 		$scope.whatClassIsIt= function(field){
 			if ($scope.orderBy == field) {
@@ -38,51 +42,72 @@ angular.module('Curve')
 		}
 		$scope.search = function() {
 			controller.filter({ text: $scope.searchText }, function() {
-				Notification.success('Contracts Successfully Searched');
+				Loader.success('Contracts Successfully Searched');
 			});
 		};
 		$scope.changePage = function(page) {
 			controller.filter({ text: $scope.searchText, page: page });
 		};
 		$scope.deleteSelected = function() {
-			var num = 0
-			$scope.contracts.forEach(function(contract, callback) {
-				if(contract.selected) { 
+			Loader.load();
+			var num = 0, count = 0;
+			var selectedContracts = [];
+			$scope.contracts.forEach(function(contract, callback){
+				if (contract.selected){
+					count++;
+					selectedContracts.push(contract);
+				}
+			});
+			if (count > 0){
+				selectedContracts.forEach(function(contract){
 					Contract.delete(contract._id, function(response) {
 						if(response.status == 200) {
 							num++;
 							var index = $scope.contracts.indexOf(contract);
 							$scope.contracts.splice(index, 1);
-							$('#deleteModal').modal('hide');
+							if (count === num) {
+								$('#deleteModal').modal('hide');
+								Loader.complete();
+							}
 						}
+					})
+					.catch(function(response){
+						Loader.error('The object has not been deleted.  ' + response.data.message);
 					});
-				}
-			});
-			$('#deleteModal').on('hidden.bs.modal', function() {
-				Notification.success(num + ' Contracts successfully deleted');
-			});
+				});
+				$('#deleteModal').one('hidden.bs.modal', function() {
+					Loader.success(num + ' Contracts successfully deleted');
+				});
+			} else {
+				$('#deleteModal').modal('hide');
+				Loader.error('Choose at least one position');
+			}
 		}
 		$scope.import = function() {
+			Loader.load();
 			Contract.import($scope.importFile, function(response) {
 				if(response.status == 200) {
 					$('#importModal').modal('hide');
-					Notification.success('Contracts successfully imported');
+					Loader.success('Contracts successfully imported');
 				} else if(response.status == 400) {
 					$scope.importErrors = response.data.errors;
+					Loader.complete();
 				} else {
-
+					Loader.complete();
 				}
 			});
 		}
 		$scope.export = function() {
+			Loader.load();
 			Contract.export(function(result) {
 				if(result && result.status == 200) {
 					var file = new Blob([result.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 					var name = "Contracts Export.xlsx";
 					FileSaver.saveAs(file, name);
+					Loader.complete();
 				} else {
 					console.error(result);
-					Notification.error('Contracts failed to export, please try again.');
+					Loader.error('Contracts failed to export, please try again.');
 				}
 			});
 		}

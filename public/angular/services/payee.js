@@ -42,7 +42,7 @@ angular.module('Curve')
 			export: function(callback) {
 				$http.get(Session.apiUrl + '/payees/export?applicationToken=12345&token=' + Session.token, {
 					responseType: 'arraybuffer'
-				}).then(function(data) {
+				}).then(function(data) { 
 					callback(data);
 				}, function(e){
 					callback(e);

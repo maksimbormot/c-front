@@ -1,58 +1,65 @@
 angular.module('Curve')
-	.controller('campaignEditController', ['$scope', '$routeParams', '$window', 'Session', 'Campaign', 'Parent', 'Notification', 'Release', 'Track', 'Work', 'Pagination', function($scope, $routeParams, $window, Session, Campaign, Parent, Notification, Release, Track, Work, Pagination) {
+	.controller('campaignEditController', ['$scope', '$routeParams', '$window', 'Session', 'Campaign', 'Parent', 'Notification', 'Release', 'Track', 'Work', 'Pagination', 'Loader',
+		function($scope, $routeParams, $window, Session, Campaign, Parent, Notification, Release, Track, Work, Pagination, Loader) {
 		var controller = this;
 		$scope.campaign = {};
 		this.setData = function(response) {
 			$scope.campaign = response.data;
 			Campaign.loadReleases($scope.campaign);
-			Campaign.loadTracks($scope.campaign);
+			Campaign.loadTracks($scope.campaign); 
 			Campaign.loadWorks($scope.campaign);
 		};
-		this.loadCampaign = function() {
+		this.loadCampaign = function() { 
+			Loader.load();
 			Campaign.get($routeParams.id, function(response) {
 				if(response.status == 200) {
 					controller.setData(response);
+					Loader.complete();
 				} else {
-					Notification.error('Error loading campaign, please try again or contact support');
+					Loader.error('Error loading campaign, please try again or contact support');
 				}
 			});
 		};
 		if($routeParams.id) {
 			controller.loadCampaign();
 		};
+
 		this.save = function() {
-			if(!$scope.campaign._id) {
+			Loader.load();			
+			if(!$scope.campaign._id) { 
 				Campaign.create($scope.campaign, function(response) {
-					if(response.status == 200) {
-						Notification.success('Campaign successfully created');
-						$window.location.href = "#/campaigns/" + response.data._id + "/edit"
+					if(response.status == 200) { 
+						$window.location.href = "#/campaigns/" + response.data._id + "/edit";
+						Loader.success('Campaign successfully created');
 					} else {
-						Notification.error('Error creating campaign, please try again or contact support');
+						Loader.error('Error creating campaign, please try again or contact support');
 					}
 				});
 			} else {
 				Campaign.update($scope.campaign._id, $scope.campaign, function(response) {
 					if(response.status == 200) {
 						controller.setData(response);
-						Notification.success('Campaign successfully saved');
+						Loader.success('Campaign successfully saved');
 					} else {
-						Notification.error('Error saving campaign, please try again or contact support');
+						Loader.error('Error saving campaign, please try again or contact support');
 					}
 				});
 			}
 		};
+
 		$scope.save = function() {
 			controller.save();
 		};
 		$scope.delete = function() {
+			Loader.load();	
 			$('#deleteModal').modal('hide');
 			$('#deleteModal').on('hidden.bs.modal', function() {
 				Campaign.delete($scope.campaign._id, function(response) {
 					if(response.status == 200) {
-						Notification.success('Campaign successfully deleted');
-						$window.location.href = "#/campaigns"
+						$window.location.href = "#/campaigns";
+						Loader.success('Campaign successfully deleted');
 					} else {
-						Notification.error('Error deleting client, please try again or contact support');
+						Loader.error('Error deleting client, please try again or contact support');
 					}
 				});
 			});
@@ -60,6 +67,7 @@ angular.module('Curve')
 
 		// Releases
 		this.filterReleases = function(params, callback) {
+			Loader.load();
 			Release.all(params, function(response) {
 				if(response.status == 200) {
 					$scope.searchReleases = response.data.releases;
@@ -67,8 +75,9 @@ angular.module('Curve')
 					$scope.currentReleasePage = response.data.meta.currentPage;
 					$scope.releasePages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages);
 					if(callback) { callback(); }
+					Loader.complete();
 				} else {
-					Notification.error(response.data.message);
+					Loader.error(response.data.message);
 				}
 			});
 		}
@@ -112,6 +121,7 @@ angular.module('Curve')
 
 		// Tracks
 		this.filterTracks = function(params, callback) {
+			Loader.load();
 			Track.all(params, function(response) {
 				if(response.status == 200) {
 					console.log(response.data.tracks);
@@ -120,8 +130,9 @@ angular.module('Curve')
 					$scope.currentTrackPage = response.data.meta.currentPage;
 					$scope.trackPages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages);
 					if(callback) { callback(); }
+					Loader.complete();
 				} else {
-					Notification.error(response.data.message);
+					Loader.error(response.data.message);
 				}
 			});
 		}
@@ -165,6 +176,7 @@ angular.module('Curve')
 
 		// Works
 		this.filterWorks = function(params, callback) {
+			Loader.load();
 			Work.all(params, function(response) {
 				if(response.status == 200) {
 					$scope.searchWorks = response.data.works;
@@ -172,8 +184,9 @@ angular.module('Curve')
 					$scope.currentWorkPage = response.data.meta.currentPage;
 					$scope.workPages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages);
 					if(callback) { callback(); }
+					Loader.complete();
 				} else {
-					Notification.error(response.data.message);
+					Loader.error(response.data.message);
 				}
 			});
 		}

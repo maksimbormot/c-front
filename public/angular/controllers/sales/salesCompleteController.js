@@ -1,23 +1,24 @@
 angular.module('Curve')
-	.controller('salesUnmappedController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Notification', 'Territories', 'Settings', 'Currencies', 'Sales', 'Loader',
-		function($scope, $routeParams, Session, Pagination, Notification, Territories, Settings, Currencies, Sales, Loader) {
+	.controller('salesCompleteController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Notification', 'Territories', 'Currencies', 'Settings', 'SalesFile', 'Sales', 'Loader',
+		function($scope, $routeParams, Session, Pagination, Notification, Territories, Currencies, Settings, SalesFile, Sales, Loader) {
 		var controller = this;
 		$scope.saleDatePopup = false;
 		$scope.transactionDatePopup = false;
 		$scope.territories = Territories;
 		$scope.currencies = Currencies;
 		$scope.types = ["Sale", "Return"];
+		$scope.status = ["Complete", "Invalid"];
 		$scope.sales = [];
 		$scope.searchText = null;
 		$scope.filterSales = [];
 		$scope.releases = [];
 		$scope.tracks = [];
 		$scope.works = [];
-		
-		this.filter = function(params, callback) {
-			params.status = 'Incomplete';
+
+		this.filter = function(params, callback) { 
+			params.status = 'Complete';
 			Loader.load();
-			Sales.all(params, function(response) {  
+			Sales.all(params, function(response) {   
 				if(response.status == 200) {
 					$scope.sales = response.data.sales;
 					$scope.totalPages = response.data.meta.totalPages;
@@ -31,6 +32,22 @@ angular.module('Curve')
 				}
 			});    
 		};
+
+	    // Load Template if ID exists
+	    if($routeParams.id) {
+	      Loader.load();
+	      SalesFile.get($routeParams.id, function(response) {
+	        if(response.status == 200) {
+	          $scope.salesFile = response.data;
+	          $scope.salesFile.saleDate = new Date($scope.salesFile.saleDate);
+	          $scope.salesFile.transactionDate = new Date($scope.salesFile.transactionDate);
+	          Loader.complete();
+	        } else {
+	          Loader.error('Error loading template, please try again or contact support');
+	        }
+	      });
+	    };
+    
 		$scope.getSortedData = function(orderBy) {
 			if ( $scope.orderBy == orderBy ) {
 				$scope.orderDir = ( $scope.orderDir == 'asc' ) ? 'desc' : 'asc';
@@ -51,13 +68,13 @@ angular.module('Curve')
 			}
 		}
 		$scope.search = function() {
-			controller.filter( $scope.sales, function() {
+			controller.filter( $scope.sale, function() {
 				$scope.filterSales = $scope.sales;
 				Loader.success('Sales Successfully Searched');
 			});
 		};
 		$scope.changePage = function(page) {
-			controller.filter({ name: $scope.sales, page: page });
+			controller.filter({ name: $scope.sale, page: page });
 		};
 
 		Settings.getSettings()
@@ -119,49 +136,34 @@ angular.module('Curve')
 			});		
 		}
 
-		$scope.updateSelected = function() {
+		$scope.updateSelected = function() { 
 			Loader.load();
-			var num = 0, count = 0;
-			var selectedSales = [];
-			$scope.sales.forEach(function(sale, callback){
-				if (sale.selected){
-					count++;
-					selectedSales.push(sale);
-				}
-			});
-			if (count > 0){
-				selectedSales.forEach(function(sale){
+			var num = 0
+			$scope.sales.forEach(function(sale, callback) {
+				if(sale.selected) { 
 					Sales.update($scope.sale._id, $scope.sale, function(response) {
 						if(response.status == 200) {
 							num++;
 							$scope.sale = response.data;
-							if (count === num) {
-								$('#modalEditFields').modal('hide');
-								Loader.complete();
-							}
+							$('#modalEditFields').modal('hide');
+							Loader.complete();
 						}
-					})
-					.catch(function(response){
-						Loader.error('The object has not been saved.  ' + response.data.message);
 					});
-				});
-				$('#modalEditFields').one('hidden.bs.modal', function() {
-					Loader.success(num + ' Sales successfully saved');
-				});
-			} else {
-				$('#modalEditFields').modal('hide');
-				Loader.error('Choose at least one position');
-			}
+				}
+			});
+			$('#modalEditFields').on('hidden.bs.modal', function() {
+				Loader.success(num + ' Sales successfully saved');
+			});
 		}
 
 		$scope.updateFiltered = function(){
 			Loader.load();
 			var num = 0
 			$scope.filterSales.forEach(function(sale, callback) {
-				Sales.update(sale._id, $scope.sales, function(response) {
+				Sales.update($scope.sale._id, $scope.sale, function(response) {
 					if(response.status == 200) {
 						num++;
-						$scope.sales = response.data;
+						$scope.sale = response.data;
 						$('#modalEditFields').modal('hide');
 						Loader.complete();
 					}
@@ -174,4 +176,5 @@ angular.module('Curve')
 
 		// Load all sales on page load
 		this.filter({});
+
 	}]); 

@@ -1,5 +1,6 @@
 angular.module('Curve')
-  .controller('salesImportController', ['$scope', '$routeParams', '$window', 'Session', 'Notification', 'Territories', 'Settings', 'Upload', 'SalesFile', 'Currencies', function($scope, $routeParams, $window, Session, Notification, Territories, Settings, Upload, SalesFile, Currencies) {
+  .controller('salesImportController', ['$scope', '$routeParams', '$window', 'Session', 'Notification', 'Territories', 'Settings', 'Upload', 'SalesFile', 'Currencies', 'Loader',
+    function($scope, $routeParams, $window, Session, Notification, Territories, Settings, Upload, SalesFile, Currencies, Loader) {
     var controller = this;
     $scope.token = '?applicationToken=12345&token=' + Session.token;
     $scope.salesImport = false;
@@ -16,6 +17,7 @@ angular.module('Curve')
 
     // Load Template if ID exists
     if($routeParams.id) {
+      Loader.load();
       SalesFile.get($routeParams.id, function(response) {
         if(response.status == 200) {
           $scope.salesFile = response.data;
@@ -23,8 +25,9 @@ angular.module('Curve')
           if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.transactionDate) { $scope.salesFile.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate); }
           setupExampleTableHeaders();
           setupExampleTableBody();
+          Loader.complete();
         } else {
-          Notification.error('Error loading template, please try again or contact support');
+          Loader.error('Error loading template, please try again or contact support');
         }
       });
     };
@@ -53,8 +56,9 @@ angular.module('Curve')
     }
 
     $scope.save = function() {
+      Loader.load();
       save(function(response) {
-        Notification.success('Sales File successfully saved');
+        Loader.success('Sales File successfully saved');
       });
     }
 
@@ -63,10 +67,10 @@ angular.module('Curve')
       $('#deleteModal').on('hidden.bs.modal', function() {
         SalesFile.delete($scope.salesFile._id, function(response) {
           if(response.status == 200) {
-            Notification.success('Sales File successfully deleted');
+            Loader.success('Sales File successfully deleted');
             $window.location.href = "#/sales"
           } else {
-            Notification.error('Error deleting client, please try again or contact support');
+            Loader.error('Error deleting client, please try again or contact support');
           }
         });
       });
@@ -74,26 +78,30 @@ angular.module('Curve')
 
     $scope.ingest = function() {
     	// Added save here
+      Loader.load();
       save(function() {
       	SalesFile.ingest($scope.salesFile._id, {}, function(response) {
 	        if(response.status == 200) {
-	          $window.location.href = "#/sales"
-	          Notification.success('Sales file ingestion started');
+	          $window.location.href = "#/sales";
+	          Loader.success('Sales file ingestion started');
 	        } else {
-	          Notification.error('Error kicking off ingestion, please try again or contact support');
+	          Loader.error('Error kicking off ingestion, please try again or contact support');
 	        }
 	      });
       });
     };
 
     function save(callback) {
+      Loader.load();
       if(!$scope.salesFile._id) {
         SalesFile.create($scope.salesFile, function(response) {
           callback(response);
+          Loader.complete();
         });
       } else {
         SalesFile.update($scope.salesFile._id, $scope.salesFile, function(response) {
           callback(response);
+          Loader.complete();
         });
       }
     }

@@ -1,44 +1,47 @@
 angular.module('Curve')
-  .controller('salesTemplateEditController', ['$scope', '$routeParams', '$window', 'Session', 'SalesTemplate', 'Notification', 'Settings', 'Territories', 'Currencies', 'Upload', 'TemplateFields', 'TemplateTypes', function($scope, $routeParams, $window, Session, SalesTemplate, Notification, Settings, Territories, Currencies, Upload, TemplateFields, TemplateTypes) {
-    var controller = this;
-    $scope.territories = Territories;
-    $scope.templateFields = TemplateFields;
-    $scope.templateTypes = TemplateTypes;
-    $scope.token = '?applicationToken=12345&token=' + Session.token;
-    $scope.salesTemplate = { overwriteFields: {}, territories: [], distributionChannels: [], configurations: [], priceCategories: [] };
-    $scope.salesTemplate.fields = [];
-    $scope.salesTemplate.exampleLines = [];
-    $scope.saleDatePopup = false;
+	.controller('salesTemplateEditController', ['$scope', '$routeParams', '$window', 'Session', 'SalesTemplate', 'Notification', 'Settings', 'Territories', 'Currencies', 'Upload', 'TemplateFields', 'TemplateTypes', 'Loader', function($scope, $routeParams, $window, Session, SalesTemplate, Notification, Settings, Territories, Currencies, Upload, TemplateFields, TemplateTypes, Loader) {
+		var controller = this;
+		$scope.territories = Territories; 
+		$scope.templateFields = TemplateFields; 
+		$scope.templateTypes = TemplateTypes; 
+		$scope.token = '?applicationToken=12345&token=' + Session.token;
+		$scope.salesTemplate = { overwriteFields: {}, territories: [], distributionChannels: [], configurations: [], priceCategories: [] };
+		$scope.salesTemplate.fields = [];
+		$scope.salesTemplate.exampleLines = [];
+		$scope.saleDatePopup = false;
     $scope.transactionDatePopup = false;
     $scope.territories = Territories;
     $scope.currencies = Currencies;
 
-    // Load Template if ID exists
-    if($routeParams.id) {
-      SalesTemplate.get($routeParams.id, function(response) {
-        if(response.status == 200) {
-          $scope.salesTemplate = response.data;
+		// Load Template if ID exists
+		if($routeParams.id) {
+			Loader.load();
+			SalesTemplate.get($routeParams.id, function(response) { 
+				if(response.status == 200) {
+					$scope.salesTemplate = response.data;
           $scope.salesTemplate.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate);
           $scope.salesTemplate.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate);
-        } else {
-          Notification.error('Error loading template, please try again or contact support');
-        }
-      });
-    };
+					Loader.complete();
+				} else {
+					Loader.error('Error loading template, please try again or contact support');
+				}
+			});
+		};
+ 
+		Settings.getSettings()
+			.then(function(settings){
+				angular.extend($scope, settings);
+			});
 
-    Settings.getSettings()
-      .then(function(settings) {
-        angular.extend($scope, settings);
-      });
-    $scope.groupFind = function(territory) {
-      return territory.continent;
-    }
-    $scope.openSaleDatePopup = function() {
-      $scope.saleDatePopup = true;
-    }
-    $scope.openTransactionDatePopup = function() {
-      $scope.transactionDatePopup = true;
-    }
+		$scope.groupFind = function(territory) {
+	      return territory.continent;
+	    }
+	    $scope.openSaleDatePopup = function() {
+	      $scope.saleDatePopup = true;
+	    }
+	    $scope.openTransactionDatePopup = function() {
+	      $scope.transactionDatePopup = true;
+	    }
 
     $scope.$watch('salesTemplate.territories', function(territories) {
       $scope.displayTerritories = []
@@ -192,15 +195,15 @@ angular.module('Curve')
             $scope.salesTemplate = response.data;
             if($scope.file) {
               upload($scope.file, function() {
-                Notification.success('Template successfully created');
+                Loader.success('Template successfully created');
                 $window.location.href = "#/templates/" + response.data._id + "/edit"
               });
             } else {
-              Notification.success('Template successfully created');
+              Loader.success('Template successfully created');
               $window.location.href = "#/templates/" + response.data._id + "/edit"
             }
           } else {
-            Notification.error('Error creating template, please try again or contact support');
+            Loader.error('Error creating template, please try again or contact support');
           }
         });
       } else {
@@ -208,13 +211,13 @@ angular.module('Curve')
           if(response.status == 200) {
             if($scope.file) {
               upload($scope.file, function() {
-                Notification.success('Template successfully saved');
+                Loader.success('Template successfully saved');
               });
             } else {
-              Notification.success('Template successfully saved');
+              Loader.success('Template successfully saved');
             }
           } else {
-            Notification.error('Error saving template, please try again or contact support');
+            Loader.error('Error saving template, please try again or contact support');
           }
         });
       }
@@ -225,10 +228,10 @@ angular.module('Curve')
       $('#deleteModal').on('hidden.bs.modal', function() {
         SalesTemplate.delete($scope.salesTemplate._id, function(response) {
           if(response.status == 200) {
-            Notification.success('Template successfully deleted');
+            Loader.success('Template successfully deleted');          
             $window.location.href = "#/templates"
           } else {
-            Notification.error('Error deleting template, please try again or contact support');
+            Loader.error('Error deleting template, please try again or contact support');
           }
         });
       });

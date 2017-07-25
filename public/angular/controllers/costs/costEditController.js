@@ -1,6 +1,7 @@
 angular.module('Curve')
-  .controller('costEditController', ['$scope', '$routeParams', '$window', 'Session', 'Cost', 'Notification', 'Settings', 'Upload', 'Territories', '$timeout', function($scope, $routeParams, $window, Session, Cost, Notification, Settings, Upload, Territories, $timeout) {
-    var controller = this;
+  .controller('costEditController', ['$scope', '$routeParams', '$window', 'Session', 'Cost', 'Notification', 'Settings', 'Upload', 'Territories', '$timeout', 'Loader',
+    function($scope, $routeParams, $window, Session, Cost, Notification, Settings, Upload, Territories, $timeout, Loader) {
+    var controller = this; 
     $scope.costsTypes = ["Gross Receipts", "Net Receipts", "PPD"];
     $scope.releases = [];
     $scope.tracks = [];
@@ -12,14 +13,17 @@ angular.module('Curve')
 
     // Load Cost if ID exists
     if($routeParams.id) {
+      Loader.load();
       Cost.get($routeParams.id, function(response) {
         if(response.status == 200) {
           $scope.cost = response.data;
+          Loader.complete();
         } else {
-          Notification.error('Error loading cost, please try again or contact support');
+          Loader.error('Error loading cost, please try again or contact support');
         }
       });
     };
+
     Settings.getSettings()
       .then(function(settings) {
         angular.extend($scope, settings);
@@ -62,40 +66,41 @@ angular.module('Curve')
     };
 
     $scope.save = function() {
-      console.log($scope.cost);
+      Loader.load();
       if(!$scope.cost._id) {
         Cost.create($scope.cost, function(response) {
           if(response.status == 200) {
             $scope.cost._id = response.data._id;
             $scope.upload($scope.file)
               .then(function() {
-                Notification.success('Cost successfully created');
-                $window.location.href = "#/costs/" + response.data._id + "/edit"
+                $window.location.href = "#/costs/" + response.data._id + "/edit";
+                Loader.success('Cost successfully created');
               });
           } else {
-            Notification.error('Error creating cost, please try again or contact support');
+            Loader.error('Error creating cost, please try again or contact support');
           }
         });
       } else {
         Cost.update($scope.cost._id, $scope.cost, function(response) {
           if(response.status == 200) {
             $scope.cost = response.data;
-            Notification.success('Cost successfully saved');
+            Loader.success('Cost successfully saved');
           } else {
-            Notification.error('Error saving cost, please try again or contact support');
+            Loader.error('Error saving cost, please try again or contact support');
           }
         });
       }
     };
     $scope.delete = function() {
+      Loader.load();
       $('#deleteModal').modal('hide');
       $('#deleteModal').on('hidden.bs.modal', function() {
         Cost.delete($scope.cost._id, function(response) {
           if(response.status == 200) {
-            Notification.success('Cost successfully deleted');
-            $window.location.href = "#/costs"
+            $window.location.href = "#/costs";
+            Loader.success('Cost successfully deleted');
           } else {
-            Notification.error('Error deleting cost, please try again or contact support');
+            Loader.error('Error deleting cost, please try again or contact support');
           }
         });
       });

@@ -156,6 +156,16 @@ angular.module('Curve')
 			controller: 'salesIngestController',
 			controllerAs: 'salesIngestCtrl'
 		})
+		.when('/sales/unmapped', {
+			templateUrl: '/angular/templates/sales-files/sales-unmapped.html',
+			controller: 'salesUnmappedController',
+			controllerAs: 'salesUnmappedCtrl'
+		})
+		.when('/sales/:id/complete', {
+			templateUrl: '/angular/templates/sales-files/sales-complete.html',
+			controller: 'salesCompleteController',
+			controllerAs: 'salesCompleteCtrl'
+		})
 		.when('/periods', {
 			templateUrl: '/angular/templates/periods/index.html'
 		})
@@ -194,10 +204,5 @@ angular.module('Curve')
 			controller: 'salesTemplateEditController',
 			controllerAs: 'salesTemplateCtrl'
 		})
-		.when('/unmapped', {
-			templateUrl: '/angular/templates/sales-files/sales-unmapped.html',
-			controller: 'salesUnmappedController',
-			controllerAs: 'salesUnmappedCtrl'
-		})
 		.otherwise({ redirectTo: '/' })
-	});
+	}); 
