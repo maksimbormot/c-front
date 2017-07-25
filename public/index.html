@@ -58,7 +58,7 @@
             </a>
             <span class="icon-thumbnail"><i class="fa fa-users"></i></span>
           </li>
-          <li class="sidebar-menu-item">
+          <li class="sidebar-menu-item catalogue">
             <a href="javascript:;"><span class="title">Catalogue</span>
             <span class=" arrow"></span></a>
             <span class="icon-thumbnail"><i class="fa fa-book"></i></span>
@@ -67,21 +67,21 @@
                 <a href="/#/campaigns" class="go-to">Campaign</a>
                 <span class="icon-thumbnail">c</span>
               </li>
-              <li class="sub-menu-item">
+              <li class="sub-menu-item release-item">
                 <a href="/#/releases" class="go-to">Releases</a>
                 <span class="icon-thumbnail">r</span>
               </li>
-              <li class="sub-menu-item">
+              <li class="sub-menu-item track-item">
                 <a href="/#/tracks" class="go-to">Tracks</a>
                 <span class="icon-thumbnail">t</span>
               </li>
-              <li class="sub-menu-item">
+              <li class="sub-menu-item work-item">
                 <a href="/#/works" class="go-to">Works</a>
                 <span class="icon-thumbnail">w</span>
               </li>
             </ul>
           </li>
-          <li class="sidebar-menu-item">
+          <li class="sidebar-menu-item contracts">
             <a href="javascript:;"><span class="title">Contracts</span>
             <span class="arrow"></span></a>
             <span class="icon-thumbnail"><i class="fa fa-pencil"></i></span>
@@ -90,7 +90,7 @@
                 <a href="/#/payees" class="go-to">Payees</a>
                 <span class="icon-thumbnail">p</span>
               </li>
-              <li class="sub-menu-item">
+              <li class="sub-menu-item contract-item">
                 <a href="/#/contracts" class="go-to">Contracts</a>
                 <span class="icon-thumbnail">c</span>
               </li>
@@ -244,8 +244,8 @@
                     <div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">
                       <div>{{release.title[0]}}</div>
                     </div>
-                    <div class="p-l-10 inline p-t-5" ng-click="closeOverlay()">
-                      <a href="#/releases/{{ release._id }}/edit" >
+                    <div class="p-l-10 inline p-t-5">
+                      <a href="#/releases/{{ release._id }}/edit" ng-click="closeOverlay()">
                         <h5 class="m-b-5">
                           <span class="semi-bold result-name">
                             {{release.title}}

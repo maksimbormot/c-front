@@ -25,6 +25,13 @@ angular.module('Curve')
 			controller.loadRelease();
 		}
 
+		$(".sidebar-menu-item").removeClass('active');
+		$(".sidebar-menu ul li.sidebar-menu-item span.icon-thumbnail").removeClass('bg-success');
+		$(".sidebar-menu ul li.sidebar-menu-item ul.sub-menu li.sub-menu-item span.icon-thumbnail").removeClass('white');
+		$(".sidebar-menu-item.catalogue").addClass('active');
+		$(".sidebar-menu-item.catalogue").find("span.icon-thumbnail:first").addClass('bg-success');
+		$(".release-item").find("span.icon-thumbnail").addClass('white');
+
 		Settings.getSettings()
 			.then(function(settings){
 				$scope.priceCategories = settings.priceCategories;
