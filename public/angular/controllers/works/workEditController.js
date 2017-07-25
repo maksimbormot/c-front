@@ -16,6 +16,13 @@ angular.module('Curve')
 			});
 		}
 
+		$(".sidebar-menu-item").removeClass('active');
+		$(".sidebar-menu ul li.sidebar-menu-item span.icon-thumbnail").removeClass('bg-success');
+		$(".sidebar-menu ul li.sidebar-menu-item ul.sub-menu li.sub-menu-item span.icon-thumbnail").removeClass('white');
+		$(".sidebar-menu-item.catalogue").addClass('active');
+		$(".sidebar-menu-item.catalogue").find("span.icon-thumbnail:first").addClass('bg-success');
+		$(".work-item").find("span.icon-thumbnail").addClass('white');
+
 		Settings.getContracts()
 			.then(function(contracts){
 				$scope.contracts = contracts;

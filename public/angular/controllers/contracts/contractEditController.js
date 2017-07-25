@@ -27,6 +27,13 @@ angular.module('Curve')
 			});
 		};
 
+		$(".sidebar-menu-item").removeClass('active');
+		$(".sidebar-menu ul li.sidebar-menu-item span.icon-thumbnail").removeClass('bg-success');
+		$(".sidebar-menu ul li.sidebar-menu-item ul.sub-menu li.sub-menu-item span.icon-thumbnail").removeClass('white');
+		$(".sidebar-menu-item.contracts").addClass('active');
+		$(".sidebar-menu-item.contracts").find("span.icon-thumbnail:first").addClass('bg-success');
+		$(".contract-item").find("span.icon-thumbnail").addClass('white');
+
 		Settings.getSettings()
 			.then(function(settings){
 				angular.extend($scope, settings);
