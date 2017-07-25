@@ -8,12 +8,12 @@ angular.module('Curve')
     $scope.transactionDatePopup = false;
     $scope.territories = Territories;
     $scope.currencies = Currencies;
-    $scope.types = ["Sale", "Return"];
-    $scope.salesFile = {};
-    $scope.templates = [];
-    $scope.selectedTemplate = { exampleLines: [] };
+    $scope.salesFile = { overwriteFields: {} };
     $scope.data = [];
     $scope.array = [];
+    $scope.exampleTableHeaders = [];
+    $scope.exampleTableBody = [];
+    //$scope.salesColumnName = salesColumnName;
 
     // Load Template if ID exists
     if($routeParams.id) {
@@ -21,8 +21,10 @@ angular.module('Curve')
       SalesFile.get($routeParams.id, function(response) {
         if(response.status == 200) {
           $scope.salesFile = response.data;
-          $scope.salesFile.saleDate = new Date($scope.salesFile.saleDate);
-          $scope.salesFile.transactionDate = new Date($scope.salesFile.transactionDate);
+          if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.salesDate) { $scope.salesFile.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate); }
+          if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.transactionDate) { $scope.salesFile.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate); }
+          setupExampleTableHeaders();
+          setupExampleTableBody();
           Loader.complete();
         } else {
           Loader.error('Error loading template, please try again or contact support');
@@ -30,40 +32,10 @@ angular.module('Curve')
       });
     };
 
-    $scope.getSources = function() {
-      $scope.sources = [];
-      next:
-        for(var i = 0; i < $scope.templates.length; i++) {
-          var source = $scope.templates[i].source;
-          for(var j = 0; j < $scope.sources.length; j++) {
-            if($scope.sources[j].source == source) {
-              continue next;
-            }
-          }
-          $scope.sources.push($scope.templates[i]);
-        }
-      return $scope.sources;
-    }
-
     Settings.getSettings()
       .then(function(settings) {
         angular.extend($scope, settings);
       });
-    Settings.getTemplates()
-      .then(function(templates) {
-        $scope.templates = templates;
-        $scope.getSources();
-      });
-
-    $scope.onSelectedTemplate = function(selectedItem) {
-      $scope.templateId = selectedItem._id;
-      for(var i = 0; i < $scope.templates.length; i++) {
-        if($scope.templates[i]._id == $scope.templateId) {
-          $scope.selectedTemplate = $scope.templates[i];
-        }
-      }
-      return $scope.selectedTemplate;
-    }
 
     $scope.groupFind = function(territory) {
       return territory.continent;
@@ -74,64 +46,35 @@ angular.module('Curve')
     $scope.openTransactionDatePopup = function() {
       $scope.transactionDatePopup = true;
     }
+    
+    function setupExampleTableHeaders() {
+      $scope.exampleTableHeaders = $scope.salesFile.exampleLines.splice(0, 1);
+    }
 
-    $scope.upload = function(file) {
-      $scope.salesFile.status = 'Setup';
+    function setupExampleTableBody() {
+      $scope.exampleTableBody = $scope.salesFile.exampleLines.splice(2, 12); 
+    }
+
+    $scope.save = function() {
       Loader.load();
-      // Ensure salesFile is created or saved here before upload
       save(function(response) {
-        if(response.status == 200) {
-          $scope.salesFile = response.data;
-          Loader.success('Sale successfully saved');
-          // After successful save, upload file with updated salesFile ID
-          $scope.salesFile.exampleLines = [];
-          $scope.salesImport = true;
-          Upload.upload({
-              url: 'http://localhost:8081/salesFiles/upload' + $scope.token,
-              method: 'POST',
-              data: {
-                file: file,
-                salesFile_id: $scope.salesFile._id
-              }
-            })
-            .then(function(resp) {
-              $scope.salesFile.file = resp.data.url;
-              $scope.data = resp.data.template;
-              var headers = $scope.data.shift();
-              $scope.salesFile.exampleLines[0] = $scope.selectedTemplate.exampleLines[0];
-              for(var i = 0; i < ($scope.data.length > 10 ? 10 : $scope.data.length); i++) {
-                var subArray = [];
-                $scope.salesFile.exampleLines[0].forEach(function(element) {
-                  var number = 0;
-                  headers.forEach(function(el) {
-                    if(element == el) {
-                      number++;
-                      $scope.index1 = headers.indexOf(el);
-                    }
-                  });
-                  if(number == 0) {
-                    $scope.index1 = -1;
-                  }
-                  var count = 0;
-                  for(var j = 0; j < $scope.data[i].length; j++) {
-                    if(j == $scope.index1) {
-                      subArray.push($scope.data[i][j]);
-                      count++;
-                    }
-                  }
-                  if(count == 0) {
-                    subArray.push('');
-                  }
-                });
-                $scope.salesFile.exampleLines.push(subArray);
-              }
-              return $scope.salesFile.exampleLines;
-            })
-        } else {
-          Loader.error('Error saving sale, please try again or contact support');
-        }
+        Loader.success('Sales File successfully saved');
       });
-    };
+    }
+
+    $scope.delete = function() {
+      $('#deleteModal').modal('hide');
+      $('#deleteModal').on('hidden.bs.modal', function() {
+        SalesFile.delete($scope.salesFile._id, function(response) {
+          if(response.status == 200) {
+            Loader.success('Sales File successfully deleted');
+            $window.location.href = "#/sales"
+          } else {
+            Loader.error('Error deleting client, please try again or contact support');
+          }
+        });
+      });
+    }
 
     $scope.ingest = function() {
     	// Added save here

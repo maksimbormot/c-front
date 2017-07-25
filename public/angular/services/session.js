@@ -6,6 +6,7 @@ angular.module('Curve')
 			userType: null,
 			formats: [],
 			priceCategories: [],
-			contracts: []
+			contracts: [],
+			apiUrl: null
 		}
 	});

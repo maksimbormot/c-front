@@ -12257,6 +12257,15 @@ Main components
 .col-bottom {
   vertical-align: bottom !important;
 }
+.align-left {
+  text-align: left !important;
+}
+.align-center {
+  text-align: center !important;
+}
+.align-right {
+  text-align: right !important;
+}
 /* columns of same height styles 
 ------------------------------------
 */

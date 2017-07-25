@@ -166,6 +166,9 @@ table.sales-table thead tr th:first-child{
 .template-example-table .form-group {
     margin: 2px;
 }
+.template-table-column .ui-select-container {
+	width: 150px !important;
+}
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting_desc,
