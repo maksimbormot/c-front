@@ -107,9 +107,7 @@ angular.module('Curve')
 						}
 					})
 					.catch(function(response){
-						if(response.status == 400) {
-							Loader.error('The object has not been saved.  ' + response.data.message);
-						}
+						Loader.error('The object has not been saved.  ' + response.data.message);
 					});
 				} else {
 					Release.update($scope.release._id, $scope.release, function(response) {
@@ -123,9 +121,7 @@ angular.module('Curve')
 						}
 					})
 					.catch(function(response){
-						if(response.status == 400) {
-							Loader.error('The object has not been saved.  ' + response.data.message);
-						}
+						Loader.error('The object has not been saved.  ' + response.data.message);
 					});
 				}
 			});

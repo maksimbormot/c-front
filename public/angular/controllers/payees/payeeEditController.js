@@ -32,9 +32,7 @@ angular.module('Curve')
 					}
 				})
 				.catch(function(response){
-					if(response.status == 400) {
-						Loader.error('The object has not been saved.  ' + response.data.message);
-					}
+					Loader.error('The object has not been saved.  ' + response.data.message);
 				});
 			} else {
 				Payee.update($scope.payee._id, $scope.payee, function(response) {
@@ -46,9 +44,7 @@ angular.module('Curve')
 					}
 				})
 				.catch(function(response){
-					if(response.status == 400) {
-						Loader.error('The object has not been saved.  ' + response.data.message);
-					}
+					Loader.error('The object has not been saved.  ' + response.data.message);
 				});
 			}
 		};

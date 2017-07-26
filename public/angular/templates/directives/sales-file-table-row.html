@@ -1,5 +1,6 @@
 <td class="v-align-middle"><input type="checkbox" ng-model="sale.selected"></td>
 <td class="v-align-middle">
+	<a ng-if="sale.status=='Setup'" href="#/sales/{{ sale._id }}/edit">{{ sale.name }}</a>
 	<a ng-if="sale.status=='Ingesting'" href="#/sales/{{ sale._id }}/edit">{{ sale.name }}</a>
 	<a ng-if="sale.status=='Complete'" href="#/sales/{{ sale._id }}/complete">{{ sale.name }}</a>
 </td>

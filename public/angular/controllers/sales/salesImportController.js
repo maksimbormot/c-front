@@ -21,7 +21,7 @@ angular.module('Curve')
       SalesFile.get($routeParams.id, function(response) {
         if(response.status == 200) {
           $scope.salesFile = response.data;
-          if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.salesDate) { $scope.salesFile.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate); }
+          if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.saleDate) { $scope.salesFile.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate); }
           if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.transactionDate) { $scope.salesFile.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate); }
           setupExampleTableHeaders();
           setupExampleTableBody();
