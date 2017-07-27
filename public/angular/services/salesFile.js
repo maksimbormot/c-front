@@ -31,12 +31,22 @@ angular.module('Curve')
           callback(data);
         });
       },
+      ingestionError: function(){
+        return $http({ method: "POST", url: Session.apiUrl + '/salesFiles/' + id + '/ingestion_error?applicationToken=12345&token=' + Session.token, headers: { 'Content-Type': 'application/json' } }).then(function(data) {
+          callback(data);
+        });
+      },
+      ingestionComplete: function(){
+        return $http({ method: "POST", url: Session.apiUrl + '/salesFiles/' + id + '/ingestion_complete?applicationToken=12345&token=' + Session.token, headers: { 'Content-Type': 'application/json' } }).then(function(data) {
+          callback(data);
+        });
+      },
       export: function(callback) {
         return $http.get(Session.apiUrl + '/salesFiles/export?applicationToken=12345&token=' + Session.token, {
           responseType: 'arraybuffer'
         }).then(function(data) {
           callback(data);
-        }, function(e) {
+        }, function(e) { 
           callback(e);
         });
       },

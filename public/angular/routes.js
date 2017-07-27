@@ -151,20 +151,15 @@ angular.module('Curve')
 			controller: 'salesFileNewController',
 			controllerAs: 'salesFileNewCtrl'
 		})
-		.when('/sales/:id/ingest', {
-			templateUrl: '/angular/templates/sales-files/sales-ingest.html',
-			controller: 'salesIngestController',
-			controllerAs: 'salesIngestCtrl'
+		.when('/sales/:id/ingestion_complete', {
+			templateUrl: '/angular/templates/sales-files/sales-ingestion-complete.html',
+			controller: 'salesIngestionCompleteController',
+			controllerAs: 'ssalesIngestionCompleteCtrl'
 		})
 		.when('/sales/unmapped', {
 			templateUrl: '/angular/templates/sales-files/sales-unmapped.html',
 			controller: 'salesUnmappedController',
 			controllerAs: 'salesUnmappedCtrl'
-		})
-		.when('/sales/:id/complete', {
-			templateUrl: '/angular/templates/sales-files/sales-complete.html',
-			controller: 'salesCompleteController',
-			controllerAs: 'salesCompleteCtrl'
 		})
 		.when('/periods', {
 			templateUrl: '/angular/templates/periods/index.html'

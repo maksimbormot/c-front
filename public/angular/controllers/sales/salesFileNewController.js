@@ -1,5 +1,6 @@
 angular.module('Curve')
-  .controller('salesFileNewController', ['$scope', '$routeParams', '$window', 'Session', 'Notification', 'Territories', 'Settings', 'Upload', 'SalesFile', 'Currencies', function($scope, $routeParams, $window, Session, Notification, Territories, Settings, Upload, SalesFile, Currencies) {
+  .controller('salesFileNewController', ['$scope', '$routeParams', '$window', 'Session', 'Notification', 'Territories', 'Settings', 'Upload', 'SalesFile', 'Currencies', 'Loader',
+    function($scope, $routeParams, $window, Session, Notification, Territories, Settings, Upload, SalesFile, Currencies, Loader) {
     var controller = this;
     $scope.token = '?applicationToken=12345&token=' + Session.token;
     $scope.salesFile = { overwriteFields: {} };
@@ -8,7 +9,7 @@ angular.module('Curve')
     $scope.data = [];
     $scope.array = [];
 
-    $scope.getSources = function() {
+    $scope.getSources = function() { 
       $scope.sources = [];
       next:
         for(var i = 0; i < $scope.templates.length; i++) {
@@ -23,7 +24,7 @@ angular.module('Curve')
       return $scope.sources;
     }
 
-    Settings.getTemplates()
+    Settings.getTemplates() 
       .then(function(templates) {
         $scope.templates = templates;
         $scope.getSources();
@@ -45,6 +46,7 @@ angular.module('Curve')
     }
 
     $scope.create = function(file) {
+      Loader.load();
       $scope.salesFile.status = 'Setup';
       // Ensure salesFile is created or saved here before upload
       save(function(response) {
@@ -59,18 +61,20 @@ angular.module('Curve')
               }
             })
             .then(function(resp) {
-              Notification.success('Sales File successfully created');
-              $window.location.href = "#/sales/" + $scope.salesFile._id + "/edit"
+              $window.location.href = "#/sales/" + $scope.salesFile._id + "/edit";
+              Loader.success('Sales File successfully created');
             })
         } else {
-          Notification.error('Error saving sales file, please try again or contact support');
+          Loader.error('Error saving sales file, please try again or contact support');
         }
       });
     };
 
     function save(callback) {
+      Loader.load();
       SalesFile.create($scope.salesFile, function(response) {
         callback(response);
+        Loader.complete();
       });
     }
 

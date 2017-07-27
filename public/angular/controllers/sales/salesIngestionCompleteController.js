@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.controller('salesCompleteController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Notification', 'Territories', 'Currencies', 'Settings', 'SalesFile', 'Sales', 'Loader',
+	.controller('salesIngestionCompleteController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Notification', 'Territories', 'Currencies', 'Settings', 'SalesFile', 'Sales', 'Loader',
 		function($scope, $routeParams, Session, Pagination, Notification, Territories, Currencies, Settings, SalesFile, Sales, Loader) {
 		var controller = this;
 		$scope.saleDatePopup = false;

@@ -19,33 +19,13 @@
         <input type="text" class="form-control" placeholder="Name" ng-model="salesFile.name">
       </div>
       <div class="form-group f-l m-t-10 m-r-5">
-      <input type="text" class="form-control" placeholder="Source" ng-model="salesFile.source">
-<!--         <ui-select class="full-width" ng-model="salesFile.source">
-          <ui-select-match placeholder="Source">
-            <span ng-bind="$select.selected.source"></span>
-          </ui-select-match>
-          <ui-select-choices repeat="item.source as item in sources | orderBy: 'source' | filter: $select.search">
-            <span ng-bind="item.source"></span>
-          </ui-select-choices>
-        </ui-select> -->
+      <input type="text" class="form-control" placeholder="Source" ng-model="salesFile.salesAccountName">
       </div>
       <div class="form-group f-l m-t-10 m-r-5">
       <input type="text" class="form-control" placeholder="Template" ng-model="salesFile.salesTemplateName">
-<!--         <ui-select class="full-width" ng-model="salesFile.salesTemplateName" on-select="onSelectedTemplate($item)">
-          <ui-select-match placeholder="Template">
-            <span ng-bind="$select.selected.name"></span>
-          </ui-select-match>
-          <ui-select-choices repeat="item.name as item in templates | orderBy: 'name' | filter: {source: salesFile.source} : true">
-            <span ng-bind="item.name"></span>
-          </ui-select-choices>
-        </ui-select> -->
       </div>
-<!--       <a href="/#/templates/{{templateId}}/edit" class="btn btn-warning f-l m-t-10"><i class="fa fa-pencil"></i>&nbsp;Edit Template</a>
-      <a href="/#/templates/new" class="btn btn-success f-l m-t-10" ng-hide="salesImport"><i class="fa fa-plus"></i>&nbsp;Create Template</a> -->
     </div>
     <div class="col-xs-4 text-right">
-<!--       <input type="file" class="inline m-t-10" ngf-select ngf-allow-dir="false" ng-model="file">
-      <button class="btn btn-complete m-t-10" ng-click="upload(file)"><i class="fa fa-download"></i>&nbsp;Import</button> -->
       <a class="btn btn-complete pull-right m-t-10" ng-click="reingest()">Reingest</a>
     </div>
   </div>
@@ -59,8 +39,8 @@
           </div>
         </div>
         <div class="panel-body center bg-primary">
-          <h1 class="text-white"><span class="semi-bold">1000</span></h1>
-          <small>Validation: 1000</small>
+          <h1 class="text-white"><span class="semi-bold">{{salesFile.units || 0}}</span></h1>
+          <small>Validation: {{salesFile.validationUnits || 0}}</small>
         </div>
       </div>
     </div>
@@ -72,8 +52,8 @@
           </div>
         </div>
         <div class="panel-body center bg-complete">
-          <h1 class="text-white"><span class="semi-bold">£1000.50</span></h1>
-          <small class="text-white">Validation: £1000.50</small>
+          <h1 class="text-white"><span class="semi-bold">£{{salesFile.netAmount || 0}}</span></h1>
+          <small class="text-white">Validation: £{{salesFile.validationNetAmount || 0}}</small>
         </div>
       </div>
     </div>
@@ -85,20 +65,22 @@
           </div>
         </div>
         <div class="panel-body center bg-info">
-          <h1 class="text-white"><span class="semi-bold">500</span></h1>
-          <small class="text-white">Validation: 500</small>
+          <h1 class="text-white"><span class="semi-bold">{{salesFile.lines || 0}}</span></h1>
+          <small class="text-white">Validation: {{salesFile.validationLines || 0}}</small>
         </div>
       </div>
     </div>
     <div class="col-xs-3 m-t-40">
-      <div class="panel panel-default height-180 bg-danger">
+      <div class="panel panel-default height-180" 
+           ng-class="{ 'bg-danger': salesFile.invalidLines > 0, 'bg-success': salesFile.invalidLines <= 0 }">
       <div class="panel-heading">
           <div class="panel-title text-white">
             Invalid Lines
           </div>
         </div>
-        <div class="panel-body center bg-danger">
-          <h1 class="text-white"><span class="semi-bold">50</span></h1>
+        <div class="panel-body center" 
+             ng-class="{ 'bg-danger': salesFile.invalidLines > 0, 'bg-success': salesFile.invalidLines <= 0 }">
+          <h1 class="text-white"><span class="semi-bold">{{salesFile.invalidLines || 0}}</span></h1>
         </div>
       </div>
     </div>
