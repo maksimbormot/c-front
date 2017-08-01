@@ -4,7 +4,9 @@ angular.module('Curve')
 			test: function(token, callback) {
 				if(window.location.origin === "http://localhost:8082") {
 					Session.apiUrl = "http://localhost:8081";
-				} else if(window.location.origin === "http://staging.curveroyaltysystems.com:8082") {
+				} else if(window.location.origin === "http://staging.curveroyaltysystems.com:8082" || window.location.origin == "http://Curve-tomallen654558.codeanyapp.com:8082") {
+					Session.apiUrl = "http://staging.curveroyaltysystems.com:8081";
+				} else {
 					Session.apiUrl = "http://staging.curveroyaltysystems.com:8081";
 				}
 				if(token) {

@@ -16,6 +16,7 @@ app.get('/login', function(req, res) {
 });
 
 app.post('/signin', parseUrlencoded, function(req, res) {
+	console.log("API URI: " + config.apiUri);
 	request.post({
 		url: config.apiUri + '/authenticate',
 		headers: {
@@ -24,6 +25,7 @@ app.post('/signin', parseUrlencoded, function(req, res) {
 		form: req.body
 	}, function(err, httpResponse, body) {
 		if(err) { console.log(err); }
+		console.log(body);
 		res.status(200).json(JSON.parse(body));
 	});
 

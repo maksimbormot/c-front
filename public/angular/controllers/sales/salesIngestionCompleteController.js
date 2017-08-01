@@ -8,6 +8,7 @@ angular.module('Curve')
 		$scope.currencies = Currencies;
 		$scope.types = ["Sale", "Return"];
 		$scope.status = ["Complete", "Invalid"];
+		$scope.filter = {};
 		$scope.sales = [];
 		$scope.searchText = null;
 		$scope.filterSales = [];
@@ -16,7 +17,6 @@ angular.module('Curve')
 		$scope.works = [];
 
 		this.filter = function(params, callback) { 
-			params.status = 'Complete';
 			Loader.load();
 			Sales.all(params, function(response) {   
 				if(response.status == 200) {
@@ -56,7 +56,7 @@ angular.module('Curve')
 			controller.filter({ text: $scope.searchText, orderBy: $scope.orderBy, orderDir: $scope.orderDir });
 			Loader.complete();
 		};
-		$scope.whatClassIsIt= function(field){
+		$scope.whatClassIsIt = function(field){
 			if ($scope.orderBy == field) { 
 				if ( $scope.orderDir == 'asc' ) {
 					return 'sorting_asc';
@@ -68,7 +68,8 @@ angular.module('Curve')
 			}
 		}
 		$scope.search = function() {
-			controller.filter( $scope.sale, function() {
+			$scope.filter.salesFileId = $scope.salesFile._id;
+			controller.filter($scope.filter, function() {
 				$scope.filterSales = $scope.sales;
 				Loader.success('Sales Successfully Searched');
 			});
