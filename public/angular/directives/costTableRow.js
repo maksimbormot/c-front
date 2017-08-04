@@ -4,7 +4,9 @@ angular.module('Curve')
 			restrict: "A",
 			templateUrl: "angular/templates/directives/cost-table-row.html",
 			scope: {
-				cost: "="
+				cost: "=",
+				noLinks: "=",
+				noCheckbox: "="
 			}
 		}
 	}); 

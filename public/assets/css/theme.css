@@ -242,6 +242,9 @@ body.rtl [class*="col-"] {
   border-radius: 0;
   background-color: transparent !important;
 }
+.nav.nav-tabs li:focus{
+  outline:none !important;
+}
 /* Main Menu Sidebar 
 ------------------------------------
 */
@@ -1159,6 +1162,14 @@ body.rtl [class*="col-"] {
   color: #7b7d82;
   font-weight: 300;
   text-shadow: none;
+}
+.center-breadcrumb{
+  margin: 0 auto;
+  width: 100%;
+  font-size: 1.2em;
+}
+.center-breadcrumb li a {
+    font-size: 13px !important;
 }
 /* Overlay Search 
 ------------------------------------
@@ -7747,6 +7758,9 @@ div.cs-skin-slide .cs-options ul li.cs-selected span {
 }
 .table thead tr th:first-child {
   padding-left: 18px !important;
+}
+.table thead tr th:focus {
+  outline:none !important;
 }
 .table thead tr th .btn {
   margin-top: -20px;

@@ -1,4 +1,4 @@
-<td class="v-align-middle"><input type="checkbox" class='select-unit' ng-model="release.selected"></td>
+<td ng-if="!noLinks" class="v-align-middle"><input type="checkbox" class='select-unit' ng-model="release.selected"></td>
 <td class="v-align-middle">
 	<a ng-if="!noLinks" href="#/releases/{{ release._id }}/edit">{{ release.title }}</a>
 	<span ng-if="noLinks">{{ release.title }}</span>

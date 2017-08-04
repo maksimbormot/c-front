@@ -1,8 +1,6 @@
-<td class="v-align-middle"><input type="checkbox" class='select-unit' ng-model="track.selected"></td>
+<td ng-if="!noLinks" class="v-align-middle"><input type="checkbox" class='select-unit' ng-model="track.selected"></td>
 <td class="v-align-middle">
-	<a ng-if="!noLinks" href="#/tracks/{{ track._id }}/edit">
-		{{ track.title }}
-	</a>
+	<a ng-if="!noLinks" href="#/tracks/{{ track._id }}/edit"> {{ track.title }}	</a>
 	<span ng-if="noLinks">{{ track.title }}</span>
 </td>
 <td class="v-align-middle">{{ track.artist }}</td>

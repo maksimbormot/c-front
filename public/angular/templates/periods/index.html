@@ -5,7 +5,7 @@
         <li>
           <p>Curve</p>
         </li>
-        <li><a href="/#/sales" class="active">Sales</a></li> 
+        <li><a href="/#/payees" class="active">Periods</a></li>
       </ul>
     </div>
   </div>
@@ -18,23 +18,16 @@
       <form ng-submit="search()">
         <div class="input-group transparent">
           <input type="text" class="form-control" placeholder="Search" ng-model="searchText">
-          <span class="input-group-addon pointer search-button" ng-click="search()">
+          <span class="input-group-addon pointer" ng-click="search()">
             <i class="pg-search"></i>
-          </span> 
+          </span>
         </div>
       </form>
     </div>
     <div class="col-sm-12 col-md-6 col-md-offset-1 col-lg-6 col-md-offset-0 text-right">
-      <a href="#/sales/unmapped">
-        <button class="btn btn-danger">Unmapped</button>
-      </a> 
-      <a href="#/templates">
-        <button class="btn btn-default">Templates</button>
-      </a>
-      <button class="btn btn-default" ng-click="export()"><i class="fa fa-upload"></i>&nbsp;Export</button>
       <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i>&nbsp;Delete</button>
-      <a href="#/sales/new">
-        <button class="btn btn-primary"><i class="fa fa-download"></i>&nbsp;Import</button>
+      <a href="/#/periods/new">
+        <button class="btn btn-complete"><i class="fa fa-plus"></i>&nbsp;Create</button>
       </a>
     </div>
   </div>
@@ -44,7 +37,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <div class="panel-title">
-            Sales
+            Periods
           </div>
         </div>
         <div class="panel-body">
@@ -52,17 +45,13 @@
             <table class="table table-hover table-condensed dataTable no-footer">
               <thead>
                 <tr>
-                  <th class="table-checkbox"><input type="checkbox"></th>
+                  <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
                   <th ng-click="getSortedData('name')" ng-class="whatClassIsIt('name')">Name</th>
-                  <th ng-click="getSortedData('salesAccountName')" ng-class="whatClassIsIt('salesAccountName')">Account</th>
-                  <th ng-click="getSortedData('totalValue')" ng-class="whatClassIsIt('totalValue')">Total Value</th>
-                  <th ng-click="getSortedData('unmappedLines')" ng-class="whatClassIsIt('unmappedLines')">Unmapped Lines</th>
-                  <th ng-click="getSortedData('valid')" ng-class="whatClassIsIt('valid')">Valid</th>
                   <th ng-click="getSortedData('status')" ng-class="whatClassIsIt('status')">Status</th>
                 </tr>
               </thead>
               <tbody>
-                <tr sales-file-table-row ng-repeat="sale in salesFile" sale="sale"></tr>
+                <tr period-table-row ng-repeat="period in periods" period="period"></tr>
               </tbody>
             </table>
           </div>
@@ -73,21 +62,7 @@
 
   <div class="row">
     <div class="col-xs-12 text-center">
-      <pagination pages="pages" total="total_pages" current="current_page" change-page="changePage(page)" class="ng-isolate-scope">
-        <nav>
-          <ul class="pagination">
-            <li class="cursor">
-              <span aria-hidden="true" aria-label="Previous" ng-click="changePage({ page: 1 })">«</span>
-            </li>
-            <li class="cursor ng-scope" ng-repeat="page in pages">
-              <span ng-click="changePage({ page: page })" ng-class="{ current: current === page }" class="ng-binding current">1</span>
-            </li>
-            <li class="cursor">
-              <span aria-hidden="true" aria-label="Next" ng-click="changePage({ page: total })">»</span>
-            </li>
-          </ul>
-        </nav>
-      </pagination>
+      <pagination pages="pages" total="totalPages" current="currentPage" change-page="changePage(page)"></pagination>
     </div>
   </div>
 </div>
@@ -98,12 +73,12 @@
       <div class="modal-header clearfix text-left">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="pg-close fs-14"></i>
         </button>
-        <h5>Delete Sales</h5>
+        <h5>Delete Periods</h5>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-xs-12 m-t-20">
-            <p>Are you sure you want to delete the selected sales?  This cannot be undone.</p>
+            <p>Are you sure you want to delete the selected periods?  This cannot be undone.</p>
           </div>
         </div>
         <div class="row">
@@ -116,4 +91,3 @@
     </div>
   </div>
 </div>
-

@@ -1,0 +1,130 @@
+<div class="container-fluid container-fixed-lg">
+  <div class="row">
+    <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row m-b-20">
+            <div class="col-xs-12">
+              <ul class="breadcrumb center-breadcrumb">
+                <li><a ng-click="showStep(1)">Setup</a></li>
+                <li><a ng-click="showStep(2)">Included Sales</a></li>
+                <li><a ng-click="showStep(3)" class="active">Included Costs</a></li>
+                <li><a ng-click="showStep(4)">Validation</a></li>
+                <li><a ng-click="showStep(7)">Processing</a></li>
+                <li><a ng-click="showStep(8)">Complete</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <label>Included Costs</label>
+                      </div>
+                    </div>
+                    <div class="col-xs-6">
+                      <button class="btn btn-primary pull-right" ng-click="excludeAllCosts()">Exclude All</button>
+                      <button class="btn btn-default pull-right" ng-click="excludeSelectedCosts()">Exclude Selected</button>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-hover table-condensed dataTable no-footer">
+                      <thead>
+                        <tr>
+                          <th class="table-checkbox"><input type="checkbox"></th>
+                          <th ng-click="getSortedData('name')" ng-class="whatClassIsIt('name')">Name</th>
+                          <th ng-click="getSortedData('amount')" ng-class="whatClassIsIt('amount')">Amount</th>
+                          <th ng-click="getSortedData('type')" ng-class="whatClassIsIt('type')">Type</th>
+                          <th ng-click="getSortedData('releaseIds')" ng-class="whatClassIsIt('releaseIds')">Release</th>
+                          <th ng-click="getSortedData('contractIds')" ng-class="whatClassIsIt('contractIds')">Contract</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr cost-table-row ng-repeat="cost in includeCosts" cost="cost" no-links="true"></tr>
+                      </tbody>
+                    </table>
+                    <div class="col-xs-12 text-center">
+                      <pagination pages="pages" total="total_pages" current="current_page" change-page="changePage(page)" class="ng-isolate-scope">
+                        <nav>
+                          <ul class="pagination">
+                            <li class="cursor">
+                              <span aria-hidden="true" aria-label="Previous" ng-click="changePage({ page: 1 })">«</span>
+                            </li>
+                            <li class="cursor ng-scope" ng-repeat="page in pages">
+                              <span ng-click="changePage({ page: page })" ng-class="{ current: current === page }" class="ng-binding current">1</span>
+                            </li>
+                            <li class="cursor">
+                              <span aria-hidden="true" aria-label="Next" ng-click="changePage({ page: total })">»</span>
+                            </li>
+                          </ul>
+                        </nav>
+                      </pagination>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row m-t-50">
+                <div class="col-xs-12">
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <div class="form-group">
+                        <label>Excluded Costs</label>
+                      </div>
+                    </div>
+                    <div class="col-xs-6">
+                      <button class="btn btn-primary pull-right" ng-click="includeAllCosts()">Include All</button>
+                      <button class="btn btn-default pull-right" ng-click="includeSelectedCosts()">Include Selected</button>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-hover table-condensed dataTable no-footer">
+                      <thead>
+                        <tr>
+                          <th class="table-checkbox"><input type="checkbox"></th>
+                          <th ng-click="getSortedData('name')" ng-class="whatClassIsIt('name')">Name</th>
+                          <th ng-click="getSortedData('amount')" ng-class="whatClassIsIt('amount')">Amount</th>
+                          <th ng-click="getSortedData('type')" ng-class="whatClassIsIt('type')">Type</th>
+                          <th ng-click="getSortedData('releaseIds')" ng-class="whatClassIsIt('releaseIds')">Release</th>
+                          <th ng-click="getSortedData('contractIds')" ng-class="whatClassIsIt('contractIds')">Contract</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr cost-table-row ng-repeat="cost in costs" cost="cost" no-links="true"></tr>
+                      </tbody>
+                    </table>
+                    <div class="col-xs-12 text-center">
+                      <pagination pages="pages" total="total_pages" current="current_page" change-page="changePage(page)" class="ng-isolate-scope">
+                        <nav>
+                          <ul class="pagination">
+                            <li class="cursor">
+                              <span aria-hidden="true" aria-label="Previous" ng-click="changePage({ page: 1 })">«</span>
+                            </li>
+                            <li class="cursor ng-scope" ng-repeat="page in pages">
+                              <span ng-click="changePage({ page: page })" ng-class="{ current: current === page }" class="ng-binding current">1</span>
+                            </li>
+                            <li class="cursor">
+                              <span aria-hidden="true" aria-label="Next" ng-click="changePage({ page: total })">»</span>
+                            </li>
+                          </ul>
+                        </nav>
+                      </pagination>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row m-t-20">
+            <div class="col-xs-12">
+              <a ng-click="saveAndNextStep(4)" class="btn btn-complete pull-right">Next</a>
+              <a ng-click="showStep(2)" class="btn btn-default pull-right">Back</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

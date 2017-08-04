@@ -25,7 +25,7 @@ angular.module('Curve')
 
 		Settings.getContracts()
 			.then(function(contracts){
-				$scope.contracts = contracts;
+				$scope.contracts = contracts.contracts;
 			});
 		
 		$scope.addSalesReturnsRights = function() {

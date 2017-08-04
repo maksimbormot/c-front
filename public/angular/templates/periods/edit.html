@@ -1,0 +1,25 @@
+<div class="jumbotron" data-pages="parallax">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <p>Curve</p>
+        </li>
+        <li><a href="/#/periods">Periods</a></li>
+        <li ng-show="!period._id"><a href="" class="active">Create</a></li>
+        <li ng-show="period._id"><a href="/#/periods/{{period._id}}/edit" class="active">{{period.name}}</a></li>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Main Container -->
+<period-new ng-if="step == 1"> </period-new>
+<period-included-sales ng-if="step == 2"> </period-included-sales>
+<period-included-costs ng-if="step == 3"> </period-included-costs>
+<period-validation-catalogue ng-if="step == 4"> </period-validation-catalogue>
+<period-validation-releases-without-contracts ng-if="step == 5"> </period-validation-releases-without-contracts>
+<period-validation-incomplete-contracts ng-if="step == 6"> </period-validation-incomplete-contracts>
+<period-processing ng-if="step == 7"> </period-processing>
+<period-complete ng-if="step == 8"> </period-complete>

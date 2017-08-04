@@ -2,7 +2,7 @@ angular.module('Curve')
 	.controller('contractEditController', ['$scope', '$routeParams', '$window', 'Session', 'Contract', 'Parent', 'Territories', 'Settings', 'Notification', 'Loader',
 		function($scope, $routeParams, $window, Session, Contract, Parent, Territories, Settings, Notification, Loader) {
 		var controller = this;
-		$scope.contract = { salesTerms: [], returnsTerms: [], costsTerms: [], mechanicalTerms: [], reserves: [] };
+		$scope.contract = { salesTerms: [], deductionsTerms: [], costsTerms: [], mechanicalTerms: [], reserves: [] };
 		$scope.payees = [];
 		$scope.accountingPeriods = ["Monthly", "Quarterly", "Half-Yearly", "Yearly"];
 		$scope.contractTypes = ["Royalty", "Profit Share"];
@@ -62,11 +62,11 @@ angular.module('Curve')
 			$scope.contract.salesTerms.splice(index, 1);
 		}
 		$scope.addReturnsRow = function() {
-			$scope.contract.returnsTerms.push({});
+			$scope.contract.deductionsTerms.push({});
 		}
 		$scope.deleteReturnsRow = function(returnRow) {
-			var index = $scope.contract.returnsTerms.indexOf(returnRow);
-			$scope.contract.returnsTerms.splice(index, 1);
+			var index = $scope.contract.deductionsTerms.indexOf(returnRow);
+			$scope.contract.deductionsTerms.splice(index, 1);
 		}
 		$scope.addCostsRow = function() {
 			$scope.contract.costsTerms.push({});
