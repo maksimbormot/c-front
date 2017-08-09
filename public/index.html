@@ -235,12 +235,12 @@
           <div class="search-results m-t-40">
             <p class="bold">Pages Search Results</p>  
             <div class="row">
-              <div class="col-md-3">
-                <div class="">
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <div>
                   <div class="category-title p-l-60 m-t-15">
                     <h4 class="m-b-0 color-success"> Releases </h4>
                   </div>
-                  <div ng-repeat="release in releases">
+                  <div class="result-block" ng-repeat="release in releases">
                     <div class="thumbnail-wrapper d48 circular bg-success text-white inline m-t-10">
                       <div>{{release.title[0]}}</div>
                     </div>
@@ -257,12 +257,12 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-3">
-                <div class="">
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <div>
                   <div class="category-title p-l-60 m-t-15">
                     <h4 class="m-b-0 color-primary"> Tracks </h4>
                   </div>
-                  <div ng-repeat="track in tracks">
+                  <div class="result-block" ng-repeat="track in tracks">
                     <div class="thumbnail-wrapper d48 circular bg-primary text-white inline m-t-10">
                       <div>{{track.title[0]}}</div>
                     </div>
@@ -279,12 +279,12 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-3">
-                <div class="">
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <div>
                   <div class="category-title p-l-60 m-t-15">
                     <h4 class="m-b-0 color-complete-light"> Works </h4>
                   </div>
-                  <div ng-repeat="work in works">
+                  <div class="result-block" ng-repeat="work in works">
                     <div class="thumbnail-wrapper d48 circular bg-complete-light text-white inline m-t-10">
                       <div>{{work.title[0]}}</div>
                     </div>
@@ -301,12 +301,12 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-3">
-                <div class="">
+              <div class="col-md-3 col-sm-3 col-lg-3">
+                <div>
                   <div class="category-title p-l-60 m-t-15">
                     <h4 class="m-b-0 color-success-light"> Contracts </h4>
                   </div>
-                  <div ng-repeat="contract in contracts">
+                  <div class="result-block" ng-repeat="contract in contracts">
                     <div class="thumbnail-wrapper d48 circular bg-success-light text-white inline m-t-10">
                       <div>{{contract.name[0]}}</div>
                     </div>

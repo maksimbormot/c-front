@@ -4913,7 +4913,7 @@ body > .pgn-wrapper {
   margin-right: 6px;
 }
 .nav-tabs ~ .tab-content {
-  overflow: hidden;
+  // overflow: hidden;
   padding: 15px;
 }
 .nav-tabs ~ .tab-content > .tab-pane.slide-left,
