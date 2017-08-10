@@ -75,12 +75,12 @@ angular.module('Curve')
 						Loader.error('The object has not been deleted.  ' + response.data.message);
 					});
 				});
-				$('#deleteModal').one('hidden.bs.modal', function() {
+				$('#deleteModal').on('hidden.bs.modal', function() {
 					Loader.success(num + ' Releases successfully deleted');
 				});
 			} else {
 				$('#deleteModal').modal('hide');
-				Loader.error('Choose at least one position');
+				Loader.error('Choose at least one release');
 			}
 		}
 		$scope.import = function() {

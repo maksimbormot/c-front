@@ -138,7 +138,7 @@ angular.module('Curve')
 						$window.location.href = "#/releases";
 						Loader.success('Release successfully deleted');
 					} else {
-						Loader.error('Error deleting client, please try again or contact support');
+						Loader.error('Error deleting release, please try again or contact support');
 					}
 				});
 			});
