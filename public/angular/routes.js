@@ -162,16 +162,39 @@ angular.module('Curve')
 			controllerAs: 'salesUnmappedCtrl'
 		})
 		.when('/periods', {
-			templateUrl: '/angular/templates/periods/index.html'
+			templateUrl: '/angular/templates/periods/index.html',
+			controller: 'periodsController',
+			controllerAs: 'periodsCtrl'
 		})
 		.when('/periods/:id/edit', {
-			templateUrl: '/angular/templates/periods/edit.html'
+			templateUrl: '/angular/templates/periods/edit.html',
+			controller: 'periodEditController',
+			controllerAs: 'periodEditCtrl'
+		})
+		.when('/periods/new', {
+			templateUrl: '/angular/templates/periods/edit.html',
+			controller: 'periodEditController',
+			controllerAs: 'periodEditCtrl'
+		})
+		.when('/periods/:id/complete', {
+			templateUrl: '/angular/templates/periods/period-complete.html',
+			controller: 'periodCompleteController',
+			controllerAs: 'periodCompleteCtrl'
 		})
 		.when('/statements', {
-			templateUrl: '/angular/templates/statements/index.html'
+			templateUrl: '/angular/templates/statements/index.html',
+			controller: 'statementsController',
+			controllerAs: 'statementsCtrl'
 		})
 		.when('/statements/:id/edit', {
-			templateUrl: '/angular/templates/statements/edit.html'
+			templateUrl: '/angular/templates/statements/edit.html',
+			controller: 'statementEditController',
+			controllerAs: 'statementEditCtrl'
+		})
+		.when('/statements/new', {
+			templateUrl: '/angular/templates/periods/edit.html',
+			controller: 'statementEditController',
+			controllerAs: 'statementEditCtrl'
 		})
 		.when('/reports', {
 			templateUrl: '/angular/templates/reports/index.html'

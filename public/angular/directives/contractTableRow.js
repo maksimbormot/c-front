@@ -4,7 +4,8 @@ angular.module('Curve')
 			restrict: "A",
 			templateUrl: "angular/templates/directives/contract-table-row.html",
 			scope: {
-				contract: "="
+				contract: "=",
+				noLinks: "="
 			}
 		}
 	});

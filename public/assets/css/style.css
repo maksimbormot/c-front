@@ -218,3 +218,8 @@ table.dataTable thead .sorting_desc_disabled {
 .height-180{
 	height: 180px !important;
 }
+
+/*For search results*/
+.result-block{
+    min-height:77px;
+}

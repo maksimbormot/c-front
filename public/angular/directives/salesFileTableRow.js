@@ -4,7 +4,9 @@ angular.module('Curve')
 			restrict: "A",
 			templateUrl: "angular/templates/directives/sales-file-table-row.html",
 			scope: {
-				sale: "="
+				sale: "=",
+				noLinks: "=",
+				noCheckbox: "="
 			}
 		}
 	});

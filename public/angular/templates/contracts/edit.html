@@ -135,7 +135,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-sales-row ng-repeat="return in contract.returnsTerms" sale="return" countries="countries" channels="distributionChannels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" index="$index" delete="deleteReturnsRow(sale)"></contract-sales-row>
+                  <contract-sales-row ng-repeat="return in contract.deductionsTerms" sale="return" countries="countries" channels="distributionChannels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" index="$index" delete="deleteReturnsRow(sale)"></contract-sales-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addReturnsRow()">+ Deductions</button>
                 </div>
@@ -151,10 +151,10 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-costs-row ng-repeat="cost in contract.costsTerms" cost="cost" countries="countries" costs-types="costTypes" index="$index" delete="deleteCostsRow(cost)"></contract-costs-row>
+                  <contract-costs-row ng-repeat="cost in contract.costsTerms" cost="cost" countries="countries" costs-types="costsTypes" index="$index" delete="deleteCostsRow(cost)"></contract-costs-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addCostsRow()">+ Costs</button>
-                </div>
+                </div> 
               </div>
             </div>
           </div>

@@ -1,0 +1,9 @@
+<td class="v-align-middle"><input type="checkbox" class='select-unit' ng-model="period.selected"></td>
+<td class="v-align-middle">
+	<a ng-if="!noLinks && period.status!='Complete'" href="#/periods/{{ period._id }}/edit">{{ period.name }}</a>
+	<a ng-if="!noLinks && period.status=='Complete'" href="#/periods/{{ period._id }}/complete">{{ period.name }}</a>
+</td>
+<td class="v-align-middle">
+	<span ng-if="period.status=='Processing'" class="label label-warning">{{ period.status }}</span>
+	<span ng-if="period.status=='Complete'" class="label label-success">{{ period.status }}</span>
+</td>

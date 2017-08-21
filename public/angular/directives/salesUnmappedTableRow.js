@@ -5,6 +5,8 @@ angular.module('Curve')
 			templateUrl: "angular/templates/directives/sales-unmapped-table-row.html",
 			scope: {
 				sale: "=",
+				noCheckbox: "=",
+				noEdit: "=",
 				single: "&"
 			}
 		}

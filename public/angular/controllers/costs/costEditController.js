@@ -30,19 +30,19 @@ angular.module('Curve')
       });
     Settings.getReleases()
       .then(function(releases) {
-        $scope.releases = releases;
+        $scope.releases = releases.releases;
       });
     Settings.getTracks()
       .then(function(tracks) {
-        $scope.tracks = tracks;
+        $scope.tracks = tracks.tracks;
       });
     Settings.getWorks()
       .then(function(works) {
-        $scope.works = works;
+        $scope.works = works.works;
       });
     Settings.getContracts()
       .then(function(contracts) {
-        $scope.contracts = contracts;
+        $scope.contracts = contracts.contracts;
       });
     $scope.groupFind = function(territory) {
       return territory.continent;
