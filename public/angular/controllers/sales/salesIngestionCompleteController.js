@@ -175,6 +175,20 @@ angular.module('Curve')
 			});
 		}
 
+		$scope.ingest = function() {
+      Loader.load();
+      save(function() {
+      	SalesFile.ingest($scope.salesFile._id, {}, function(response) {
+	        if(response.status == 200) {
+	          $window.location.href = "#/sales";
+	          Loader.success('Sales file ingestion started');
+	        } else {
+	          Loader.error('Error kicking off ingestion, please try again or contact support');
+	        }
+	      });
+      });
+    };
+
 		// Load all sales on page load
 		this.filter({});
 
