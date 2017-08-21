@@ -77,7 +77,6 @@ angular.module('Curve')
     }
 
     $scope.ingest = function() {
-    	// Added save here
       Loader.load();
       save(function() {
       	SalesFile.ingest($scope.salesFile._id, {}, function(response) {
@@ -96,12 +95,10 @@ angular.module('Curve')
       if(!$scope.salesFile._id) {
         SalesFile.create($scope.salesFile, function(response) {
           callback(response);
-          Loader.complete();
         });
       } else {
         SalesFile.update($scope.salesFile._id, $scope.salesFile, function(response) {
           callback(response);
-          Loader.complete();
         });
       }
     }
