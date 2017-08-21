@@ -19,8 +19,8 @@ angular.module('Curve')
 			SalesTemplate.get($routeParams.id, function(response) { 
 				if(response.status == 200) {
 					$scope.salesTemplate = response.data;
-          $scope.salesTemplate.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate);
-          $scope.salesTemplate.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate);
+          if(response.data && response.data.overwriteFields && response.data.overwriteFields.saleDate) { $scope.salesTemplate.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate); }
+          if(response.data && response.data.overwriteFields && response.data.overwriteFields.transactionDate) { $scope.salesTemplate.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate); }
 					Loader.complete();
 				} else {
 					Loader.error('Error loading template, please try again or contact support');
@@ -159,6 +159,16 @@ angular.module('Curve')
       }
     }
 
+    $scope.$watch('salesTemplate.fields', function(newField, oldField) {
+      // TODO Not currently working, needs to set type to a standard on select of the corresponding field
+      for(var i = 0; i < newField.length; i++) {
+        if(newField[i] && oldField[i] && newField[i].field != oldField[i].field) {
+          $scope.salesTemplate.fields[i].type == "ignore";
+          console.log(newField[i])
+        }
+      }
+    }, true);
+
     function upload(file, callback) {
       Upload.upload({
           url: Session.apiUrl + '/salesTemplates/' + $scope.salesTemplate._id + '/upload' + $scope.token,
@@ -168,11 +178,10 @@ angular.module('Curve')
           }
         })
         .then(function(resp) {
+          console.log("Upload Response: ");
+          console.log(resp);
           $scope.salesTemplate = resp.data;
           $scope.file = null;
-          for(var i = 0; i < $scope.salesTemplate.exampleLines[0].length; i++) {
-            $scope.salesTemplate.fields[i] = { field: null, type: null };
-          }
           callback();
         })
     };
@@ -185,6 +194,7 @@ angular.module('Curve')
     }
 
     $scope.save = function() {
+      Loader.load();
       updateTerritories();
       updatePriceCategories();
       updateConfigurations();
