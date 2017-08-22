@@ -45,8 +45,8 @@
           </div>
         </div>
         <div class="panel-body center bg-complete">
-          <h1 class="text-white"><span class="semi-bold">£{{salesFile.netAmount || 0}}</span></h1>
-          <small class="text-white">Validation: £{{salesFile.validationNetAmount || 0}}</small>
+          <h1 class="text-white"><span class="semi-bold">£{{salesFile.netAmount | number: 2}}</span></h1>
+          <small class="text-white">Validation: £{{salesFile.validationNetAmount | number: 2}}</small>
         </div>
       </div>
     </div>
@@ -156,7 +156,7 @@
       <div class="form-group required">
         <label>Status</label>
 		  <ui-select ng-model="filter.status">
-		    <ui-select-match>
+		    <ui-select-match allow-clear="true">
 		      <span ng-bind="$select.selected"></span>
 		    </ui-select-match>
 		    <ui-select-choices repeat="item in status">

@@ -1,17 +1,22 @@
-<td ng-if="!noCheckbox" class="v-align-middle"><input type="checkbox" ng-model="sale.selected"></td>
+<td ng-if="!noCheckbox" class="v-align-middle">
+  <input type="checkbox" ng-model="sale.selected">
+</td>
 <td class="v-align-middle">
-	<a ng-if="!noLinks && sale.status=='Setup'" href="#/sales/{{ sale._id }}/edit"> {{ sale.name }} </a>
-	<a ng-if="!noLinks && sale.status=='Ingesting'" href="#/sales/{{ sale._id }}/edit"> {{ sale.name }} </a>
-	<a ng-if="!noLinks && sale.status=='Complete'" href="#/sales/{{ sale._id }}/ingestion_complete"> {{ sale.name }} </a>
-	<span ng-if="noLinks"> {{ sale.name }} </span>
+  <a ng-if="!noLinks && sale.status=='Setup'" href="#/sales/{{ sale._id }}/edit"> {{ sale.name }} </a>
+  <a ng-if="!noLinks && sale.status=='Ingesting'" href="#/sales/{{ sale._id }}/edit"> {{ sale.name }} </a>
+  <a ng-if="!noLinks && sale.status=='Complete'" href="#/sales/{{ sale._id }}/ingestion_complete"> {{ sale.name }} </a>
+  <span ng-if="noLinks"> {{ sale.name }} </span>
 </td>
 <td class="v-align-middle">{{ sale.salesAccountName }}</td>
-<td class="v-align-middle">{{ sale.totalValue }}</td>
-<td class="v-align-middle">{{ sale.unmappedLines }}</td>
+<td class="v-align-middle">{{ sale.netAmount }}</td>
+<td class="v-align-middle">{{ sale.invalidLines }}</td>
 <td class="v-align-middle">
-	<span ng-if="sale.valid=='Valid'" class="label label-success">{{ sale.valid}}</span>
-	<span ng-if="sale.valid=='Invalid'" class="label label-danger">{{ sale.valid}}</span>
+  <span ng-if="sale.valid" class="label label-success">Valid</span>
+  <span ng-if="!sale.valid" class="label label-danger">Invalid</span>
 </td>
 <td class="v-align-middle">
-	<span class="label label-success">{{ sale.status }}</span>
+  <span class="label label-success" ng-if="sale.status == 'Complete'">Complete</span>
+  <span class="label label-danger" ng-if="sale.status == 'Errored'">Errored</span>
+  <span class="label label-complete" ng-if="sale.status == 'Ingesting'">Ingesting</span>
+  <span class="label label-info" ng-if="sale.status != 'Ingesting' || sale.status != 'Errored' || sale.status != 'Complete'">{{sales.status}}</span>
 </td>

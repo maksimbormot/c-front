@@ -1,6 +1,6 @@
 angular.module('Curve')
-  .controller('salesIngestionCompleteController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Notification', 'Territories', 'Currencies', 'Settings', 'SalesFile', 'Sales', 'Loader',
-    function($scope, $routeParams, Session, Pagination, Notification, Territories, Currencies, Settings, SalesFile, Sales, Loader) {
+  .controller('salesIngestionCompleteController', ['$scope', '$routeParams', '$window', 'Session', 'Pagination', 'Notification', 'Territories', 'Currencies', 'Settings', 'SalesFile', 'Sales', 'Loader',
+    function($scope, $routeParams, $window, Session, Pagination, Notification, Territories, Currencies, Settings, SalesFile, Sales, Loader) {
       var controller = this;
       $scope.saleDatePopup = false;
       $scope.transactionDatePopup = false;
@@ -24,7 +24,7 @@ angular.module('Curve')
             if(response.data.meta && response.data.meta.totalPages) { $scope.totalPages = response.data.meta.totalPages; }
             if(response.data.meta && response.data.meta.currentPage) { $scope.currentPage = response.data.meta.currentPage; }
             if(response.data.meta && response.data.meta.currentPage && response.data.meta.totalPages) { $scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages); }
-            if(response.data && response.data.sales) { $scope.total = response.data.sales.length; }
+            $scope.total = $scope.sales.length;
             if(callback) { callback(); }
             Loader.complete();
           } else {
@@ -39,8 +39,6 @@ angular.module('Curve')
         SalesFile.get($routeParams.id, function(response) {
           if(response.status == 200) {
             $scope.salesFile = response.data;
-            $scope.salesFile.saleDate = new Date($scope.salesFile.saleDate);
-            $scope.salesFile.transactionDate = new Date($scope.salesFile.transactionDate);
             Loader.complete();
           } else {
             Loader.error('Error loading template, please try again or contact support');
@@ -175,17 +173,15 @@ angular.module('Curve')
         });
       }
 
-      $scope.ingest = function() {
+      $scope.reingest = function() {
         Loader.load();
-        save(function() {
-          SalesFile.ingest($scope.salesFile._id, {}, function(response) {
-            if(response.status == 200) {
-              $window.location.href = "#/sales";
-              Loader.success('Sales file ingestion started');
-            } else {
-              Loader.error('Error kicking off ingestion, please try again or contact support');
-            }
-          });
+        SalesFile.ingest($scope.salesFile._id, {}, function(response) {
+          if(response.status == 200) {
+            $window.location.href = "#/sales";
+            Loader.success('Sales file ingestion started');
+          } else {
+            Loader.error('Error kicking off ingestion, please try again or contact support');
+          }
         });
       };
 
