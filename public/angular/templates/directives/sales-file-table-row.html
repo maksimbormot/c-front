@@ -12,7 +12,7 @@
 <td class="v-align-middle">{{ sale.invalidLines }}</td>
 <td class="v-align-middle">
   <span ng-if="sale.valid" class="label label-success">Valid</span>
-  <span ng-if="!sale.valid" class="label label-danger">Invalid</span>
+  <span ng-if="!sale.valid && sale.status == 'Complete'" class="label label-danger">Invalid</span>
 </td>
 <td class="v-align-middle">
   <span class="label label-success" ng-if="sale.status == 'Complete'">Complete</span>
