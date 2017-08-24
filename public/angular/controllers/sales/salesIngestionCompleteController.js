@@ -26,7 +26,6 @@ angular.module('Curve')
             if(response.data.meta && response.data.meta.currentPage) { $scope.currentPage = response.data.meta.currentPage; }
             if(response.data.meta && response.data.meta.currentPage && response.data.meta.totalPages) { $scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages); }
             $scope.total = $scope.sales.length;
-            console.log($scope.sales[0])
             if(callback) { callback(); }
             Loader.complete();
           } else {
@@ -43,7 +42,7 @@ angular.module('Curve')
             $scope.salesFile = response.data;
             // Load all sales on page load
             $scope.filter = { salesFileId: $scope.salesFile._id };
-      			controller.filter($scope.filter);
+            controller.filter($scope.filter);
           } else {
             Loader.error('Error loading template, please try again or contact support');
           }
@@ -137,10 +136,12 @@ angular.module('Curve')
 
       $scope.updateSelected = function() {
         Loader.load();
-        var ids = $scope.sales.map(function(sale) { if(sale.selected) { return sale._id } }).filter(Boolean);
-      	Sales.updateMultipleIds(ids, $scope.sale, function(response) {
+        var ids = $scope.sales.map(function(sale) {
+          if(sale.selected) {
+            return sale._id } }).filter(Boolean);
+        Sales.updateMultipleIds(ids, $scope.sale, function(response) {
           if(response.status == 200) {
-          	$('#modalEditFields').modal('hide');
+            $('#modalEditFields').modal('hide');
           } else {
             Loader.error('Error saving sales line, please try again or contact support');
           }
@@ -155,7 +156,7 @@ angular.module('Curve')
         Loader.load();
         Sales.updateFiltered($scope.filter, $scope.sale, function(response) {
           if(response.status == 200) {
-          	$('#modalEditFields').modal('hide');
+            $('#modalEditFields').modal('hide');
           } else {
             Loader.error('Error saving sales line, please try again or contact support');
           }
