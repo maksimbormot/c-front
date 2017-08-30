@@ -19,6 +19,7 @@ angular.module('Curve')
 			SalesTemplate.get($routeParams.id, function(response) { 
 				if(response.status == 200) {
 					$scope.salesTemplate = response.data;
+          if(!$scope.salesTemplate.overwriteFields) { $scope.salesTemplate.overwriteFields = {} }
           if(response.data && response.data.overwriteFields && response.data.overwriteFields.saleDate) { $scope.salesTemplate.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate); }
           if(response.data && response.data.overwriteFields && response.data.overwriteFields.transactionDate) { $scope.salesTemplate.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate); }
 					Loader.complete();
@@ -184,7 +185,6 @@ angular.module('Curve')
 
     function valueOrFalse(value, field) {
       var fields = $scope.salesTemplate.fields.map(function(val) { return val.field });
-      console.log(fields);
       if(field && fields.indexOf(field) != -1) {
         return true;
       } else if(value) {
@@ -195,6 +195,7 @@ angular.module('Curve')
     }
 
     $scope.$watch('salesTemplate.overwriteFields', updateIncludesFields, true);
+    $scope.$watch('salesTemplate.fields', updateIncludesFields, true);
 
     $scope.$watch('salesTemplate.fields', function(newField, oldField) {
       // TODO Not currently working, needs to set type to a standard on select of the corresponding field
