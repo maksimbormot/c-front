@@ -36,7 +36,6 @@ angular.module('Curve')
 
 		Settings.getSettings()
 			.then(function(settings){
-				console.log(settings);
 				angular.extend($scope, settings);
 			});
 

@@ -2,9 +2,8 @@
   <input type="checkbox" ng-model="sale.selected">
 </td>
 <td class="v-align-middle">
-  <a ng-if="!noLinks && sale.status=='Setup'" href="#/sales/{{ sale._id }}/edit"> {{ sale.name }} </a>
-  <a ng-if="!noLinks && sale.status=='Ingesting'" href="#/sales/{{ sale._id }}/edit"> {{ sale.name }} </a>
   <a ng-if="!noLinks && sale.status=='Complete'" href="#/sales/{{ sale._id }}/ingestion_complete"> {{ sale.name }} </a>
+  <a ng-if="!noLinks" href="#/sales/{{ sale._id }}/edit"> {{ sale.name }} </a>
   <span ng-if="noLinks"> {{ sale.name }} </span>
 </td>
 <td class="v-align-middle">{{ sale.salesAccountName }}</td>

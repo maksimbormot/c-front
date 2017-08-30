@@ -49,6 +49,16 @@ angular.module('Curve')
         });
       };
 
+      // Return to previous state
+      $scope.edit = function() {
+        Loader.load();
+        $scope.salesFile.status = "Setup";
+        console.log($scope.salesFile);
+        SalesFile.update($scope.salesFile._id, $scope.salesFile, function(response) {
+          $window.location.href = "#/sales/" + $scope.salesFile._id + "/edit";
+        });
+      }
+
       $scope.getSortedData = function(orderBy) {
         if($scope.orderBy == orderBy) {
           $scope.orderDir = ($scope.orderDir == 'asc') ? 'desc' : 'asc';

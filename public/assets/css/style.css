@@ -57,10 +57,10 @@ tr .btn-sm {
 
 /* Contract */
 .sales-row-field-smaller {
-	width: 11% !important;
+	width: 9.5% !important;
 }
 
-contract-sales-row .row div {
+contract-sales-row .row .form-group {
 	padding-left: 5px !important;
  	padding-right: 5px !important;
 }
@@ -179,10 +179,15 @@ table.dataTable thead .sorting_desc_disabled {
   background-repeat: no-repeat;
   opacity: 1;
 }
-=======
 .template-example-table .form-control{
 	padding: 9px 0 9px 5px;
 }
+
+/* Sales File */
+h3 .label {
+  margin-top: -20px;
+}
+
 /* Spinner */
 .spinner-overlay{
     position: fixed;

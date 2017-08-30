@@ -159,6 +159,43 @@ angular.module('Curve')
       }
     }
 
+    // Required Fields
+    $scope.includesTerritory = false;
+    $scope.includesDistributionChannel = false;
+    $scope.includesConfiguration = false;
+    $scope.includesPriceCategory = false;
+    $scope.includesCurrency = false;
+    $scope.includesExchangeRate = false;
+    $scope.includesSource = false;
+    $scope.includesUnits = false;
+    $scope.includesNetAmount = false;
+
+    function updateIncludesFields() {
+      $scope.includesTerritory = valueOrFalse($scope.salesTemplate.overwriteFields.territory, "originalTerritory");
+      $scope.includesDistributionChannel = valueOrFalse($scope.salesTemplate.overwriteFields.distributionChannel, "originalDistributionChannel");
+      $scope.includesConfiguration = valueOrFalse($scope.salesTemplate.overwriteFields.configuration, "originalConfiguration");
+      $scope.includesPriceCategory = valueOrFalse($scope.salesTemplate.overwriteFields.priceCategory, "originalPriceCategory");
+      $scope.includesCurrency = valueOrFalse($scope.salesTemplate.overwriteFields.currency, "originalCurrency");
+      $scope.includesSource = valueOrFalse($scope.salesTemplate.overwriteFields.source, "source");
+      $scope.includesExchangeRate = valueOrFalse($scope.salesTemplate.overwriteFields.exchangeRate, "exchangeRate");
+      $scope.includesUnits = valueOrFalse($scope.salesTemplate.overwriteFields.units, "units");
+      $scope.includesNetAmount = valueOrFalse($scope.salesTemplate.overwriteFields.netAmount, "netAmount");
+    }
+
+    function valueOrFalse(value, field) {
+      var fields = $scope.salesTemplate.fields.map(function(val) { return val.field });
+      console.log(fields);
+      if(field && fields.indexOf(field) != -1) {
+        return true;
+      } else if(value) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    $scope.$watch('salesTemplate.overwriteFields', updateIncludesFields, true);
+
     $scope.$watch('salesTemplate.fields', function(newField, oldField) {
       // TODO Not currently working, needs to set type to a standard on select of the corresponding field
       for(var i = 0; i < newField.length; i++) {

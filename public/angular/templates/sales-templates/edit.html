@@ -75,6 +75,62 @@
         </div>
       </div>      
     </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">  
+          <div class="panel-title">
+            Required Fields
+          </div>
+        </div>
+        <div class="panel-body p-t-15">
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesTerritory"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesTerritory"></i> 
+            <label>Territory</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesDistributionChannel"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesDistributionChannel"></i> 
+            <label>Distribution Channel</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesConfiguration"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesConfiguration"></i> 
+            <label>Configuration</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesPriceCategory"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesPriceCategory"></i> 
+            <label>Price Category</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesSource"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesSource"></i> 
+            <label>Source</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesCurrency"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesCurrency"></i> 
+            <label>Currency</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesExchangeRate"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesExchangeRate"></i> 
+            <label>Exchange Rate</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesUnits"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesUnits"></i> 
+            <label>Units</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesNetAmount"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesNetAmount"></i> 
+            <label>Net Amount</label>
+          </div>
+        </div>
+      </div>      
+    </div>
     <div class="col-xs-12 col-md-12 col-sm-12">
       <div class="panel panel-default">
         <div class="panel-heading">  

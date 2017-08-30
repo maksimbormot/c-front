@@ -16,9 +16,13 @@ angular.module('Curve')
 									Client.get(settings.user.clientId, function(response) {
 										if(response.status == 200) {
 											settings.distributionChannels = response.data.distributionChannels;
+											settings.distributionChannels.unshift("All");
 											settings.configurations = response.data.configurations;
+											settings.configurations.unshift("All");
 											settings.priceCategories = response.data.priceCategories;
+											settings.priceCategories.unshift("All");
 											settings.costTypes = response.data.costTypes;
+											settings.costTypes.unshift("All");
 											resolve(settings);
 										} else {
 											Notification.error('Error loading client, please try again or contact support');
