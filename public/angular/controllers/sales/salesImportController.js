@@ -18,20 +18,30 @@ angular.module('Curve')
     // Load Template if ID exists
     if($routeParams.id) {
       Loader.load();
-      SalesFile.get($routeParams.id, function(response) {
-        if(response.status == 200) {
-          $scope.salesFile = response.data;
-          console.log($scope.salesFile);
-          if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.saleDate) { $scope.salesFile.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate); }
-          if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.transactionDate) { $scope.salesFile.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate); }
-          setupExampleTableHeaders();
-          setupExampleTableBody();
-          Loader.complete();
-        } else {
-          Loader.error('Error loading template, please try again or contact support');
-        }
+      init(function() {
+        Loader.complete();
       });
     };
+
+    function init(callback) {
+      if($routeParams.id) {
+        SalesFile.get($routeParams.id, function(response) {
+          if(response.status == 200) {
+            $scope.salesFile = response.data;
+            console.log($scope.salesFile);
+            if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.saleDate) { $scope.salesFile.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate); }
+            if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.transactionDate) { $scope.salesFile.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate); }
+            setupExampleTableHeaders();
+            setupExampleTableBody();
+            if($scope.salesFile.status === 'Ingesting') { setTimeout(init, 10000); }
+            if(callback) { callback(); }
+          } else {
+            if(callback) { callback(); }
+            Loader.error('Error loading template, please try again or contact support');
+          }
+        });
+      }
+    }
 
     Settings.getSettings()
       .then(function(settings) {

@@ -3,23 +3,23 @@
 	<span class="label label-success" ng-if="sale.status == 'Complete'">Complete</span>
 	<span class="label label-danger" ng-if="sale.status == 'Incomplete'">Incomplete</span>
 </td>
-<td class="v-align-middle">{{ sale.catType }}</td>
-<td class="v-align-middle">{{ sale.distributionChannel }}</td>
-<td class="v-align-middle">{{ sale.configuration }}</td>
-<td class="v-align-middle">{{ sale.priceCategory }}</td>
-<td class="v-align-middle">{{ sale.source }}</td>
+<td ng-class="!sale.catType ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.catType }}</td>
+<td ng-class="!sale.distributionChannel ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.distributionChannel }}</td>
+<td ng-class="!sale.configuration ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.configuration }}</td>
+<td ng-class="!sale.priceCategory ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.priceCategory }}</td>
+<td ng-class="!sale.source ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.source }}</td>
 <td class="v-align-middle">{{ sale.subSource }}</td>
-<td class="v-align-middle">{{ sale.territory }}</td>
+<td ng-class="!sale.territory ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.territory }}</td>
 <td class="v-align-middle">{{ sale.barcode }}</td>
 <td class="v-align-middle">{{ sale.catNo }}</td>
 <td class="v-align-middle">{{ sale.isrc }}</td>
 <td class="v-align-middle">{{ sale.identifier }}</td>
-<td class="v-align-middle">{{ sale.units }}</td>
-<td class="v-align-middle">{{ sale.currency }}</td>
-<td class="v-align-middle">{{ sale.exchangeRate }}</td>
+<td ng-class="!sale.units ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.units }}</td>
+<td ng-class="!sale.currency ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.currency }}</td>
+<td ng-class="!sale.exchangeRate ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.exchangeRate }}</td>
 <td class="v-align-middle">{{ sale.salePrice }}</td>
 <td class="v-align-middle">{{ sale.grossAmount }}</td>
-<td class="v-align-middle">{{ sale.netAmount }}</td>
+<td ng-class="!sale.netAmount ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.netAmount }}</td>
 <td class="v-align-middle">{{ sale.originalReleaseTitle }}</td>
 <td class="v-align-middle">{{ sale.originalReleaseArtist }}</td>
 <td class="v-align-middle">{{ sale.originalTrackTitle }}</td>

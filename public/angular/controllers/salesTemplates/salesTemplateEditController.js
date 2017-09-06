@@ -198,11 +198,17 @@ angular.module('Curve')
     $scope.$watch('salesTemplate.fields', updateIncludesFields, true);
 
     $scope.$watch('salesTemplate.fields', function(newField, oldField) {
-      // TODO Not currently working, needs to set type to a standard on select of the corresponding field
       for(var i = 0; i < newField.length; i++) {
         if(newField[i] && oldField[i] && newField[i].field != oldField[i].field) {
-          $scope.salesTemplate.fields[i].type == "ignore";
-          console.log(newField[i])
+          if(newField[i].field == "ignore") {
+            $scope.salesTemplate.fields[i].type = "ignore";
+          } else if(["originalDistributionChannel", "originalConfiguration", "originalPriceCategory", "originalReleaseTitle", "originalReleaseArtist", "originalTrackTitle", "originalTrackArtist", "catNo", "barcode", "isrc", "originalIdentifier", "originalTerritory", "source", "subSource", "originalCurrency"].indexOf(newField[i].field) != -1) {
+            $scope.salesTemplate.fields[i].type = "String";
+          } else if(["saleDate", "transactionDate"].indexOf(newField[i].field) != -1) {
+            $scope.salesTemplate.fields[i].type = "Date";
+          } else if(["units", "salePrice", "exchangeRate", "grossAmount", "netAmount", "perUnitRate"].indexOf(newField[i].field) != -1) {
+            $scope.salesTemplate.fields[i].type = "Number";
+          }
         }
       }
     }, true);

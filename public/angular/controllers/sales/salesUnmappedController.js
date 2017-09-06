@@ -6,9 +6,11 @@ angular.module('Curve')
       $scope.transactionDatePopup = false;
       $scope.territories = Territories;
       $scope.currencies = Currencies;
-      $scope.types = ["Sale", "Return"];
-      $scope.filter = {};
+      $scope.catTypes = ["Release", "Track", "Work"];
+      $scope.status = ["Complete", "Incomplete"];
+      $scope.filter = { status: 'Incomplete' };
       $scope.sales = [];
+      $scope.sale = {};
       $scope.searchText = null;
       $scope.filterSales = [];
       $scope.releases = [];
@@ -16,7 +18,6 @@ angular.module('Curve')
       $scope.works = [];
 
       this.filter = function(params, callback) {
-        params.status = 'Incomplete';
         Loader.load();
         Sales.all(params, function(response) {
           if(response.status == 200) {
@@ -24,8 +25,8 @@ angular.module('Curve')
             if(response.data.meta && response.data.meta.totalPages) { $scope.totalPages = response.data.meta.totalPages; }
             if(response.data.meta && response.data.meta.currentPage) { $scope.currentPage = response.data.meta.currentPage; }
             if(response.data.meta && response.data.meta.currentPage && response.data.meta.totalPages) { $scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages); }
-            $scope.total = $scope.sales.length;
-            $scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages);
+            if(response.data.meta && response.data.meta.total) { $scope.total = response.data.meta.total; }
+            if(response.data && response.data.meta) { $scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages); }
             if(callback) { callback(); }
             Loader.complete();
           } else {
@@ -36,9 +37,13 @@ angular.module('Curve')
       $scope.getSortedData = function(orderBy) {
         if($scope.orderBy == orderBy) {
           $scope.orderDir = ($scope.orderDir == 'asc') ? 'desc' : 'asc';
+        } else {
+          $scope.orderDir = 'asc';
         }
         $scope.orderBy = orderBy;
-        controller.filter({ text: $scope.searchText, orderBy: $scope.orderBy, orderDir: $scope.orderDir });
+        $scope.filter.orderBy = $scope.orderBy;
+        $scope.filter.orderDir = $scope.orderDir;
+        controller.filter($scope.filter);
         Loader.complete();
       };
       $scope.whatClassIsIt = function(field) {
@@ -53,13 +58,14 @@ angular.module('Curve')
         }
       }
       $scope.search = function() {
-        controller.filter($scope.sales, function() {
+        controller.filter($scope.filter, function() {
           $scope.filterSales = $scope.sales;
           Loader.success('Sales Successfully Searched');
         });
       };
       $scope.changePage = function(page) {
-        controller.filter({ name: $scope.sales, page: page });
+        $scope.filter.page = page;
+        controller.filter($scope.filter);
       };
 
       Settings.getSettings()
@@ -80,7 +86,7 @@ angular.module('Curve')
         });
       Settings.getSalesFiles()
         .then(function(response) {
-          $scope.salesFiles = response.salesFiles;
+          $scope.salesFiles = response;
         });
 
       $scope.groupFind = function(territory) {
@@ -107,40 +113,24 @@ angular.module('Curve')
         $scope.sale = {};
       }
 
-      $scope.updateSingle = function() {
+      $scope.updateSingle = function(sale) {
         Loader.load();
         $('#modalEditFields').modal('hide');
-        $('#modalEditFields').on('hidden.bs.modal', function() {
-          Sales.update($scope.sale._id, $scope.sale, function(response) {
-            if(response.status == 200) {
-              $scope.sale = response.data;
-              Loader.success('Sale successfully saved');
-            } else {
-              Loader.error('Error saving sale, please try again or contact support');
-            }
-          });
-        });
-      }
-
-      $scope.updateSingle = function() {
-        Loader.load();
-        $('#modalEditFields').modal('hide');
-        $('#modalEditFields').on('hidden.bs.modal', function() {
-          Sales.update($scope.sale._id, $scope.sale, function(response) {
-            if(response.status == 200) {
-              Loader.success('Sales line successfully updated');
-            } else {
-              Loader.error('Error saving sales line, please try again or contact support');
-            }
-          });
+        Sales.update($scope.sale._id, $scope.sale, function(response) {
+          if(response.status == 200) {
+            sale.status = response.data.sale.status;
+            Loader.success('Sales line successfully updated');
+          } else {
+            Loader.error('Error saving sales line, please try again or contact support');
+          }
         });
       }
 
       $scope.updateSelected = function() {
         Loader.load();
         var ids = $scope.sales.map(function(sale) {
-          if(sale.selected) {
-            return sale._id } }).filter(Boolean);
+          if(sale.selected) { return sale._id } 
+        }).filter(Boolean);
         Sales.updateMultipleIds(ids, $scope.sale, function(response) {
           if(response.status == 200) {
             $('#modalEditFields').modal('hide');
@@ -170,6 +160,6 @@ angular.module('Curve')
       }
 
       // Load all sales on page load
-      this.filter({});
+      this.filter($scope.filter);
     }
   ]);

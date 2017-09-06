@@ -202,11 +202,13 @@ h3 .label {
     opacity: 0;
     transition: opacity 500ms ease-in;
 }
+
 .spinner-active{
     top: 0;
     left: 0;
     opacity: 0.9;
 }
+
 .spinner-block{
     position: absolute;
     z-index: 1;
@@ -215,10 +217,16 @@ h3 .label {
     margin: -15px 0 0 -15px;
     transform: translate(-50%,-50%);
 }
-.spinner-block md-progress-circular path{
-    stroke: #019fd2;
 
+.spinner-block md-progress-circular path,
+.loading-spinner md-progress-circular path {
+    stroke: #019fd2;
 }
+
+.loading-spinner md-progress-circular {
+    margin: 20px auto;
+}
+
 /* Complete*/
 .height-180{
 	height: 180px !important;
@@ -228,3 +236,9 @@ h3 .label {
 .result-block{
     min-height:77px;
 }
+
+/* Sales Lines */
+.sales-line-error {
+    background-color: #ffcccc !important;
+}
+
