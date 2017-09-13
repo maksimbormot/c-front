@@ -151,7 +151,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-costs-row ng-repeat="cost in contract.costsTerms" cost="cost" countries="countries" costs-types="costsTypes" index="$index" delete="deleteCostsRow(cost)"></contract-costs-row>
+                  <contract-costs-row ng-repeat="cost in contract.costsTerms" cost="cost" countries="countries" cost-types="costTypes" index="$index" delete="deleteCostsRow(cost)"></contract-costs-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addCostsRow()">+ Costs</button>
                 </div> 
@@ -223,7 +223,6 @@
                                   <th>Artist</th>
                                   <th>Cat No</th>
                                   <th>Barcode</th>
-                                  <th>Label</th>
                                   <th>Format</th>
                                 </tr>
                               </thead>

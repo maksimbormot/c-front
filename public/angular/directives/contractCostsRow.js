@@ -6,7 +6,7 @@ angular.module('Curve')
 			scope: {
 				cost: "=",
 				countries: "=",
-				costsTypes: "=",
+				costTypes: "=",
 				index: "=",
 				delete: "&"
 			},

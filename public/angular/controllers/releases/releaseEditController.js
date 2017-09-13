@@ -14,7 +14,7 @@ angular.module('Curve')
 					console.log(response);
 					$scope.release = response.data;
 					Release.loadTracks($scope.release);
-					$scope.release.releaseDate = new Date(response.data.releaseDate);
+					if(response.data.releaseDate) { $scope.release.releaseDate = new Date(response.data.releaseDate); }
 					Loader.complete();
 				} else {
 					Loader.error('Error loading release, please try again or contact support');

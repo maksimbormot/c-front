@@ -8,7 +8,7 @@ angular.module('Curve')
 		$scope.contractTypes = ["Royalty", "Profit Share"];
 		$scope.countries = Territories; 
 		$scope.salesTypes = ["Gross Receipts","Net Receipts", "PPD"];
-		$scope.costsTypes = [];
+		$scope.costTypes = [];
 		$scope.distributionChannels = [];
 		$scope.configurations = []; 
 		$scope.priceCategories = [];
