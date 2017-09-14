@@ -7,7 +7,7 @@
   <span ng-if="noLinks"> {{ sale.name }} </span>
 </td>
 <td class="v-align-middle">{{ sale.salesAccountName }}</td>
-<td class="v-align-middle">{{ sale.netAmount }}</td>
+<td class="v-align-middle">{{ sale.homeCurrencyNetAmount | number: 2 }}</td>
 <td class="v-align-middle">{{ sale.invalidLines }}</td>
 <td class="v-align-middle">
   <span ng-if="sale.valid" class="label label-success">Valid</span>

@@ -48,8 +48,9 @@
           </div>
         </div>
         <div class="panel-body center bg-complete">
-          <h1 class="text-white"><span class="semi-bold">£{{salesFile.netAmount | number: 2}}</span></h1>
-          <small class="text-white">Validation: £{{salesFile.validationNetAmount | number: 2}}</small>
+          <h1 class="text-white"><span class="semi-bold">£{{salesFile.homeCurrencyNetAmount | number: 2}}</span></h1>
+          <small class="text-white">Original Currency: {{salesFile.validationNetAmount | number: 2}}</small><br/>
+          <small class="text-white">Validation: {{salesFile.validationNetAmount | number: 2}}</small>
         </div>
       </div>
     </div>
@@ -259,16 +260,6 @@
                     <i class="fa fa-sort-down" ng-if="orderBy === 'units' && orderDir === 'asc'"></i>
                     <i class="fa fa-sort-up" ng-if="orderBy === 'units' && orderDir === 'desc'"></i>
                   </th>
-                  <th ng-click="getSortedData('originalCurrency')" ng-class="whatClassIsIt('originalCurrency')">
-                    Original currency
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'originalCurrency' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'originalCurrency' && orderDir === 'desc'"></i>
-                  </th>
-                  <th ng-click="getSortedData('exchangeRate')" ng-class="whatClassIsIt('exchangeRate')">
-                    Ex Rate
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'exchangeRate' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'exchangeRate' && orderDir === 'desc'"></i>
-                  </th>
                   <th ng-click="getSortedData('salePrice')" ng-class="whatClassIsIt('salePrice')">
                     Sale price
                     <i class="fa fa-sort-down" ng-if="orderBy === 'salePrice' && orderDir === 'asc'"></i>
@@ -283,6 +274,26 @@
                     Net
                     <i class="fa fa-sort-down" ng-if="orderBy === 'netAmount' && orderDir === 'asc'"></i>
                     <i class="fa fa-sort-up" ng-if="orderBy === 'netAmount' && orderDir === 'desc'"></i>
+                  </th>
+                  <th ng-click="getSortedData('originalCurrency')" ng-class="whatClassIsIt('originalCurrency')">
+                    Original currency
+                    <i class="fa fa-sort-down" ng-if="orderBy === 'originalCurrency' && orderDir === 'asc'"></i>
+                    <i class="fa fa-sort-up" ng-if="orderBy === 'originalCurrency' && orderDir === 'desc'"></i>
+                  </th>
+                  <th ng-click="getSortedData('exchangeRate')" ng-class="whatClassIsIt('exchangeRate')">
+                    Ex Rate
+                    <i class="fa fa-sort-down" ng-if="orderBy === 'exchangeRate' && orderDir === 'asc'"></i>
+                    <i class="fa fa-sort-up" ng-if="orderBy === 'exchangeRate' && orderDir === 'desc'"></i>
+                  </th>
+                  <th ng-click="getSortedData('grossAmount')" ng-class="whatClassIsIt('grossAmount')">
+                    Home Currency Gross
+                    <i class="fa fa-sort-down" ng-if="orderBy === 'homeCurrencyGrossAmount' && orderDir === 'asc'"></i>
+                    <i class="fa fa-sort-up" ng-if="orderBy === 'homeCurrencyGrossAmount' && orderDir === 'desc'"></i>
+                  </th>
+                  <th ng-click="getSortedData('netAmount')" ng-class="whatClassIsIt('netAmount')">
+                    Home Currency Net
+                    <i class="fa fa-sort-down" ng-if="orderBy === 'homeCurrencyNetAmount' && orderDir === 'asc'"></i>
+                    <i class="fa fa-sort-up" ng-if="orderBy === 'homeCurrencyNetAmount' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('originalReleaseTitle')" ng-class="whatClassIsIt('originalReleaseTitle')">
                     Release title

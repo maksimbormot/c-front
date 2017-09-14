@@ -19,6 +19,7 @@ angular.module('Curve')
 			SalesTemplate.get($routeParams.id, function(response) { 
 				if(response.status == 200) {
 					$scope.salesTemplate = response.data;
+          console.log(response.data);
           if(!$scope.salesTemplate.overwriteFields) { $scope.salesTemplate.overwriteFields = {} }
           if(response.data && response.data.overwriteFields && response.data.overwriteFields.saleDate) { $scope.salesTemplate.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate); }
           if(response.data && response.data.overwriteFields && response.data.overwriteFields.transactionDate) { $scope.salesTemplate.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate); }
@@ -172,11 +173,11 @@ angular.module('Curve')
     $scope.includesNetAmount = false;
 
     function updateIncludesFields() {
-      $scope.includesTerritory = valueOrFalse($scope.salesTemplate.overwriteFields.territory, "originalTerritory");
-      $scope.includesDistributionChannel = valueOrFalse($scope.salesTemplate.overwriteFields.distributionChannel, "originalDistributionChannel");
-      $scope.includesConfiguration = valueOrFalse($scope.salesTemplate.overwriteFields.configuration, "originalConfiguration");
-      $scope.includesPriceCategory = valueOrFalse($scope.salesTemplate.overwriteFields.priceCategory, "originalPriceCategory");
-      $scope.includesCurrency = valueOrFalse($scope.salesTemplate.overwriteFields.currency, "originalCurrency");
+      $scope.includesTerritory = valueOrFalse($scope.salesTemplate.overwriteFields.originalTerritory, "originalTerritory");
+      $scope.includesDistributionChannel = valueOrFalse($scope.salesTemplate.overwriteFields.originalDistributionChannel, "originalDistributionChannel");
+      $scope.includesConfiguration = valueOrFalse($scope.salesTemplate.overwriteFields.originalConfiguration, "originalConfiguration");
+      $scope.includesPriceCategory = valueOrFalse($scope.salesTemplate.overwriteFields.originalPriceCategory, "originalPriceCategory");
+      $scope.includesCurrency = valueOrFalse($scope.salesTemplate.overwriteFields.originalCurrency, "originalCurrency");
       $scope.includesSource = valueOrFalse($scope.salesTemplate.overwriteFields.source, "source");
       $scope.includesExchangeRate = valueOrFalse($scope.salesTemplate.overwriteFields.exchangeRate, "exchangeRate");
       $scope.includesUnits = valueOrFalse($scope.salesTemplate.overwriteFields.units, "units");

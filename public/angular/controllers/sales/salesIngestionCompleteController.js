@@ -27,7 +27,6 @@ angular.module('Curve')
             if(response.data.meta && response.data.meta.currentPage && response.data.meta.totalPages) { $scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages); }
             if(response.data.meta && response.data.meta.total) { $scope.total = response.data.meta.total; }
             if(response.data && response.data.meta) { $scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages); }
-            $scope.total = $scope.sales.length;
             if(callback) { callback(); }
             Loader.complete();
           } else {

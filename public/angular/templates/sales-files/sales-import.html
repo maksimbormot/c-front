@@ -45,117 +45,122 @@
           </div>
           <div class="panel-body p-t-15">
             <div class="row">
-            <div class="col-xs-6 col-sm-3">
-              <div class="form-group">
-                <label>Source</label>
-                <input type="text" class="form-control" ng-model="salesFile.overwriteFields.source">
+              <div class="col-xs-6 col-sm-3">
+                <div class="form-group">
+                  <label>Source</label>
+                  <input type="text" class="form-control" ng-model="salesFile.overwriteFields.source">
+                </div>
               </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-              <div class="form-group">
-                <label>Distribution Channel</label>
-                <ui-select ng-model="salesFile.overwriteFields.distributionChannel">
-                  <ui-select-match allow-clear="true">
-                    <span ng-bind="$select.selected"></span>
-                  </ui-select-match>
-                  <ui-select-choices repeat="item in distributionChannels | orderBy:'item' | filter: $select.search">
-                    <span ng-bind="item"></span> 
-                  </ui-select-choices>
-                </ui-select>
+              <div class="col-xs-6 col-sm-3">
+                <div class="form-group">
+                  <label>Distribution Channel</label>
+                  <ui-select ng-model="salesFile.overwriteFields.originalDistributionChannel">
+                    <ui-select-match allow-clear="true">
+                      <span ng-bind="$select.selected"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="item in distributionChannels | orderBy:'item' | filter: $select.search">
+                      <span ng-bind="item"></span>
+                    </ui-select-choices>
+                  </ui-select>
+                </div>
               </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-              <div class="form-group">
-                <label>Currency</label>
-                <ui-select ng-model="salesFile.overwriteFields.currency">
-                  <ui-select-match allow-clear="true">
+              <div class="col-xs-6 col-sm-3">
+                <div class="form-group">
+                  <label>Currency</label>
+                  <ui-select ng-model="salesFile.overwriteFields.originalCurrency">
+                    <ui-select-match allow-clear="true">
                       <span ng-bind="$select.selected.code"></span>
-                  </ui-select-match>
-                  <ui-select-choices repeat="currency.code as currency in currencies | orderBy: 'code' | filter: $select.search">
+                    </ui-select-match>
+                    <ui-select-choices repeat="currency.code as currency in currencies | orderBy: 'code' | filter: $select.search">
                       <span ng-bind-html="currency.code"></span>
                       <span> &nbsp; - &nbsp; </span>
                       <span ng-bind-html="currency.name"></span>
-                  </ui-select-choices>
-                </ui-select>
-              </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-              <div class="form-group">
-                <label>Sale Date</label>
-                <div id="datepicker-component" class="form-group input-group date">
-                  <input type="text" class="form-control" ng-model="salesFile.overwriteFields.saleDate" uib-datepicker-popup="dd/MM/yyyy" is-open="saleDatePopup" ng-click="openSaleDatePopup()">
-                  <span class="input-group-addon" ng-click="openSaleDatePopup()">
-                    <i class="fa fa-calendar"></i>
-                  </span>
+                    </ui-select-choices>
+                  </ui-select>
                 </div>
               </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-              <div class="form-group">
-                <label>Sub Source</label>
-                <input type="text" class="form-control" ng-model="salesFile.overwriteFields.subSource">
-              </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-              <div class="form-group">
-                <label>Configuration</label>
-                <ui-select ng-model="salesFile.overwriteFields.configuration">
-                  <ui-select-match allow-clear="true">
-                    <span ng-bind="$select.selected"></span>
-                  </ui-select-match>
-                  <ui-select-choices repeat="item in configurations | orderBy:'item' | filter: $select.search">
-                    <span ng-bind="item"></span>
-                  </ui-select-choices>
-                </ui-select>
-              </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-              <div class="form-group">
-                <label>Exchange Rate</label>
-                <input type="text" class="form-control" ng-model="salesFile.overwriteFields.exchangeRate">
-              </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-              <div class="form-group">
-                <label>Transaction Date</label>
-                <div id="datepicker-component" class="form-group input-group date">
-                  <input type="text" class="form-control" ng-model="salesFile.overwriteFields.transactionDate" uib-datepicker-popup="dd/MM/yyyy" is-open="transactionDatePopup" ng-click="openTransactionDatePopup()">
-                  <span class="input-group-addon" ng-click="openTransactionDatePopup()">
+              <div class="col-xs-6 col-sm-3">
+                <div class="form-group">
+                  <label>Sale Date</label>
+                  <div id="datepicker-component" class="form-group input-group date">
+                    <input type="text" class="form-control" ng-model="salesFile.overwriteFields.saleDate" uib-datepicker-popup="dd/MM/yyyy" is-open="saleDatePopup" ng-click="openSaleDatePopup()">
+                    <span class="input-group-addon" ng-click="openSaleDatePopup()">
                     <i class="fa fa-calendar"></i>
                   </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-              
-            </div>
-            <div class="col-xs-6 col-sm-3">
-              <div class="form-group">
-                <label>Price Category</label>
-                <ui-select ng-model="salesFile.overwriteFields.priceCategory">
-                  <ui-select-match allow-clear="true">
-                    <span ng-bind="$select.selected"></span>
-                  </ui-select-match>
-                  <ui-select-choices repeat="item  in priceCategories | orderBy:'item' | filter: $select.search">
-                    <span ng-bind="item"></span>
-                  </ui-select-choices>
-                </ui-select>
-              </div> 
-            </div>
-            <div class="col-xs-6 col-sm-3">
-              <div class="form-group">
-                <label>Territory</label>
-                <ui-select ng-model="salesFile.overwriteFields.territory">
-                  <ui-select-match allow-clear="true">
+              <div class="col-xs-6 col-sm-3">
+                <div class="form-group">
+                  <label>Sub Source</label>
+                  <input type="text" class="form-control" ng-model="salesFile.overwriteFields.subSource">
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <div class="form-group">
+                  <label>Configuration</label>
+                  <ui-select ng-model="salesFile.overwriteFields.originalConfiguration">
+                    <ui-select-match allow-clear="true">
+                      <span ng-bind="$select.selected"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="item in configurations | orderBy:'item' | filter: $select.search">
+                      <span ng-bind="item"></span>
+                    </ui-select-choices>
+                  </ui-select>
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <div class="form-group">
+                  <label>Exchange Rate</label>
+                  <input type="number" class="form-control" ng-model="salesFile.overwriteFields.exchangeRate">
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <div class="form-group">
+                  <label>Transaction Date</label>
+                  <div id="datepicker-component" class="form-group input-group date">
+                    <input type="text" class="form-control" ng-model="salesFile.overwriteFields.transactionDate" uib-datepicker-popup="dd/MM/yyyy" is-open="transactionDatePopup" ng-click="openTransactionDatePopup()">
+                    <span class="input-group-addon" ng-click="openTransactionDatePopup()">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <div class="form-group">
+                  <label>Price Category</label>
+                  <ui-select ng-model="salesFile.overwriteFields.originalPriceCategory">
+                    <ui-select-match allow-clear="true">
+                      <span ng-bind="$select.selected"></span>
+                    </ui-select-match>
+                    <ui-select-choices repeat="item  in priceCategories | orderBy:'item' | filter: $select.search">
+                      <span ng-bind="item"></span>
+                    </ui-select-choices>
+                  </ui-select>
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <div class="form-group">
+                  <label>Territory</label>
+                  <ui-select ng-model="salesFile.overwriteFields.originalTerritory">
+                    <ui-select-match allow-clear="true">
                       <span ng-bind="$select.selected.name"></span>
-                  </ui-select-match>
-                  <ui-select-choices group-by="groupFind" repeat="territory.code as territory in territories | filter: $select.search">
+                    </ui-select-match>
+                    <ui-select-choices group-by="groupFind" repeat="territory.code as territory in territories | filter: $select.search">
                       <span class="country" ng-bind="territory.name"></span>
-                  </ui-select-choices>
-                </ui-select>
+                    </ui-select-choices>
+                  </ui-select>
+                </div>
+              </div>
+              <div class="col-xs-6 col-sm-3">
+                <div class="form-group">
+                  <label>Multiplier</label>
+                  <input type="number" class="form-control" ng-model="salesFile.overwriteFields.multiplier">
+                </div>
               </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
@@ -191,7 +196,6 @@
     </div>
   </div>
 </div>
-
 <!-- Loading Page -->
 <div class="container-fluid container-fixed-lg" ng-if="salesFile.status === 'Ingesting'">
   <div class="row">
@@ -207,7 +211,6 @@
     </div>
   </div>
 </div>
-
 <!-- Modal -->
 <div class="modal fade stick-up" id="deleteModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
@@ -220,7 +223,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-xs-12 m-t-20">
-            <p>Are you sure you want to delete this sales file?  This cannot be undone.</p>
+            <p>Are you sure you want to delete this sales file? This cannot be undone.</p>
           </div>
         </div>
         <div class="row">

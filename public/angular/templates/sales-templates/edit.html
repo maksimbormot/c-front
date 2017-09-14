@@ -149,7 +149,7 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Distribution Channel</label>
-                <ui-select ng-model="salesTemplate.overwriteFields.distributionChannel">
+                <ui-select ng-model="salesTemplate.overwriteFields.originalDistributionChannel">
                   <ui-select-match allow-clear="true">
                     <span ng-bind="$select.selected"></span>
                   </ui-select-match>
@@ -162,7 +162,7 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Currency</label>
-                <ui-select ng-model="salesTemplate.overwriteFields.currency">
+                <ui-select ng-model="salesTemplate.overwriteFields.originalCurrency">
                   <ui-select-match allow-clear="true">
                       <span ng-bind="$select.selected.code"></span>
                   </ui-select-match>
@@ -194,7 +194,7 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Configuration</label>
-                <ui-select ng-model="salesTemplate.overwriteFields.configuration">
+                <ui-select ng-model="salesTemplate.overwriteFields.originalConfiguration">
                   <ui-select-match allow-clear="true">
                     <span ng-bind="$select.selected"></span>
                   </ui-select-match>
@@ -207,7 +207,7 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Exchange Rate</label>
-                <input type="text" class="form-control" ng-model="salesTemplate.overwriteFields.exchangeRate">
+                <input type="number" class="form-control" ng-model="salesTemplate.overwriteFields.exchangeRate">
               </div>
             </div>
             <div class="col-xs-6 col-sm-3">
@@ -227,7 +227,7 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Price Category</label>
-                <ui-select ng-model="salesTemplate.overwriteFields.priceCategory">
+                <ui-select ng-model="salesTemplate.overwriteFields.originalPriceCategory">
                   <ui-select-match allow-clear="true">
                     <span ng-bind="$select.selected"></span>
                   </ui-select-match>
@@ -240,7 +240,7 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Territory</label>
-                <ui-select ng-model="salesTemplate.overwriteFields.territory">
+                <ui-select ng-model="salesTemplate.overwriteFields.originalTerritory">
                   <ui-select-match allow-clear="true">
                       <span ng-bind="$select.selected.name"></span>
                   </ui-select-match>
@@ -248,6 +248,12 @@
                       <span class="country" ng-bind="territory.name"></span>
                   </ui-select-choices>
                 </ui-select>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+              <div class="form-group">
+                <label>Multiplier</label>
+                <input type="number" class="form-control" ng-model="salesTemplate.overwriteFields.multiplier">
               </div>
             </div>
           </div>

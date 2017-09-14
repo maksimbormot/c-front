@@ -15,20 +15,22 @@
 <td class="v-align-middle">{{ sale.isrc }}</td>
 <td class="v-align-middle">{{ sale.identifier }}</td>
 <td ng-class="!sale.units ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.units }}</td>
-<td ng-class="!sale.currency ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.currency }}</td>
-<td ng-class="!sale.exchangeRate ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.exchangeRate }}</td>
 <td class="v-align-middle">{{ sale.salePrice }}</td>
 <td class="v-align-middle">{{ sale.grossAmount }}</td>
 <td ng-class="!sale.netAmount ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.netAmount }}</td>
+<td ng-class="!sale.originalCurrency ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.originalCurrency }}</td>
+<td ng-class="!sale.exchangeRate ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.exchangeRate }}</td>
+<td class="v-align-middle">{{ sale.homeCurrencyGrossAmount }}</td>
+<td ng-class="!sale.homeCurrencyNetAmount ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.homeCurrencyNetAmount }}</td>
 <td class="v-align-middle">{{ sale.originalReleaseTitle }}</td>
 <td class="v-align-middle">{{ sale.originalReleaseArtist }}</td>
 <td class="v-align-middle">{{ sale.originalTrackTitle }}</td>
 <td class="v-align-middle">{{ sale.originalTrackArtist }}</td>
 <td class="v-align-middle">{{ sale.saleDate }}</td>
 <td class="v-align-middle">{{ sale.transactionDate }}</td>
-<td class="v-align-middle">{{ sale.releaseId }}</td>
-<td class="v-align-middle">{{ sale.trackId }}</td>
-<td class="v-align-middle">{{ sale.workId }}</td>
+<td ng-class="!sale.releaseId && !sale.trackId && !sale.workId ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.releaseId }}</td>
+<td ng-class="!sale.releaseId && !sale.trackId && !sale.workId ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.trackId }}</td>
+<td ng-class="!sale.releaseId && !sale.trackId && !sale.workId ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.workId }}</td>
 <td ng-if="!noEdit" class="v-align-middle">
 	<a data-toggle="modal" data-target="#modalEditFields" ng-click="single(sale)">
 		<div class="edit-unmapped"> <i class="fa fa-pencil"></i> </div>	
