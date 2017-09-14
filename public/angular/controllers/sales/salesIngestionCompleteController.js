@@ -41,6 +41,7 @@ angular.module('Curve')
         SalesFile.get($routeParams.id, function(response) {
           if(response.status == 200) {
             $scope.salesFile = response.data;
+            console.log(response.data);
             // Load all sales on page load
             $scope.filter = { salesFileId: $scope.salesFile._id };
             controller.filter($scope.filter);
