@@ -155,13 +155,13 @@ angular.module('Curve')
         Sales.updateMultipleIds(ids, $scope.sale, function(response) {
           if(response.status == 200) {
             $('#modalEditFields').modal('hide');
+            controller.filter($scope.filter);
           } else {
             Loader.error('Error saving sales line, please try again or contact support');
           }
         });
         $('#modalEditFields').on('hidden.bs.modal', function() {
           Loader.success(ids.length + ' Sales successfully updated');
-          controller.filter($scope.filter);
         });
       }
 
@@ -170,13 +170,13 @@ angular.module('Curve')
         Sales.updateFiltered($scope.filter, $scope.sale, function(response) {
           if(response.status == 200) {
             $('#modalEditFields').modal('hide');
+            controller.filter($scope.filter);
           } else {
             Loader.error('Error saving sales line, please try again or contact support');
           }
         });
         $('#modalEditFields').on('hidden.bs.modal', function() {
           Loader.success('Filtered sales successfully updated');
-          controller.filter($scope.filter);
         });
       }
 
@@ -191,6 +191,18 @@ angular.module('Curve')
           }
         });
       };
+
+      $scope.revalidate = function() {
+        Loader.load();
+        SalesFile.revalidate($scope.salesFile._id, function(response) {
+          if(response.status == 200) {
+            $window.location.href = "#/sales";
+            Loader.success('Sales file revalidation started');
+          } else {
+            Loader.error('Error kicking off revalidation, please try again or contact support');
+          }
+        });
+      }
 
     }
   ]);
