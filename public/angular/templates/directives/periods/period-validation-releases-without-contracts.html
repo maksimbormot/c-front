@@ -5,13 +5,11 @@
         <div class="panel-body">
           <div class="row m-b-20">
             <div class="col-xs-12">
-              <ul class="breadcrumb center-breadcrumb">
-                <li><a ng-click="showStep(1)">Setup</a></li>
-                <li><a ng-click="showStep(2)">Included Sales</a></li>
-                <li><a ng-click="showStep(3)">Included Costs</a></li>
-                <li><a ng-click="showStep(4)" class="active">Validation</a></li>
-                <li><a ng-click="showStep(7)">Processing</a></li>
-                <li><a ng-click="showStep(8)">Complete</a></li>
+              <ul class="breadcrumb wizard-breadcrumb">
+                <li><a ng-click="changePage('Setup')">Setup</a></li>
+                <li><a ng-click="changePage('Included Sales')">Included Sales</a></li>
+                <li><a ng-click="changePage('Included Costs')">Included Costs</a></li>
+                <li><a class="active">Validation</a></li>
               </ul>
             </div>
           </div> 
@@ -70,8 +68,8 @@
           </div>
           <div class="row m-t-20">
             <div class="col-xs-12">
-              <a ng-click="saveAndNextStep(6)" class="btn btn-complete pull-right">Next</a>
-              <a ng-click="showStep(4)" class="btn btn-default pull-right">Back</a>
+              <a ng-click="changePage('Incomplete Contracts')" class="btn btn-complete pull-right">Next</a>
+              <a ng-click="changePage('Catalogue Validation')" class="btn btn-default pull-right">Back</a>
             </div>
           </div>
         </div>

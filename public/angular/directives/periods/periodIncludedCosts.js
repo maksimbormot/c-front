@@ -1,95 +1,118 @@
 angular.module('Curve')
-	.directive("periodIncludedCosts", function(Loader){
-		return {
-			restrict: "E",
-			templateUrl: "angular/templates/directives/periods/period-included-costs.html",
-			scope: true,
-			link: function($scope){
+  .directive("periodIncludedCosts", function(Loader) {
+    return {
+      restrict: "E",
+      templateUrl: "angular/templates/directives/periods/period-included-costs.html",
+      scope: true,
+      link: function($scope) {
+      	removeSelectedFromExcluded();
 
-				$scope.excludeAllCosts = function(){
-			    	$scope.includeCosts.splice(0, $scope.includeCosts.length);
-			    }
+        $scope.excludeAllCosts = function() {
+          $scope.includeCosts.forEach(function(cost) {
+          	$scope.costs.push(cost);
+          });
+          $scope.includeCosts.splice(0, $scope.includeCosts.length);
+          setCostsToPeriod();
+        }
 
-			    $scope.excludeSelectedCosts = function(){
-					Loader.load();
-					var num = 0, count = 0;
-					var selectedCosts = [];
-					$scope.includeCosts.forEach(function(include, index){
-						if (include.selected){
-							count++;
-							include.selected = false;
-							selectedCosts.push(angular.extend({},index));
-						}
-					});
-					var delta = 0;
-					if (count > 0){
-						selectedCosts.forEach(function(index){
-							$scope.includeCosts.splice(index-delta, 1);
-							delta++;
-						});
-						Loader.complete();
-					} else {
-						Loader.error('Choose at least one position');
-					}
-			    }
+        $scope.excludeSelectedCosts = function() {
+          var count = 0;
+          var removals = [];
+          $scope.includeCosts.forEach(function(include, index) {
+            if(include.selected) {
+              count++;
+              include.selected = false;
+              $scope.costs.push(include);
+              removals.push(index);
+            }
+          });
+          removals.reverse().forEach(function(index) {
+          	$scope.includeCosts.splice(index, 1);
+          });
+          if(count == 0) {
+            Loader.error('Choose at Least One Cost');
+          }
+          setCostsToPeriod();
+        }
 
-			    $scope.includeAllCosts = function(){
-			    	if ($scope.includeCosts.length == 0){
-				    	$scope.costs.forEach(function(cost){
-							$scope.includeCosts.push(angular.extend({},cost));    		
-				    	});
-			    	} else {
-			    		$scope.costs.forEach(function(cost){
-			    			var count = 0;
-			    			$scope.includeCosts.forEach(function(include){
-			    				if (cost._id == include._id){
-			    					count++;
-			    				}
-			    			});
-							if (count == 0){
-								$scope.includeCosts.push(angular.extend({},cost));
-							}
-			    		});
-			    	}
-			    }
+        $scope.includeAllCosts = function() {
+          if($scope.includeCosts.length == 0) {
+            $scope.costs.forEach(function(cost) {
+              $scope.includeCosts.push(angular.extend({}, cost));
+            });
+          } else {
+            $scope.costs.forEach(function(cost) {
+              var count = 0;
+              $scope.includeCosts.forEach(function(include) {
+                if(cost._id == include._id) {
+                  count++;
+                }
+              });
+              if(count == 0) {
+                $scope.includeCosts.push(angular.extend({}, cost));
+              }
+            });
+          }
+          removeSelectedFromExcluded();
+          setCostsToPeriod();
+        }
 
-			    $scope.includeSelectedCosts = function(){
-					Loader.load();
-					var num = 0, count = 0;
-					var selectedCosts = [];
-					$scope.costs.forEach(function(cost){
-						if (cost.selected){
-							if ($scope.includeCosts.length > 0){
-								$scope.includeCosts.forEach(function(include){
-									if (cost._id != include._id){
-										count++;
-									} else {
-										num++;
-									}
-								});
-								if (num == 0){
-									cost.selected = false;
-									selectedCosts.push(angular.extend({},cost));
-								}
-							} else {
-								count++;
-								cost.selected = false;
-								selectedCosts.push(angular.extend({},cost));						
-							}
-						}
-					});
-					if (num > 0){
-						Loader.error('This file has already been selected');
-					} else if (count > 0){
-						selectedCosts.forEach(function(cost){
-							$scope.includeCosts.push(angular.extend({},cost));
-							Loader.complete();
-						});
-					} else {
-						Loader.error('Choose at least one position');
-					}
-			    }
+        $scope.includeSelectedCosts = function() {
+          Loader.load();
+          var num = 0,
+            count = 0;
+          var selectedCosts = [];
+          $scope.costs.forEach(function(cost) {
+            if(cost.selected) {
+              if($scope.includeCosts.length > 0) {
+                $scope.includeCosts.forEach(function(include) {
+                  if(cost._id != include._id) {
+                    count++;
+                  } else {
+                    num++;
+                  }
+                });
+                if(num == 0) {
+                  cost.selected = false;
+                  selectedCosts.push(angular.extend({}, cost));
+                }
+              } else {
+                count++;
+                cost.selected = false;
+                selectedCosts.push(angular.extend({}, cost));
+              }
+            }
+          });
+          if(num > 0) {
+            Loader.error('This file has already been selected');
+          } else if(count > 0) {
+            selectedCosts.forEach(function(cost) {
+              $scope.includeCosts.push(angular.extend({}, cost));
+              Loader.complete();
+            });
+          } else {
+            Loader.error('Choose at Least One Cost');
+          }
+          removeSelectedFromExcluded();
+          setCostsToPeriod();
+        }
 
-			}
-		}
-	}); 
+        function removeSelectedFromExcluded() {
+        	$scope.includeCosts.forEach(function(cost) {
+        		$scope.costs.forEach(function(excludedCost) {
+        			// Needs to match ID as objects are not the same
+        			if(cost._id == excludedCost._id) {
+        				var index = $scope.costs.indexOf(excludedCost);
+		        		$scope.costs.splice(index, 1);
+        			}
+        		});
+        	});
+        }
+
+        function setCostsToPeriod() {
+        	$scope.period.costIds = $scope.includeCosts.map(function(cost) { return cost._id });
+        }
+
+      }
+    }
+  });

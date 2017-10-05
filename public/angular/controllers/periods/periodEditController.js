@@ -1,9 +1,10 @@
 angular.module('Curve')
-  .controller('periodEditController', ['$scope', '$routeParams', '$window', 'Session', 'Period', 'Notification', 'Settings', 'Loader',
-    function($scope, $routeParams, $window, Session, Period, Notification, Settings, Loader) {
+  .controller('periodEditController', ['$scope', '$routeParams', '$window', 'Session', 'Period', 'Notification', 'Settings', 'Loader', 'Years',
+    function($scope, $routeParams, $window, Session, Period, Notification, Settings, Loader, Years) {
       var controller = this;
       $scope.period = { salesFilesIds: [], costIds: [] };
-      $scope.accountingPeriods = ["Monthly", "Quarterly", "Half-Yearly", "Yearly"];
+      $scope.accountingPeriods = ["H1", "H2", "Q1", "Q2", "Q3", "Q4"];
+      $scope.years = Years;
       $scope.salesFiles = [];
       $scope.costs = [];
       $scope.includeSalesFiles = [];
@@ -18,7 +19,6 @@ angular.module('Curve')
       $scope.contractsTotal = 0;
       $scope.statements = [];
       $scope.statementsTotal = 0;
-      $scope.step = 1;
 
       // Load Period if ID exists
       if($routeParams.id) {
@@ -26,6 +26,7 @@ angular.module('Curve')
         Period.get($routeParams.id, function(response) {
           if(response.status == 200) {
             $scope.period = response.data;
+            console.log($scope.period);
             loadIncludeSalesFiles();
             loadIncludeCosts();
             Loader.complete();
@@ -70,8 +71,9 @@ angular.module('Curve')
           $scope.statements = statements;
         });
 
-      $scope.showStep = function(i) {
-        $scope.step = i;
+      $scope.changePage = function(page) {
+        $scope.period.setupStage = page;
+        save();
       }
 
       $scope.deleteSelected = function() {
@@ -136,46 +138,45 @@ angular.module('Curve')
         }
       }
 
-      $scope.saveAndNextStep = function(i) {
-        if(i > 4) {
-          $scope.step = i;
+      
+
+      function save() {
+        if(!$scope.period._id) {
+          $scope.period.status = "Setup";
+          Period.create($scope.period, function(response) {
+            if(response.status == 200) {
+              $window.location.href = "#/periods/" + response.data._id + "/edit";
+              Loader.success('Period successfully created');
+            } else {
+              Loader.error('Error creating period, please try again or contact support');
+            }
+          })
+          .catch(function(response) {
+            Loader.error('The period has not been saved.  ' + response.data.message);
+          });
         } else {
-          Loader.load();
-          $scope.period.salesFilesIds = $scope.includeSalesFiles.map(function(el) {
-            return el._id;
+          Period.update($scope.period._id, $scope.period, function(response) {
+            console.log(response);
+            if(response.status == 200) {
+              $scope.period = response.data;
+              Loader.success('Period successfully saved');
+            } else {
+              Loader.error('Error saving period, please try again or contact support');
+            }
+          })
+          .catch(function(response) {
+            Loader.error('The period has not been saved.  ' + response.data.message);
           });
-          $scope.period.costIds = $scope.includeCosts.map(function(el) {
-            return el._id;
-          });
-          $scope.period.status = 'Processing';
-          if(!$scope.period._id) {
-            Period.create($scope.period, function(response) {
-                if(response.status == 200) {
-                  Loader.success('Period successfully created');
-                  $scope.period = response.data;
-                } else {
-                  Loader.error('Error creating period, please try again or contact support');
-                }
-              })
-              .catch(function(response) {
-                Loader.error('The object has not been saved.  ' + response.data.message);
-              });
-          } else {
-            Period.update($scope.period._id, $scope.period, function(response) {
-                console.log(response);
-                if(response.status == 200) {
-                  $scope.period = response.data;
-                  Loader.success('Period successfully saved');
-                } else {
-                  Loader.error('Error saving period, please try again or contact support');
-                }
-              })
-              .catch(function(response) {
-                Loader.error('The object has not been saved.  ' + response.data.message);
-              });
-          }
-          $scope.step = i;
         }
       }
+
+      $scope.runCalculation = function() {
+        Loader.load();
+        Period.runCalculation($scope.period._id, function() {
+          $window.location.href = "#/periods";
+          Loader.success('Period sent for calculation');
+        });
+      }
+
     }
   ]);

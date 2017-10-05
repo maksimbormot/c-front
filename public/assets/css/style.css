@@ -242,3 +242,12 @@ h3 .label {
     background-color: #ffcccc !important;
 }
 
+/* Period */
+.wizard-breadcrumb {
+    text-align: center;
+}
+
+.wizard-breadcrumb li,
+.wizard-breadcrumb li a {
+    font-size: 12px !important;
+}

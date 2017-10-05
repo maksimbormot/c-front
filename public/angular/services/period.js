@@ -25,6 +25,12 @@ angular.module('Curve')
         return $http({ method: "POST", url: Session.apiUrl + '/periods?applicationToken=12345&token=' + Session.token, data: $.param(params), headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function(data) {
           callback(data);
         });
+      },
+      runCalculation: function(id, callback) {
+        console.log("Running Calculation")
+        return $http({ method: "POST", url: Session.apiUrl + '/periods/' + id + '/calculate?applicationToken=12345&token=' + Session.token, headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function(data) {
+          callback(data);
+        });
       }
     };
   });

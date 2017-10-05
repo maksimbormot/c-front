@@ -5,13 +5,11 @@
         <div class="panel-body">
           <div class="row m-b-20">
             <div class="col-xs-12">
-              <ul class="breadcrumb center-breadcrumb">
-                <li><a ng-click="showStep(1)">Setup</a></li>
-                <li><a ng-click="showStep(2)" class="active">Included Sales</a></li>
-                <li><a ng-click="showStep(3)">Included Costs</a></li>
-                <li><a ng-click="showStep(4)">Validation</a></li>
-                <li><a ng-click="showStep(7)">Processing</a></li>
-                <li><a ng-click="showStep(8)">Complete</a></li>
+              <ul class="breadcrumb wizard-breadcrumb">
+                <li><a ng-click="changePage('Setup')">Setup</a></li>
+                <li><a class="active">Included Sales</a></li>
+                <li>Included Costs</li>
+                <li>Validation</li>
               </ul>
             </div>
           </div>
@@ -22,7 +20,7 @@
                   <div class="row">
                     <div class="col-xs-6">
                       <div class="form-group">
-                        <label>Included Sales</label>
+                        <h4>Included Sales</h4>
                       </div>
                     </div>
                     <div class="col-xs-6">
@@ -34,7 +32,7 @@
                     <table class="table table-hover table-condensed dataTable no-footer">
                       <thead>
                         <tr>
-                          <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
+                          <th class="table-checkbox"></th>
                           <th ng-click="getSortedData('name')" ng-class="whatClassIsIt('name')">Name</th>
                           <th ng-click="getSortedData('salesAccountName')" ng-class="whatClassIsIt('salesAccountName')">Account</th>
                           <th ng-click="getSortedData('account')" ng-class="whatClassIsIt('account')">Total Value</th>
@@ -72,7 +70,7 @@
                   <div class="row">
                     <div class="col-xs-6">
                       <div class="form-group">
-                        <label>Excluded Sales</label>
+                        <h4>Excluded Sales</h4>
                       </div>
                     </div>
                     <div class="col-xs-6">
@@ -84,7 +82,7 @@
                     <table class="table table-hover table-condensed dataTable no-footer">
                       <thead>
                         <tr>
-                          <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
+                          <th class="table-checkbox"></th>
                           <th ng-click="getSortedData('name')" ng-class="whatClassIsIt('name')">Name</th>
                           <th ng-click="getSortedData('salesAccountName')" ng-class="whatClassIsIt('salesAccountName')">Account</th>
                           <th ng-click="getSortedData('account')" ng-class="whatClassIsIt('account')">Total Value</th>
@@ -121,8 +119,8 @@
           </div>
           <div class="row m-t-20">
             <div class="col-xs-12">
-              <a ng-click="saveAndNextStep(3)"class="btn btn-complete pull-right">Next</a>
-              <a ng-click="showStep(1)" class="btn btn-default pull-right">Back</a>
+              <a ng-click="changePage('Included Costs')" class="btn btn-complete pull-right">Next</a>
+              <a ng-click="changePage('Setup')" class="btn btn-default pull-right">Back</a>
             </div>
           </div>
         </div>
