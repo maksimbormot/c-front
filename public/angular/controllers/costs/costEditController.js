@@ -2,7 +2,7 @@ angular.module('Curve')
   .controller('costEditController', ['$scope', '$routeParams', '$window', 'Session', 'Cost', 'Notification', 'Settings', 'Upload', 'Territories', '$timeout', 'Loader',
     function($scope, $routeParams, $window, Session, Cost, Notification, Settings, Upload, Territories, $timeout, Loader) {
       var controller = this;
-      $scope.costsTypes = ["Gross Receipts", "Net Receipts", "PPD"];
+      $scope.costTypes = [];
       $scope.releases = [];
       $scope.tracks = [];
       $scope.works = [];
