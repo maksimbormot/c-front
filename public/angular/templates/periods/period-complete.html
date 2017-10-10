@@ -23,6 +23,7 @@
                 <h5>{{period.accountingPeriod}}</h5>
               </div>
               <div class="col-xs-4 text-right">
+                <button class="btn btn-complete" ng-click="runCalculation()">Reprocess</button>
                 <div class="btn-group dropdown-default"> <a class="btn dropdown-toggle" data-toggle="dropdown" style="width: 141px;" aria-expanded="false"> Download <span class="caret"></span> </a>
                   <ul class="dropdown-menu " style="width: 141px;">
                     <li>
@@ -95,7 +96,7 @@
                         <div class="panel panel-default height-100 bg-primary-light">
                           <div class="panel-heading">
                             <div class="panel-title text-white">
-                              Net Costs >
+                              Recharged Costs >
                             </div>
                           </div>
                           <div class="panel-body bg-primary">
@@ -107,7 +108,7 @@
                         <div class="panel panel-default height-100 bg-info">
                           <div class="panel-heading">
                             <div class="panel-title text-white">
-                              Reported Units >
+                              Input Units >
                             </div>
                           </div>
                           <div class="panel-body bg-info-dark">
