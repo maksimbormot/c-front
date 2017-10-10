@@ -23,6 +23,16 @@
                 <h5>{{period.accountingPeriod}}</h5>
               </div>
               <div class="col-xs-4 text-right">
+                <div class="btn-group dropdown-default"> <a class="btn dropdown-toggle" data-toggle="dropdown" style="width: 141px;" aria-expanded="false"> Download <span class="caret"></span> </a>
+                  <ul class="dropdown-menu " style="width: 141px;">
+                    <li>
+                      <a target="_blank" href="{{period.allCalculatedSalesCsvPublicLink}}">All Sales</a>
+                    </li>
+                    <li>
+                      <a target="_blank" href="{{period.allCalculatedCostsCsvPublicLink}}">All Costs</a>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div class="row">
@@ -39,7 +49,7 @@
                     <a data-toggle="tab" aria-expanded="false"><span>Included Costs</span></a>
                   </li>
                   <li ng-click="setTab('errors')">
-                    <a data-toggle="tab" aria-expanded="false"><span>Errors</span></a>
+                    <a data-toggle="tab" aria-expanded="false"><span>Sales</span></a>
                   </li>
                   <li ng-click="setTab('statements')">
                     <a data-toggle="tab" aria-expanded="false"><span>Statements</span></a>
@@ -50,57 +60,73 @@
                   <div class="tab-pane active" ng-show="activeTab === 'overview'">
                     <div class="row">
                       <div class="col-xs-3 m-t-40">
-                        <div class="panel panel-default height-180 bg-complete">
+                        <div class="panel panel-default height-100 bg-success">
                           <div class="panel-heading">
                             <div class="panel-title text-white">
-                              Revenue
+                              Gross Revenue >
                             </div>
                           </div>
-                          <div class="panel-body center bg-complete">
-                            <h1 class="text-white"><span class="semi-bold">£{{period.netAmount || 0}}</span></h1>
-                            <small class="text-white">Validation: £{{period.validationNetAmount || 0}}</small>
+                          <div class="panel-body bg-complete">
+                            <h3 class="text-white no-margin"><span class="semi-bold">£{{period.grossAmount | number: 2}}</span></h3>
+                          </div>
+                        </div>
+                        <div class="panel panel-default height-100 bg-complete">
+                          <div class="panel-heading">
+                            <div class="panel-title text-white">
+                              Net Payout >
+                            </div>
+                          </div>
+                          <div class="panel-body bg-primary">
+                            <h3 class="text-white no-margin"><span class="semi-bold">£{{period.netAmount | number: 2}}</span></h3>
                           </div>
                         </div>
                       </div>
                       <div class="col-xs-3 m-t-40">
-                        <div class="panel panel-default height-180 bg-primary">
+                        <div class="panel panel-default height-100 bg-primary-darker">
                           <div class="panel-heading">
                             <div class="panel-title text-white">
-                              Costs
+                              Gross Costs >
                             </div>
                           </div>
-                          <div class="panel-body center bg-primary">
-                            <h1 class="text-white"><span class="semi-bold">£{{period.netCosts || 0}}</span></h1>
-                            <small>Validation: £{{period.validationNetCosts || 0}}</small>
+                          <div class="panel-body bg-primary">
+                            <h3 class="no-margin text-white"><span class="semi-bold">£{{period.grossCosts | number: 2}}</span></h3>
+                          </div>
+                        </div>
+                        <div class="panel panel-default height-100 bg-primary-light">
+                          <div class="panel-heading">
+                            <div class="panel-title text-white">
+                              Net Costs >
+                            </div>
+                          </div>
+                          <div class="panel-body bg-primary">
+                            <h3 class="no-margin text-white"><span class="semi-bold">£{{period.netCosts | number: 2}}</span></h3>
                           </div>
                         </div>
                       </div>
                       <div class="col-xs-3 m-t-40">
-                        <div class="panel panel-default height-180 bg-info">
+                        <div class="panel panel-default height-100 bg-info">
                           <div class="panel-heading">
                             <div class="panel-title text-white">
-                              Units
+                              Reported Units >
                             </div>
                           </div>
-                          <div class="panel-body center bg-info">
-                            <h1 class="text-white"><span class="semi-bold">{{period.units || 0}}</span></h1>
-                            <small class="text-white">Validation: {{period.validationUnits || 0}}</small>
+                          <div class="panel-body bg-info">
+                            <h3 class="no-margin text-white"><span class="semi-bold">{{period.units || 0}}</span></h3>
+                          </div>
+                        </div>
+                        <div class="panel panel-default height-100 bg-info">
+                          <div class="panel-heading">
+                            <div class="panel-title text-white">
+                              Input Sales Lines >
+                            </div>
+                          </div>
+                          <div class="panel-body bg-info">
+                            <h3 class="no-margin text-white"><span class="semi-bold">{{period.lines || 0}}</span></h3>
                           </div>
                         </div>
                       </div>
                       <div class="col-xs-3 m-t-40">
-                        <div class="panel panel-default height-180"
-                             ng-class="{ 'bg-danger': period.invalidLines > 0, 'bg-success': period.invalidLines <= 0 }">
-                          <div class="panel-heading">
-                            <div class="panel-title text-white">
-                              Invalid Lines
-                            </div>
-                          </div>
-                          <div class="panel-body center"
-                               ng-class="{ 'bg-danger': period.invalidLines > 0, 'bg-success': period.invalidLines <= 0 }">
-                            <h1 class="text-white"><span class="semi-bold">{{period.invalidLines || 0}}</span></h1>
-                          </div>
-                        </div>
+                        
                       </div>
                     </div>
                   </div>
@@ -328,69 +354,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
+                                  
                                 </tbody>
                               </table>
                             </div>
