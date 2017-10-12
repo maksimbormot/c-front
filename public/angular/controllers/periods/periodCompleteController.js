@@ -1,6 +1,6 @@
 angular.module('Curve')
-  .controller('periodCompleteController', ['$scope', '$routeParams', '$window', 'Session', 'Pagination', 'Period', 'Notification', 'Settings', 'Sales', 'Loader',
-    function($scope, $routeParams, $window, Session, Pagination, Period, Notification, Settings, Sales, Loader) {
+  .controller('periodCompleteController', ['$scope', '$routeParams', '$window', 'Session', 'Pagination', 'Period', 'Notification', 'Settings', 'Sales', 'Loader', 'Statement',
+    function($scope, $routeParams, $window, Session, Pagination, Period, Notification, Settings, Sales, Loader, Statement) {
       var controller = this;
       $scope.period = { salesFilesIds: [], costIds: [] };
       $scope.salesFiles = [];
@@ -36,6 +36,7 @@ angular.module('Curve')
             $scope.period = response.data;
             loadIncludeSalesFiles();
             loadIncludeCosts();
+            loadStatements();
             Loader.complete();
           } else {
             Loader.error('Error loading period, please try again or contact support');
@@ -114,6 +115,12 @@ angular.module('Curve')
             });
           });
         }
+      }
+
+      function loadStatements(){
+        Statement.all({ periodId: $scope.period._id }, function(response) {
+          $scope.statements = response.data.statements;
+        });
       }
 
       // Tabs

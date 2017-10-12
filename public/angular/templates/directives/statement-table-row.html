@@ -1,0 +1,18 @@
+<td ng-if="!noLinks" class="v-align-middle">
+  <input type="checkbox" class='select-unit' ng-model="statement.selected">
+</td>
+<td class="v-align-middle">
+  <a ng-if="!noLinks" href="#/statements/{{ statement._id }}">{{ statement.name }}</a>
+  <span ng-if="noLinks">{{ statement.name }}</span>
+</td>
+<td class="v-align-middle">{{ statement.openingValue | number: 2 }}</td>
+<td class="v-align-middle">{{ statement.grossAmount | number: 2 }}</td>
+<td class="v-align-middle">{{ statement.netAmount | number: 2 }}</td>
+<td class="v-align-middle">{{ statement.grossCosts | number: 2 }}</td>
+<td class="v-align-middle">{{ statement.netCosts | number: 2 }}</td>
+<td class="v-align-middle">
+	<span class="label label-success" ng-if="statement.status == 'Complete'">Approved</span>
+  <span class="label label-danger" ng-if="statement.status == 'Errored'">Errored</span>
+  <span class="label label-complete" ng-if="statement.status == 'Ingesting'">Pending</span>
+  <span class="label label-info" ng-if="statement.status !== 'Ingesting' && statement.status !== 'Errored' && statement.status !== 'Complete'">{{statement.status}}</span>
+</td>

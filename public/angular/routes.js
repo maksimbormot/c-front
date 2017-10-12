@@ -191,10 +191,10 @@ angular.module('Curve')
 			controller: 'statementEditController',
 			controllerAs: 'statementEditCtrl'
 		})
-		.when('/statements/new', {
-			templateUrl: '/angular/templates/periods/edit.html',
-			controller: 'statementEditController',
-			controllerAs: 'statementEditCtrl'
+		.when('/statements/:id', {
+			templateUrl: '/angular/templates/statements/view.html',
+			controller: 'statementViewController',
+			controllerAs: 'statementViewCtrl'
 		})
 		.when('/reports', {
 			templateUrl: '/angular/templates/reports/index.html'

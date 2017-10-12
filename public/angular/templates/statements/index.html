@@ -1,0 +1,71 @@
+<div class="jumbotron" data-pages="parallax">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <p>Curve</p>
+        </li>
+        <li><a href="/#/statements" class="active">Statements</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- Main Container -->
+<div class="container-fluid container-fixed-lg">
+  <!-- Search and Buttons -->
+  <div class="row m-b-20">
+    <div class="col-sm-12 col-md-4 col-md-offset-1 col-lg-4 col-lg-offset-2">
+      <form ng-submit="search()">
+        <div class="input-group transparent">
+          <input type="text" class="form-control" placeholder="Search" ng-model="searchText">
+          <span class="input-group-addon pointer" ng-click="search()">
+            <i class="pg-search"></i>
+          </span>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-12 col-md-6 col-md-offset-1 col-lg-6 col-md-offset-0 text-right">
+      
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title">
+            Statements
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-hover dataTable no-footer">
+              <thead>
+                <tr>
+                  <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
+                  <th ng-click="getSortedData('name')" ng-class="whatClassIsIt('name')">Name</th>
+                  <th ng-click="getSortedData('openingBalance')" ng-class="whatClassIsIt('openingBalance')">Opening</th>
+                  <th ng-click="getSortedData('grossSales')" ng-class="whatClassIsIt('grossSales')">Gross Sales</th>
+                  <th ng-click="getSortedData('netSales')" ng-class="whatClassIsIt('netSales')">Net Sales</th>
+                  <th ng-click="getSortedData('grossCosts')" ng-class="whatClassIsIt('grossCosts')">Gross Costs</th>
+                  <th ng-click="getSortedData('netCosts')" ng-class="whatClassIsIt('netCosts')">Net Costs</th>
+                  <th ng-click="getSortedData('status')" ng-class="whatClassIsIt('status')">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr statement-table-row ng-repeat="statement in statements" statement="statement"></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <pagination pages="pages" total="totalPages" current="currentPage" change-page="changePage(page)"></pagination>
+    </div>
+  </div>
+</div>
+

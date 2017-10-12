@@ -5,9 +5,9 @@
         <li>
           <p>Curve</p>
         </li>
-        <li><a href="/#/periods">Periods</a></li>
-        <li ng-show="!period._id"><a href="" class="active">Create</a></li>
-        <li ng-show="period._id"><a href="/#/periods/{{period._id}}/edit" class="active">{{period.name}}</a></li>
+        <li><a href="/#/statements">Periods</a></li>
+        <li ng-show="!statement._id"><a href="" class="active">Create</a></li>
+        <li ng-show="statement._id"><a href="/#/statements/{{statement._id}}" class="active">{{statement.name}}</a></li>
         </li>
       </ul>
     </div>
@@ -18,18 +18,17 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-8">
-        <h3>{{period.name}}</h3>
-        <h5>{{period.accountingPeriod}}</h5>
+        <h3>{{statement.name}}</h3>
+        <h5>{{statement.accountingPeriod}}</h5>
       </div>
       <div class="col-xs-4 text-right">
-        <button class="btn btn-complete" ng-click="runCalculation()">Reprocess</button>
         <div class="btn-group dropdown-default"> <a class="btn dropdown-toggle" data-toggle="dropdown" style="width: 141px;" aria-expanded="false"> Download <span class="caret"></span> </a>
           <ul class="dropdown-menu " style="width: 141px;">
             <li>
-              <a target="_blank" href="{{period.allCalculatedSalesCsvPublicLink}}">All Sales</a>
+              <a target="_blank" href="{{statement.salesCsvPublicLink}}">All Sales</a>
             </li>
             <li>
-              <a target="_blank" href="{{period.allCalculatedCostsCsvPublicLink}}">All Costs</a>
+              <a target="_blank" href="{{statement.costsCsvPublicLink}}">All Costs</a>
             </li>
           </ul>
         </div>
@@ -51,9 +50,6 @@
           <li ng-click="setTab('errors')">
             <a data-toggle="tab" aria-expanded="false"><span>Sales</span></a>
           </li>
-          <li ng-click="setTab('statements')">
-            <a data-toggle="tab" aria-expanded="false"><span>Statements</span></a>
-          </li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
@@ -67,7 +63,7 @@
                     </div>
                   </div>
                   <div class="panel-body bg-complete">
-                    <h3 class="text-white no-margin"><span class="semi-bold">£{{period.grossAmount | number: 2}}</span></h3>
+                    <h3 class="text-white no-margin"><span class="semi-bold">£{{statement.grossAmount | number: 2}}</span></h3>
                   </div>
                 </div>
                 <div class="panel panel-default height-100 bg-complete">
@@ -77,7 +73,7 @@
                     </div>
                   </div>
                   <div class="panel-body bg-primary">
-                    <h3 class="text-white no-margin"><span class="semi-bold">£{{period.netAmount | number: 2}}</span></h3>
+                    <h3 class="text-white no-margin"><span class="semi-bold">£{{statement.netAmount | number: 2}}</span></h3>
                   </div>
                 </div>
               </div>
@@ -89,7 +85,7 @@
                     </div>
                   </div>
                   <div class="panel-body bg-primary">
-                    <h3 class="no-margin text-white"><span class="semi-bold">£{{period.grossCosts | number: 2}}</span></h3>
+                    <h3 class="no-margin text-white"><span class="semi-bold">£{{statement.grossCosts | number: 2}}</span></h3>
                   </div>
                 </div>
                 <div class="panel panel-default height-100 bg-primary-light">
@@ -99,7 +95,7 @@
                     </div>
                   </div>
                   <div class="panel-body bg-primary">
-                    <h3 class="no-margin text-white"><span class="semi-bold">£{{period.netCosts | number: 2}}</span></h3>
+                    <h3 class="no-margin text-white"><span class="semi-bold">£{{statement.netCosts | number: 2}}</span></h3>
                   </div>
                 </div>
               </div>
@@ -111,7 +107,7 @@
                     </div>
                   </div>
                   <div class="panel-body bg-info-dark">
-                    <h3 class="no-margin text-white"><span class="semi-bold">{{period.units || 0}}</span></h3>
+                    <h3 class="no-margin text-white"><span class="semi-bold">{{statement.units || 0}}</span></h3>
                   </div>
                 </div>
                 <div class="panel panel-default height-100 bg-info">
@@ -121,7 +117,7 @@
                     </div>
                   </div>
                   <div class="panel-body bg-info-light">
-                    <h3 class="no-margin text-white"><span class="semi-bold">{{period.lines || 0}}</span></h3>
+                    <h3 class="no-margin text-white"><span class="semi-bold">{{statement.lines || 0}}</span></h3>
                   </div>
                 </div>
               </div>
@@ -321,40 +317,6 @@
                         </thead>
                         <tbody>
                           <tr sales-unmapped-table-row ng-repeat="sale in sales" sale="sale" no-checkbox="true" no-edit="true"></tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div ng-show="activeTab === 'statements'">
-            <div class="row">
-              <div class="col-xs-12">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <div class="panel-title">
-                      Statements
-                    </div>
-                  </div>
-                  <div class="panel-body">
-                    <div class="table-responsive">
-                      <table class="table table-hover dataTable no-footer">
-                        <thead>
-                          <tr>
-                            <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
-                            <th>Name</th>
-                            <th>Opening</th>
-                            <th>Gross Sales</th>
-                            <th>Net Sales</th>
-                            <th>Gross Costs</th>
-                            <th>Net Costs</th>
-                            <th>Status</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr statement-table-row ng-repeat="statement in statements" statement="statement"></tr>
                         </tbody>
                       </table>
                     </div>
