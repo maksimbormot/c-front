@@ -89,6 +89,10 @@
                       </ui-select-choices>
                     </ui-select>
                   </div>
+                  <div class="form-group required" ng-if="contract.type == 'Profit Share'">
+                    <label>Profit Share %</label>
+                    <input type="number" class="form-control" ng-model="contract.profitSharePercentage">
+                  </div>
                 </div>
               </div>
             </div>            
