@@ -376,7 +376,7 @@
                 <ui-select-match allow-clear="true">
                   <span ng-bind="$select.selected"></span>
                 </ui-select-match>
-                <ui-select-choices repeat="item in catTypes">
+                <ui-select-choices repeat="item in catTypes | filter: $select.search">
                   <span ng-bind="item"></span>
                 </ui-select-choices>
               </ui-select>
@@ -387,7 +387,7 @@
                 <ui-select-match allow-clear="true">
                   <span ng-bind="$select.selected"></span>
                 </ui-select-match>
-                <ui-select-choices repeat="item in distributionChannels">
+                <ui-select-choices repeat="item in distributionChannels | filter: $select.search">
                   <span ng-bind="item"></span>
                 </ui-select-choices>
               </ui-select>
@@ -398,7 +398,7 @@
                 <ui-select-match allow-clear="true">
                   <span ng-bind="$select.selected"></span>
                 </ui-select-match>
-                <ui-select-choices repeat="item in configurations">
+                <ui-select-choices repeat="item in configurations | filter: $select.search">
                   <span ng-bind="item"></span>
                 </ui-select-choices>
               </ui-select>
@@ -409,7 +409,7 @@
                 <ui-select-match allow-clear="true">
                   <span ng-bind="$select.selected"></span>
                 </ui-select-match>
-                <ui-select-choices repeat="item in priceCategories">
+                <ui-select-choices repeat="item in priceCategories | filter: $select.search">
                   <span ng-bind="item"></span>
                 </ui-select-choices>
               </ui-select>
@@ -430,7 +430,7 @@
                 <ui-select-match allow-clear="true">
                   <span ng-bind="$select.selected.code"></span>
                 </ui-select-match>
-                <ui-select-choices repeat="currency.code as currency in currencies | orderBy: 'code'">
+                <ui-select-choices repeat="currency.code as currency in currencies | filter: $select.search | orderBy: 'code'">
                   <span ng-bind-html="currency.code"></span>
                   <span> &nbsp; - &nbsp; </span>
                   <span ng-bind-html="currency.name"></span>
@@ -447,7 +447,7 @@
                 <ui-select-match allow-clear="true">
                   <span ng-bind="$select.selected.name"></span>
                 </ui-select-match>
-                <ui-select-choices group-by="groupFind" repeat="territory.code as territory in territories">
+                <ui-select-choices group-by="groupFind" repeat="territory.code as territory in territories | filter: $select.search">
                   <span class="country" ng-bind="territory.name"></span>
                 </ui-select-choices>
               </ui-select>
@@ -477,10 +477,10 @@
               <label>Release</label>
               <ui-select ng-model="sale.releaseId">
                 <ui-select-match allow-clear="true">
-                  <span ng-bind="$select.selected.title"></span>
+                  <span ng-bind="$select.selected.title + ' - ' + $select.selected.catNo"></span>
                 </ui-select-match>
-                <ui-select-choices repeat="item._id as item in releases | filter:$select.search">
-                  <span ng-bind="item.title"></span>
+                <ui-select-choices repeat="item._id as item in releases | filter: $select.search">
+                  <span ng-bind="item.title + ' - ' + item.catNo"></span>
                 </ui-select-choices>
               </ui-select>
             </div>
@@ -490,10 +490,10 @@
               <label>Track</label>
               <ui-select ng-model="sale.trackId">
                 <ui-select-match allow-clear="true">
-                  <span ng-bind="$select.selected.title"></span>
+                  <span ng-bind="$select.selected.title + ' - ' + $select.selected.isrc"></span>
                 </ui-select-match>
-                <ui-select-choices repeat="item._id as item in tracks | filter:$select.search">
-                  <span ng-bind="item.title"></span>
+                <ui-select-choices repeat="item._id as item in tracks | filter: $select.search">
+                  <span ng-bind="item.title + ' - ' + item.isrc"></span>
                 </ui-select-choices>
               </ui-select>
             </div>
@@ -501,10 +501,10 @@
               <label>Work</label>
               <ui-select ng-model="sale.workId">
                 <ui-select-match>
-                  <span ng-bind="$select.selected.title"></span>
+                  <span ng-bind="$select.selected.title + ' - ' + $select.selected.identifier"></span>
                 </ui-select-match allow-clear="true">
-                <ui-select-choices repeat="item._id as item in works | filter:$select.search">
-                  <span ng-bind="item.title"></span>
+                <ui-select-choices repeat="item._id as item in works | filter: $select.search">
+                  <span ng-bind="item.title + ' - ' + item.identifier"></span>
                 </ui-select-choices>
               </ui-select>
             </div>
