@@ -36,6 +36,7 @@ angular.module('Curve')
             SalesTemplate.get($scope.salesFile.salesTemplateId, function(response) { 
               if(response.status == 200) {
                 $scope.salesTemplate = response.data;
+                updateIncludesFields();
               }
             });
             if($scope.salesFile.status === 'Ingesting') { setTimeout(init, 10000); }
@@ -155,7 +156,7 @@ angular.module('Curve')
       }
     }
 
-    $scope.$watch('salesTemplate.overwriteFields', updateIncludesFields, true);
-    $scope.$watch('salesTemplate.fields', updateIncludesFields, true);
+    $scope.$watch('salesFile.overwriteFields', updateIncludesFields, true);
+    $scope.$watch('salesFile.fields', updateIncludesFields, true);
 
   }]);
