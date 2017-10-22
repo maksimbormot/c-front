@@ -1,6 +1,6 @@
 angular.module('Curve')
-  .controller('salesImportController', ['$scope', '$routeParams', '$window', 'Session', 'Notification', 'Territories', 'Settings', 'Upload', 'SalesFile', 'Currencies', 'Loader',
-    function($scope, $routeParams, $window, Session, Notification, Territories, Settings, Upload, SalesFile, Currencies, Loader) {
+  .controller('salesImportController', ['$scope', '$routeParams', '$window', 'Session', 'Notification', 'Territories', 'Settings', 'Upload', 'SalesFile', 'SalesTemplate', 'Currencies', 'Loader',
+    function($scope, $routeParams, $window, Session, Notification, Territories, Settings, Upload, SalesFile, SalesTemplate, Currencies, Loader) {
     var controller = this;
     $scope.token = '?applicationToken=12345&token=' + Session.token;
     $scope.salesImport = false;
@@ -33,6 +33,11 @@ angular.module('Curve')
             if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.transactionDate) { $scope.salesFile.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate); }
             setupExampleTableHeaders();
             setupExampleTableBody();
+            SalesTemplate.get($scope.salesFile.salesTemplateId, function(response) { 
+              if(response.status == 200) {
+                $scope.salesTemplate = response.data;
+              }
+            });
             if($scope.salesFile.status === 'Ingesting') { setTimeout(init, 10000); }
             if(callback) { callback(); }
           } else {
@@ -113,5 +118,44 @@ angular.module('Curve')
         });
       }
     }
+
+    // Required Fields
+    $scope.includesTerritory = false;
+    $scope.includesDistributionChannel = false;
+    $scope.includesConfiguration = false;
+    $scope.includesPriceCategory = false;
+    $scope.includesCurrency = false;
+    $scope.includesExchangeRate = false;
+    $scope.includesSource = false;
+    $scope.includesUnits = false;
+    $scope.includesNetAmount = false;
+
+    function updateIncludesFields() {
+      $scope.includesTerritory = valueOrFalse($scope.salesFile.overwriteFields.originalTerritory, "originalTerritory");
+      $scope.includesDistributionChannel = valueOrFalse($scope.salesFile.overwriteFields.originalDistributionChannel, "originalDistributionChannel");
+      $scope.includesConfiguration = valueOrFalse($scope.salesFile.overwriteFields.originalConfiguration, "originalConfiguration");
+      $scope.includesPriceCategory = valueOrFalse($scope.salesFile.overwriteFields.originalPriceCategory, "originalPriceCategory");
+      $scope.includesCurrency = valueOrFalse($scope.salesFile.overwriteFields.originalCurrency, "originalCurrency");
+      $scope.includesSource = valueOrFalse($scope.salesFile.overwriteFields.source, "source");
+      $scope.includesExchangeRate = valueOrFalse($scope.salesFile.overwriteFields.exchangeRate, "exchangeRate");
+      $scope.includesUnits = valueOrFalse($scope.salesFile.overwriteFields.units, "units");
+      $scope.includesNetAmount = valueOrFalse($scope.salesFile.overwriteFields.netAmount, "netAmount");
+    }
+
+    function valueOrFalse(value, field) {
+      if($scope.salesTemplate) {
+        var fields = $scope.salesTemplate.fields.map(function(val) { return val.field });
+        if(field && fields.indexOf(field) != -1) {
+          return true;
+        } else if(value) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+
+    $scope.$watch('salesTemplate.overwriteFields', updateIncludesFields, true);
+    $scope.$watch('salesTemplate.fields', updateIncludesFields, true);
 
   }]);
