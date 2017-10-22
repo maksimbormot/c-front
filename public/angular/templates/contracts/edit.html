@@ -201,79 +201,77 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="panel panel-default">
-                <div class="panel-heading">
-                  <div class="panel-title">
-                    <div class="panel panel-transparent">
-                      <!-- Nav tabs -->
-                      <ul class="nav nav-tabs hidden-sm hidden-xs" data-init-reponsive-tabs="dropdownfx">
-                        <li class="active" ng-click="setCatalogueTab('releases')">
-                          <a data-toggle="tab" aria-expanded="true"><span>Releases</span></a>
-                        </li>
-                        <li ng-click="setCatalogueTab('tracks')">
-                          <a data-toggle="tab" aria-expanded="false"><span>Tracks</span></a>
-                        </li>
-                        <li ng-click="setCatalogueTab('works')">
-                          <a data-toggle="tab" aria-expanded="false"><span>Works</span></a>
-                        </li>
-                      </ul>
-                      <div class="row" ng-show="activeCatalogueTab === 'releases'">
-                        <div class="col-sm-12">
-                          <div class="table-responsive">
-                            <table class="table table-hover table-condensed dataTable no-footer">
-                              <thead>
-                                <tr>
-                                  <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
-                                  <th>Title</th>
-                                  <th>Artist</th>
-                                  <th>Cat No</th>
-                                  <th>Barcode</th>
-                                  <th>Format</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr release-table-row ng-repeat="release in contract.releases" release="release"></tr>
-                              </tbody>
-                            </table>
-                          </div>
+                <div class="panel-body">
+                  <div class="panel panel-transparent">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs hidden-sm hidden-xs" data-init-reponsive-tabs="dropdownfx">
+                      <li class="active" ng-click="setCatalogueTab('releases')">
+                        <a data-toggle="tab" aria-expanded="true"><span>Releases</span></a>
+                      </li>
+                      <li ng-click="setCatalogueTab('tracks')">
+                        <a data-toggle="tab" aria-expanded="false"><span>Tracks</span></a>
+                      </li>
+                      <li ng-click="setCatalogueTab('works')">
+                        <a data-toggle="tab" aria-expanded="false"><span>Works</span></a>
+                      </li>
+                    </ul>
+                    <div class="row" ng-show="activeCatalogueTab === 'releases'">
+                      <div class="col-sm-12">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-condensed dataTable no-footer">
+                            <thead>
+                              <tr>
+                                <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
+                                <th>Title</th>
+                                <th>Artist</th>
+                                <th>Cat No</th>
+                                <th>Barcode</th>
+                                <th>Format</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr release-table-row ng-repeat="release in contract.releases" release="release"></tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <div class="row" ng-show="activeCatalogueTab === 'tracks'">
-                        <div class="col-sm-12">
-                          <div class="table-responsive">
-                            <table class="table table-hover table-condensed dataTable no-footer">
-                              <thead>
-                                <tr>
-                                  <th class="table-checkbox"><input type="checkbox"></th>
-                                  <th>Title</th>
-                                  <th>Artist</th>
-                                  <th>ISRC</th>
-                                  <th>P Line</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr track-table-row ng-repeat="track in contrac.tracks" track="track"></tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <div class="row" ng-show="activeCatalogueTab === 'tracks'">
+                      <div class="col-sm-12">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-condensed dataTable no-footer">
+                            <thead>
+                              <tr>
+                                <th class="table-checkbox"><input type="checkbox"></th>
+                                <th>Title</th>
+                                <th>Artist</th>
+                                <th>ISRC</th>
+                                <th>P Line</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr track-table-row ng-repeat="track in contract.tracks" track="track"></tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                      <div class="row" ng-show="activeCatalogueTab === 'works'">
-                        <div class="col-sm-12">
-                          <div class="table-responsive">
-                            <table class="table table-hover table-condensed dataTable no-footer">
-                              <thead>
-                                <tr>
-                                  <th class="table-checkbox"><input type="checkbox"></th>
-                                  <th>Title</th>
-                                  <th>Composer</th>
-                                  <th>ISWC</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr work-table-row ng-repeat="work in contract.works" work="work"></tr>
-                              </tbody>
-                            </table>
-                          </div>
+                    </div>
+                    <div class="row" ng-show="activeCatalogueTab === 'works'">
+                      <div class="col-sm-12">
+                        <div class="table-responsive">
+                          <table class="table table-hover table-condensed dataTable no-footer">
+                            <thead>
+                              <tr>
+                                <th class="table-checkbox"><input type="checkbox"></th>
+                                <th>Title</th>
+                                <th>Composer</th>
+                                <th>ISWC</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr work-table-row ng-repeat="work in contract.works" work="work"></tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>
@@ -308,7 +306,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <cost-table-row ng-repeat="cost in contract.costs" cost="cost"></cost-table-row>
+                        <tr cost-table-row ng-repeat="cost in contract.costs" cost="cost"></tr>
                       </tbody>
                     </table>
                   </div>
