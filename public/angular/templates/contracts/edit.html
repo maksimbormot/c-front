@@ -39,6 +39,9 @@
         <li ng-click="setTab('costs')"> 
           <a data-toggle="tab" aria-expanded="false"><span>Costs</span></a>
         </li>
+        <li ng-click="setTab('transactions')"> 
+          <a data-toggle="tab" aria-expanded="false"><span>Transactions</span></a>
+        </li>
       </ul>
       <!-- Tab panes -->
       <div class="tab-content">
@@ -100,10 +103,14 @@
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <div class="panel-title">
-                    Payout
+                    Finances
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
+                  <div class="form-group required">
+                    <label>Opening Balance</label>
+                    <input type="text" class="form-control" ng-model="contract.openingBalance">
+                  </div>
                   <div class="form-group required">
                     <label>Min Payout</label>
                     <input type="text" class="form-control" ng-model="contract.minPayout">
@@ -309,6 +316,51 @@
                         <tr cost-table-row ng-repeat="cost in contract.costs" cost="cost"></tr>
                       </tbody>
                     </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div ng-show="activeTab === 'transactions'">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    Transactions
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="col-xs-12 text-right">
+                      <a href="/#/transactions/new?contractId={{contract._id}}" class="btn btn-complete"><i class="fa fa-plus"></i>&nbsp;Create</a>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="table-responsive">
+                        <table class="table table-hover table-condensed dataTable no-footer">
+                          <thead>
+                            <tr>
+                              <th class="col-xs-2">Date</th>
+                              <th>Name</th>
+                              <th class="col-xs-2">Amount</th>
+                              <th class="col-xs-2">Balance</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td class="v-align-middle"></td>
+                              <td class="v-align-middle">Opening Balance</td>
+                              <td class="v-align-middle"></td>
+                              <td class="v-align-middle">{{ contract.openingBalance }}</td>
+                            </tr>
+                            <tr transaction-table-row ng-repeat="transaction in contract.transactions" transaction="transaction" contract-id="contract._id"></tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

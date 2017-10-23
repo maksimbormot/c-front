@@ -1,0 +1,4 @@
+<td class="v-align-middle">{{ transaction.date | date : 'dd/MM/yyyy' }}</td>
+<td class="v-align-middle"><a href="#/transactions/{{ transaction._id }}/edit?contractId={{contractId}}">{{ transaction.name }}</a></td>
+<td class="v-align-middle">{{ transaction.amount | number: 2 }}</td>
+<td class="v-align-middle">{{ transaction.balance | number: 2 }}</td>

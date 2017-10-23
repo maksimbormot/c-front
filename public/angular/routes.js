@@ -222,5 +222,15 @@ angular.module('Curve')
 			controller: 'salesTemplateEditController',
 			controllerAs: 'salesTemplateCtrl'
 		})
+		.when('/transactions/new', {
+			templateUrl: '/angular/templates/transactions/edit.html',
+			controller: 'transactionEditController',
+			controllerAs: 'transactionCtrl'
+		})
+		.when('/transactions/:id/edit', {
+			templateUrl: '/angular/templates/transactions/edit.html',
+			controller: 'transactionEditController',
+			controllerAs: 'transactionCtrl'
+		})
 		.otherwise({ redirectTo: '/' })
 	}); 
