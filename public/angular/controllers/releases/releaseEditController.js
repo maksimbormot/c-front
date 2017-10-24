@@ -49,14 +49,14 @@ angular.module('Curve')
 			$scope.releaseDatePopup = true;
 		}    
 		$scope.addSalesReturnsRights = function() {
-			$scope.release.salesReturnsRights.push({});
+			$scope.release.salesReturnsRights.push({ percentage: 100 });
 		}
 		$scope.deleteSalesReturnsRights = function(contract) {
 			var index = $scope.release.salesReturnsRights.indexOf(contract);
 			$scope.release.salesReturnsRights.splice(index, 1);
 		}
 		$scope.addCostsRights = function() {
-			$scope.release.costsRights.push({});
+			$scope.release.costsRights.push({ percentage: 100 });
 		}
 		$scope.deleteCostsRights = function(contract) {
 			var index = $scope.release.costsRights.indexOf(contract);
