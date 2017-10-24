@@ -198,148 +198,90 @@
                   </th>
                   <th ng-click="getSortedData('status')" ng-class="whatClassIsIt('status')">
                     Status 
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'status' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'status' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('catType')" ng-class="whatClassIsIt('catType')">
                     Cat type
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'catType' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'catType' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('distributionChannel')" ng-class="whatClassIsIt('distributionChannel')">
                     Dist Channel
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'distributionChannel' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'distributionChannel' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('configuration')" ng-class="whatClassIsIt('configuration')">
                     Configuration
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'configuration' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'configuration' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('priceCategory')" ng-class="whatClassIsIt('priceCategory')">
                     Price cat
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'priceCategory' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'priceCategory' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('source')" ng-class="whatClassIsIt('source')">
                     Source
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'source' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'source' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('subSource')" ng-class="whatClassIsIt('subSource')">
                     Subsource
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'subSource' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'subSource' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('territory')" ng-class="whatClassIsIt('territory')">
                     Territory
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'territory' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'territory' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('barcode')" ng-class="whatClassIsIt('barcode')">
                     Barcode
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'barcode' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'barcode' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('catNo')" ng-class="whatClassIsIt('catNo')">
                     Cat no
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'catNo' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'catNo' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('isrc')" ng-class="whatClassIsIt('isrc')">
                     ISRC
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'isrc' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'isrc' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('identifier')" ng-class="whatClassIsIt('identifier')">
                     Identifier
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'identifier' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'identifier' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('units')" ng-class="whatClassIsIt('units')">
                     Units
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'units' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'units' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('salePrice')" ng-class="whatClassIsIt('salePrice')">
                     Sale price
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'salePrice' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'salePrice' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('grossAmount')" ng-class="whatClassIsIt('grossAmount')">
                     Gross
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'grossAmount' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'grossAmount' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('netAmount')" ng-class="whatClassIsIt('netAmount')">
                     Net
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'netAmount' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'netAmount' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('originalCurrency')" ng-class="whatClassIsIt('originalCurrency')">
                     Original currency
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'originalCurrency' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'originalCurrency' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('exchangeRate')" ng-class="whatClassIsIt('exchangeRate')">
                     Ex Rate
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'exchangeRate' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'exchangeRate' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('grossAmount')" ng-class="whatClassIsIt('grossAmount')">
                     Home Currency Gross
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'homeCurrencyGrossAmount' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'homeCurrencyGrossAmount' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('netAmount')" ng-class="whatClassIsIt('netAmount')">
                     Home Currency Net
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'homeCurrencyNetAmount' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'homeCurrencyNetAmount' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('originalReleaseTitle')" ng-class="whatClassIsIt('originalReleaseTitle')">
                     Release title
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'originalReleaseTitle' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'originalReleaseTitle' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('originalReleaseArtist')" ng-class="whatClassIsIt('originalReleaseArtist')">
                     Release artist
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'originalReleaseArtist' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'originalReleaseArtist' && orderDir === 'desc'"></i>
-                  </th>
-                  <th ng-click="getSortedData('originalTrackArtist')" ng-class="whatClassIsIt('originalTrackArtist')">
-                    Track artist
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'originalTrackArtist' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'originalTrackArtist' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('originalTrackTitle')" ng-class="whatClassIsIt('originalTrackTitle')">
                     Track title
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'originalTrackTitle' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'originalTrackTitle' && orderDir === 'desc'"></i>
+                  </th>
+                  <th ng-click="getSortedData('originalTrackArtist')" ng-class="whatClassIsIt('originalTrackArtist')">
+                    Track artist
                   </th>
                   <th ng-click="getSortedData('saleDate')" ng-class="whatClassIsIt('saleDate')">
                     Sale date
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'saleDate' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'saleDate' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('transactionDate')" ng-class="whatClassIsIt('transactionDate')">
                     Transaction date
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'transactionDate' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'transactionDate' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('releaseId')" ng-class="whatClassIsIt('releaseId')">
                     Release id
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'releaseId' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'releaseId' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('trackId')" ng-class="whatClassIsIt('trackId')">
                     Track id
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'trackId' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'trackId' && orderDir === 'desc'"></i>
                   </th>
                   <th ng-click="getSortedData('workId')" ng-class="whatClassIsIt('workId')">
                     Work id
-                    <i class="fa fa-sort-down" ng-if="orderBy === 'workId' && orderDir === 'asc'"></i>
-                    <i class="fa fa-sort-up" ng-if="orderBy === 'workId' && orderDir === 'desc'"></i>
                   </th>
                   <th></th>
                 </tr>
