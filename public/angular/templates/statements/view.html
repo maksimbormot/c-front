@@ -85,7 +85,10 @@
                     </div>
                   </div>
                   <div class="panel-body bg-primary">
-                    <h3 class="no-margin text-white"><span class="semi-bold">£{{statement.grossCosts | number: 2}}</span></h3>
+                    <h3 class="no-margin text-white">
+                      <span class="semi-bold" ng-if="statement.grossCosts">£{{statement.grossCosts | number: 2}}</span>
+                      <span class="semi-bold" ng-if="!statement.grossCosts">£0</span>
+                    </h3>
                   </div>
                 </div>
                 <div class="panel panel-default height-100 bg-primary-light">
@@ -95,7 +98,10 @@
                     </div>
                   </div>
                   <div class="panel-body bg-primary">
-                    <h3 class="no-margin text-white"><span class="semi-bold">£{{statement.netCosts | number: 2}}</span></h3>
+                    <h3 class="no-margin text-white">
+                      <span class="semi-bold" ng-if="statement.netCosts">£{{statement.netCosts | number: 2}}</span>
+                      <span class="semi-bold" ng-if="!statement.netCosts">£0</span>
+                    </h3>
                   </div>
                 </div>
               </div>
