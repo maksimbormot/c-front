@@ -132,6 +132,10 @@ angular.module('Curve')
         $scope.editType = 'filtered';
         $scope.sale = {};
       }
+      $scope.setupDeleteSingle = function(sale) {
+        $scope.deleteType = 'single';
+        $scope.sale = sale;
+      }
 
       $scope.updateSingle = function() {
         Loader.load();
@@ -142,6 +146,23 @@ angular.module('Curve')
               Loader.success('Sales line successfully updated');
             } else {
               Loader.error('Error saving sales line, please try again or contact support');
+            }
+          });
+        });
+      }
+
+      $scope.deleteSingle = function() {
+        Loader.load();
+        $('#modalDeleteSalesLine').modal('hide');
+        $('#modalDeleteSalesLine').on('hidden.bs.modal', function() {
+          Sales.delete($scope.sale._id, function(response) {
+            if(response.status == 200) {
+              controller.filter($scope.filter, function() {
+                $scope.filterSales = $scope.sales;
+                Loader.success('Sales line successfully delete');
+              });
+            } else {
+              Loader.error('Error deleting sales line, please try again or contact support');
             }
           });
         });

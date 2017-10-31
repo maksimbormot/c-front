@@ -7,7 +7,8 @@ angular.module('Curve')
 				sale: "=",
 				noCheckbox: "=",
 				noEdit: "=",
-				single: "&"
+				single: "&",
+				delete: "&"
 			}
 		}
 	});

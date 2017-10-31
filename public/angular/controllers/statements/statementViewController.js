@@ -1,11 +1,29 @@
 angular.module('Curve')
-  .controller('statementViewController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Statement', 'Notification', 'Loader', 'Settings',
-    function($scope, $routeParams, Session, Pagination, Statement, Notification, Loader, Settings) {
+  .controller('statementViewController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Statement', 'Notification', 'Loader', 'Settings', 'OutputSales',
+    function($scope, $routeParams, Session, Pagination, Statement, Notification, Loader, Settings, OutputSales) {
       var controller = this;
       $scope.salesFiles = [];
       $scope.costs = [];
       $scope.includeSalesFiles = [];
       $scope.includeCosts = [];
+      $scope.filter = {};
+
+      this.filterOutputSales = function(params, callback) {
+        Loader.load();
+        OutputSales.all(params, function(response) {
+          if(response.status == 200) {
+            $scope.outputSales = response.data.outputSales;
+            $scope.totalPages = response.data.meta.totalPages;
+            $scope.currentPage = response.data.meta.currentPage;
+            $scope.total = response.data.meta.total;
+            $scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages);
+            if(callback) { callback(); }
+            Loader.complete();
+          } else {
+            Loader.error(response.data.message);
+          }
+        });
+      };
 
       // Load Period if ID exists
       if($routeParams.id) {
@@ -17,7 +35,9 @@ angular.module('Curve')
             loadIncludeSalesFiles();
             loadIncludeCosts();
             init();
-            Loader.complete();
+            $scope.filter.periodId = $scope.statement.periodId;
+            $scope.filter.contractId = $scope.statement.contractId;
+            controller.filterOutputSales($scope.filter);
           } else {
             Loader.error('Error loading statement, please try again or contact support');
           }
@@ -37,6 +57,34 @@ angular.module('Curve')
           });
   
       }
+
+      $scope.getSortedData = function(orderBy) {
+        if($scope.orderBy == orderBy) {
+          $scope.orderDir = ($scope.orderDir == 'asc') ? 'desc' : 'asc';
+        }
+        $scope.orderBy = orderBy;
+        $scope.filter.orderBy = orderBy;
+        $scope.filter.orderDir = $scope.orderDir;
+        controller.filterOutputSales($scope.filter);
+      };
+      $scope.whatClassIsIt = function(field) {
+        if($scope.orderBy == field) {
+          if($scope.orderDir == 'asc') {
+            return 'sorting_asc';
+          } else {
+            return 'sorting_desc';
+          }
+        } else {
+          return 'sorting';
+        }
+      }
+      $scope.search = function() {
+        $scope.filter.periodId = $scope.statement.periodId;
+        $scope.filter.contractId = $scope.statement.contractId;
+        controller.filterOutputSales($scope.filter, function() {
+          Loader.success('Sales Successfully Searched');
+        });
+      };
       
       function loadIncludeSalesFiles() {
         console.log($scope.salesFiles);
