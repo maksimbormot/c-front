@@ -68,8 +68,11 @@
                 </div>
                 <div class="panel panel-default height-100 bg-complete">
                   <div class="panel-heading">
-                    <div class="panel-title text-white">
+                    <div class="panel-title text-white" ng-if="statement.contractType != 'Profit Share'">
                       Net Payout >
+                    </div>
+                    <div class="panel-title text-white" ng-if="statement.contractType == 'Profit Share'">
+                      Net Revenue >
                     </div>
                   </div>
                   <div class="panel-body bg-primary">
@@ -86,8 +89,7 @@
                   </div>
                   <div class="panel-body bg-primary">
                     <h3 class="no-margin text-white">
-                      <span class="semi-bold" ng-if="statement.grossCosts">£{{statement.grossCosts | number: 2}}</span>
-                      <span class="semi-bold" ng-if="!statement.grossCosts">£0</span>
+                      <span class="semi-bold">£{{statement.grossCosts | number: 2 || 0}}</span>
                     </h3>
                   </div>
                 </div>
@@ -99,8 +101,7 @@
                   </div>
                   <div class="panel-body bg-primary">
                     <h3 class="no-margin text-white">
-                      <span class="semi-bold" ng-if="statement.netCosts">£{{statement.netCosts | number: 2}}</span>
-                      <span class="semi-bold" ng-if="!statement.netCosts">£0</span>
+                      <span class="semi-bold">£{{statement.netCosts | number: 2 || 0}}</span>
                     </h3>
                   </div>
                 </div>
@@ -128,6 +129,26 @@
                 </div>
               </div>
               <div class="col-xs-3 m-t-40">
+                <div class="panel panel-default height-100 bg-info" ng-if="statement.contractType == 'Profit Share'">
+                  <div class="panel-heading">
+                    <div class="panel-title text-white">
+                      Profit Share Percentage >
+                    </div>
+                  </div>
+                  <div class="panel-body bg-info-dark">
+                    <h3 class="no-margin text-white"><span class="semi-bold">{{statement.profitShareRate | number: 2 || 0}}%</span></h3>
+                  </div>
+                </div>
+                <div class="panel panel-default height-100 bg-info" ng-if="statement.contractType == 'Profit Share'">
+                  <div class="panel-heading">
+                    <div class="panel-title text-white">
+                      Profit Share Net Payout >
+                    </div>
+                  </div>
+                  <div class="panel-body bg-info-light">
+                    <h3 class="no-margin text-white"><span class="semi-bold">{{statement.profitShareNetAmount | number: 2 || 0}}</span></h3>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

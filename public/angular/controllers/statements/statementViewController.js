@@ -12,6 +12,7 @@ angular.module('Curve')
         Loader.load();
         Statement.get($routeParams.id, function(response) {
           if(response.status == 200) {
+            console.log(response.data);
             $scope.statement = response.data;
             loadIncludeSalesFiles();
             loadIncludeCosts();
