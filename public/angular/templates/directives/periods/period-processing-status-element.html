@@ -1,0 +1,12 @@
+<span class="waiting" ng-if="index > currentStatus">
+  <i class="fa fa-check-circle-o"></i> {{name}}
+</span>
+<span class="complete" ng-if="index < currentStatus">
+  <i class="fa fa-check-circle-o"></i> {{name}}
+</span>
+<span class="processing" ng-if="index == currentStatus && (!erroredStatus || erroredStatus == -1)">
+  <md-progress-circular md-diameter="15"></md-progress-circular> {{name}}
+</span>
+<span class="errored" ng-if="index == erroredStatus">
+  <i class="fa fa-times-circle-o"></i> {{name}}
+</span>

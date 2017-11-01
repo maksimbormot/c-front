@@ -1,97 +1,112 @@
 /* General */
+
 .pointer {
-	cursor: pointer;
+    cursor: pointer;
 }
+
 
 /* Index Pages */
+
 .search-button:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
+
 /* Pagination */
+
 .pagination .current {
-	background-color: #e8e8e8;
+    background-color: #e8e8e8;
 }
 
 
 /* Tabs */
+
 .nav-tabs li:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
 
+
 /* Form Elements */
+
 .ui-select-offscreen {
-	display: none;
+    display: none;
 }
 
 .ui-select-search {
-	margin-left: 4px;
+    margin-left: 4px;
 }
 
 .ui-select-choices {
-	margin-left: 4px;
+    margin-left: 4px;
 }
 
 .ui-select-toggle {
-	margin-bottom: 0px;
+    margin-bottom: 0px;
 }
 
 .uib-datepicker-popup {
-	padding-left: 10px;
-	padding-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .uib-datepicker .btn {
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-left: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-left: 0;
 }
 
 .row-button {
-	margin-top: 25px;
+    margin-top: 25px;
 }
 
 tr .btn-sm {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
+
 /* Contract */
+
 .sales-row-field-smaller {
-	width: 9.5% !important;
+    width: 9.5% !important;
 }
 
 contract-sales-row .row .form-group {
-	padding-left: 5px !important;
- 	padding-right: 5px !important;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
 }
 
 contract-sales-row .row div .ui-select-container,
 contract-sales-row .row div .ui-select-container .ui-select-match {
- 	padding: 0 !important;
+    padding: 0 !important;
 }
 
 contract-sales-row .row div .ui-select-container .ui-select-match span {
- 	margin-left: 0 !important;
+    margin-left: 0 !important;
 }
-.file-image{
-	display:block;
-	width:40px;
-	margin:15px 0 5px 0;
+
+.file-image {
+    display: block;
+    width: 40px;
+    margin: 15px 0 5px 0;
 }
-.file-image div{
-	width:40px;
-	height:40px;
-	background: url('../img/file.png') no-repeat center center;
-	background-size: cover;
+
+.file-image div {
+    width: 40px;
+    height: 40px;
+    background: url('../img/file.png') no-repeat center center;
+    background-size: cover;
 }
-.file-image:hover{
-	cursor:pointer;
+
+.file-image:hover {
+    cursor: pointer;
 }
-.file-name{
-	color:#019fd2;
+
+.file-name {
+    color: #019fd2;
 }
-.total{
-	font-family: 'Montserrat';
+
+.total {
+    font-family: 'Montserrat';
     text-transform: uppercase;
     display: inline-block;
     letter-spacing: 0.02em;
@@ -107,89 +122,109 @@ contract-sales-row .row div .ui-select-container .ui-select-match span {
     -webkit-transition: opacity 0.3s ease;
     transition: opacity 0.3s ease;
 }
-table.sales-table{
-	table-layout: auto !important;
+
+table.sales-table {
+    table-layout: auto !important;
 }
+
 table.sales-table tbody tr td {
     font-size: 12px !important;
-	padding:8px 9px !important;
-	vertical-align:middle;
+    padding: 8px 9px !important;
+    vertical-align: middle;
 }
-table.sales-table thead tr th{
-	padding:0 9px 14px 9px !important;
+
+table.sales-table thead tr th {
+    padding: 0 9px 14px 9px !important;
 }
-table.sales-table thead tr th:first-child{
-	padding-left:9px !important;
+
+table.sales-table thead tr th:first-child {
+    padding-left: 9px !important;
 }
-.edit-unmapped{
+
+.edit-unmapped {
     width: 20px;
     height: 20px;
     background-color: #ffffff;
     background-image: none;
     border: 1px solid #3a8fc8;
-    color:#3a8fc8;
+    color: #3a8fc8;
     text-align: center;
     border-radius: 4px;
-    font-size:13.5px !important;
+    font-size: 13.5px !important;
 }
-.edit-unmapped:hover{
-	cursor:pointer;
+
+.edit-unmapped:hover {
+    cursor: pointer;
     border: 1px solid #48b0f7;
-    color:#48b0f7;	
+    color: #48b0f7;
 }
-.unmapped-edit-container{
-	width:50%;
-	margin:0 auto;
+
+.unmapped-edit-container {
+    width: 50%;
+    margin: 0 auto;
 }
-.center{
-	text-align:center;
+
+.center {
+    text-align: center;
 }
-.f-l{
-	float:left;
+
+.f-l {
+    float: left;
 }
-.w-13{
-	width:13%;
-	margin-right:5px;
+
+.w-13 {
+    width: 13%;
+    margin-right: 5px;
 }
-.template-example-table thead{
-	background-color: #e8e8e8;
+
+.template-example-table thead {
+    background-color: #e8e8e8;
     display: table-header-group;
     vertical-align: middle;
     border-color: inherit;
 }
+
 .template-example-table tr td {
     width: 150px !important;
     padding: 3px;
     border-right: 1px dotted grey;
     border-top: 1px dotted grey;
 }
+
 .template-example-table .form-group {
     margin: 2px;
 }
+
 .template-table-column .ui-select-container {
-	width: 150px !important;
+    width: 150px !important;
 }
+
 table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting_desc,
 table.dataTable thead .sorting_asc_disabled,
 table.dataTable thead .sorting_desc_disabled {
-  content: "";
-  background-position: right center;
-  background-repeat: no-repeat;
-  opacity: 1;
+    content: "";
+    background-position: right center;
+    background-repeat: no-repeat;
+    opacity: 1;
 }
-.template-example-table .form-control{
-	padding: 9px 0 9px 5px;
+
+.template-example-table .form-control {
+    padding: 9px 0 9px 5px;
 }
+
 
 /* Sales File */
+
 h3 .label {
-  margin-top: -20px;
+    margin-top: -20px;
 }
 
+
 /* Spinner */
-.spinner-overlay{
+
+.spinner-overlay {
     position: fixed;
     min-height: 50px;
     min-width: 50px;
@@ -198,24 +233,24 @@ h3 .label {
     left: -9999999px;
     width: 100%;
     height: 100%;
-    background-color: rgba(255,255,255,.85);
+    background-color: rgba(255, 255, 255, .85);
     opacity: 0;
     transition: opacity 500ms ease-in;
 }
 
-.spinner-active{
+.spinner-active {
     top: 0;
     left: 0;
     opacity: 0.9;
 }
 
-.spinner-block{
+.spinner-block {
     position: absolute;
     z-index: 1;
     top: 50%;
     left: 50%;
     margin: -15px 0 0 -15px;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 
 .spinner-block md-progress-circular path,
@@ -227,26 +262,34 @@ h3 .label {
     margin: 20px auto;
 }
 
+
 /* Complete*/
-.height-180{
-	height: 180px !important;
+
+.height-180 {
+    height: 180px !important;
 }
 
 .height-100 {
     height: 100px !important;
 }
 
+
 /*For search results*/
-.result-block{
-    min-height:77px;
+
+.result-block {
+    min-height: 77px;
 }
 
+
 /* Sales Lines */
+
 .sales-line-error {
     background-color: #ffcccc !important;
 }
 
+
 /* Period */
+
 .wizard-breadcrumb {
     text-align: center;
 }
@@ -254,4 +297,38 @@ h3 .label {
 .wizard-breadcrumb li,
 .wizard-breadcrumb li a {
     font-size: 12px !important;
+}
+
+.progress-checklist {
+    font-size: 20px;
+}
+
+.progress-checklist ul {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+.progress-checklist ul li {
+    margin-bottom: 7px;
+}
+
+.progress-checklist .waiting {
+    color: #dddddd;
+}
+
+.progress-checklist .complete i {
+    color: #10CFBD;
+}
+
+.progress-checklist .errored i {
+    color: #F55753;
+}
+
+.processing md-progress-circular {
+  display: inline-block !important;
+  margin-right: 1px;
+}
+
+.processing md-progress-circular path {
+    stroke: #019fd2;
 }
