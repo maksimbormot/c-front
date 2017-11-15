@@ -41,6 +41,24 @@
                   </ui-select-choices>
                 </ui-select>
               </div>
+              <div class="form-group required">
+                <label>Start Date</label>
+                <div id="datepicker-component" class="form-group input-group date">
+                  <input type="text" class="form-control" ng-model="period.startDate" uib-datepicker-popup="dd/MM/yyyy" is-open="startDatePopup" ng-click="openStartDatePopup()">
+                  <span class="input-group-addon" ng-click="openStartDatePopup()">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label>End Date</label>
+                <div id="datepicker-component" class="form-group input-group date">
+                  <input type="text" class="form-control" ng-model="period.endDate" uib-datepicker-popup="dd/MM/yyyy" is-open="endDatePopup" ng-click="openEndDatePopup()">
+                  <span class="input-group-addon" ng-click="openEndDatePopup()">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
           <div class="row m-t-20">

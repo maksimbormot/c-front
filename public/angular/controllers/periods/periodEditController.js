@@ -3,7 +3,7 @@ angular.module('Curve')
     function($scope, $routeParams, $window, Session, Period, Notification, Settings, Loader, Years) {
       var controller = this;
       $scope.period = { salesFilesIds: [], costIds: [] };
-      $scope.accountingPeriods = ["H1", "H2", "Q1", "Q2", "Q3", "Q4"];
+      $scope.accountingPeriods = ["H1", "H2", "Q1", "Q2", "Q3", "Q4", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8", "M9", "M10", "M11", "M12"];
       $scope.years = Years;
       $scope.salesFiles = [];
       $scope.costs = [];
@@ -19,8 +19,8 @@ angular.module('Curve')
       $scope.contractsTotal = 0;
       $scope.statements = [];
       $scope.statementsTotal = 0;
-      $scope.processingStatuses = ["Clearing Previous Data", "Updating Catalogue Data", "Calculating Sales", "Calculating Costs", "Creating Period Sales CSV", "Creating Period Costs CSV", "Setting Period Headline Data", "Creating Statements", "Setting Statement Headline Data", "Setting Contract Data to Sales", "Creating Statement CSVs"];
-      $scope.processingErrorStatuses = ["Errored in Clearing Previous Data", "Sales Calculation Errored", "Costs Calculation Errored", "Sales CSV Creation Errored", "Costs CSV Creation Errored", "Getting Headline Data Errored", "Creating Statements Errored", "Getting Statement Figures Errored", "Setting Contract Values Errored", "Getting Statement CSVs Errored"];
+      $scope.processingStatuses = ["Clearing Previous Data", "Updating Catalogue Data", "Calculating Sales", "Calculating Costs", "Creating Period Sales CSV", "Creating Period Costs CSV", "Setting Period Headline Data", "Creating Statements", "Setting Statement Headline Data", "Setting Contract Data to Sales", "Creating Statement CSVs", "Setting Period Analysis Data", "Setting Statement Analysis Data", "Creating Statement PDFs"];
+      $scope.processingErrorStatuses = ["Errored in Clearing Previous Data", "Sales Calculation Errored", "Costs Calculation Errored", "Sales CSV Creation Errored", "Costs CSV Creation Errored", "Getting Headline Data Errored", "Creating Statements Errored", "Getting Statement Figures Errored", "Setting Contract Values Errored", "Getting Statement CSVs Errored", "Getting Period Analysis Data Errored", "Getting Statement Analysis Data Errored", "Creating Statement PDFs Errored"];
       $scope.currentStatusIndex = 0;
 
       // Load Period if ID exists
@@ -39,6 +39,8 @@ angular.module('Curve')
               console.log($scope.period);
               loadIncludeSalesFiles();
               loadIncludeCosts();
+              if(response.data.startDate) { $scope.period.startDate = new Date(response.data.startDate); }
+              if(response.data.endDate) { $scope.period.endDate = new Date(response.data.endDate); }
               Loader.complete();
               if($scope.period.status === 'Processing') { setTimeout(init, 1000); }
             } else {
@@ -149,8 +151,6 @@ angular.module('Curve')
           });
         }
       }
-
-
 
       function save() {
         if(!$scope.period._id) {
