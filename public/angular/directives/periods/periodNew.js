@@ -7,6 +7,7 @@ angular.module('Curve')
 			link: function($scope){
 				$scope.startDatePopup = false;
 	      $scope.endDatePopup = false;
+	      $scope.accountingDatePopup = false;
 
 	      $scope.openStartDatePopup = function() {
 	        $scope.startDatePopup = true;
@@ -14,6 +15,10 @@ angular.module('Curve')
 
 	      $scope.openEndDatePopup = function() {
 	        $scope.endDatePopup = true;
+	      }
+
+	      $scope.openAccountingDatePopup = function() {
+	        $scope.accountingDatePopup = true;
 	      }
 
 			}

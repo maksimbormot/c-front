@@ -41,6 +41,7 @@ angular.module('Curve')
               loadIncludeCosts();
               if(response.data.startDate) { $scope.period.startDate = new Date(response.data.startDate); }
               if(response.data.endDate) { $scope.period.endDate = new Date(response.data.endDate); }
+              if(response.data.accountingDate) { $scope.period.accountingDate = new Date(response.data.accountingDate); }
               Loader.complete();
               if($scope.period.status === 'Processing') { setTimeout(init, 1000); }
             } else {
