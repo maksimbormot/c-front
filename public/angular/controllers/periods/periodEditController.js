@@ -43,7 +43,7 @@ angular.module('Curve')
               if(response.data.endDate) { $scope.period.endDate = new Date(response.data.endDate); }
               if(response.data.accountingDate) { $scope.period.accountingDate = new Date(response.data.accountingDate); }
               Loader.complete();
-              if($scope.period.status === 'Processing') { setTimeout(init, 1000); }
+              if($scope.period.status === 'Processing') { setTimeout(init, 500); }
             } else {
               Loader.error('Error loading period, please try again or contact support');
             }
