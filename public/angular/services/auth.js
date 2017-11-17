@@ -18,10 +18,11 @@ angular.module('Curve')
 							Session.id = tokenPayload.id;						
 							Session.userType = data.userType;
 							$rootScope.$broadcast('user-logged-in', Session);
+							callback(Session);
 						} else {
 							window.location.replace(window.location.origin + '/login.html');
+							callback(Session);
 						}
-						callback(Session);
 					}).error(function(data) {
 						console.log(data);
 						window.location.replace(window.location.origin + '/login.html');

@@ -185,9 +185,11 @@ angular.module('Curve')
 
       $scope.runCalculation = function() {
         Loader.load();
-        Period.runCalculation($scope.period._id, function() {
-          $window.location.href = "#/periods";
-          Loader.success('Period sent for calculation');
+        Period.update($scope.period._id, $scope.period, function(response) {
+          Period.runCalculation($scope.period._id, function() {
+            $window.location.href = "#/periods";
+            Loader.success('Period sent for calculation');
+          });
         });
       }
 
