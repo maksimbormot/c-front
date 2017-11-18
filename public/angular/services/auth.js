@@ -4,10 +4,10 @@ angular.module('Curve')
 			test: function(token, callback) {
 				if(window.location.origin === "http://localhost:8082") {
 					Session.apiUrl = "http://localhost:8081";
-				} else if(window.location.origin === "http://staging.curveroyaltysystems.com:8082" || window.location.origin == "http://Curve-tomallen654558.codeanyapp.com:8082") {
-					Session.apiUrl = "http://staging.curveroyaltysystems.com:8081";
+				} else if(window.location.origin === "http://staging.curveroyaltysystems.com" || window.location.origin == "http://Curve-tomallen654558.codeanyapp.com:8082") {
+					Session.apiUrl = "https://staging-api.curveroyaltysystems.com";
 				} else {
-					Session.apiUrl = "http://staging.curveroyaltysystems.com:8081";
+					Session.apiUrl = "https://api.curveroyaltysystems.com";
 				}
 				if(token) {
 					$http({ method: 'GET', url: Session.apiUrl + '/authenticate/test_token?applicationToken=12345&token=' + token }).success(function(data){
