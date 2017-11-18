@@ -9,6 +9,7 @@ angular.module('Curve')
 				} else {
 					Session.apiUrl = "https://api.curveroyaltysystems.com";
 				}
+				console.log(Session.apiUrl);
 				if(token) {
 					$http({ method: 'GET', url: Session.apiUrl + '/authenticate/test_token?applicationToken=12345&token=' + token }).success(function(data){
 						if(data.success == true) {
@@ -29,6 +30,7 @@ angular.module('Curve')
 						callback(Session);
 					});
 				} else {
+					console.log("No token");
 					window.location.replace(window.location.origin + '/login.html');
 					callback(Session);
 				}
