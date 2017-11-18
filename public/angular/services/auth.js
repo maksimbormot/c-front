@@ -4,7 +4,7 @@ angular.module('Curve')
 			test: function(token, callback) {
 				if(window.location.origin === "http://localhost:8082") {
 					Session.apiUrl = "http://localhost:8081";
-				} else if(window.location.origin === "http://staging.curveroyaltysystems.com" || window.location.origin == "http://Curve-tomallen654558.codeanyapp.com:8082") {
+				} else if(window.location.origin === "https://staging.curveroyaltysystems.com" || window.location.origin == "http://Curve-tomallen654558.codeanyapp.com:8082") {
 					Session.apiUrl = "https://staging-api.curveroyaltysystems.com";
 				} else {
 					Session.apiUrl = "https://api.curveroyaltysystems.com";
@@ -30,7 +30,6 @@ angular.module('Curve')
 						callback(Session);
 					});
 				} else {
-					console.log("No token");
 					window.location.replace(window.location.origin + '/login.html');
 					callback(Session);
 				}
