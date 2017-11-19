@@ -4,6 +4,7 @@ angular.module('Curve')
 		var controller = this;
 		$scope.release = { salesReturnsRights: [], costsRights: [], aliases: [] };
 		$scope.formats = [];
+		$scope.distributionChannels = [];
 		$scope.priceCategories = [];
 		$scope.contracts = [];
 
@@ -36,6 +37,7 @@ angular.module('Curve')
 			.then(function(settings){
 				$scope.priceCategories = settings.priceCategories;
 				$scope.formats = settings.configurations;
+				$scope.distributionChannels = settings.distributionChannels;
 			});		
 
 		Settings.getContracts()

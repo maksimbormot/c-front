@@ -87,9 +87,20 @@
                 </div>
                 <div class="panel-body p-t-15">
                   <div class="form-group required">
+                    <label>Distribution Channel</label>
+                    <ui-select ng-model="release.distributionChannel">
+                      <ui-select-match allow-clear="true">
+                          <span ng-bind="$select.selected"></span>
+                      </ui-select-match>
+                      <ui-select-choices repeat="item in distributionChannels">
+                          <span ng-bind="item"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                  </div>
+                  <div class="form-group required">
                     <label>Format</label>
                     <ui-select ng-model="release.format">
-                      <ui-select-match>
+                      <ui-select-match allow-clear="true">
                           <span ng-bind="$select.selected"></span>
                       </ui-select-match>
                       <ui-select-choices repeat="item in formats">
@@ -100,7 +111,7 @@
                   <div class="form-group required">
                     <label>Price Category</label>
                     <ui-select ng-model="release.priceCategory">
-                      <ui-select-match>
+                      <ui-select-match allow-clear="true">
                           <span ng-bind="$select.selected"></span>
                       </ui-select-match>
                       <ui-select-choices repeat="item in priceCategories">
