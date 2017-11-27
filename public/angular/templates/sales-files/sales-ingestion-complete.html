@@ -19,9 +19,12 @@
         <span ng-if="salesFile.valid" class="label label-success">Valid</span>
         <span ng-if="!salesFile.valid && salesFile.status == 'Complete'" class="label label-danger">Invalid</span>
       </h3>
-      <h5>{{salesFile.salesAccountName}} : {{salesFile.salesTemplateName}}</h5>
+      <h5>
+        {{salesFile.salesAccountName}} : {{salesFile.salesTemplateName}}
+      </h5>
     </div>
     <div class="col-xs-6 text-right">
+      <a target="_blank" href="{{salesFile.publicLink}}" ng-if="salesFile.publicLink" class="btn m-t-10 btn-default"><i class="fa fa-download"></i></a>
       <a href="#/templates/{{salesFile.salesTemplateId}}/edit" class="btn btn-warning m-t-10" ng-if="salesFile.salesTemplateId">View Template</a>
       <button class="btn btn-info m-t-10" ng-click="revalidate()">Revalidate File</button>
       <button class="btn btn-complete m-t-10" ng-click="reingest()">Reingest</button>
