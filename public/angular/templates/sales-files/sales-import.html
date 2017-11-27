@@ -15,13 +15,14 @@
 <!-- Main Container -->
 <div class="container-fluid container-fixed-lg" ng-if="salesFile.status !== 'Ingesting' || salesFile.status !== 'Revalidating'">
   <div class="row">
-    <div class="col-xs-8">
+    <div class="col-xs-6">
       <h3>{{salesFile.name}}
         <span ng-if="salesFile.status == 'Errored'" class="label label-danger">Errored</span>
       </h3>
       <h5>{{salesFile.salesAccountName}} : {{salesFile.salesTemplateName}}</h5>
     </div>
-    <div class="col-xs-4 text-right">
+    <div class="col-xs-6 text-right">
+      <a target="_blank" href="{{salesFile.publicLink}}" ng-if="salesFile.publicLink" class="btn btn-default"><i class="fa fa-download"></i> Download</a>
       <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i>&nbsp;Delete</button>
       <button class="btn btn-complete" ng-click="save()"><i class="fa fa-check"></i> Save</button>
       <a class="btn btn-primary" ng-show="salesImport || salesFile._id" ng-click="ingest()"><i class="fa fa-download"></i>&nbsp;Ingest</a>
