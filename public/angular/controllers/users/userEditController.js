@@ -96,13 +96,22 @@ angular.module('Curve')
       if($routeParams.id){
 				var data = controller.getUserData();
         User.update($scope.user._id, data, function(response){
+					if(!response.data.success){
+						Loader.error(response.data.message);
+						return
+					}
   				Loader.success('User successfully updated');
   			})
 
       }else{
 				var data = controller.getUserData();
 				User.create(data, function(response){
+					if(!response.data.success){
+						Loader.error(response.data.message);
+						return
+					}
 					$window.location.href ="#/users"
+
 				})
 			}
 
