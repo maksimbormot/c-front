@@ -14,21 +14,23 @@ angular.module('Curve')
 						if(data.success == true) {
 							Session.isLoggedIn = true;
 							Session.token =  data.token;
-							var tokenPayload = jwtHelper.decodeToken(Session.token);	
-							Session.id = tokenPayload.id;						
+							var tokenPayload = jwtHelper.decodeToken(Session.token);
+							Session.clientId = tokenPayload.clientId;
+							Session.parentId = tokenPayload.parentId;
+							Session.payeeId = tokenPayload.payeeId;
+							Session.id = tokenPayload.id;
 							Session.userType = data.userType;
 							$rootScope.$broadcast('user-logged-in', Session);
 						} else {
-							window.location.replace(window.location.origin + '/login.html');
+							window.location.replace(window.location.origin + '/login');
 						}
 						callback(Session);
 					}).error(function(data) {
-						console.log(data);
-						window.location.replace(window.location.origin + '/login.html');
+						window.location.replace(window.location.origin + '/login');
 						callback(Session);
 					});
 				} else {
-					window.location.replace(window.location.origin + '/login.html');
+					window.location.replace(window.location.origin + '/login');
 					callback(Session);
 				}
 			},

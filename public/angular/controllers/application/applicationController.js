@@ -1,13 +1,15 @@
 angular.module('Curve')
-  .controller('applicationController', ['$scope', '$rootScope', '$cookies', 'Session', 'Auth', 'Loader',
-    function($scope, $rootScope, $cookies, Session, Auth, Loader) {
+  .controller('applicationController', ['$scope', '$route', '$rootScope', '$cookies', 'Session', 'Auth', 'Loader', 'User', 'jwtHelper',
+    function($scope, $route, $rootScope, $cookies, Session, Auth, Loader, User, jwtHelper) {
       var controller = this;
       $scope.isLoggedIn = Session.isLoggedIn;
       $scope.internalUser = false;
+      $scope.currentClient = "";
+      $scope.userRole = "";
 
       Loader.load();
+
       Auth.test($cookies.get('curveToken'), function(session) {
-        console.log(session);
         Loader.complete();
         if(session.userType == "internal") {
           $scope.internalUser = true;
@@ -32,5 +34,35 @@ angular.module('Curve')
         Auth.logout();
       }
 
-    }
-  ]);
+      $scope.getUsers = function(){
+          if( Session.userType === "internal" || Session.userType === "parent"){
+            $scope.currentClient = $cookies.get('currentRole');
+            $scope.userRole = Session.userType;
+            $scope.id = Session.id;
+
+            User.all({"clientsOnly": true}, function(response) {
+    					if(response.status == 200) {
+    						$scope.users = response.data.users;
+    						Loader.complete();
+    					} else {
+    						Loader.error('Error loading user, please try again or contact support');
+    					}
+    				});
+          }
+      }
+
+      $scope.setRoleForCurrentUser = function(user) {
+        $rootScope.currentClient = user.email;
+        $cookies.put('currentRole', user.email);
+
+        User.set_user($scope.id, {roleId: user.clientId}, function(response){
+          Session.token =  response.data.token;
+          $cookies.put('curveToken', Session.token);
+          var tokenPayload = jwtHelper.decodeToken(response.data.token);
+          Session.roleId = tokenPayload.roleId;
+          $route.reload();
+        })
+      }
+
+  }
+]);

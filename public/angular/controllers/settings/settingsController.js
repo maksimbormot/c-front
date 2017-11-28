@@ -1,5 +1,5 @@
 angular.module('Curve')
-	.controller('settingsController', ['$scope', '$routeParams', 'Session', 'Client', 'Parent', 'Payee', 'User', 'Notification', 'Loader', 
+	.controller('settingsController', ['$scope', '$routeParams', 'Session', 'Client', 'Parent', 'Payee', 'User', 'Notification', 'Loader',
 		function($scope, $routeParams, Session, Client, Parent, Payee, User, Notification, Loader) {
 		var controller = this;
 		$scope.client = { distributionChannels: [], configurations: [], priceCategories: [], costTypes: [] };
@@ -11,19 +11,19 @@ angular.module('Curve')
 				Loader.load();
 				User.get(Session.id, function(response) {
 					if(response.status == 200) {
-						$scope.user = response.data;
+						$scope.user = response.data.user;
 						Loader.complete();
 					} else {
 						Loader.error('Error loading user, please try again or contact support');
 					}
 				});
-				$scope.userRole = 'internal'; 
+				$scope.userRole = 'internal';
 			} else if(Session.userType == 'client'){
 				Loader.load();
-				User.get(Session.id, function(response) { 
-					if(response.status == 200) { 
-						$scope.user = response.data;
-						if ($scope.user.clientId){ 
+				User.get(Session.id, function(response) {
+					if(response.status == 200) {
+						$scope.user = response.data.user;
+						if ($scope.user.clientId){
 							Client.get($scope.user.clientId, function(response) {
 								if(response.status == 200) {
 									$scope.client = response.data;
@@ -31,14 +31,14 @@ angular.module('Curve')
 								} else {
 									Loader.error('Error loading client, please try again or contact support');
 								}
-							});					
+							});
 						}
 					} else {
 						Loader.error('Error loading user, please try again or contact support');
 					}
 				});
 				$scope.userRole = 'client';
-			}			
+			}
 		}
 
 		$scope.$watch('client.distributionChannels', function(distributionChannels) {
@@ -173,7 +173,7 @@ angular.module('Curve')
 									Loader.error('Error saving settings, please try again or contact support');
 								}
 							});
-						} 
+						}
 						Loader.success('Settings successfully saved');
 					}
 				});

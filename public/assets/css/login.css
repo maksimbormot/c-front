@@ -7,3 +7,10 @@
 #notification {
 	width: 100%;
 }
+
+
+.text-notification{
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+}

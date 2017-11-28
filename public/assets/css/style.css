@@ -20,6 +20,10 @@
 }
 
 /* Form Elements */
+.ui-select-choices-row-inner {
+	height:20px;
+}
+
 .ui-select-offscreen {
 	display: none;
 }
@@ -135,7 +139,7 @@ table.sales-table thead tr th:first-child{
 .edit-unmapped:hover{
 	cursor:pointer;
     border: 1px solid #48b0f7;
-    color:#48b0f7;	
+    color:#48b0f7;
 }
 .unmapped-edit-container{
 	width:50%;
@@ -254,4 +258,11 @@ h3 .label {
 .wizard-breadcrumb li,
 .wizard-breadcrumb li a {
     font-size: 12px !important;
+}
+
+/* Users */
+
+.form-control.selected-user[disabled] {
+    background: #fff;
+    color: #2c2c2c;
 }

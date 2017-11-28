@@ -7,4 +7,4 @@ if(process.env.NODE_ENV == 'development') {
 } else {
 	module.exports.apiUri = "http://staging.curveroyaltysystems.com:8081"
 }
-
+module.exports.secret = "RgRjBeB6k5";
