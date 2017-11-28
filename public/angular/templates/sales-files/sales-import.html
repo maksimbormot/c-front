@@ -13,7 +13,7 @@
   </div>
 </div>
 <!-- Main Container -->
-<div class="container-fluid container-fixed-lg" ng-if="salesFile.status !== 'Ingesting' || salesFile.status !== 'Revalidating'">
+<div class="container-fluid container-fixed-lg" ng-if="salesFile.status != 'Ingesting' || salesFile.status != 'Revalidating'">
   <div class="row">
     <div class="col-xs-6">
       <h3>{{salesFile.name}}
@@ -254,7 +254,7 @@
   </div>
 </div>
 <!-- Loading Page -->
-<div class="container-fluid container-fixed-lg" ng-if="salesFile.status === 'Ingesting'">
+<div class="container-fluid container-fixed-lg" ng-if="salesFile.status == 'Ingesting'">
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
       <div class="panel panel-default text-center">
