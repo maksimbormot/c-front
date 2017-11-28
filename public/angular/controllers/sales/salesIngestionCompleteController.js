@@ -16,14 +16,16 @@ angular.module('Curve')
       $scope.releases = [];
       $scope.tracks = [];
       $scope.works = [];
+      $scope.currentPage = 1;
 
       this.filter = function(params, callback) {
         Loader.load();
         Sales.all(params, function(response) {
           if(response.status == 200) {
             $scope.sales = response.data.sales;
+            console.log(response.data.meta);
             if(response.data.meta && response.data.meta.totalPages) { $scope.totalPages = response.data.meta.totalPages; }
-            if(response.data.meta && response.data.meta.currentPage) { $scope.currentPage = response.data.meta.currentPage; }
+            if(response.data.meta && response.data.meta.currentPage) { $scope.currentPage = parseInt(response.data.meta.currentPage); }
             if(response.data.meta && response.data.meta.currentPage && response.data.meta.totalPages) { $scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages); }
             if(response.data.meta && response.data.meta.total) { $scope.total = response.data.meta.total; }
             if(response.data && response.data.meta) { $scope.pages = Pagination.createArray(response.data.meta.currentPage, response.data.meta.totalPages); }
@@ -89,6 +91,7 @@ angular.module('Curve')
       };
       $scope.changePage = function(page) {
         $scope.filter.page = page;
+        $scope.currentPage = page;
         controller.filter($scope.filter);
       };
 
@@ -122,7 +125,8 @@ angular.module('Curve')
 
       $scope.editSingle = function(sale) {
         $scope.editType = 'single';
-        $scope.sale = sale;
+        // Copy object without reference - to allow for someone to hit cancel
+        $scope.sale = $.extend(true, {}, sale);
       }
       $scope.editSelected = function() {
         $scope.editType = 'selected';
@@ -139,32 +143,29 @@ angular.module('Curve')
 
       $scope.updateSingle = function() {
         Loader.load();
-        $('#modalEditFields').modal('hide');
-        $('#modalEditFields').on('hidden.bs.modal', function() {
-          Sales.update($scope.sale._id, $scope.sale, function(response) {
-            if(response.status == 200) {
-              Loader.success('Sales line successfully updated');
-            } else {
-              Loader.error('Error saving sales line, please try again or contact support');
-            }
-          });
+        Sales.update($scope.sale._id, $scope.sale, function(response) {
+          if(response.status == 200) {
+            controller.filter($scope.filter, function() {
+              $scope.filterSales = $scope.sales;
+              Loader.success('Sales line successfully delete');
+            });
+          } else {
+            Loader.error('Error saving sales line, please try again or contact support');
+          }
         });
       }
 
       $scope.deleteSingle = function() {
         Loader.load();
-        $('#modalDeleteSalesLine').modal('hide');
-        $('#modalDeleteSalesLine').on('hidden.bs.modal', function() {
-          Sales.delete($scope.sale._id, function(response) {
-            if(response.status == 200) {
-              controller.filter($scope.filter, function() {
-                $scope.filterSales = $scope.sales;
-                Loader.success('Sales line successfully delete');
-              });
-            } else {
-              Loader.error('Error deleting sales line, please try again or contact support');
-            }
-          });
+        Sales.delete($scope.sale._id, function(response) {
+          if(response.status == 200) {
+            controller.filter($scope.filter, function() {
+              $scope.filterSales = $scope.sales;
+              Loader.success('Sales line successfully delete');
+            });
+          } else {
+            Loader.error('Error deleting sales line, please try again or contact support');
+          }
         });
       }
 
@@ -181,9 +182,7 @@ angular.module('Curve')
             Loader.error('Error saving sales line, please try again or contact support');
           }
         });
-        $('#modalEditFields').on('hidden.bs.modal', function() {
-          Loader.success(ids.length + ' Sales successfully updated');
-        });
+        Loader.success(ids.length + ' Sales successfully updated');
       }
 
       $scope.updateFiltered = function() {
@@ -196,9 +195,7 @@ angular.module('Curve')
             Loader.error('Error saving sales line, please try again or contact support');
           }
         });
-        $('#modalEditFields').on('hidden.bs.modal', function() {
-          Loader.success('Filtered sales successfully updated');
-        });
+        Loader.success('Filtered sales successfully updated');
       }
 
       $scope.reingest = function() {

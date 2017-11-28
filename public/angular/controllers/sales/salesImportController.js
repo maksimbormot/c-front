@@ -26,7 +26,9 @@ angular.module('Curve')
     function init(callback) {
       if($routeParams.id) {
         SalesFile.get($routeParams.id, function(response) {
-          if(response.status == 200) {
+          if(response.status == 200 && response.data.status == "Complete") {
+            $window.location.href = "#/sales/" + $routeParams.id + "/ingestion_complete"
+          } else if(response.status == 200) {
             $scope.salesFile = response.data;
             console.log($scope.salesFile);
             if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.saleDate) { $scope.salesFile.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate); }
@@ -39,7 +41,7 @@ angular.module('Curve')
                 updateIncludesFields();
               }
             });
-            if($scope.salesFile.status === 'Ingesting') { setTimeout(init, 10000); }
+            if($scope.salesFile.status === 'Ingesting') { setTimeout(init, 500); }
             if(callback) { callback(); }
           } else {
             if(callback) { callback(); }
