@@ -28,16 +28,10 @@
 <td class="v-align-middle">{{ sale.originalTrackArtist }}</td>
 <td class="v-align-middle">{{ sale.saleDate }}</td>
 <td class="v-align-middle">{{ sale.transactionDate }}</td>
-<td ng-class="sale.catType == 'Release' && !sale.releaseId ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.releaseId }}</td>
-<td ng-class="sale.catType == 'Track' && !sale.trackId  ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.trackId }}</td>
-<td ng-class="sale.catType == 'Work' && !sale.workId  ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.workId }}</td>
+<td ng-class="sale.catType == 'Release' && !sale.releaseId ? 'v-align-middle sales-line-error' : 'v-align-middle'"><a href="#/releases/{{sale.releaseId}}/edit">{{ sale.releaseId }}</a></td>
+<td ng-class="sale.catType == 'Track' && !sale.trackId  ? 'v-align-middle sales-line-error' : 'v-align-middle'"><a href="#/tracks/{{sale.trackId}}/edit">{{ sale.trackId }}</a></td>
+<td ng-class="sale.catType == 'Work' && !sale.workId  ? 'v-align-middle sales-line-error' : 'v-align-middle'"><a href="#/works/{{sale.workId}}/edit">{{ sale.workId }}</a></td>
 <td ng-if="!noEdit" class="v-align-middle">
-	<a data-toggle="modal" data-target="#modalEditFields" ng-click="single(sale)">
-		<div class="edit-unmapped"> <i class="fa fa-pencil"></i> </div>	
-	</a>
+	<button class="btn btn-xs btn-complete m-b-0" data-toggle="modal" data-target="#modalEditFields" ng-click="single(sale)"><i class="fa fa-pencil"></i></button>
+	<button class="btn btn-xs btn-danger m-b-0" data-toggle="modal" data-target="#modalDeleteSalesLine" ng-click="delete(sale)"><i class="fa fa-trash"></i></button>
 </td> 
-
-
-
-
-  

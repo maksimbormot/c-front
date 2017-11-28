@@ -1,21 +1,21 @@
 angular.module('Curve')
-  .controller('periodCompleteController', ['$scope', '$routeParams', '$window', 'Session', 'Pagination', 'Period', 'Notification', 'Settings', 'Sales', 'Loader', 'Statement',
-    function($scope, $routeParams, $window, Session, Pagination, Period, Notification, Settings, Sales, Loader, Statement) {
+  .controller('periodCompleteController', ['$scope', '$routeParams', '$window', 'Session', 'Pagination', 'Period', 'Notification', 'Settings', 'OutputSales', 'Loader', 'Statement',
+    function($scope, $routeParams, $window, Session, Pagination, Period, Notification, Settings, OutputSales, Loader, Statement) {
       var controller = this;
       $scope.period = { salesFilesIds: [], costIds: [] };
       $scope.salesFiles = [];
       $scope.costs = [];
       $scope.includeSalesFiles = [];
       $scope.includeCosts = [];
-      $scope.sales = [];
+      $scope.outputSales = [];
       $scope.statements = [];
       $scope.filter = {};
 
-      this.filter = function(params, callback) {
+      this.filterOutputSales = function(params, callback) {
         Loader.load();
-        Sales.all(params, function(response) {
+        OutputSales.all(params, function(response) {
           if(response.status == 200) {
-            $scope.sales = response.data.sales;
+            $scope.outputSales = response.data.outputSales;
             $scope.totalPages = response.data.meta.totalPages;
             $scope.currentPage = response.data.meta.currentPage;
             $scope.total = response.data.meta.total;
@@ -37,7 +37,8 @@ angular.module('Curve')
             loadIncludeSalesFiles();
             loadIncludeCosts();
             loadStatements();
-            Loader.complete();
+            $scope.filter.periodId = $scope.period._id;
+            controller.filterOutputSales($scope.filter);
           } else {
             Loader.error('Error loading period, please try again or contact support');
           }
@@ -64,8 +65,9 @@ angular.module('Curve')
           $scope.orderDir = ($scope.orderDir == 'asc') ? 'desc' : 'asc';
         }
         $scope.orderBy = orderBy;
-        controller.filter({ text: $scope.searchText, orderBy: $scope.orderBy, orderDir: $scope.orderDir });
-        Loader.complete();
+        $scope.filter.orderBy = orderBy;
+        $scope.filter.orderDir = $scope.orderDir;
+        controller.filterOutputSales($scope.filter);
       };
       $scope.whatClassIsIt = function(field) {
         if($scope.orderBy == field) {
@@ -80,7 +82,7 @@ angular.module('Curve')
       }
       $scope.search = function() {
         $scope.filter.periodId = $scope.period._id;
-        controller.filter($scope.filter, function() {
+        controller.filterOutputSales($scope.filter, function() {
           Loader.success('Sales Successfully Searched');
         });
       };
@@ -128,8 +130,6 @@ angular.module('Curve')
       $scope.setTab = function(value) {
         $scope.activeTab = value;
       }
-
-      this.filter({});
 
     }
   ]);

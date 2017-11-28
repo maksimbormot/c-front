@@ -19,3 +19,8 @@
   <span class="label label-complete" ng-if="sale.status == 'Ingesting'">Ingesting</span>
   <span class="label label-info" ng-if="sale.status !== 'Ingesting' && sale.status !== 'Errored' && sale.status !== 'Complete'">{{sale.status}}</span>
 </td>
+<td class="v-align-middle">
+  <span class="label label-success" ng-if="sale.reportedStatus == 'Complete'">Fully Reported</span>
+  <span class="label label-warning" ng-if="sale.reportedStatus == 'Partially Complete'">Partially Reported</span>
+  <span class="label label-danger" ng-if="sale.reportedStatus == 'Unreported'">Unreported</span>
+</td>

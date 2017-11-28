@@ -30,7 +30,7 @@
           <div class="panel-body p-t-15">
             <div class="form-group required">
               <label>Company Name</label>
-              <input type="text" class="form-control" placeholder="Name" ng-model="client.companyName">
+              <input type="text" class="form-control" ng-model="client.companyName">
             </div> 
             <div class="form-group">
               <label>Address</label>
@@ -38,8 +38,34 @@
             </div>
             <div class="form-group required">
               <label>Email for statements</label>
-              <input type="text" class="form-control" placeholder="Email" ng-model="client.email">
-            </div> 
+              <input type="text" class="form-control" ng-model="client.email">
+            </div>
+            <div class="form-group">
+              <label>Statement Design</label>
+              <ui-select ng-model="client.statementDesign">
+                <ui-select-match allow-clear="true">
+                  <span ng-bind="$select.selected"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="item in statementDesigns | filter: $select.search">
+                  <span ng-bind="item"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">  
+          <div class="panel-heading">
+            <div class="panel-title"> 
+              Logo
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <div class="client-logo">
+              <img ng-src="{{client.publicLogo}}">
+            </div>
+            <div class="form-group required">
+              <input type="file" ngf-select ngf-allow-dir="false" accept="image/*" ng-model="file">
+            </div>
           </div>
         </div>
       </div>
@@ -79,6 +105,32 @@
               <input type="password" class="form-control" placeholder="Password" ng-model="user.confirmNewPassword">
             </div>
             </form>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              Currency
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <div class="form-group">
+              <label>Currency</label>
+              <ui-select ng-model="client.homeCurrency">
+                <ui-select-match allow-clear="true">
+                    <span ng-bind="$select.selected.code"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="currency.code as currency in currencies | orderBy: 'code' | filter: $select.search">
+                    <span ng-bind-html="currency.code"></span>
+                    <span> &nbsp; - &nbsp; </span>
+                    <span ng-bind-html="currency.name"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="form-group required">
+              <label>Currency Symbol</label>
+              <input type="text" class="form-control" ng-model="client.currencySymbol">
+            </div>
           </div>
         </div>
       </div>

@@ -6,7 +6,8 @@ angular.module('Curve')
 			scope: {
 				contract: "=",
 				contracts: "=",
-				delete: "&"
+				delete: "&",
+				index: "=",
 			}
 		}
 	});

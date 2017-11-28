@@ -128,6 +128,7 @@
               <div class="col-xs-3 m-t-40">
               </div>
             </div>
+            {{period.analytics}}
           </div>
           <div ng-show="activeTab === 'includeSales'">
             <div class="row">
@@ -149,10 +150,11 @@
                             <th>Unmapped Lines</th>
                             <th>Valid</th>
                             <th>Status</th>
+                            <th>Reported</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr sales-file-table-row ng-repeat="sale in includeSalesFiles" sale="sale" no-links="true" no-checkbox="true"></tr>
+                          <tr sales-file-table-row ng-repeat="sale in includeSalesFiles" sale="sale" no-links="false" no-checkbox="true"></tr>
                         </tbody>
                       </table>
                     </div>
@@ -180,10 +182,11 @@
                             <th>Type</th>
                             <th>Release</th>
                             <th>Contract</th>
+                            <th>Reported</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr cost-table-row ng-repeat="cost in includeCosts" cost="cost" no-links="true" no-checkbox="true"></tr>
+                          <tr cost-table-row ng-repeat="cost in includeCosts" cost="cost" no-links="false" no-checkbox="true"></tr>
                         </tbody>
                       </table>
                     </div>
@@ -288,39 +291,38 @@
                       <table class="table table-hover table-condensed dataTable no-footer sales-table sales-table-with-checkbox">
                         <thead>
                           <tr>
+                            <th ng-click="getSortedData('catType')" ng-class="whatClassIsIt('catType')">Cat type</th>
+                            <th ng-click="getSortedData('distributionChannel')" ng-class="whatClassIsIt('distributionChannel')">Dist Channel</th>
+                            <th ng-click="getSortedData('configuration')" ng-class="whatClassIsIt('configuration')">Configuration</th>
+                            <th ng-click="getSortedData('priceCategory')" ng-class="whatClassIsIt('priceCategory')">Price cat</th>
+                            <th ng-click="getSortedData('source')" ng-class="whatClassIsIt('source')">Source</th>
+                            <th ng-click="getSortedData('subSource')" ng-class="whatClassIsIt('subSource')">Subsource</th>
+                            <th ng-click="getSortedData('territory')" ng-class="whatClassIsIt('territory')">Territory</th>
                             <th ng-click="getSortedData('barcode')" ng-class="whatClassIsIt('barcode')">Barcode</th>
                             <th ng-click="getSortedData('catNo')" ng-class="whatClassIsIt('catNo')">Cat no</th>
-                            <th ng-click="getSortedData('catType')" ng-class="whatClassIsIt('catType')">Cat type</th>
-                            <th ng-click="getSortedData('configuration')" ng-class="whatClassIsIt('configuration')">Configuration</th>
-                            <th ng-click="getSortedData('distributionChannel')" ng-class="whatClassIsIt('distributionChannel')">Channel</th>
-                            <th ng-click="getSortedData('exchangeRate')" ng-class="whatClassIsIt('exchangeRate')">Exchange rate</th>
-                            <th ng-click="getSortedData('grossAmount')" ng-class="whatClassIsIt('grossAmount')">Gross</th>
-                            <th ng-click="getSortedData('homeCurrency')" ng-class="whatClassIsIt('homeCurrency')">Home currency</th>
-                            <th ng-click="getSortedData('identifier')" ng-class="whatClassIsIt('identifier')">Identifier</th>
                             <th ng-click="getSortedData('isrc')" ng-class="whatClassIsIt('isrc')">ISRC</th>
-                            <th ng-click="getSortedData('netAmount')" ng-class="whatClassIsIt('netAmount')">Net amount</th>
-                            <th ng-click="getSortedData('originalCurrency')" ng-class="whatClassIsIt('originalCurrency')">Original currency</th>
-                            <th ng-click="getSortedData('originalTitle')" ng-class="whatClassIsIt('originalTitle')">Original title</th>
-                            <th ng-click="getSortedData('priceCategoryreleaseArtist')" ng-class="whatClassIsIt('priceCategoryreleaseArtist')">Price cat</th>
-                            <th ng-click="getSortedData('releaseArtist')" ng-class="whatClassIsIt('releaseArtist')">Release artist</th>
-                            <th ng-click="getSortedData('releaseID')" ng-class="whatClassIsIt('releaseID')">Release id</th>
-                            <th ng-click="getSortedData('releaseTitle')" ng-class="whatClassIsIt('releaseTitle')">Release title</th>
-                            <th ng-click="getSortedData('saleDate')" ng-class="whatClassIsIt('saleDate')">Sale date</th>
-                            <th ng-click="getSortedData('salePrice')" ng-class="whatClassIsIt('salePrice')">Sale price</th>
-                            <th ng-click="getSortedData('source')" ng-class="whatClassIsIt('source')">Source</th>
-                            <th ng-click="getSortedData('status')" ng-class="whatClassIsIt('status')">Status</th>
-                            <th ng-click="getSortedData('territory')" ng-class="whatClassIsIt('territory')">Territory</th>
-                            <th ng-click="getSortedData('trackArtist')" ng-class="whatClassIsIt('trackArtist')">Track artist</th>
-                            <th ng-click="getSortedData('trackID')" ng-class="whatClassIsIt('trackID')">Track id</th>
-                            <th ng-click="getSortedData('trackTitle')" ng-class="whatClassIsIt('trackTitle')">Track title</th>
-                            <th ng-click="getSortedData('transactionDate')" ng-class="whatClassIsIt('transactionDate')">Transaction date</th>
-                            <th ng-click="getSortedData('type')" ng-class="whatClassIsIt('type')">Type</th>
+                            <th ng-click="getSortedData('identifier')" ng-class="whatClassIsIt('identifier')">Identifier</th>
                             <th ng-click="getSortedData('units')" ng-class="whatClassIsIt('units')">Units</th>
-                            <th ng-click="getSortedData('workID')" ng-class="whatClassIsIt('workID')">Work id</th>
+                            <th ng-click="getSortedData('salePrice')" ng-class="whatClassIsIt('salePrice')">Sale price</th>
+                            <th ng-click="getSortedData('grossAmount')" ng-class="whatClassIsIt('grossAmount')">Gross</th>
+                            <th ng-click="getSortedData('netAmount')" ng-class="whatClassIsIt('netAmount')">Net</th>
+                            <th ng-click="getSortedData('originalCurrency')" ng-class="whatClassIsIt('originalCurrency')">Original currency</th>
+                            <th ng-click="getSortedData('exchangeRate')" ng-class="whatClassIsIt('exchangeRate')">Ex Rate</th>
+                            <th ng-click="getSortedData('grossAmount')" ng-class="whatClassIsIt('grossAmount')">Home Currency Gross</th>
+                            <th ng-click="getSortedData('netAmount')" ng-class="whatClassIsIt('netAmount')">Home Currency Net</th>
+                            <th ng-click="getSortedData('originalReleaseTitle')" ng-class="whatClassIsIt('originalReleaseTitle')">Release title</th>
+                            <th ng-click="getSortedData('originalReleaseArtist')" ng-class="whatClassIsIt('originalReleaseArtist')">Release artist</th>
+                            <th ng-click="getSortedData('originalTrackTitle')" ng-class="whatClassIsIt('originalTrackTitle')">Track title</th>
+                            <th ng-click="getSortedData('originalTrackArtist')" ng-class="whatClassIsIt('originalTrackArtist')">Track artist</th>
+                            <th ng-click="getSortedData('saleDate')" ng-class="whatClassIsIt('saleDate')">Sale date</th>
+                            <th ng-click="getSortedData('transactionDate')" ng-class="whatClassIsIt('transactionDate')">Transaction date</th>
+                            <th ng-click="getSortedData('releaseId')" ng-class="whatClassIsIt('releaseId')">Release id</th>
+                            <th ng-click="getSortedData('trackId')" ng-class="whatClassIsIt('trackId')">Track id</th>
+                            <th ng-click="getSortedData('workId')" ng-class="whatClassIsIt('workId')">Work id</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr sales-unmapped-table-row ng-repeat="sale in sales" sale="sale" no-checkbox="true" no-edit="true"></tr>
+                          <tr output-sales-table-row ng-repeat="sale in outputSales" sale="sale"></tr>
                         </tbody>
                       </table>
                     </div>
