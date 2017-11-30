@@ -1,8 +1,8 @@
 angular.module('Curve')
-	.controller('releasesController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Release', 'Notification', 'FileSaver', 'Loader',
-		function($scope, $routeParams, Session, Pagination, Release, Notification, FileSaver, Loader) {
+	.controller('releasesController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Release', 'Notification', 'FileSaver', 'Loader', 'SelectAll',
+		function($scope, $routeParams, Session, Pagination, Release, Notification, FileSaver, Loader, SelectAll) {
 		var controller = this;
-		$scope.releases = []; 
+		$scope.releases = [];
 		$scope.searchText = null;
 		$scope.orderBy = 'title';
 		$scope.orderDir = 'asc';
@@ -44,7 +44,10 @@ angular.module('Curve')
 			controller.filter({ text: $scope.searchText }, function() {
 				Loader.success('Releases Successfully Searched');
 			});
-		};  
+		};
+		$scope.selectAll = function(e){
+			SelectAll.select(e)
+		}
 		$scope.changePage = function(page) {
 			controller.filter({ text: $scope.searchText, page: page });
 		};

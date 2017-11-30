@@ -15,7 +15,7 @@
           </div>
           <div class="row">
             <div class="col-xs-12">
-              <div class="row">
+              <div class="row row-wrapper">
                 <div class="col-xs-12">
                   <div class="row">
                     <div class="col-xs-6">
@@ -24,7 +24,7 @@
                       </div>
                     </div>
                     <div class="col-xs-6">
-                      <button class="btn btn-primary pull-right" ng-click="excludeAllCosts()">Exclude All</button>
+                      <button class="btn btn-primary pull-right" ng-click="excludeAllCosts($event)">Exclude All</button>
                       <button class="btn btn-default pull-right" ng-click="excludeSelectedCosts()">Exclude Selected</button>
                     </div>
                   </div>
@@ -32,7 +32,7 @@
                     <table class="table table-hover table-condensed dataTable no-footer">
                       <thead>
                         <tr>
-                          <th class="table-checkbox"><input type="checkbox"></th>
+                          <th class="table-checkbox"><input type="checkbox" class="select-all" ng-click="selectAll($event)"></th>
                           <th ng-click="getSortedData('name')" ng-class="whatClassIsIt('name')">Name</th>
                           <th ng-click="getSortedData('amount')" ng-class="whatClassIsIt('amount')">Amount</th>
                           <th ng-click="getSortedData('type')" ng-class="whatClassIsIt('type')">Type</th>
@@ -65,7 +65,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row m-t-50">
+              <div class="row m-t-50  row-wrapper">
                 <div class="col-xs-12">
                   <div class="row">
                     <div class="col-xs-6">
@@ -74,7 +74,7 @@
                       </div>
                     </div>
                     <div class="col-xs-6">
-                      <button class="btn btn-primary pull-right" ng-click="includeAllCosts()">Include All</button>
+                      <button class="btn btn-primary pull-right" ng-click="includeAllCosts($event)">Include All</button>
                       <button class="btn btn-default pull-right" ng-click="includeSelectedCosts()">Include Selected</button>
                     </div>
                   </div>
@@ -82,7 +82,7 @@
                     <table class="table table-hover table-condensed dataTable no-footer">
                       <thead>
                         <tr>
-                          <th class="table-checkbox"><input type="checkbox"></th>
+                          <th class="table-checkbox"><input type="checkbox" class="select-all" ng-click="selectAll($event)"></th>
                           <th ng-click="getSortedData('name')" ng-class="whatClassIsIt('name')">Name</th>
                           <th ng-click="getSortedData('amount')" ng-class="whatClassIsIt('amount')">Amount</th>
                           <th ng-click="getSortedData('type')" ng-class="whatClassIsIt('type')">Type</th>

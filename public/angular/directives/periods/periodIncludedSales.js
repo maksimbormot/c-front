@@ -1,5 +1,5 @@
 angular.module('Curve')
-  .directive("periodIncludedSales", ["Loader", function(Loader) {
+  .directive("periodIncludedSales", ['Loader', 'SelectAll', function(Loader, SelectAll) {
     return {
       restrict: "E",
       templateUrl: "angular/templates/directives/periods/period-included-sales.html",
@@ -7,13 +7,18 @@ angular.module('Curve')
       link: function($scope) {
       	removeSelectedFromExcluded();
 
-        $scope.excludeAllSales = function() {
+        $scope.excludeAllSales = function(e) {
           $scope.includeSalesFiles.forEach(function(sale) {
           	$scope.salesFiles.push(sale);
           });
           $scope.includeSalesFiles.splice(0, $scope.includeSalesFiles.length);
+          SelectAll.deselect(e)
           setSalesToPeriod();
         }
+
+        $scope.selectAll = function(e){
+    			SelectAll.select(e)
+    		};
 
         $scope.excludeSelectedSales = function() {
           var count = 0;
@@ -35,7 +40,7 @@ angular.module('Curve')
           setSalesToPeriod();
         }
 
-        $scope.includeAllSales = function() {
+        $scope.includeAllSales = function(e) {
           if($scope.includeSalesFiles.length == 0) {
             $scope.salesFiles.forEach(function(sale) {
               $scope.includeSalesFiles.push(angular.extend({}, sale));
@@ -55,6 +60,7 @@ angular.module('Curve')
           }
           removeSelectedFromExcluded();
           setSalesToPeriod();
+          SelectAll.deselect(e)
         }
 
         $scope.includeSelectedSales = function() {

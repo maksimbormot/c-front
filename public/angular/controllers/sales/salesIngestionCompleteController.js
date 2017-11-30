@@ -1,6 +1,6 @@
 angular.module('Curve')
-  .controller('salesIngestionCompleteController', ['$scope', '$routeParams', '$window', 'Session', 'Pagination', 'Notification', 'Territories', 'Currencies', 'Settings', 'SalesFile', 'Sales', 'Loader',
-    function($scope, $routeParams, $window, Session, Pagination, Notification, Territories, Currencies, Settings, SalesFile, Sales, Loader) {
+  .controller('salesIngestionCompleteController', ['$scope', '$routeParams', '$window', 'Session', 'Pagination', 'Notification', 'Territories', 'Currencies', 'Settings', 'SalesFile', 'Sales', 'Loader', 'SelectAll',
+    function($scope, $routeParams, $window, Session, Pagination, Notification, Territories, Currencies, Settings, SalesFile, Sales, Loader, SelectAll) {
       var controller = this;
       $scope.saleDatePopup = false;
       $scope.transactionDatePopup = false;
@@ -88,6 +88,9 @@ angular.module('Curve')
           $scope.filterSales = $scope.sales;
           Loader.success('Sales Successfully Searched');
         });
+      };
+      $scope.selectAll = function(e){
+        SelectAll.select(e)
       };
       $scope.changePage = function(page) {
         $scope.filter.page = page;

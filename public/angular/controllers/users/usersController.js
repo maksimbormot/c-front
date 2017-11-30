@@ -1,6 +1,6 @@
 angular.module('Curve')
-	.controller('usersController', ['$scope', '$routeParams', '$window', 'Pagination', 'Session', 'Client', 'Parent', 'Payee', 'User', 'Notification', 'Loader',
-		function($scope, $routeParams, $window, Pagination, Session, Client, Parent, Payee, User, Notification, Loader) {
+	.controller('usersController', ['$scope', '$routeParams', '$window', 'Pagination', 'Session', 'Client', 'Parent', 'Payee', 'User', 'Notification', 'Loader', 'SelectAll',
+		function($scope, $routeParams, $window, Pagination, Session, Client, Parent, Payee, User, Notification, Loader, SelectAll) {
 		var controller = this;
 		$scope.client = {};
 		$scope.selectedUser = {};
@@ -102,7 +102,9 @@ angular.module('Curve')
 		$scope.changePage = function(page) {
 			controller.filter({text: $scope.searchText, page: page });
 		};
-
+		$scope.selectAll = function(e){
+			SelectAll.select(e)
+		};
 		$scope.import = function() {
 			Loader.load();
 			User.import($scope.importFile, function(response) {

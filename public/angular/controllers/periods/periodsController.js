@@ -1,12 +1,12 @@
 angular.module('Curve')
-	.controller('periodsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Period', 'Notification', 'Loader',
-		function($scope, $routeParams, Session, Pagination, Period, Notification, Loader) {
+	.controller('periodsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Period', 'Notification', 'Loader', 'SelectAll',
+		function($scope, $routeParams, Session, Pagination, Period, Notification, Loader, SelectAll) {
 		var controller = this;
 		$scope.periods = [];
 		$scope.searchText = null;
 		$scope.orderBy = 'name';
 		$scope.orderDir = 'asc';
-		this.filter = function(params, callback) { 
+		this.filter = function(params, callback) {
 			Loader.load();
 			Period.all(params, function(response) {
 				if(response.status == 200) {
@@ -45,6 +45,9 @@ angular.module('Curve')
 				Loader.success('Periods Successfully Searched');
 			});
 		};
+		$scope.selectAll = function(e){
+			SelectAll.select(e)
+		}
 		$scope.changePage = function(page) {
 			controller.filter({ text: $scope.searchText, page: page });
 		};

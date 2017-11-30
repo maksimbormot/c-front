@@ -184,7 +184,7 @@
       <button class="btn btn-success" data-toggle="modal" data-target="#modalEditFields" ng-click="editFiltered()">&nbsp;Edit Filtered</button>
     </div>
     <div class="col-xs-6">
-      <h5 class="pull-right">Total: 
+      <h5 class="pull-right">Total:
         {{total}}
       </h5>
     </div>
@@ -198,7 +198,7 @@
               <thead>
                 <tr>
                   <th>
-                    <input type="checkbox">
+                    <input type="checkbox" class="select-all" ng-click="selectAll($event)">
                   </th>
                   <th ng-click="getSortedData('status')" ng-class="whatClassIsIt('status')">Status</th>
                   <th ng-click="getSortedData('catType')" ng-class="whatClassIsIt('catType')">Cat type</th>

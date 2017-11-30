@@ -1,6 +1,6 @@
 angular.module('Curve')
-	.controller('salesFileController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Notification', 'FileSaver', 'SalesFile', 'Loader',
-		function($scope, $routeParams, Session, Pagination, Notification, FileSaver, SalesFile, Loader) {
+	.controller('salesFileController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Notification', 'FileSaver', 'SalesFile', 'Loader', 'SelectAll',
+		function($scope, $routeParams, Session, Pagination, Notification, FileSaver, SalesFile, Loader, SelectAll) {
 		var controller = this;
 		$scope.salesFile = [];
 		$scope.searchText = null;
@@ -17,7 +17,7 @@ angular.module('Curve')
 				} else {
 					Loader.error(response.data.message);
 				}
-			});    
+			});
 		};
 		$scope.getSortedData = function(orderBy) {
 			if ( $scope.orderBy == orderBy ) {
@@ -43,7 +43,9 @@ angular.module('Curve')
 				Loader.success('Sales Successfully Searched');
 			});
 		};
-
+		$scope.selectAll = function(e){
+			SelectAll.select(e)
+		}
 		$scope.changePage = function(page) {
 			controller.filter({ name: $scope.searchText, page: page });
 		};

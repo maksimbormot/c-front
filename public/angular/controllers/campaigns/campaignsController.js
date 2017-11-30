@@ -1,11 +1,11 @@
 angular.module('Curve')
-  .controller('campaignsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Campaign', 'Notification', 'FileSaver', 'Loader',
-    function($scope, $routeParams, Session, Pagination, Campaign, Notification, FileSaver, Loader) {
+  .controller('campaignsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Campaign', 'Notification', 'FileSaver', 'Loader', 'SelectAll',
+    function($scope, $routeParams, Session, Pagination, Campaign, Notification, FileSaver, Loader, SelectAll) {
     var controller = this;
     $scope.campaigns = [];
     $scope.searchText = null;
     $scope.orderBy = 'title';
-		$scope.orderDir = 'asc';  
+		$scope.orderDir = 'asc';
     this.filter = function(params, callback) {
       Loader.load();
       Campaign.all(params, function(response) {
@@ -45,6 +45,11 @@ angular.module('Curve')
         Loader.success('Campaigns Successfully Searched');
       });
     };
+
+    $scope.selectAll = function(e){
+			SelectAll.select(e)
+		}
+
     $scope.changePage = function(page) {
       controller.filter({ text: $scope.searchText, page: page });
     };

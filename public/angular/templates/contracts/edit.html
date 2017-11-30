@@ -7,7 +7,7 @@
         </li>
         <li><a href="/#/contracts">Contracts</a></li>
         <li ng-show="!contract._id"><a href="" class="active">Create</a></li>
-        <li ng-show="contract._id"><a href="/#/contracts/{{contract._id}}/edit" class="active">{{contract.name}}</a></li>        
+        <li ng-show="contract._id"><a href="/#/contracts/{{contract._id}}/edit" class="active">{{contract.name}}</a></li>
       </ul>
     </div>
   </div>
@@ -23,10 +23,10 @@
   <div class="row">
     <div class="panel panel-transparent">
       <ul class="nav nav-tabs hidden-sm hidden-xs" data-init-reponsive-tabs="dropdownfx">
-        <li class="active" ng-click="setTab('overview')"> 
+        <li class="active" ng-click="setTab('overview')">
           <a data-toggle="tab" aria-expanded="true"><span>Overview</span></a>
         </li>
-        <li ng-click="setTab('terms')"> 
+        <li ng-click="setTab('terms')">
           <a data-toggle="tab" aria-expanded="false"><span>Terms</span></a>
         </li>
         <li ng-click="setTab('reserves')">
@@ -35,10 +35,10 @@
         <li ng-click="setTab('catalogue')">
           <a data-toggle="tab" aria-expanded="false"><span>Catalogue</span></a>
         </li>
-        <li ng-click="setTab('costs')"> 
+        <li ng-click="setTab('costs')">
           <a data-toggle="tab" aria-expanded="false"><span>Costs</span></a>
         </li>
-        <li ng-click="setTab('transactions')"> 
+        <li ng-click="setTab('transactions')">
           <a data-toggle="tab" aria-expanded="false"><span>Transactions</span></a>
         </li>
       </ul>
@@ -97,7 +97,7 @@
                   </div>
                 </div>
               </div>
-            </div>            
+            </div>
             <div class="col-xs-12 col-md-6">
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -128,7 +128,7 @@
                     Sales
                   </div>
                 </div>
-                <div class="panel-body p-t-15"> 
+                <div class="panel-body p-t-15">
                   <contract-sales-row ng-repeat="sale in contract.salesTerms" sale="sale" countries="countries" channels="distributionChannels" configurations="configurations" price-categories="priceCategories" sales-types="salesTypes" index="$index" delete="deleteSalesRow(sale)"></contract-sales-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addSalesRow()">+ Sales</button>
@@ -164,7 +164,7 @@
                   <contract-costs-row ng-repeat="cost in contract.costsTerms" cost="cost" countries="countries" cost-types="costTypes" index="$index" delete="deleteCostsRow(cost)"></contract-costs-row>
                   <br>
                   <button class="btn btn-complete" ng-click="addCostsRow()">+ Costs</button>
-                </div> 
+                </div>
               </div>
             </div>
           </div>
@@ -227,7 +227,7 @@
                           <table class="table table-hover table-condensed dataTable no-footer">
                             <thead>
                               <tr>
-                                <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
+                                <th class="table-checkbox"><input type="checkbox" class="select-all" ng-click="selectAll($event)"></th>
                                 <th>Title</th>
                                 <th>Artist</th>
                                 <th>Cat No</th>
@@ -248,7 +248,7 @@
                           <table class="table table-hover table-condensed dataTable no-footer">
                             <thead>
                               <tr>
-                                <th class="table-checkbox"><input type="checkbox"></th>
+                                <th class="table-checkbox"><input type="checkbox" class="select-all" ng-click="selectAll($event)"></th>
                                 <th>Title</th>
                                 <th>Artist</th>
                                 <th>ISRC</th>
@@ -268,7 +268,7 @@
                           <table class="table table-hover table-condensed dataTable no-footer">
                             <thead>
                               <tr>
-                                <th class="table-checkbox"><input type="checkbox"></th>
+                                <th class="table-checkbox"><input type="checkbox"  class="select-all" ng-click="selectAll($event)"></th>
                                 <th>Title</th>
                                 <th>Composer</th>
                                 <th>ISWC</th>
@@ -302,7 +302,7 @@
                       <thead>
                         <tr>
                           <th class="table-checkbox">
-                            <input type="checkbox">
+                            <input type="checkbox"  class="select-all" ng-click="selectAll($event)">
                           </th>
                           <th>Name</th>
                           <th>Amount</th>

@@ -1,12 +1,12 @@
 angular.module('Curve')
-	.controller('costsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Cost', 'Notification', 'FileSaver', 'Loader',
-		function($scope, $routeParams, Session, Pagination, Cost, Notification, FileSaver, Loader) {
+	.controller('costsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Cost', 'Notification', 'FileSaver', 'Loader', 'SelectAll',
+		function($scope, $routeParams, Session, Pagination, Cost, Notification, FileSaver, Loader, SelectAll) {
 		var controller = this;
 		$scope.costs = [];
 		$scope.searchText = null;
 		this.filter = function(params, callback) {
 			Loader.load();
-			Cost.all(params, function(response) { 
+			Cost.all(params, function(response) {
 				if(response.status == 200) {
 					$scope.costs = response.data.costs;
 					$scope.totalPages = response.data.meta.totalPages;
@@ -17,7 +17,7 @@ angular.module('Curve')
 				} else {
 					Loader.error(response.data.message);
 				}
-			});   
+			});
 		};
 		$scope.getSortedData = function(orderBy) {
 			if ( $scope.orderBy == orderBy ) {
@@ -33,7 +33,7 @@ angular.module('Curve')
 					return 'sorting_asc';
 				} else {
 					return 'sorting_desc';
-				} 
+				}
 			} else {
 				return 'sorting';
 			}
@@ -43,7 +43,9 @@ angular.module('Curve')
 				Loader.success('Costs Successfully Searched');
 			});
 		};
-
+		$scope.selectAll = function(e){
+			SelectAll.select(e)
+		}
 		$scope.changePage = function(page) {
 			controller.filter({ name: $scope.searchText, page: page });
 		};
@@ -91,7 +93,7 @@ angular.module('Curve')
 				} else if(response.status == 400) {
 					$scope.importErrors = response.data.errors;
 					Loader.complete();
-				} else { 
+				} else {
 					Loader.complete();
 
 				}

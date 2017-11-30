@@ -1,23 +1,23 @@
 angular.module('Curve')
-	.controller('contractEditController', ['$scope', '$routeParams', '$window', 'Session', 'Contract', 'Parent', 'Territories', 'Settings', 'Notification', 'Loader',
-		function($scope, $routeParams, $window, Session, Contract, Parent, Territories, Settings, Notification, Loader) {
+	.controller('contractEditController', ['$scope', '$routeParams', '$window', 'Session', 'Contract', 'Parent', 'Territories', 'Settings', 'Notification', 'Loader', 'SelectAll',
+		function($scope, $routeParams, $window, Session, Contract, Parent, Territories, Settings, Notification, Loader, SelectAll) {
 		var controller = this;
 		$scope.contract = { salesTerms: [], deductionsTerms: [], costsTerms: [], mechanicalTerms: [], reserves: [] };
 		$scope.payees = [];
 		$scope.accountingPeriods = ["Monthly", "Quarterly", "Half-Yearly", "Yearly"];
 		$scope.contractTypes = ["Royalty", "Profit Share"];
-		$scope.countries = Territories; 
+		$scope.countries = Territories;
 		$scope.salesTypes = ["Gross Receipts","Net Receipts", "PPD"];
 		$scope.deductionTypes = ["Pre-Calculation", "Post-Calculation"];
 		$scope.costTypes = [];
 		$scope.distributionChannels = [];
-		$scope.configurations = []; 
+		$scope.configurations = [];
 		$scope.priceCategories = [];
 
-		// Load Contract if ID exists  
+		// Load Contract if ID exists
 		if($routeParams.id) {
 			Loader.load();
-			Contract.get($routeParams.id, function(response) {  
+			Contract.get($routeParams.id, function(response) {
 				if(response.status == 200) {
 					console.log(response.data);
 					$scope.contract = response.data;
@@ -40,10 +40,14 @@ angular.module('Curve')
 				angular.extend($scope, settings);
 			});
 
+			$scope.selectAll = function(e){
+				SelectAll.select(e)
+			};
+
 		Settings.getPayees()
 			.then(function(payees){
 				$scope.payees = payees;
-			});	
+			});
 
 		// Tabs
 		$scope.activeTab = "overview";

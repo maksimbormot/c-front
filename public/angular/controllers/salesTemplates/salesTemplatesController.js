@@ -1,9 +1,9 @@
 angular.module('Curve')
-	.controller('salesTemplatesController', ['$scope', '$routeParams', 'Session', 'Pagination', 'SalesTemplate', 'Notification', 'Loader',
-		function($scope, $routeParams, Session, Pagination, SalesTemplate, Notification, Loader) {
+	.controller('salesTemplatesController', ['$scope', '$routeParams', 'Session', 'Pagination', 'SalesTemplate', 'Notification', 'Loader', 'SelectAll',
+		function($scope, $routeParams, Session, Pagination, SalesTemplate, Notification, Loader, SelectAll) {
 		var controller = this;
 		$scope.salesTemplate = [];
-		$scope.searchText = null; 
+		$scope.searchText = null;
 		this.filter = function(params, callback) {
 			Loader.load();
 			SalesTemplate.all(params, function(response) {
@@ -32,8 +32,8 @@ angular.module('Curve')
 				if ( $scope.orderDir == 'asc' ) {
 					return 'sorting_asc';
 				} else {
-					return 'sorting_desc'; 
-				} 
+					return 'sorting_desc';
+				}
 			} else {
 				return 'sorting';
 			}
@@ -43,11 +43,13 @@ angular.module('Curve')
 				Loader.success('Templates Successfully Searched');
 			});
 		};
-
+		$scope.selectAll = function(e){
+			SelectAll.select(e)
+		}
 		$scope.changePage = function(page) {
 			controller.filter({ name: $scope.searchText, page: page });
 		};
-		
+
 		$scope.deleteSelected = function() {
 			Loader.load();
 			var num = 0, count = 0;

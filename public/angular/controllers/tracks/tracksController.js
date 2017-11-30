@@ -1,6 +1,6 @@
 angular.module('Curve')
-	.controller('tracksController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Track', 'Notification', 'FileSaver', 'Loader',
-		function($scope, $routeParams, Session, Pagination, Track, Notification, FileSaver, Loader) {
+	.controller('tracksController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Track', 'Notification', 'FileSaver', 'Loader', "SelectAll",
+		function($scope, $routeParams, Session, Pagination, Track, Notification, FileSaver, Loader, SelectAll) {
 		var controller = this;
 		$scope.tracks = [];
 		$scope.searchText = null;
@@ -45,6 +45,9 @@ angular.module('Curve')
 				Loader.success('Tracks Successfully Searched');
 			});
 		};
+		$scope.selectAll = function(e){
+			SelectAll.select(e)
+		}
 		$scope.changePage = function(page) {
 			controller.filter({ text: $scope.searchText, page: page });
 		};

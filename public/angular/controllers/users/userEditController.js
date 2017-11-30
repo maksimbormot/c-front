@@ -114,7 +114,5 @@ angular.module('Curve')
 
 				})
 			}
-
 		}
-
 	}]);

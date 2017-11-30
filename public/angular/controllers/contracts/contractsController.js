@@ -1,9 +1,9 @@
 angular.module('Curve')
-	.controller('contractsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Contract', 'Notification', 'FileSaver', 'Loader',
-		function($scope, $routeParams, Session, Pagination, Contract, Notification, FileSaver, Loader) {
+	.controller('contractsController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Contract', 'Notification', 'FileSaver', 'Loader', 'SelectAll',
+		function($scope, $routeParams, Session, Pagination, Contract, Notification, FileSaver, Loader, SelectAll) {
 		var controller = this;
 		$scope.contracts = [];
-		$scope.searchText = null; 
+		$scope.searchText = null;
 		$scope.orderBy = 'name';
 		$scope.orderDir = 'asc';
 		this.filter = function(params, callback) {
@@ -45,6 +45,9 @@ angular.module('Curve')
 				Loader.success('Contracts Successfully Searched');
 			});
 		};
+		$scope.selectAll = function(e){
+			SelectAll.select(e)
+		}
 		$scope.changePage = function(page) {
 			controller.filter({ text: $scope.searchText, page: page });
 		};

@@ -13,10 +13,9 @@
 <td class="v-align-middle">
 	<span ng-repeat="contract in cost.contractIds">
 		{{ contract.name }} &nbsp;
-	</span>	
+	</span>
 </td>
 <td class="v-align-middle">
   <span class="label label-success" ng-if="cost.reportedStatus == 'Complete'">Fully Reported</span>
   <span class="label label-danger" ng-if="cost.reportedStatus == 'Unreported'">Unreported</span>
 </td>
- 

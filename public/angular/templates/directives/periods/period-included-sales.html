@@ -15,7 +15,7 @@
           </div>
           <div class="row">
             <div class="col-xs-12">
-              <div class="row">
+              <div class="row row-wrapper">
                 <div class="col-xs-12">
                   <div class="row">
                     <div class="col-xs-6">
@@ -24,7 +24,7 @@
                       </div>
                     </div>
                     <div class="col-xs-6">
-                      <button class="btn btn-primary pull-right" ng-click="excludeAllSales()">Exclude All</button>
+                      <button class="btn btn-primary pull-right" ng-click="excludeAllSales($event)">Exclude All</button>
                       <button class="btn btn-default pull-right" ng-click="excludeSelectedSales()">Exclude Selected</button>
                     </div>
                   </div>
@@ -32,7 +32,7 @@
                     <table class="table table-hover table-condensed dataTable no-footer">
                       <thead>
                         <tr>
-                          <th class="table-checkbox"></th>
+                          <th class="table-checkbox"><input type="checkbox" class="select-all" ng-click="selectAll($event)"></th>
                           <th ng-click="getSortedData('name')" ng-class="whatClassIsIt('name')">Name</th>
                           <th ng-click="getSortedData('salesAccountName')" ng-class="whatClassIsIt('salesAccountName')">Account</th>
                           <th ng-click="getSortedData('account')" ng-class="whatClassIsIt('account')">Total Value</th>
@@ -68,14 +68,14 @@
               </div>
               <div class="row m-t-50">
                 <div class="col-xs-12">
-                  <div class="row">
+                  <div class="row row-wrapper">
                     <div class="col-xs-6">
                       <div class="form-group">
                         <h4>Excluded Sales</h4>
                       </div>
                     </div>
                     <div class="col-xs-6">
-                      <button class="btn btn-primary pull-right" ng-click="includeAllSales()">Include All</button>
+                      <button class="btn btn-primary pull-right" ng-click="includeAllSales($event)">Include All</button>
                       <button class="btn btn-default pull-right" ng-click="includeSelectedSales()">Include Selected</button>
                     </div>
                   </div>
@@ -83,7 +83,7 @@
                     <table class="table table-hover table-condensed dataTable no-footer">
                       <thead>
                         <tr>
-                          <th class="table-checkbox"></th>
+                          <th class="table-checkbox"><input type="checkbox" class="select-all" ng-click="selectAll($event)"></th>
                           <th ng-click="getSortedData('name')" ng-class="whatClassIsIt('name')">Name</th>
                           <th ng-click="getSortedData('salesAccountName')" ng-class="whatClassIsIt('salesAccountName')">Account</th>
                           <th ng-click="getSortedData('account')" ng-class="whatClassIsIt('account')">Total Value</th>
@@ -130,5 +130,3 @@
     </div>
   </div>
 </div>
-
-

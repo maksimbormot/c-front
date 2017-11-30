@@ -5,7 +5,7 @@
         <li>
           <p>Curve</p>
         </li>
-        <li><a href="/#/sales" class="active">Sales</a></li> 
+        <li><a href="/#/sales" class="active">Sales</a></li>
       </ul>
     </div>
   </div>
@@ -20,7 +20,7 @@
           <input type="text" class="form-control" placeholder="Search" ng-model="searchText">
           <span class="input-group-addon pointer search-button" ng-click="search()">
             <i class="pg-search"></i>
-          </span> 
+          </span>
         </div>
       </form>
     </div>
@@ -32,7 +32,7 @@
       </a>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="col-xs-12">
       <div class="panel panel-default">
@@ -46,7 +46,7 @@
             <table class="table table-hover table-condensed dataTable no-footer">
               <thead>
                 <tr>
-                  <th class="table-checkbox"><input type="checkbox"></th>
+                  <th class="table-checkbox"><input type="checkbox" class="select-all" ng-click="selectAll($event)"></th>
                   <th ng-click="getSortedData('name')" ng-class="whatClassIsIt('name')">Name</th>
                   <th ng-click="getSortedData('salesAccountName')" ng-class="whatClassIsIt('salesAccountName')">Account</th>
                   <th ng-click="getSortedData('totalValue')" ng-class="whatClassIsIt('totalValue')">Total Value</th>
@@ -111,4 +111,3 @@
     </div>
   </div>
 </div>
-

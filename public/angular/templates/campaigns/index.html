@@ -47,7 +47,7 @@
               <thead>
                 <tr>
                   <th class="table-checkbox">
-                    <input type="checkbox" class="select-all">
+                    <input type="checkbox" class="select-all" ng-click="selectAll($event)">
                   </th>
                   <th ng-click="getSortedData('title')" ng-class="whatClassIsIt('title')">Title</th>
                   <th ng-click="getSortedData('artist')" ng-class="whatClassIsIt('artist')">Artist</th>

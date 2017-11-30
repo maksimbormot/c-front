@@ -1,12 +1,12 @@
 angular.module('Curve')
-	.controller('payeesController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Payee', 'Notification', 'FileSaver', 'Loader',
-		function($scope, $routeParams, Session, Pagination, Payee, Notification, FileSaver, Loader) {
+	.controller('payeesController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Payee', 'Notification', 'FileSaver', 'Loader', 'SelectAll',
+		function($scope, $routeParams, Session, Pagination, Payee, Notification, FileSaver, Loader, SelectAll) {
 		var controller = this;
 		$scope.payees = [];
 		$scope.searchText = null;
 		$scope.orderBy = 'name';
 		$scope.orderDir = 'asc';
-		this.filter = function(params, callback) { 
+		this.filter = function(params, callback) {
 			Loader.load();
 			Payee.all(params, function(response) {
 				if(response.status == 200) {
@@ -45,6 +45,9 @@ angular.module('Curve')
 				Loader.success('Payees Successfully Searched');
 			});
 		};
+		$scope.selectAll = function(e){
+			SelectAll.select(e)
+		}
 		$scope.changePage = function(page) {
 			controller.filter({ text: $scope.searchText, page: page });
 		};

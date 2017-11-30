@@ -1,5 +1,5 @@
 angular.module('Curve')
-  .directive("periodIncludedCosts", function(Loader) {
+  .directive("periodIncludedCosts", [ 'Loader', 'SelectAll', function(Loader, SelectAll) {
     return {
       restrict: "E",
       templateUrl: "angular/templates/directives/periods/period-included-costs.html",
@@ -7,13 +7,18 @@ angular.module('Curve')
       link: function($scope) {
       	removeSelectedFromExcluded();
 
-        $scope.excludeAllCosts = function() {
+        $scope.excludeAllCosts = function(e) {
           $scope.includeCosts.forEach(function(cost) {
-          	$scope.costs.push(cost);
+            $scope.costs.push(cost);
           });
           $scope.includeCosts.splice(0, $scope.includeCosts.length);
           setCostsToPeriod();
+          SelectAll.deselect(e);
         }
+
+        $scope.selectAll = function(e){
+    			SelectAll.select(e)
+    		};
 
         $scope.excludeSelectedCosts = function() {
           var count = 0;
@@ -35,7 +40,7 @@ angular.module('Curve')
           setCostsToPeriod();
         }
 
-        $scope.includeAllCosts = function() {
+        $scope.includeAllCosts = function(e) {
           if($scope.includeCosts.length == 0) {
             $scope.costs.forEach(function(cost) {
               $scope.includeCosts.push(angular.extend({}, cost));
@@ -55,6 +60,7 @@ angular.module('Curve')
           }
           removeSelectedFromExcluded();
           setCostsToPeriod();
+          SelectAll.deselect(e);
         }
 
         $scope.includeSelectedCosts = function() {
@@ -115,4 +121,4 @@ angular.module('Curve')
 
       }
     }
-  });
+  }]);

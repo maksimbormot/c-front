@@ -1,6 +1,6 @@
 angular.module('Curve')
-  .controller('salesUnmappedController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Notification', 'Territories', 'Settings', 'Currencies', 'Sales', 'Loader',
-    function($scope, $routeParams, Session, Pagination, Notification, Territories, Settings, Currencies, Sales, Loader) {
+  .controller('salesUnmappedController', ['$scope', '$routeParams', 'Session', 'Pagination', 'Notification', 'Territories', 'Settings', 'Currencies', 'Sales', 'Loader', 'SelectAll',
+    function($scope, $routeParams, Session, Pagination, Notification, Territories, Settings, Currencies, Sales, Loader, SelectAll) {
       var controller = this;
       $scope.saleDatePopup = false;
       $scope.transactionDatePopup = false;
@@ -62,6 +62,9 @@ angular.module('Curve')
           $scope.filterSales = $scope.sales;
           Loader.success('Sales Successfully Searched');
         });
+      };
+      $scope.selectAll = function(e){
+        SelectAll.select(e)
       };
       $scope.changePage = function(page) {
         $scope.filter.page = page;
@@ -129,7 +132,7 @@ angular.module('Curve')
       $scope.updateSelected = function() {
         Loader.load();
         var ids = $scope.sales.map(function(sale) {
-          if(sale.selected) { return sale._id } 
+          if(sale.selected) { return sale._id }
         }).filter(Boolean);
         Sales.updateMultipleIds(ids, $scope.sale, function(response) {
           if(response.status == 200) {
