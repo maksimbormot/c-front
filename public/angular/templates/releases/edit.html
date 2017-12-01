@@ -87,9 +87,20 @@
                 </div>
                 <div class="panel-body p-t-15">
                   <div class="form-group required">
+                    <label>Distribution Channel</label>
+                    <ui-select ng-model="release.distributionChannel">
+                      <ui-select-match allow-clear="true">
+                          <span ng-bind="$select.selected"></span>
+                      </ui-select-match>
+                      <ui-select-choices repeat="item in distributionChannels">
+                          <span ng-bind="item"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                  </div>
+                  <div class="form-group required">
                     <label>Format</label>
                     <ui-select ng-model="release.format">
-                      <ui-select-match>
+                      <ui-select-match allow-clear="true">
                           <span ng-bind="$select.selected"></span>
                       </ui-select-match>
                       <ui-select-choices repeat="item in formats">
@@ -100,7 +111,7 @@
                   <div class="form-group required">
                     <label>Price Category</label>
                     <ui-select ng-model="release.priceCategory">
-                      <ui-select-match>
+                      <ui-select-match allow-clear="true">
                           <span ng-bind="$select.selected"></span>
                       </ui-select-match>
                       <ui-select-choices repeat="item in priceCategories">
@@ -163,6 +174,17 @@
         </div>
         <div ng-show="activeTab === 'rights'">
           <div class="row">
+            <div class="col-xs-12">
+              <div class="panel panel-transparent">
+                <div class="panel-body">
+                  <h3>Participation Rates</h3>
+                  <p>Participation Rates are used to associate a contract with a catalogue item, and set the percentage of revenue that flows through to the contract. You can assign multiple contracts to an item, and can assign different contracts for Sales/Returns and Costs.</p>
+                  <p>If you're unsure of what rate to set, the standard rate would be 100% - this would ensure all revenue is taken into account when calculating the royalty payment.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
             <div class="col-xs-12 col-md-6">
               <div class="panel panel-default">
                 <div class="panel-heading">
@@ -171,7 +193,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-row ng-repeat="contract in release.salesReturnsRights" contract="contract" contracts="contracts" delete="deleteSalesReturnsRights(contract)"></contract-row>
+                  <contract-row ng-repeat="contract in release.salesReturnsRights" contract="contract" contracts="contracts" delete="deleteSalesReturnsRights(contract)" index="$index"></contract-row>
                   <button class="btn btn-complete" ng-click="addSalesReturnsRights()">+ Contract</button>
                 </div>
               </div>
@@ -185,7 +207,7 @@
                   </div>
                 </div>
                 <div class="panel-body p-t-15">
-                  <contract-row ng-repeat="contract in release.costsRights" contract="contract" contracts="contracts" delete="deleteCostsRights(contract)"></contract-row>
+                  <contract-row ng-repeat="contract in release.costsRights" contract="contract" contracts="contracts" delete="deleteCostsRights(contract)" index="$index"></contract-row>
                   <button class="btn btn-complete"  ng-click="addCostsRights()">+ Contract</button>
                 </div>
               </div>

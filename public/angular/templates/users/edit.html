@@ -1,0 +1,84 @@
+<div class="jumbotron" data-pages="parallax">
+  <div class="container-fluid container-fixed-lg sm-p-l-20 sm-p-r-20">
+    <div class="inner">
+      <ul class="breadcrumb">
+        <li>
+          <p>Curve</p>
+        </li>
+        <li><a href="/#/users" class="active">Users</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container-fluid container-fixed-lg">
+  <div class="row">
+    <div class="col-xs-12 text-right">
+      <button class="btn btn-complete" ng-click="saveUserSettings()"><i class="fa fa-check"></i> Save</button>
+    </div>
+  </div>
+  <div> <!-- user is logged in as a client -->
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              User configuration
+            </div>
+          </div>
+          <div class="panel-body p-t-15">
+            <form role="form">
+            <div class="form-group required">
+              <label>Email</label>
+              <input type="text" class="form-control selected-user" placeholder="Email" ng-model="user.email" ng-disabled="disableEditEmail">
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <div class="panel-title">
+              Users
+            </div>
+          </div>
+          <div class="panel-body">
+            <div class="form-group required" ng-show="userRole === 'internal'">
+              <label>Parent</label>
+              <ui-select ng-model="selectedRole" on-select="changeRole($model)">
+                <ui-select-match>
+                  <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="role in roles">
+                  <span ng-bind="role.name"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="form-group required" ng-show="userRole === 'parent'">
+              <label>Client</label>
+              <ui-select ng-model="selectedRole" on-select="changeRole($model)">
+                <ui-select-match>
+                  <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="role in roles">
+                  <span ng-bind="role.name"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+            <div class="form-group required" ng-show="userRole === 'client' || userRole === 'payee'">
+              <label>Payee</label>
+              <ui-select ng-model="selectedRole" on-select="changeRole($model)">
+                <ui-select-match>
+                  <span ng-bind="$select.selected.name"></span>
+                </ui-select-match>
+                <ui-select-choices repeat="role in roles">
+                  <span ng-bind="role.name"></span>
+                </ui-select-choices>
+              </ui-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- user is logged in as a client
+</div>

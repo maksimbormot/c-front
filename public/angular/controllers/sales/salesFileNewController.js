@@ -71,10 +71,8 @@ angular.module('Curve')
     };
 
     function save(callback) {
-      Loader.load();
       SalesFile.create($scope.salesFile, function(response) {
         callback(response);
-        Loader.complete();
       });
     }
 

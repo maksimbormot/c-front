@@ -29,14 +29,14 @@ angular.module('Curve')
 			});
 		
 		$scope.addSalesReturnsRights = function() {
-			$scope.track.salesReturnsRights.push({});
+			$scope.track.salesReturnsRights.push({ percentage: 100 });
 		}
 		$scope.deleteSalesReturnsRights = function(contract) {
 			var index = $scope.track.salesReturnsRights.indexOf(contract);
 			$scope.track.salesReturnsRights.splice(index, 1);
 		}
 		$scope.addCostsRights = function() {
-			$scope.track.costsRights.push({});  
+			$scope.track.costsRights.push({ percentage: 100 });  
 		}
 		$scope.deleteCostsRights = function(contract) {
 			var index = $scope.track.costsRights.indexOf(contract);

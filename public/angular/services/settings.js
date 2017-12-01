@@ -16,9 +16,13 @@ angular.module('Curve')
 									Client.get(settings.user.clientId, function(response) {
 										if(response.status == 200) {
 											settings.distributionChannels = response.data.distributionChannels;
+											settings.distributionChannels.unshift("All");
 											settings.configurations = response.data.configurations;
+											settings.configurations.unshift("All");
 											settings.priceCategories = response.data.priceCategories;
+											settings.priceCategories.unshift("All");
 											settings.costTypes = response.data.costTypes;
+											settings.costTypes.unshift("All");
 											resolve(settings);
 										} else {
 											Notification.error('Error loading client, please try again or contact support');
@@ -37,7 +41,7 @@ angular.module('Curve')
 			getContracts: function(contracts){
 				contracts = [];
 				return $q(function(resolve, reject) {
-					Contract.all(contracts, function(response) {
+					Contract.all({ limit: 10000 }, function(response) {
 						if(response.status == 200) {
 							contracts = response.data;
 							resolve(contracts);
@@ -50,7 +54,7 @@ angular.module('Curve')
 			getPayees: function(payees){
 				payees = [];
 				return $q(function(resolve, reject) {
-					Payee.all(payees, function(response) {
+					Payee.all({ limit: 10000 }, function(response) {
 						if(response.status == 200) {
 							payees = response.data.payees;
 							resolve(payees);
@@ -63,7 +67,7 @@ angular.module('Curve')
 			getReleases: function(releases){
 				releases = [];
 				return $q(function(resolve, reject) {
-					Release.all(releases, function(response) {
+					Release.all({ limit: 10000 }, function(response) {
 						if(response.status == 200) {
 							releases = response.data;
 							resolve(releases);
@@ -76,7 +80,7 @@ angular.module('Curve')
 			getTracks: function(tracks){
 				tracks = [];
 				return $q(function(resolve, reject) {
-					Track.all(tracks, function(response) {
+					Track.all({ limit: 10000 }, function(response) {
 						if(response.status == 200) {
 							tracks = response.data;
 							resolve(tracks);
@@ -89,7 +93,7 @@ angular.module('Curve')
 			getWorks: function(works){
 				works = [];
 				return $q(function(resolve, reject) {
-					Work.all(works, function(response) {
+					Work.all({ limit: 10000 }, function(response) {
 						if(response.status == 200) {
 							works = response.data;
 							resolve(works);
@@ -102,7 +106,7 @@ angular.module('Curve')
 			getTemplates: function(templates){
 				templates = [];
 				return $q(function(resolve, reject) {
-					SalesTemplate.all(templates, function(response) {
+					SalesTemplate.all({ limit: 10000 }, function(response) {
 						if(response.status == 200) {
 							templates = response.data.salesTemplates;
 							resolve(templates);
@@ -115,7 +119,7 @@ angular.module('Curve')
 			getSalesFiles: function(salesFiles){
 				salesFiles = [];
 				return $q(function(resolve, reject) {
-					SalesFile.all(salesFiles, function(response) {
+					SalesFile.all({ limit: 10000 }, function(response) {
 						if(response.status == 200) {
 							salesFiles = response.data.salesFiles;
 							resolve(salesFiles);
@@ -128,7 +132,7 @@ angular.module('Curve')
 			getCosts: function(costs){
 				costs = [];
 				return $q(function(resolve, reject) {
-					Cost.all(costs, function(response) {
+					Cost.all({ limit: 10000 }, function(response) {
 						if(response.status == 200) {
 							costs = response.data.costs;
 							resolve(costs);
@@ -141,7 +145,7 @@ angular.module('Curve')
 			getStatements: function(statements){
 				statements = [];
 				return $q(function(resolve, reject) {
-					Statement.all(statements, function(response) {
+					Statement.all({ limit: 10000 }, function(response) {
 						if(response.status == 200) {
 							statements = response.data.statements;
 							resolve(statements);

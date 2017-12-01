@@ -4,7 +4,7 @@
       <ui-select-match>
           <span ng-bind="$select.selected.name"></span>
       </ui-select-match>
-      <ui-select-choices group-by="groupFind" repeat="item.name as item in territories | filter: $select.search">
+      <ui-select-choices group-by="groupFind" repeat="item.code as item in territories | filter: $select.search">
           <span class="country" ng-bind="item.name"></span>
       </ui-select-choices>
     </ui-select>

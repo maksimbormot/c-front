@@ -13,390 +13,352 @@
     </div>
   </div>
 </div>
-
 <!-- Main Container -->
-        <div class="container-fluid container-fixed-lg">
-          <div class="container">
+<div class="container-fluid container-fixed-lg">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-8">
+        <h3>{{period.name}}</h3>
+        <h5>{{period.accountingPeriod}}</h5>
+      </div>
+      <div class="col-xs-4 text-right">
+        <button class="btn btn-complete" ng-click="runCalculation()">Reprocess</button>
+        <div class="btn-group dropdown-default"> <a class="btn dropdown-toggle" data-toggle="dropdown" style="width: 141px;" aria-expanded="false"> Download <span class="caret"></span> </a>
+          <ul class="dropdown-menu " style="width: 141px;">
+            <li>
+              <a target="_blank" href="{{period.allCalculatedSalesCsvPublicLink}}">All Sales</a>
+            </li>
+            <li>
+              <a target="_blank" href="{{period.allCalculatedCostsCsvPublicLink}}">All Costs</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="panel panel-transparent">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs hidden-sm hidden-xs" data-init-reponsive-tabs="dropdownfx">
+          <li class="active" ng-click="setTab('overview')">
+            <a data-toggle="tab" aria-expanded="true"><span>Overview</span></a>
+          </li>
+          <li ng-click="setTab('includeSales')">
+            <a data-toggle="tab" aria-expanded="false"><span>Included Sales</span></a>
+          </li>
+          <li ng-click="setTab('includeCosts')">
+            <a data-toggle="tab" aria-expanded="false"><span>Included Costs</span></a>
+          </li>
+          <li ng-click="setTab('errors')">
+            <a data-toggle="tab" aria-expanded="false"><span>Sales</span></a>
+          </li>
+          <li ng-click="setTab('statements')">
+            <a data-toggle="tab" aria-expanded="false"><span>Statements</span></a>
+          </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active" ng-show="activeTab === 'overview'">
             <div class="row">
-              <div class="col-xs-8">
-                <h3>{{period.name}}</h3>
-                <h5>{{period.accountingPeriod}}</h5>
+              <div class="col-xs-3 m-t-40">
+                <div class="panel panel-default height-100 bg-success">
+                  <div class="panel-heading">
+                    <div class="panel-title text-white">
+                      Gross Revenue >
+                    </div>
+                  </div>
+                  <div class="panel-body bg-complete">
+                    <h3 class="text-white no-margin"><span class="semi-bold">£{{period.grossAmount | number: 2}}</span></h3>
+                  </div>
+                </div>
+                <div class="panel panel-default height-100 bg-complete">
+                  <div class="panel-heading">
+                    <div class="panel-title text-white">
+                      Net Payout >
+                    </div>
+                  </div>
+                  <div class="panel-body bg-primary">
+                    <h3 class="text-white no-margin"><span class="semi-bold">£{{period.netAmount | number: 2}}</span></h3>
+                  </div>
+                </div>
               </div>
-              <div class="col-xs-4 text-right">
+              <div class="col-xs-3 m-t-40">
+                <div class="panel panel-default height-100 bg-primary-darker">
+                  <div class="panel-heading">
+                    <div class="panel-title text-white">
+                      Gross Costs >
+                    </div>
+                  </div>
+                  <div class="panel-body bg-primary">
+                    <h3 class="no-margin text-white"><span class="semi-bold">£{{period.grossCosts | number: 2}}</span></h3>
+                  </div>
+                </div>
+                <div class="panel panel-default height-100 bg-primary-light">
+                  <div class="panel-heading">
+                    <div class="panel-title text-white">
+                      Recharged Costs >
+                    </div>
+                  </div>
+                  <div class="panel-body bg-primary">
+                    <h3 class="no-margin text-white"><span class="semi-bold">£{{period.netCosts | number: 2}}</span></h3>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-3 m-t-40">
+                <div class="panel panel-default height-100 bg-info">
+                  <div class="panel-heading">
+                    <div class="panel-title text-white">
+                      Input Units >
+                    </div>
+                  </div>
+                  <div class="panel-body bg-info-dark">
+                    <h3 class="no-margin text-white"><span class="semi-bold">{{period.units || 0}}</span></h3>
+                  </div>
+                </div>
+                <div class="panel panel-default height-100 bg-info">
+                  <div class="panel-heading">
+                    <div class="panel-title text-white">
+                      Input Sales Lines >
+                    </div>
+                  </div>
+                  <div class="panel-body bg-info-light">
+                    <h3 class="no-margin text-white"><span class="semi-bold">{{period.lines || 0}}</span></h3>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-3 m-t-40">
+              </div>
+            </div>
+            {{period.analytics}}
+          </div>
+          <div ng-show="activeTab === 'includeSales'">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      Sales
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <div class="table-responsive">
+                      <table class="table table-hover table-condensed dataTable no-footer">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Account</th>
+                            <th>Total Value</th>
+                            <th>Unmapped Lines</th>
+                            <th>Valid</th>
+                            <th>Status</th>
+                            <th>Reported</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr sales-file-table-row ng-repeat="sale in includeSalesFiles" sale="sale" no-links="false" no-checkbox="true"></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ng-show="activeTab === 'includeCosts'">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      Costs
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <div class="table-responsive">
+                      <table class="table table-hover table-condensed dataTable no-footer">
+                        <thead>
+                          <tr>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Type</th>
+                            <th>Release</th>
+                            <th>Contract</th>
+                            <th>Reported</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr cost-table-row ng-repeat="cost in includeCosts" cost="cost" no-links="false" no-checkbox="true"></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ng-show="activeTab === 'errors'">
+            <div class="row m-t-40">
+              <div class="col-xs-6 col-md-4">
+                <div class="form-group required">
+                  <label>Track Title</label>
+                  <input type="text" class="form-control" ng-model="filter.trackTitle">
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-4">
+                <div class="form-group required">
+                  <label>Barcode</label>
+                  <input type="text" class="form-control" ng-model="filter.barcode">
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-4">
+                <div class="form-group required">
+                  <label>Distrubution Channel</label>
+                  <input type="text" class="form-control" ng-model="filter.distributionChannel">
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-4">
+                <div class="form-group required">
+                  <label>Track Artist</label>
+                  <input type="text" class="form-control" ng-model="filter.trackArtist">
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-4">
+                <div class="form-group required">
+                  <label>Cat No.</label>
+                  <input type="text" class="form-control" ng-model="filter.catNo">
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-4">
+                <div class="form-group required">
+                  <label>Configuration</label>
+                  <input type="text" class="form-control" ng-model="filter.configuration">
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-4">
+                <div class="form-group required">
+                  <label>Album Title</label>
+                  <input type="text" class="form-control" ng-model="filter.albumTitle">
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-4">
+                <div class="form-group required">
+                  <label>ISRC</label>
+                  <input type="text" class="form-control" ng-model="filter.isrc">
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-4">
+                <div class="form-group required">
+                  <label>Source</label>
+                  <input type="text" class="form-control" ng-model="filter.source">
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-4">
+                <div class="form-group required">
+                  <label>Album Artist</label>
+                  <input type="text" class="form-control" ng-model="filter.albumArtist">
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-4">
+                <div class="form-group required">
+                  <label>Territory</label>
+                  <input type="text" class="form-control" ng-model="filter.territory">
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-4">
+                <div class="form-group required">
+                  <label>Subsource</label>
+                  <input type="text" class="form-control" ng-model="filter.subsource">
+                </div>
+              </div>
+            </div>
+            <!-- Buttons and Total -->
+            <div class="row">
+              <div class="col-xs-12 center">
+                <button class="btn btn-complete" ng-click="search()"><i class="fa fa-search"></i>&nbsp;Filter</button>
               </div>
             </div>
             <div class="row">
-              <div class="panel panel-transparent">
-                <!-- Nav tabs -->
-                <ul class="nav nav-tabs hidden-sm hidden-xs" data-init-reponsive-tabs="dropdownfx">
-                  <li class="active" ng-click="setTab('overview')">
-                    <a data-toggle="tab" aria-expanded="true"><span>Overview</span></a>
-                  </li>
-                  <li ng-click="setTab('includeSales')">
-                    <a data-toggle="tab" aria-expanded="false"><span>Included Sales</span></a>
-                  </li>
-                  <li ng-click="setTab('includeCosts')">
-                    <a data-toggle="tab" aria-expanded="false"><span>Included Costs</span></a>
-                  </li>
-                  <li ng-click="setTab('errors')">
-                    <a data-toggle="tab" aria-expanded="false"><span>Errors</span></a>
-                  </li>
-                  <li ng-click="setTab('statements')">
-                    <a data-toggle="tab" aria-expanded="false"><span>Statements</span></a>
-                  </li>
-                </ul>
-                <!-- Tab panes -->
-                <div class="tab-content">
-                  <div class="tab-pane active" ng-show="activeTab === 'overview'">
-                    <div class="row">
-                      <div class="col-xs-3 m-t-40">
-                        <div class="panel panel-default height-180 bg-complete">
-                          <div class="panel-heading">
-                            <div class="panel-title text-white">
-                              Revenue
-                            </div>
-                          </div>
-                          <div class="panel-body center bg-complete">
-                            <h1 class="text-white"><span class="semi-bold">£{{period.netAmount || 0}}</span></h1>
-                            <small class="text-white">Validation: £{{period.validationNetAmount || 0}}</small>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xs-3 m-t-40">
-                        <div class="panel panel-default height-180 bg-primary">
-                          <div class="panel-heading">
-                            <div class="panel-title text-white">
-                              Costs
-                            </div>
-                          </div>
-                          <div class="panel-body center bg-primary">
-                            <h1 class="text-white"><span class="semi-bold">£{{period.netCosts || 0}}</span></h1>
-                            <small>Validation: £{{period.validationNetCosts || 0}}</small>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xs-3 m-t-40">
-                        <div class="panel panel-default height-180 bg-info">
-                          <div class="panel-heading">
-                            <div class="panel-title text-white">
-                              Units
-                            </div>
-                          </div>
-                          <div class="panel-body center bg-info">
-                            <h1 class="text-white"><span class="semi-bold">{{period.units || 0}}</span></h1>
-                            <small class="text-white">Validation: {{period.validationUnits || 0}}</small>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xs-3 m-t-40">
-                        <div class="panel panel-default height-180"
-                             ng-class="{ 'bg-danger': period.invalidLines > 0, 'bg-success': period.invalidLines <= 0 }">
-                          <div class="panel-heading">
-                            <div class="panel-title text-white">
-                              Invalid Lines
-                            </div>
-                          </div>
-                          <div class="panel-body center"
-                               ng-class="{ 'bg-danger': period.invalidLines > 0, 'bg-success': period.invalidLines <= 0 }">
-                            <h1 class="text-white"><span class="semi-bold">{{period.invalidLines || 0}}</span></h1>
-                          </div>
-                        </div>
-                      </div>
+              <div class="col-xs-6">
+              </div>
+              <div class="col-xs-6">
+                <h5 class="pull-right">Total: {{total}}</h5>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="table-responsive">
+                      <table class="table table-hover table-condensed dataTable no-footer sales-table sales-table-with-checkbox">
+                        <thead>
+                          <tr>
+                            <th ng-click="getSortedData('catType')" ng-class="whatClassIsIt('catType')">Cat type</th>
+                            <th ng-click="getSortedData('distributionChannel')" ng-class="whatClassIsIt('distributionChannel')">Dist Channel</th>
+                            <th ng-click="getSortedData('configuration')" ng-class="whatClassIsIt('configuration')">Configuration</th>
+                            <th ng-click="getSortedData('priceCategory')" ng-class="whatClassIsIt('priceCategory')">Price cat</th>
+                            <th ng-click="getSortedData('source')" ng-class="whatClassIsIt('source')">Source</th>
+                            <th ng-click="getSortedData('subSource')" ng-class="whatClassIsIt('subSource')">Subsource</th>
+                            <th ng-click="getSortedData('territory')" ng-class="whatClassIsIt('territory')">Territory</th>
+                            <th ng-click="getSortedData('barcode')" ng-class="whatClassIsIt('barcode')">Barcode</th>
+                            <th ng-click="getSortedData('catNo')" ng-class="whatClassIsIt('catNo')">Cat no</th>
+                            <th ng-click="getSortedData('isrc')" ng-class="whatClassIsIt('isrc')">ISRC</th>
+                            <th ng-click="getSortedData('identifier')" ng-class="whatClassIsIt('identifier')">Identifier</th>
+                            <th ng-click="getSortedData('units')" ng-class="whatClassIsIt('units')">Units</th>
+                            <th ng-click="getSortedData('salePrice')" ng-class="whatClassIsIt('salePrice')">Sale price</th>
+                            <th ng-click="getSortedData('grossAmount')" ng-class="whatClassIsIt('grossAmount')">Gross</th>
+                            <th ng-click="getSortedData('netAmount')" ng-class="whatClassIsIt('netAmount')">Net</th>
+                            <th ng-click="getSortedData('originalCurrency')" ng-class="whatClassIsIt('originalCurrency')">Original currency</th>
+                            <th ng-click="getSortedData('exchangeRate')" ng-class="whatClassIsIt('exchangeRate')">Ex Rate</th>
+                            <th ng-click="getSortedData('grossAmount')" ng-class="whatClassIsIt('grossAmount')">Home Currency Gross</th>
+                            <th ng-click="getSortedData('netAmount')" ng-class="whatClassIsIt('netAmount')">Home Currency Net</th>
+                            <th ng-click="getSortedData('originalReleaseTitle')" ng-class="whatClassIsIt('originalReleaseTitle')">Release title</th>
+                            <th ng-click="getSortedData('originalReleaseArtist')" ng-class="whatClassIsIt('originalReleaseArtist')">Release artist</th>
+                            <th ng-click="getSortedData('originalTrackTitle')" ng-class="whatClassIsIt('originalTrackTitle')">Track title</th>
+                            <th ng-click="getSortedData('originalTrackArtist')" ng-class="whatClassIsIt('originalTrackArtist')">Track artist</th>
+                            <th ng-click="getSortedData('saleDate')" ng-class="whatClassIsIt('saleDate')">Sale date</th>
+                            <th ng-click="getSortedData('transactionDate')" ng-class="whatClassIsIt('transactionDate')">Transaction date</th>
+                            <th ng-click="getSortedData('releaseId')" ng-class="whatClassIsIt('releaseId')">Release id</th>
+                            <th ng-click="getSortedData('trackId')" ng-class="whatClassIsIt('trackId')">Track id</th>
+                            <th ng-click="getSortedData('workId')" ng-class="whatClassIsIt('workId')">Work id</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr output-sales-table-row ng-repeat="sale in outputSales" sale="sale"></tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
-                  <div ng-show="activeTab === 'includeSales'">
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="panel panel-default">
-                          <div class="panel-heading">
-                            <div class="panel-title">
-                              Sales
-                            </div>
-                          </div>
-                          <div class="panel-body">
-                            <div class="table-responsive">
-                              <table class="table table-hover table-condensed dataTable no-footer">
-                                <thead>
-                                  <tr>
-                                    <th>Name</th>
-                                    <th>Account</th>
-                                    <th>Total Value</th>
-                                    <th>Unmapped Lines</th>
-                                    <th>Valid</th>
-                                    <th>Status</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr sales-file-table-row ng-repeat="sale in includeSalesFiles" sale="sale" no-links="true" no-checkbox="true"></tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ng-show="activeTab === 'statements'">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      Statements
                     </div>
                   </div>
-                  <div ng-show="activeTab === 'includeCosts'">
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="panel panel-default">
-                          <div class="panel-heading">
-                            <div class="panel-title">
-                              Costs
-                            </div>
-                          </div>
-                          <div class="panel-body">
-                            <div class="table-responsive">
-                              <table class="table table-hover table-condensed dataTable no-footer">
-                                <thead>
-                                  <tr>
-                                    <th>Name</th>
-                                    <th>Amount</th>
-                                    <th>Type</th>
-                                    <th>Release</th>
-                                    <th>Contract</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr cost-table-row ng-repeat="cost in includeCosts" cost="cost" no-links="true" no-checkbox="true"></tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div ng-show="activeTab === 'errors'">
-                    <div class="row m-t-40">
-                      <div class="col-xs-6 col-md-4">
-                        <div class="form-group required">
-                          <label>Track Title</label>
-                          <input type="text" class="form-control" ng-model="filter.trackTitle">
-                        </div>
-                      </div>
-                      <div class="col-xs-6 col-md-4">
-                        <div class="form-group required">
-                          <label>Barcode</label>
-                          <input type="text" class="form-control" ng-model="filter.barcode">
-                        </div>
-                      </div>
-                      <div class="col-xs-6 col-md-4">
-                        <div class="form-group required">
-                          <label>Distrubution Channel</label>
-                          <input type="text" class="form-control" ng-model="filter.distributionChannel">
-                        </div>
-                      </div>
-                      <div class="col-xs-6 col-md-4">
-                        <div class="form-group required">
-                          <label>Track Artist</label>
-                          <input type="text" class="form-control" ng-model="filter.trackArtist">
-                        </div>
-                      </div>
-                      <div class="col-xs-6 col-md-4">
-                        <div class="form-group required">
-                          <label>Cat No.</label>
-                          <input type="text" class="form-control" ng-model="filter.catNo">
-                        </div>
-                      </div>
-                      <div class="col-xs-6 col-md-4">
-                        <div class="form-group required">
-                          <label>Configuration</label>
-                          <input type="text" class="form-control" ng-model="filter.configuration">
-                        </div>
-                      </div>
-                      <div class="col-xs-6 col-md-4">
-                        <div class="form-group required">
-                          <label>Album Title</label>
-                          <input type="text" class="form-control" ng-model="filter.albumTitle">
-                        </div>
-                      </div>
-                      <div class="col-xs-6 col-md-4">
-                        <div class="form-group required">
-                          <label>ISRC</label>
-                          <input type="text" class="form-control" ng-model="filter.isrc">
-                        </div>
-                      </div>
-                      <div class="col-xs-6 col-md-4">
-                        <div class="form-group required">
-                          <label>Source</label>
-                          <input type="text" class="form-control" ng-model="filter.source">
-                        </div>
-                      </div>
-                      <div class="col-xs-6 col-md-4">
-                        <div class="form-group required">
-                          <label>Album Artist</label>
-                          <input type="text" class="form-control" ng-model="filter.albumArtist">
-                        </div>
-                      </div>
-                      <div class="col-xs-6 col-md-4">
-                        <div class="form-group required">
-                          <label>Territory</label>
-                          <input type="text" class="form-control" ng-model="filter.territory">
-                        </div>
-                      </div>
-                      <div class="col-xs-6 col-md-4">
-                        <div class="form-group required">
-                          <label>Subsource</label>
-                          <input type="text" class="form-control" ng-model="filter.subsource">
-                        </div>
-                      </div>
-                    </div>
-                    <!-- Buttons and Total -->
-                    <div class="row">
-                      <div class="col-xs-12 center">
-                        <button class="btn btn-complete" ng-click="search()"><i class="fa fa-search"></i>&nbsp;Filter</button>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-6">
-                      </div>
-                      <div class="col-xs-6">
-                        <h5 class="pull-right">Total: {{total}}</h5>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="panel panel-default">
-                          <div class="panel-body">
-                            <div class="table-responsive">
-                              <table class="table table-hover table-condensed dataTable no-footer sales-table sales-table-with-checkbox">
-                                <thead>
-                                  <tr>
-                                    <th ng-click="getSortedData('barcode')" ng-class="whatClassIsIt('barcode')">Barcode</th>
-                                    <th ng-click="getSortedData('catNo')" ng-class="whatClassIsIt('catNo')">Cat no</th>
-                                    <th ng-click="getSortedData('catType')" ng-class="whatClassIsIt('catType')">Cat type</th>
-                                    <th ng-click="getSortedData('configuration')" ng-class="whatClassIsIt('configuration')">Configuration</th>
-                                    <th ng-click="getSortedData('distributionChannel')" ng-class="whatClassIsIt('distributionChannel')">Channel</th>
-                                    <th ng-click="getSortedData('exchangeRate')" ng-class="whatClassIsIt('exchangeRate')">Exchange rate</th>
-                                    <th ng-click="getSortedData('grossAmount')" ng-class="whatClassIsIt('grossAmount')">Gross</th>
-                                    <th ng-click="getSortedData('homeCurrency')" ng-class="whatClassIsIt('homeCurrency')">Home currency</th>
-                                    <th ng-click="getSortedData('identifier')" ng-class="whatClassIsIt('identifier')">Identifier</th>
-                                    <th ng-click="getSortedData('isrc')" ng-class="whatClassIsIt('isrc')">ISRC</th>
-                                    <th ng-click="getSortedData('netAmount')" ng-class="whatClassIsIt('netAmount')">Net amount</th>
-                                    <th ng-click="getSortedData('originalCurrency')" ng-class="whatClassIsIt('originalCurrency')">Original currency</th>
-                                    <th ng-click="getSortedData('originalTitle')" ng-class="whatClassIsIt('originalTitle')">Original title</th>
-                                    <th ng-click="getSortedData('priceCategoryreleaseArtist')" ng-class="whatClassIsIt('priceCategoryreleaseArtist')">Price cat</th>
-                                    <th ng-click="getSortedData('releaseArtist')" ng-class="whatClassIsIt('releaseArtist')">Release artist</th>
-                                    <th ng-click="getSortedData('releaseID')" ng-class="whatClassIsIt('releaseID')">Release id</th>
-                                    <th ng-click="getSortedData('releaseTitle')" ng-class="whatClassIsIt('releaseTitle')">Release title</th>
-                                    <th ng-click="getSortedData('saleDate')" ng-class="whatClassIsIt('saleDate')">Sale date</th>
-                                    <th ng-click="getSortedData('salePrice')" ng-class="whatClassIsIt('salePrice')">Sale price</th>
-                                    <th ng-click="getSortedData('source')" ng-class="whatClassIsIt('source')">Source</th>
-                                    <th ng-click="getSortedData('status')" ng-class="whatClassIsIt('status')">Status</th>
-                                    <th ng-click="getSortedData('territory')" ng-class="whatClassIsIt('territory')">Territory</th>
-                                    <th ng-click="getSortedData('trackArtist')" ng-class="whatClassIsIt('trackArtist')">Track artist</th>
-                                    <th ng-click="getSortedData('trackID')" ng-class="whatClassIsIt('trackID')">Track id</th>
-                                    <th ng-click="getSortedData('trackTitle')" ng-class="whatClassIsIt('trackTitle')">Track title</th>
-                                    <th ng-click="getSortedData('transactionDate')" ng-class="whatClassIsIt('transactionDate')">Transaction date</th>
-                                    <th ng-click="getSortedData('type')" ng-class="whatClassIsIt('type')">Type</th>
-                                    <th ng-click="getSortedData('units')" ng-class="whatClassIsIt('units')">Units</th>
-                                    <th ng-click="getSortedData('workID')" ng-class="whatClassIsIt('workID')">Work id</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr sales-unmapped-table-row ng-repeat="sale in sales" sale="sale" no-checkbox="true" no-edit="true"></tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div ng-show="activeTab === 'statements'">
-                    <div class="row">
-                      <div class="col-xs-12">
-                        <div class="panel panel-default">
-                          <div class="panel-heading">
-                            <div class="panel-title">
-                              Statements
-                            </div>
-                          </div>
-                          <div class="panel-body">
-                            <div class="table-responsive">
-                              <table class="table table-hover table-condensed dataTable no-footer">
-                                <thead>
-                                  <tr>
-                                    <th>Name</th>
-                                    <th>Contract</th>
-                                    <th>Opening</th>
-                                    <th>Sales</th>
-                                    <th>Costs</th>
-                                    <th>Closing</th>
-                                    <th>Status</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                  <tr>
-                                    <td class="v-align-middle">Statement 1</td>
-                                    <td class="v-align-middle">Contract 1</td>
-                                    <td class="v-align-middle">£123.45</td>
-                                    <td class="v-align-middle">£45.67</td>
-                                    <td class="v-align-middle">£76.54</td>
-                                    <td class="v-align-middle">£98.76</td>
-                                    <td class="v-align-middle"><span class="label label-success">Complete</span></td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                  <div class="panel-body">
+                    <div class="table-responsive">
+                      <table class="table table-hover dataTable no-footer">
+                        <thead>
+                          <tr>
+                            <th class="table-checkbox"><input type="checkbox" class="select-all"></th>
+                            <th>Name</th>
+                            <th>Opening</th>
+                            <th>Gross Sales</th>
+                            <th>Net Sales</th>
+                            <th>Gross Costs</th>
+                            <th>Net Costs</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr statement-table-row ng-repeat="statement in statements" statement="statement"></tr>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -404,3 +366,7 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>

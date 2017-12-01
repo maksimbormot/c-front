@@ -93,7 +93,7 @@ angular.module('Curve')
 					$scope.importErrors = response.data.errors;
 					Loader.complete();
 				} else {
-					Loader.complete();
+					this.filter({});
 				}
 			});
 		}

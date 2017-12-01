@@ -2,7 +2,7 @@
   <div class="form-group col-xs-3 col-md-2">
     <label ng-if="!index">Territory</label>
     <ui-select ng-model="sale.territory">
-      <ui-select-match>
+      <ui-select-match allow-clear="true">
           <span ng-bind="$select.selected.name"></span>
       </ui-select-match>
       <ui-select-choices group-by="groupFind" repeat="country.code as country in countries | filter: $select.search">
@@ -13,7 +13,7 @@
   <div class="form-group col-xs-3 col-md-2 sales-row-field-smaller">
     <label ng-if="!index">Channel</label>
     <ui-select ng-model="sale.channel">
-      <ui-select-match>
+      <ui-select-match allow-clear="true">
         <span ng-bind="$select.selected"></span>
       </ui-select-match>
       <ui-select-choices repeat="item in channels | filter: $select.search">
@@ -22,9 +22,9 @@
     </ui-select>
   </div>
   <div class="form-group col-xs-3 col-md-2 sales-row-field-smaller">
-    <label ng-if="!index">Configuration</label>
+    <label ng-if="!index">Config</label>
     <ui-select ng-model="sale.configuration">
-      <ui-select-match>
+      <ui-select-match allow-clear="true">
         <span ng-bind="$select.selected"></span>
       </ui-select-match>
       <ui-select-choices repeat="item in configurations | filter: $select.search">
@@ -33,9 +33,9 @@
     </ui-select>
   </div>
   <div class="form-group col-xs-3 col-md-2 sales-row-field-smaller">
-    <label ng-if="!index">Price Category</label>
+    <label ng-if="!index">Price Cat</label>
     <ui-select ng-model="sale.priceCategory">
-      <ui-select-match>
+      <ui-select-match allow-clear="true">
         <span ng-bind="$select.selected"></span>
       </ui-select-match>
       <ui-select-choices repeat="item in priceCategories | filter: $select.search">
@@ -43,10 +43,14 @@
       </ui-select-choices>
     </ui-select>
   </div>
+  <div class="form-group col-xs-2 col-md-2 sales-row-field-smaller">
+    <label ng-if="!index">Source</label>
+    <input type="text" class="form-control" ng-model="sale.source">
+  </div>
   <div class="form-group col-xs-3 col-md-2 sales-row-field-smaller">
     <label ng-if="!index">Type</label>
     <ui-select ng-model="sale.type">
-      <ui-select-match>
+      <ui-select-match allow-clear="true">
         <span ng-bind="$select.selected"></span>
       </ui-select-match>
       <ui-select-choices repeat="item in salesTypes | filter: $select.search">

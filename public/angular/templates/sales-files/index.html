@@ -25,16 +25,10 @@
       </form>
     </div>
     <div class="col-sm-12 col-md-6 col-md-offset-1 col-lg-6 col-md-offset-0 text-right">
-      <a href="#/sales/unmapped">
-        <button class="btn btn-danger">Unmapped</button>
-      </a> 
-      <a href="#/templates">
-        <button class="btn btn-default">Templates</button>
-      </a>
       <button class="btn btn-default" ng-click="export()"><i class="fa fa-upload"></i>&nbsp;Export</button>
       <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i>&nbsp;Delete</button>
       <a href="#/sales/new">
-        <button class="btn btn-primary"><i class="fa fa-download"></i>&nbsp;Import</button>
+        <button class="btn btn-complete"><i class="fa fa-plus"></i>&nbsp;Create</button>
       </a>
     </div>
   </div>
@@ -56,9 +50,10 @@
                   <th ng-click="getSortedData('name')" ng-class="whatClassIsIt('name')">Name</th>
                   <th ng-click="getSortedData('salesAccountName')" ng-class="whatClassIsIt('salesAccountName')">Account</th>
                   <th ng-click="getSortedData('totalValue')" ng-class="whatClassIsIt('totalValue')">Total Value</th>
-                  <th ng-click="getSortedData('unmappedLines')" ng-class="whatClassIsIt('unmappedLines')">Unmapped Lines</th>
+                  <th ng-click="getSortedData('unmappedLines')" ng-class="whatClassIsIt('unmappedLines')">Invalid Lines</th>
                   <th ng-click="getSortedData('valid')" ng-class="whatClassIsIt('valid')">Valid</th>
                   <th ng-click="getSortedData('status')" ng-class="whatClassIsIt('status')">Status</th>
+                  <th ng-click="getSortedData('reportedStatus')" ng-class="whatClassIsIt('reportedStatus')">Reported</th>
                 </tr>
               </thead>
               <tbody>

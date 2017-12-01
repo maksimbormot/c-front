@@ -11,7 +11,7 @@
       </ul>
     </div>
   </div>
-</div> 
+</div>
 <!-- Main Container -->
 <div class="container-fluid container-fixed-lg">
   <div class="row">
@@ -25,9 +25,9 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <div class="panel-title">
-            Overview 
+            Overview
           </div>
-        </div> 
+        </div>
         <div class="panel-body p-t-15">
           <div class="form-group required">
             <label>Name</label>
@@ -43,7 +43,7 @@
               <ui-select-match>
                 <span ng-bind="$select.selected"></span>
               </ui-select-match>
-              <ui-select-choices repeat="item in costsTypes">
+              <ui-select-choices repeat="item in costTypes">
                 <span ng-bind="item"></span>
               </ui-select-choices>
             </ui-select>
@@ -74,9 +74,9 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <div class="panel-title">
-            File 
+            File
           </div>
-        </div> 
+        </div>
         <div class="panel-body p-t-15">
           <div class="form-group required">
             <input type="file" class="form-control" ng-model="file" ngf-select ngf-allow-dir="false" ngf-change="upload($file)">

@@ -135,7 +135,7 @@ angular.module('Curve')
 			templateUrl: '/angular/templates/sales-files/index.html',
 			controller: 'salesFileController',
 			controllerAs: 'salesFileCtrl'
-		}) 
+		})
 		.when('/sales/:id/edit', {
 			templateUrl: '/angular/templates/sales-files/sales-import.html',
 			controller: 'salesImportController',
@@ -191,10 +191,10 @@ angular.module('Curve')
 			controller: 'statementEditController',
 			controllerAs: 'statementEditCtrl'
 		})
-		.when('/statements/new', {
-			templateUrl: '/angular/templates/periods/edit.html',
-			controller: 'statementEditController',
-			controllerAs: 'statementEditCtrl'
+		.when('/statements/:id', {
+			templateUrl: '/angular/templates/statements/view.html',
+			controller: 'statementViewController',
+			controllerAs: 'statementViewCtrl'
 		})
 		.when('/reports', {
 			templateUrl: '/angular/templates/reports/index.html'
@@ -206,6 +206,21 @@ angular.module('Curve')
 			templateUrl: '/angular/templates/settings/index.html',
 			controller: 'settingsController',
 			controllerAs: 'settingsCtrl'
+		})
+		.when('/users', {
+			templateUrl: '/angular/templates/users/index.html',
+			controller: 'usersController',
+			controllerAs: 'usersCtrl'
+		})
+		.when('/users/new', {
+			templateUrl: '/angular/templates/users/edit.html',
+			controller: 'userEditController',
+			controllerAs: 'usersCtrl'
+		})
+		.when('/users/:id/edit', {
+			templateUrl: '/angular/templates/users/edit.html',
+			controller: 'userEditController',
+			controllerAs: 'usersCtrl'
 		})
 		.when('/templates', {
 			templateUrl: '/angular/templates/sales-templates/index.html',
@@ -222,5 +237,15 @@ angular.module('Curve')
 			controller: 'salesTemplateEditController',
 			controllerAs: 'salesTemplateCtrl'
 		})
+		.when('/transactions/new', {
+			templateUrl: '/angular/templates/transactions/edit.html',
+			controller: 'transactionEditController',
+			controllerAs: 'transactionCtrl'
+		})
+		.when('/transactions/:id/edit', {
+			templateUrl: '/angular/templates/transactions/edit.html',
+			controller: 'transactionEditController',
+			controllerAs: 'transactionCtrl'
+		})
 		.otherwise({ redirectTo: '/' })
-	}); 
+	});

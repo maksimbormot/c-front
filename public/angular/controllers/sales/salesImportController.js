@@ -1,6 +1,6 @@
 angular.module('Curve')
-  .controller('salesImportController', ['$scope', '$routeParams', '$window', 'Session', 'Notification', 'Territories', 'Settings', 'Upload', 'SalesFile', 'Currencies', 'Loader',
-    function($scope, $routeParams, $window, Session, Notification, Territories, Settings, Upload, SalesFile, Currencies, Loader) {
+  .controller('salesImportController', ['$scope', '$routeParams', '$window', 'Session', 'Notification', 'Territories', 'Settings', 'Upload', 'SalesFile', 'SalesTemplate', 'Currencies', 'Loader',
+    function($scope, $routeParams, $window, Session, Notification, Territories, Settings, Upload, SalesFile, SalesTemplate, Currencies, Loader) {
     var controller = this;
     $scope.token = '?applicationToken=12345&token=' + Session.token;
     $scope.salesImport = false;
@@ -18,19 +18,38 @@ angular.module('Curve')
     // Load Template if ID exists
     if($routeParams.id) {
       Loader.load();
-      SalesFile.get($routeParams.id, function(response) {
-        if(response.status == 200) {
-          $scope.salesFile = response.data;
-          if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.saleDate) { $scope.salesFile.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate); }
-          if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.transactionDate) { $scope.salesFile.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate); }
-          setupExampleTableHeaders();
-          setupExampleTableBody();
-          Loader.complete();
-        } else {
-          Loader.error('Error loading template, please try again or contact support');
-        }
+      init(function() {
+        Loader.complete();
       });
     };
+
+    function init(callback) {
+      if($routeParams.id) {
+        SalesFile.get($routeParams.id, function(response) {
+          if(response.status == 200 && response.data.status == "Complete") {
+            $window.location.href = "#/sales/" + $routeParams.id + "/ingestion_complete"
+          } else if(response.status == 200) {
+            $scope.salesFile = response.data;
+            console.log($scope.salesFile);
+            if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.saleDate) { $scope.salesFile.overwriteFields.saleDate = new Date(response.data.overwriteFields.saleDate); }
+            if($scope.salesFile.overwriteFields && $scope.salesFile.overwriteFields.transactionDate) { $scope.salesFile.overwriteFields.transactionDate = new Date(response.data.overwriteFields.transactionDate); }
+            setupExampleTableHeaders();
+            setupExampleTableBody();
+            SalesTemplate.get($scope.salesFile.salesTemplateId, function(response) { 
+              if(response.status == 200) {
+                $scope.salesTemplate = response.data;
+                updateIncludesFields();
+              }
+            });
+            if($scope.salesFile.status === 'Ingesting') { setTimeout(init, 500); }
+            if(callback) { callback(); }
+          } else {
+            if(callback) { callback(); }
+            Loader.error('Error loading template, please try again or contact support');
+          }
+        });
+      }
+    }
 
     Settings.getSettings()
       .then(function(settings) {
@@ -77,7 +96,6 @@ angular.module('Curve')
     }
 
     $scope.ingest = function() {
-    	// Added save here
       Loader.load();
       save(function() {
       	SalesFile.ingest($scope.salesFile._id, {}, function(response) {
@@ -96,14 +114,51 @@ angular.module('Curve')
       if(!$scope.salesFile._id) {
         SalesFile.create($scope.salesFile, function(response) {
           callback(response);
-          Loader.complete();
         });
       } else {
         SalesFile.update($scope.salesFile._id, $scope.salesFile, function(response) {
           callback(response);
-          Loader.complete();
         });
       }
     }
+
+    // Required Fields
+    $scope.includesTerritory = false;
+    $scope.includesDistributionChannel = false;
+    $scope.includesConfiguration = false;
+    $scope.includesPriceCategory = false;
+    $scope.includesCurrency = false;
+    $scope.includesExchangeRate = false;
+    $scope.includesSource = false;
+    $scope.includesUnits = false;
+    $scope.includesNetAmount = false;
+
+    function updateIncludesFields() {
+      $scope.includesTerritory = valueOrFalse($scope.salesFile.overwriteFields.originalTerritory, "originalTerritory");
+      $scope.includesDistributionChannel = valueOrFalse($scope.salesFile.overwriteFields.originalDistributionChannel, "originalDistributionChannel");
+      $scope.includesConfiguration = valueOrFalse($scope.salesFile.overwriteFields.originalConfiguration, "originalConfiguration");
+      $scope.includesPriceCategory = valueOrFalse($scope.salesFile.overwriteFields.originalPriceCategory, "originalPriceCategory");
+      $scope.includesCurrency = valueOrFalse($scope.salesFile.overwriteFields.originalCurrency, "originalCurrency");
+      $scope.includesSource = valueOrFalse($scope.salesFile.overwriteFields.source, "source");
+      $scope.includesExchangeRate = valueOrFalse($scope.salesFile.overwriteFields.exchangeRate, "exchangeRate");
+      $scope.includesUnits = valueOrFalse($scope.salesFile.overwriteFields.units, "units");
+      $scope.includesNetAmount = valueOrFalse($scope.salesFile.overwriteFields.netAmount, "netAmount");
+    }
+
+    function valueOrFalse(value, field) {
+      if($scope.salesTemplate) {
+        var fields = $scope.salesTemplate.fields.map(function(val) { return val.field });
+        if(field && fields.indexOf(field) != -1) {
+          return true;
+        } else if(value) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    }
+
+    $scope.$watch('salesFile.overwriteFields', updateIncludesFields, true);
+    $scope.$watch('salesFile.fields', updateIncludesFields, true);
 
   }]);

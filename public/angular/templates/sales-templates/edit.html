@@ -16,7 +16,7 @@
 <div class="container-fluid container-fixed-lg">
   <div class="row m-b-20">
     <div class="col-xs-12 text-right">
-      <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash"></i>&nbsp;Delete</button>
+      <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-if="salesTemplate._id"><i class="fa fa-trash"></i>&nbsp;Delete</button>
       <button class="btn btn-complete" ng-click="save()"><i class="fa fa-check"></i> Save</button>
     </div>
   </div>
@@ -75,6 +75,62 @@
         </div>
       </div>      
     </div>
+    <div class="col-xs-12 col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">  
+          <div class="panel-title">
+            Required Fields
+          </div>
+        </div>
+        <div class="panel-body p-t-15">
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesTerritory"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesTerritory"></i> 
+            <label>Territory</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesDistributionChannel"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesDistributionChannel"></i> 
+            <label>Distribution Channel</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesConfiguration"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesConfiguration"></i> 
+            <label>Configuration</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesPriceCategory"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesPriceCategory"></i> 
+            <label>Price Category</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesSource"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesSource"></i> 
+            <label>Source</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesCurrency"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesCurrency"></i> 
+            <label>Currency</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesExchangeRate"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesExchangeRate"></i> 
+            <label>Exchange Rate</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesUnits"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesUnits"></i> 
+            <label>Units</label>
+          </div>
+          <div class="form-group">
+            <i class="fa fa-check text-success" ng-if="includesNetAmount"></i> 
+            <i class="fa fa-times text-danger" ng-if="!includesNetAmount"></i> 
+            <label>Net Amount</label>
+          </div>
+        </div>
+      </div>      
+    </div>
     <div class="col-xs-12 col-md-12 col-sm-12">
       <div class="panel panel-default">
         <div class="panel-heading">  
@@ -93,7 +149,7 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Distribution Channel</label>
-                <ui-select ng-model="salesTemplate.overwriteFields.distributionChannel">
+                <ui-select ng-model="salesTemplate.overwriteFields.originalDistributionChannel">
                   <ui-select-match allow-clear="true">
                     <span ng-bind="$select.selected"></span>
                   </ui-select-match>
@@ -106,7 +162,7 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Currency</label>
-                <ui-select ng-model="salesTemplate.overwriteFields.currency">
+                <ui-select ng-model="salesTemplate.overwriteFields.originalCurrency">
                   <ui-select-match allow-clear="true">
                       <span ng-bind="$select.selected.code"></span>
                   </ui-select-match>
@@ -138,7 +194,7 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Configuration</label>
-                <ui-select ng-model="salesTemplate.overwriteFields.configuration">
+                <ui-select ng-model="salesTemplate.overwriteFields.originalConfiguration">
                   <ui-select-match allow-clear="true">
                     <span ng-bind="$select.selected"></span>
                   </ui-select-match>
@@ -151,7 +207,7 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Exchange Rate</label>
-                <input type="text" class="form-control" ng-model="salesTemplate.overwriteFields.exchangeRate">
+                <input type="number" class="form-control" ng-model="salesTemplate.overwriteFields.exchangeRate">
               </div>
             </div>
             <div class="col-xs-6 col-sm-3">
@@ -171,7 +227,7 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Price Category</label>
-                <ui-select ng-model="salesTemplate.overwriteFields.priceCategory">
+                <ui-select ng-model="salesTemplate.overwriteFields.originalPriceCategory">
                   <ui-select-match allow-clear="true">
                     <span ng-bind="$select.selected"></span>
                   </ui-select-match>
@@ -184,7 +240,7 @@
             <div class="col-xs-6 col-sm-3">
               <div class="form-group">
                 <label>Territory</label>
-                <ui-select ng-model="salesTemplate.overwriteFields.territory">
+                <ui-select ng-model="salesTemplate.overwriteFields.originalTerritory">
                   <ui-select-match allow-clear="true">
                       <span ng-bind="$select.selected.name"></span>
                   </ui-select-match>
@@ -192,6 +248,12 @@
                       <span class="country" ng-bind="territory.name"></span>
                   </ui-select-choices>
                 </ui-select>
+              </div>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+              <div class="form-group">
+                <label>Multiplier</label>
+                <input type="number" class="form-control" ng-model="salesTemplate.overwriteFields.multiplier">
               </div>
             </div>
           </div>

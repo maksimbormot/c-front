@@ -1,40 +1,37 @@
 <td ng-if="!noCheckbox" class="v-align-middle"><input type="checkbox" ng-model="sale.selected"></td>
+<td class="v-align-middle">
+	<span class="label label-success" ng-if="sale.status == 'Complete'">Complete</span>
+	<span class="label label-danger" ng-if="sale.status == 'Incomplete'">Incomplete</span>
+</td>
+<td ng-class="!sale.catType ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.catType }}</td>
+<td ng-class="!sale.distributionChannel ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.distributionChannel }}</td>
+<td ng-class="!sale.configuration ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.configuration }}</td>
+<td ng-class="!sale.priceCategory ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.priceCategory }}</td>
+<td ng-class="!sale.source ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.source }}</td>
+<td class="v-align-middle">{{ sale.subSource }}</td>
+<td ng-class="!sale.territory ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.territory }}</td>
 <td class="v-align-middle">{{ sale.barcode }}</td>
 <td class="v-align-middle">{{ sale.catNo }}</td>
-<td class="v-align-middle">{{ sale.catType }}</td>
-<td class="v-align-middle">{{ sale.configuration }}</td>
-<td class="v-align-middle">{{ sale.distributionChannel }}</td>
-<td class="v-align-middle">{{ sale.exchangeRate }}</td>
-<td class="v-align-middle">{{ sale.grossAmount }}</td>
-<td class="v-align-middle">{{ sale.homeCurrency }}</td>
-<td class="v-align-middle">{{ sale.identifier }}</td>
 <td class="v-align-middle">{{ sale.isrc }}</td>
-<td class="v-align-middle">{{ sale.netAmount }}</td>
-<td class="v-align-middle">{{ sale.originalCurrency }}</td>
-<td class="v-align-middle">{{ sale.originalTitle }}</td>
-<td class="v-align-middle">{{ sale.priceCategory }}</td>
-<td class="v-align-middle">{{ sale.releaseArtist }}</td>
-<td class="v-align-middle">{{ sale.releaseID }}</td>
-<td class="v-align-middle">{{ sale.releaseTitle }}</td>
-<td class="v-align-middle">{{ sale.saleDate }}</td>
+<td class="v-align-middle">{{ sale.identifier }}</td>
+<td ng-class="!sale.units ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.units }}</td>
 <td class="v-align-middle">{{ sale.salePrice }}</td>
-<td class="v-align-middle">{{ sale.source }}</td>
-<td class="v-align-middle">{{ sale.status }}</td>
-<td class="v-align-middle">{{ sale.territory }}</td>
-<td class="v-align-middle">{{ sale.trackArtist }}</td>
-<td class="v-align-middle">{{ sale.trackID }}</td>
-<td class="v-align-middle">{{ sale.trackTitle }}</td>
+<td class="v-align-middle">{{ sale.grossAmount }}</td>
+<td ng-class="!sale.netAmount ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.netAmount }}</td>
+<td ng-class="!sale.originalCurrency ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.originalCurrency }}</td>
+<td ng-class="!sale.exchangeRate ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.exchangeRate }}</td>
+<td class="v-align-middle">{{ sale.homeCurrencyGrossAmount }}</td>
+<td ng-class="!sale.homeCurrencyNetAmount ? 'v-align-middle sales-line-error' : 'v-align-middle'">{{ sale.homeCurrencyNetAmount }}</td>
+<td class="v-align-middle">{{ sale.originalReleaseTitle }}</td>
+<td class="v-align-middle">{{ sale.originalReleaseArtist }}</td>
+<td class="v-align-middle">{{ sale.originalTrackTitle }}</td>
+<td class="v-align-middle">{{ sale.originalTrackArtist }}</td>
+<td class="v-align-middle">{{ sale.saleDate }}</td>
 <td class="v-align-middle">{{ sale.transactionDate }}</td>
-<td class="v-align-middle">{{ sale.type }}</td>
-<td class="v-align-middle">{{ sale.units }}</td> 
-<td class="v-align-middle">{{ sale.workID }}</td>
+<td ng-class="sale.catType == 'Release' && !sale.releaseId ? 'v-align-middle sales-line-error' : 'v-align-middle'"><a href="#/releases/{{sale.releaseId}}/edit">{{ sale.releaseId }}</a></td>
+<td ng-class="sale.catType == 'Track' && !sale.trackId  ? 'v-align-middle sales-line-error' : 'v-align-middle'"><a href="#/tracks/{{sale.trackId}}/edit">{{ sale.trackId }}</a></td>
+<td ng-class="sale.catType == 'Work' && !sale.workId  ? 'v-align-middle sales-line-error' : 'v-align-middle'"><a href="#/works/{{sale.workId}}/edit">{{ sale.workId }}</a></td>
 <td ng-if="!noEdit" class="v-align-middle">
-	<a data-toggle="modal" data-target="#modalEditFields" ng-click="single()">
-		<div class="edit-unmapped"> <i class="fa fa-pencil"></i> </div>	
-	</a>
+	<button class="btn btn-xs btn-complete m-b-0" data-toggle="modal" data-target="#modalEditFields" ng-click="single(sale)"><i class="fa fa-pencil"></i></button>
+	<button class="btn btn-xs btn-danger m-b-0" data-toggle="modal" data-target="#modalDeleteSalesLine" ng-click="delete(sale)"><i class="fa fa-trash"></i></button>
 </td> 
-
-
-
-
-  

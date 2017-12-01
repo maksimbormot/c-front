@@ -4,6 +4,7 @@ angular.module('Curve')
 		var controller = this;
 		$scope.release = { salesReturnsRights: [], costsRights: [], aliases: [] };
 		$scope.formats = [];
+		$scope.distributionChannels = [];
 		$scope.priceCategories = [];
 		$scope.contracts = [];
 
@@ -14,7 +15,7 @@ angular.module('Curve')
 					console.log(response);
 					$scope.release = response.data;
 					Release.loadTracks($scope.release);
-					$scope.release.releaseDate = new Date(response.data.releaseDate);
+					if(response.data.releaseDate) { $scope.release.releaseDate = new Date(response.data.releaseDate); }
 					Loader.complete();
 				} else {
 					Loader.error('Error loading release, please try again or contact support');
@@ -36,6 +37,7 @@ angular.module('Curve')
 			.then(function(settings){
 				$scope.priceCategories = settings.priceCategories;
 				$scope.formats = settings.configurations;
+				$scope.distributionChannels = settings.distributionChannels;
 			});		
 
 		Settings.getContracts()
@@ -49,14 +51,14 @@ angular.module('Curve')
 			$scope.releaseDatePopup = true;
 		}    
 		$scope.addSalesReturnsRights = function() {
-			$scope.release.salesReturnsRights.push({});
+			$scope.release.salesReturnsRights.push({ percentage: 100 });
 		}
 		$scope.deleteSalesReturnsRights = function(contract) {
 			var index = $scope.release.salesReturnsRights.indexOf(contract);
 			$scope.release.salesReturnsRights.splice(index, 1);
 		}
 		$scope.addCostsRights = function() {
-			$scope.release.costsRights.push({});
+			$scope.release.costsRights.push({ percentage: 100 });
 		}
 		$scope.deleteCostsRights = function(contract) {
 			var index = $scope.release.costsRights.indexOf(contract);
@@ -138,7 +140,7 @@ angular.module('Curve')
 						$window.location.href = "#/releases";
 						Loader.success('Release successfully deleted');
 					} else {
-						Loader.error('Error deleting client, please try again or contact support');
+						Loader.error('Error deleting release, please try again or contact support');
 					}
 				});
 			});

@@ -31,6 +31,11 @@ angular.module('Curve')
           callback(data);
         });
       },
+      revalidate: function(id, callback) {
+        return $http({ method: "POST", url: Session.apiUrl + '/salesFiles/' + id + '/revalidate?applicationToken=12345&token=' + Session.token, headers: { 'Content-Type': 'application/json' } }).then(function(data) {
+          callback(data);
+        });
+      },
       ingestionError: function(){
         return $http({ method: "POST", url: Session.apiUrl + '/salesFiles/' + id + '/ingestion_error?applicationToken=12345&token=' + Session.token, headers: { 'Content-Type': 'application/json' } }).then(function(data) {
           callback(data);
