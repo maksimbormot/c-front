@@ -6,18 +6,29 @@ var parseUrlencoded = bodyParser.urlencoded({ extended: false });
 var request = require('request');
 var config = require('./config');
 var secret = config.secret;
-var jwt = require("jsonwebtoken")
+var jwt = require("jsonwebtoken");
+var exphbs  = require('express-handlebars');
+var path = require('path');
+
+app.engine('.hbs', exphbs({
+	defaultLayout: __dirname + '/public/views/main',
+	layoutsDir: __dirname + '/public/views/layouts',
+	extname: '.hbs'
+}));
+app.set('views', path.join(__dirname, '/public/views/layouts'));
+app.set('view engine', '.hbs');
+
 
 // Send Index
 app.use(express.static(__dirname + '/public'));
 
 // Login Functionality
 app.get('/login', function(req, res) {
-	res.sendFile(__dirname + '/public/login.html');
+	res.render('login');
 });
 
 app.get('/register', function(req, res) {
-	res.sendFile(__dirname + '/public/register.html');
+	res.render('register');
 });
 
 app.post('/register',parseUrlencoded, function(req, res) {
@@ -53,15 +64,18 @@ app.post('/signin', parseUrlencoded, function(req, res) {
 		},
 		form:req.body
 	}, function(err, httpResponse, body) {
-		if(err) { console.log(err); }
+		if(err) {
+			console.log(err);
+			 return res.status(200).json(JSON.parse(err));
+		 }
 		res.status(200).json(JSON.parse(body));
 	});
 
 });
-
 app.get('/send_email', function(req, res) {
-	res.sendFile(__dirname + '/public/send_email.html');
+	res.render('send_email');
 });
+
 app.post('/send_email', parseUrlencoded, function(req, res) {
 	var data = {};
 	data.email = req.body.email
@@ -73,7 +87,7 @@ app.post('/send_email', parseUrlencoded, function(req, res) {
 		form:data
 	}, function(err, httpResponse, body) {
 		if(err) {
-			res.status(200).json(JSON.parse(err));
+			return res.status(200).json(JSON.parse(err));
 		}
 		res.status(200).json(JSON.parse(body));
 	});
@@ -82,9 +96,9 @@ app.post('/send_email', parseUrlencoded, function(req, res) {
 app.get('/reset', function(req, res) {
 	jwt.verify(req.query.token, secret, function(err, decoded) {
 		if(!err){
-			res.sendFile(__dirname + '/public/reset.html');
+			return res.render('reset');
 		}
-		res.sendFile(__dirname + '/public/login.html');
+		return res.render('reset', { error: "Password already reseted or reset link is expired" });
 	})
 });
 
@@ -104,7 +118,7 @@ app.post('/reset', parseUrlencoded, function(req, res) {
 			form:data
 		}, function(err, httpResponse, body) {
 			if(err) {
-				res.status(200).json(JSON.parse(err));
+				return res.status(200).json(JSON.parse(err));
 			}
 			res.status(200).json(JSON.parse(body));
 		});

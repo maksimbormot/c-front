@@ -24,7 +24,7 @@ angular.module('Curve')
 							$rootScope.$broadcast('user-logged-in', Session);
 							callback(Session);
 						} else {
-							window.location.replace(window.location.origin + '/login.html');
+							window.location.replace(window.location.origin + '/login');
 							callback(Session);
 						}
 					}).error(function(data) {

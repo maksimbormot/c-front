@@ -1,6 +1,6 @@
 angular.module('Curve')
-  .controller('applicationController', ['$scope', '$route', '$rootScope', '$cookies', 'Session', 'Auth', 'Loader', 'User', 'jwtHelper',
-    function($scope, $route, $rootScope, $cookies, Session, Auth, Loader, User, jwtHelper) {
+  .controller('applicationController', ['$scope', '$route', '$window', '$rootScope', '$cookies', 'Session', 'Auth', 'Loader', 'User', 'jwtHelper',
+    function($scope, $route, $window, $rootScope, $cookies, Session, Auth, Loader, User, jwtHelper) {
       var controller = this;
       $scope.isLoggedIn = Session.isLoggedIn;
       $scope.internalUser = false;
@@ -36,13 +36,13 @@ angular.module('Curve')
 
       $scope.getUsers = function(){
           if( Session.userType === "internal" || Session.userType === "parent"){
-            $scope.currentClient = $cookies.get('currentRole');
+            $scope.currentClient = $cookies.get('currentClient');
             $scope.userRole = Session.userType;
             $scope.id = Session.id;
 
             User.all({"clientsOnly": true}, function(response) {
     					if(response.status == 200) {
-    						$scope.users = response.data.users;
+    						$scope.clients = response.data.clients;
     						Loader.complete();
     					} else {
     						Loader.error('Error loading user, please try again or contact support');
@@ -51,16 +51,18 @@ angular.module('Curve')
           }
       }
 
-      $scope.setRoleForCurrentUser = function(user) {
-        $rootScope.currentClient = user.email;
-        $cookies.put('currentRole', user.email);
-
-        User.set_user($scope.id, {roleId: user.clientId}, function(response){
+      $scope.setClientForCurrentUser = function(client) {
+        debugger
+        $rootScope.currentClient = client.name;
+        $cookies.put('currentClient', client.name);
+        debugger
+        User.set_user($scope.id, {roleId: client._id}, function(response){
           Session.token =  response.data.token;
           $cookies.put('curveToken', Session.token);
           var tokenPayload = jwtHelper.decodeToken(response.data.token);
           Session.roleId = tokenPayload.roleId;
           $route.reload();
+          $window.location.href = "#/users";
         })
       }
 

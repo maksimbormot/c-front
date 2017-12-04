@@ -32,7 +32,7 @@
     <!-- Sidebar-->
     <nav class="page-sidebar" data-pages="sidebar">
       <div class="sidebar-overlay-slide from-top" id="appMenu">
-        <p class="sidebar-user" ng-repeat="user in users" ng-class="currentClient === user.email ? 'active-user' : null" ng-click="setRoleForCurrentUser(user)">{{user.email}}</p>
+        <p class="sidebar-user" ng-repeat="client in clients" ng-class="currentClient === client.name ? 'active-user' : null" ng-click="setClientForCurrentUser(client)">{{client.name}}</p>
       </div>
       <div class="sidebar-header">
         <img src="assets/img/curvetypwhite.png" alt="logo" class="brand" data-src="assets/img/curvetypwhite.png" data-src-retina="assets/img/curvetypwhite2x.png" width="78" height="22">
@@ -143,12 +143,12 @@
             </a>
             <span class="icon-thumbnail"><i class="fa fa-cog"></i></span>
           </li>
-          <!--<li class="sidebar-menu-item">
+          <li class="sidebar-menu-item">
             <a href="/#/users" class="detailed go-to">
               <span class="title users">Users</span>
             </a>
             <span class="icon-thumbnail"><i class="fa fa-users"></i></span>
-          </li>-->
+          </li>
         </ul>
         <div class="clearfix"></div>
       </div>

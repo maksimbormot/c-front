@@ -1,0 +1,19 @@
+{{# if error }}
+  <div class="col-xs-12 notification-container">
+    <div class="text-notification">{{ error }}</div>
+    <a href="/login" class="btn btn-complete m-t-10">Back</a>
+  </div>
+{{else}}
+  <form id="reset-password" class="p-t-15" role="form">
+    <div id="notification"></div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Password" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Confirm password</label>
+      <input type="password" name="confirm" placeholder="Confirm password" class="form-control">
+    </div>
+    <button class="btn btn-complete m-t-10" id="save-password" type="submit">Save</button>
+  </form>
+{{/ if }}
