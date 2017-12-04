@@ -52,10 +52,8 @@ angular.module('Curve')
       }
 
       $scope.setClientForCurrentUser = function(client) {
-        debugger
         $rootScope.currentClient = client.name;
         $cookies.put('currentClient', client.name);
-        debugger
         User.set_user($scope.id, {roleId: client._id}, function(response){
           Session.token =  response.data.token;
           $cookies.put('curveToken', Session.token);
