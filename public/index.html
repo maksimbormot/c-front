@@ -32,7 +32,14 @@
     <!-- Sidebar-->
     <nav class="page-sidebar" data-pages="sidebar">
       <div class="sidebar-overlay-slide from-top" id="appMenu">
-        <p class="sidebar-user" ng-repeat="client in clients" ng-class="currentClient === client.name ? 'active-user' : null" ng-click="setClientForCurrentUser(client)">{{client.name}}</p>
+        <ui-select ng-model="client" on-select="setClientForCurrentUser($item)">
+          <ui-select-match>
+            <span ng-bind="$select.selected.name"></span>
+          </ui-select-match>
+          <ui-select-choices repeat="client in clients">
+            <span ng-bind="client.name"></span>
+          </ui-select-choices>
+        </ui-select>
       </div>
       <div class="sidebar-header">
         <img src="assets/img/curvetypwhite.png" alt="logo" class="brand" data-src="assets/img/curvetypwhite.png" data-src-retina="assets/img/curvetypwhite2x.png" width="78" height="22">
